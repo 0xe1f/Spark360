@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_trophy_list_item.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:minHeight="?android:attr/listPreferredItemHeight" 
+	android:paddingRight="9dip"
+>
+	<ImageView 
+		android:id="@+id/trophy_icon" 
+		android:layout_alignParentLeft="true" 
+		android:layout_alignParentTop="true" 
+		android:layout_centerVertical="true" 
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+		android:layout_width="64dp" 
+		android:layout_height="64dp"
+        android:background="@color/icon_background"
+	/>
+	<LinearLayout
+		android:id="@+id/trophy_title_section"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_toRightOf="@id/trophy_icon" 
+		android:layout_alignParentTop="true" 
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+	>
+		<ImageView 
+			android:id="@+id/trophy_type"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_marginRight="5dp"
+		/>
+		<TextView
+			android:id="@+id/trophy_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:textAppearance="@style/TextAppearance.title"
+			android:ellipsize="marquee" 
+			android:singleLine="true"
+		/>
+	</LinearLayout>
+	<TextView
+		android:id="@+id/trophy_earned"
+	 	android:layout_width="wrap_content"
+	 	android:layout_height="wrap_content" 
+		android:textAppearance="@style/TextAppearance.secondary" 
+		android:layout_alignLeft="@id/trophy_title_section" 
+		android:layout_alignBottom="@id/trophy_icon"
+	/>
+	<TextView
+		android:id="@+id/trophy_description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_above="@id/trophy_earned"
+		android:layout_alignLeft="@id/trophy_title_section" 
+		style="@style/TextAppearance.achDescription"
+	/>
+</RelativeLayout>

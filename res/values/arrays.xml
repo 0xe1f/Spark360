@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - values/arrays.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<resources>
+	<string-array name="account_settings_check_frequency_entries">
+		<item>@string/when_never</item>
+		<item>@string/when_5min</item>
+		<item>@string/when_15min</item>
+		<item>@string/when_30min</item>
+		<item>@string/when_1hour</item>
+		<item>@string/when_2hours</item>
+		<item>@string/when_4hours</item>
+	</string-array>
+	<string-array name="account_settings_check_frequency_values" translatable="false">
+		<item>0</item>
+		<item>10</item>
+		<item>15</item>
+		<item>30</item>
+		<item>60</item>
+		<item>120</item>
+		<item>240</item>
+	</string-array>
+	
+ 	<string-array name="friend_notification_entries">
+		<item>@string/do_not_notify</item>
+		<item>@string/notify_on_favorite</item>
+		<item>@string/notify_on_all</item>
+	</string-array>
+	<string-array name="friend_notification_values" translatable="false">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+    <string-array name="coverflow_entries">
+        <item>@string/disabled</item>
+        <item>@string/when_in_landscape</item>
+        <item>@string/always_enabled</item>
+    </string-array>
+    <string-array name="coverflow_entry_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <!-- PSN  -->
+    
+    <string-array name="region_entries">
+        <item>@string/region_us</item>
+        <item>@string/region_eu</item>
+    </string-array>
+    <string-array name="region_entries_nr">
+        <item>@string/region_us_nr</item>
+        <item>@string/region_eu</item>
+    </string-array>
+    <string-array name="region_values" translatable="false">
+        <item>us</item>
+        <item>eu</item>
+    </string-array>
+    <string-array name="region_entries_with_none">
+        <item>@string/select</item>
+        <item>@string/region_us</item>
+        <item>@string/region_eu</item>
+    </string-array>
+    <string-array name="region_values_with_none" translatable="false">
+        <item>eu</item> <!--  Use default, in case of unforeseen error -->
+        <item>us</item>
+        <item>eu</item>
+    </string-array>
+    <string-array name="console_entries">
+        <item>@string/console_ps3</item>
+        <item>@string/console_psvita</item>
+        <item>@string/console_ps2</item>
+        <item>@string/console_psp</item>
+    </string-array>
+    <integer-array name="console_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+    
+</resources>

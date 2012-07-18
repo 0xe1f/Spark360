@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - Manifest.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.akop.bach"
+	android:versionCode="106"
+	android:versionName="5.25beta"
+>
+    <uses-sdk 
+        android:minSdkVersion="4"
+        android:targetSdkVersion="11" 
+    />
+    
+	<permission
+		android:name="com.akop.permission.ACCESS_XBL_PROFILE"
+		android:label="@string/access_xbox_data"
+		android:description="@string/access_xbox_data_desc"
+		android:protectionLevel="signature" 
+	/>
+	<permission
+		android:name="com.akop.permission.ACCESS_PSN_PROFILE"
+		android:label="@string/access_trophies_data"
+		android:description="@string/access_trophies_data_desc"
+		android:protectionLevel="signature" 
+	/>
+	
+    <!-- Permissions -->
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+	<uses-permission android:name="com.akop.permission.ACCESS_PSN_PROFILE" />
+	<uses-permission android:name="com.akop.permission.ACCESS_XBL_PROFILE" />
+	
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+    />
+    
+    <application 
+    	android:name=".App" 
+    	android:icon="@drawable/icon" 
+    	android:label="@string/app_name"
+    >
+	    <!-- Providers -->
+	    
+    	<provider
+    	    android:name=".provider.XboxLiveProvider" 
+    	    android:authorities="com.akop.bach.xboxliveprovider"
+			android:permission="com.akop.permission.ACCESS_XBL_PROFILE"
+        />
+    	<provider
+    	   android:name=".provider.PsnProvider"
+    	   android:authorities="com.akop.bach.psnprovider"
+    	   android:permission="com.akop.permission.ACCESS_PSN_PROFILE"
+        />
+    	
+    	<!-- Activities -->
+    	
+    	<activity 
+            android:name=".activity.Main" 
+        	android:label="@string/app_name"
+        	android:theme="@android:style/Theme.Dialog"
+        >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".activity.About"
+            	  android:label="@string/about"
+            	  android:theme="@style/GTheme" /> 
+    	<activity android:name=".activity.Accounts"
+            	  android:label="@string/select_account"
+            	  android:theme="@style/XBoxTheme" />
+    	<activity android:name=".activity.AccountSelector"
+                  android:label="@string/select_account" 
+        		  android:theme="@style/CafTheme" />
+        <activity android:name=".activity.AccountSetupTest"
+            	  android:theme="@style/GTheme" />
+        <activity android:name=".activity.AuthenticatingAccountLogin"
+            	  android:label="@string/login_settings"
+            	  android:theme="@style/GTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.akop.spark.xbl-profile" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.DeleteAccount"
+                  android:label="@string/delete_account"
+                  android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.DELETE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.spark.xbl-profile" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.NewAccount"
+                  android:label="@string/select_account_type"
+                  android:theme="@style/GTheme" />
+        
+        <!-- XBL -->
+		<activity android:name=".activity.xboxlive.AccountSettings"
+		    	  android:label="@string/account_settings"
+		    	  android:theme="@style/GTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.spark.xbl-profile" />
+            </intent-filter>
+		</activity>
+        <activity android:name=".activity.xboxlive.AccountSummary"
+            	  android:label="@string/account_summary"
+            	  android:theme="@style/XBoxTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.spark.xbl-profile" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.xboxlive.AchievementList"
+        		  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.CompareAchievements"
+        		  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.CompareGames"
+        		  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.Configure2x2GamercardWidget"
+               	  android:label="@string/select_account"
+               	  android:theme="@android:style/Theme.Dialog">
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+		    </intent-filter>
+        </activity>
+        <activity android:name=".activity.xboxlive.ConfigureGamercardWidget"
+                  android:label="@string/select_account"
+                  android:theme="@android:style/Theme.Dialog">
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+		    </intent-filter>
+        </activity>
+        <activity android:name=".activity.xboxlive.ConfigureGamerstripWidget"
+            	  android:label="@string/select_account"
+            	  android:theme="@android:style/Theme.Dialog">
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+		    </intent-filter>
+        </activity>
+		<activity android:name=".activity.xboxlive.CreateAccountShortcut"
+		    	  android:label="@string/xbox_live_account"
+		    	  android:icon="@drawable/xbox_icon_account"
+		    	  android:theme="@style/GTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+		</activity>
+		<activity android:name=".activity.xboxlive.CreateFriendShortcut"
+		    	  android:label="@string/xbox_live_friend"
+		    	  android:icon="@drawable/xbox_icon_friend"
+		    	  android:theme="@style/GTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+		</activity>
+		<activity android:name=".activity.xboxlive.EditProfile"
+            	  android:label="@string/edit_profile"
+            	  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.FindGamer"
+        		  android:label="@string/find_gamer"
+        		  android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".activity.xboxlive.FriendCoverflow"
+                  android:theme="@style/XBoxTheme">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activity.xboxlive.SearchFriendsList" 
+            />
+       	</activity>
+        <activity android:name=".activity.xboxlive.FriendList"
+                  android:theme="@style/XBoxTheme">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activity.xboxlive.SearchFriendsList" 
+            />
+       	</activity>
+        <activity android:name=".activity.xboxlive.FriendSelector"
+            	  android:label="@string/select_friend"
+            	  android:theme="@style/CafTheme" />
+        <activity android:name=".activity.xboxlive.FriendsOfFriendList"
+        		  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.FriendSummary"
+            	  android:theme="@style/XBoxTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.spark.xbl-friend" />
+            </intent-filter>
+			<meta-data android:name="android.app.default_searchable"
+			           android:value=".activity.xboxlive.SearchFriendsList" />
+        </activity>
+        <activity android:name=".activity.xboxlive.GameList"
+        		  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.GameOverview" 
+				  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.GamerProfile"
+        		  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.MessageCompose" 
+        		  android:label="@string/compose_message"
+        		  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.MessageList"
+                  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.MessageSelectRecipients" 
+        		  android:label="@string/select_recipients"
+        		  android:theme="@style/GDialogTheme" />
+        <activity android:name=".activity.xboxlive.MessageView" 
+                  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.MsPointConverter" 
+        		  android:label="@string/ms_point_utility"
+        		  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.PlayerProfile"
+        		  android:theme="@style/XBoxTheme" />
+		<activity android:name=".activity.xboxlive.RecentPlayerList"
+        		  android:theme="@style/XBoxTheme" />
+	    <activity android:name=".activity.xboxlive.SearchFriendsList"
+	        	  android:theme="@style/GTheme">
+	        <intent-filter>
+	            <action android:name="android.intent.action.SEARCH" />
+	        </intent-filter>
+	        <meta-data 
+	            android:name="android.app.searchable"
+	            android:resource="@xml/xbl_searchable"
+	        />
+	    </activity>
+		<activity android:name=".activity.xboxlive.SentMessageList"
+                  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.SentMessageView" 
+                  android:theme="@style/XBoxTheme" />
+        <activity android:name=".activity.xboxlive.ServerStatus"
+		          android:label="@string/xbox_live_status"
+		          android:theme="@style/GTheme" />
+        
+        <!-- PSN -->
+		<activity android:name=".activity.playstation.AccountSettings"
+		    	  android:label="@string/account_settings"
+		    	  android:theme="@style/CafTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.bach.psn-profile" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.playstation.AccountSummary"
+            	  android:label="@string/account_summary"
+            	  android:theme="@style/PsnTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.bach.psn-profile" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.playstation.CompareGames"
+            	  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.CompareTrophies"
+            	  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.ConfigureGamerstripWidget"
+            	  android:label="@string/select_account"
+            	  android:theme="@android:style/Theme.Dialog">
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+		    </intent-filter>
+        </activity>
+        <activity android:name=".activity.playstation.ConfigurePortableIdWidget"
+            	  android:label="@string/select_account"
+            	  android:theme="@android:style/Theme.Dialog">
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+		    </intent-filter>
+        </activity>
+		<activity android:name=".activity.playstation.CreateAccountShortcut"
+		    	  android:label="@string/psn_account"
+		    	  android:icon="@drawable/psn_account_shortcut">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+		</activity>
+        <activity android:name=".activity.playstation.CreateFriendShortcut"
+            	  android:label="@string/psn_friend"
+            	  android:icon="@drawable/psn_friend_shortcut">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+		</activity>
+		<activity android:name=".activity.playstation.FindGamer"
+		    	  android:label="@string/find_psn_id"
+		    	  android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".activity.playstation.FriendSelector"
+            	  android:label="@string/select_friend"
+            	  android:theme="@style/CafTheme" />
+        <activity android:name=".activity.playstation.FriendList"
+            	  android:theme="@style/PsnTheme">
+			<meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activity.playstation.SearchFriendsList" 
+            />
+        </activity>
+        <activity
+            android:name=".activity.playstation.FriendSummary"
+        	android:theme="@style/PsnTheme"
+        >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.bach.psn-friend" />
+            </intent-filter>
+			<meta-data
+                android:name="android.app.default_searchable"
+			    android:value=".activity.playstation.SearchFriendsList" 
+			/>
+        </activity>
+        <activity android:name=".activity.playstation.GameCatalog"
+                  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.GameCatalogDetails"
+                  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.GameList"
+				  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.GamerProfile"
+               	  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.PsBlog"
+                  android:label="@string/playstation_blog"
+                  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.PsBlogEntry"
+            	  android:label="@string/playstation_blog"
+            	  android:theme="@style/PsnTheme" />
+        <activity android:name=".activity.playstation.PsnAccountLogin"
+            	  android:label="@string/login_settings"
+            	  android:theme="@style/CafTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.akop.bach.psn-profile" />
+            </intent-filter>
+        </activity>
+	    <activity android:name=".activity.playstation.SearchFriendsList">
+	        <intent-filter>
+	            <action android:name="android.intent.action.SEARCH" />
+	        </intent-filter>
+	        <meta-data 
+	           android:name="android.app.searchable"
+	           android:resource="@xml/psn_searchable"
+	        />
+	    </activity>
+        <activity 
+            android:name=".activity.playstation.TrophyList"
+            android:theme="@style/PsnTheme" 
+        />
+        
+        <!--  Services -->
+    	<receiver android:name="com.akop.bach.service.BachUpdateAlarmReceiver">
+            <intent-filter>
+            	<action android:name="android.intent.action.BOOT_COMPLETED" />
+               	<action android:name="com.akop.bach.intent.action.SERVICE_CANCEL" />
+            	<action android:name="com.akop.bach.intent.action.SERVICE_UPDATE" />
+            	<action android:name="com.akop.bach.intent.action.SERVICE_RESCHEDULE" />
+            </intent-filter>
+    	</receiver>
+    	<service
+    	    android:name=".service.BachUpdateService" 
+    	    android:enabled="true" 
+    	/>
+    	
+        <!--  Widgets -->
+        
+        <!-- XBL -->
+		<receiver
+			android:name=".widget.XboxLiveGamercard" 
+			android:label="@string/xbl_gamercard"
+			android:icon="@drawable/xbox_icon_gamercard"
+		>
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/xbl_gamercard_widget_provider" 
+			/>
+		</receiver>
+		<receiver
+			android:name=".widget.XboxLiveGamerstrip" 
+			android:label="@string/xbl_gamerstrip"
+			android:icon="@drawable/xbox_icon_gamercard"
+		>
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/xbl_gamerstrip_widget_provider" 
+			/>
+		</receiver>
+		<receiver
+			android:name=".widget.XboxLive2x2Gamercard" 
+			android:label="@string/xbl_gamercard_2x2"
+			android:icon="@drawable/xbox_icon_gamercard"
+		>
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/xbl_2x2_gamercard_widget_provider" 
+			/>
+		</receiver>
+		
+		<!-- PSN -->
+		<receiver
+			android:name=".widget.PsnGamerstrip" 
+			android:label="@string/psn_portable_id_strip"
+			android:icon="@drawable/psn_widget_icon"
+		>
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/psn_widget_gamerstrip_provider" 
+			/>
+		</receiver>
+		<receiver
+			android:name=".widget.PsnPortableId" 
+			android:label="@string/psn_portable_id_card"
+        	android:icon="@drawable/psn_widget_icon"
+		>
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/psn_widget_online_id_provider" 
+			/>
+		</receiver>
+    </application>
+</manifest> 

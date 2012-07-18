@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/xbl_search_friends_list_item.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<com.akop.bach.uiwidget.XboxLiveFriendListItem 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/friend_container" 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:minHeight="?android:attr/listPreferredItemHeight" 
+	android:orientation="vertical"
+	android:paddingLeft="2dp"
+	android:paddingTop="5dp"
+	android:paddingBottom="5dp"
+	android:paddingRight="9dp"
+>
+	<LinearLayout
+		android:id="@+id/friend_avatar_section" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_marginRight="5dp"
+		android:background="@drawable/rounded_border"
+		android:orientation="vertical"
+		android:gravity="center"
+	>
+		<ImageView 
+			android:id="@+id/friend_avatar_icon" 
+			android:layout_width="48dp" 
+			android:layout_height="48dp"
+		/>
+	</LinearLayout>
+	<TextView
+		android:id="@+id/friend_gamertag"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_toRightOf="@id/friend_avatar_section"
+		android:layout_marginBottom="2dip"
+		android:textAppearance="@style/TextAppearance.accountId" 
+		android:ellipsize="end"
+		android:singleLine="true" 
+	/>
+	<LinearLayout
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_alignLeft="@id/friend_gamertag"
+		android:layout_below="@id/friend_gamertag"
+		android:layout_marginTop="4dp"
+		android:orientation="horizontal"
+	>
+		<ImageView 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:src="@drawable/xbox_g_medium"
+		/>
+		<TextView
+			android:id="@+id/friend_gp"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_marginLeft="5dp"
+			android:textAppearance="@style/TextAppearance.friendInfo" 
+		/>
+	</LinearLayout>
+</com.akop.bach.uiwidget.XboxLiveFriendListItem>

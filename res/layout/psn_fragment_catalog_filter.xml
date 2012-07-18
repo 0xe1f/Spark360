@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_fragment_catalog_filter.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="5dp"
+	android:background="@color/psn_background"
+>
+    <RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+    >
+        <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:text="@string/console_colon"
+        />
+	    <Spinner 
+	        android:id="@+id/filter_console"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+	        android:prompt="@string/select_console"
+	        android:entries="@array/console_entries"
+	    />
+    </RelativeLayout>
+    <RadioGroup
+        android:id="@+id/filter_rs"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+	>
+		<RadioButton
+		    android:id="@+id/filter_rs_out_now"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/out_now"
+		/>
+		<RadioButton
+		    android:id="@+id/filter_rs_coming_soon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		    android:text="@string/coming_soon"
+		/>
+	</RadioGroup>
+    <RadioGroup
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+	>
+		<RadioButton
+		    android:id="@+id/filter_order_reldate"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/order_by_reldate"
+		/>
+		<RadioButton
+		    android:id="@+id/filter_order_alpha"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		    android:text="@string/order_by_alpha"
+		/>
+	</RadioGroup>
+</LinearLayout>

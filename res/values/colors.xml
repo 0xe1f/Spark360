@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - values/colors.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<resources>
+	<color name="transparent">#00000000</color>
+	<color name="background_new_item">#ffffffff</color>
+	<color name="caf_background">#ffeaeaea</color>
+	<color name="caf_primary_text">#ff222222</color>
+	<color name="caf_secondary_text">#ff7f7f7f</color>
+    <color name="white">#ffffffff</color>
+	
+    <color name="background">#ffeaeaea</color>
+	<color name="primary_text">#ff222222</color>
+	<color name="secondary_text">#ff444444</color>
+	
+	<color name="xbox_background">#ffe6e7e6</color>
+	<color name="xbox_list_background">#ffe6e7e6</color>
+	<color name="xbox_list_background_tablet">#fffad79a</color>
+	
+	<color name="xbox_item_bg">#ffffbe52</color>
+	
+	<color name="xbox_green">#ff2b9646</color>
+	<color name="xbox_gray">#ffd0d0d0</color>
+	<color name="xbox_yellow">#ffffbe52</color>
+	<color name="xbox_yellow_shadow">#ffa06400</color>
+	<color name="xbox_widget_gold_bg">#ffcbb74a</color>
+	<color name="xbox_g_text">#ff444444</color>
+	<color name="xbox_g_icon">#ff444444</color>
+	<color name="xbox_light_yellow">#fffffced</color>
+	<color name="background_locked">#ffbbbbbb</color>
+	<color name="background_body">#ffffffff</color>
+	<color name="disabled_text">#ffbbbbbb</color>
+	<color name="summary_top_background">@android:color/transparent</color>
+	<color name="summary_status">#ffffffff</color>
+	<color name="divider">#88666666</color>
+	<color name="widget_bg">#ff777777</color>
+	<color name="widget_text">#ffdddddd</color>
+	<color name="widget_divider">#ffdddddd</color>
+	<color name="toast_text">#ffeeeeee</color>
+	
+	<color name="status_online">#ff00bb00</color>
+	<color name="status_offline">#ffff0000</color>
+	<color name="status_away">#ffffe600</color>
+	<color name="status_pending_sent">#ffffa824</color>
+	<color name="status_pending_rcvd">#ffffa824</color>
+	<color name="status_not_yet">#ffaaaaaa</color>
+	<color name="status_other">#ff666666</color>
+	
+	<color name="cover_shadow">#ffaaaaaa</color>
+	
+	<!-- PSN -->
+	<color name="psn_background">#ffffffff</color> <!-- e6e7e6 -->
+	<color name="psn_list_background">#ffffffff</color> <!-- e6e7e6 -->
+	<color name="psn_activated_bg">#ffc7dfff</color>
+	
+	<color name="dark_text">#ff21518c</color>
+	<color name="simple_button_bg">#ff21518c</color>
+	<color name="summary_button_bg">#fffffced</color>
+	
+	<color name="gamercard_bg">#ffffffff</color>
+	<color name="list_separator_bg">#ff21518c</color>
+	<color name="hyperlink">#ffffcf00</color>
+	<color name="icon_background">#ffffffff</color>
+	
+	<!--  These clash
+	
+	<color name="background">#ffffffff</color>
+	<color name="divider">#88cccccc</color>
+	<color name="widget_text">#ff777777</color>
+	<color name="widget_divider">#ff777777</color>
+	
+	-->
+	
+</resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_ribbon_title.xml
+ - Copyright (C) 2010-2012 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/screen"
+	android:layout_width="fill_parent"
+	android:layout_height="56dp"
+	android:padding="2dp"
+	style="@style/psnRibbon"
+>
+	<ImageButton
+		android:id="@+id/title_icon" 
+		android:layout_width="48dp" 
+		android:layout_height="48dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginLeft="2dp"
+		android:layout_marginRight="6dp"
+		android:layout_marginTop="2dp"
+		android:layout_marginBottom="2dp"
+		android:padding="0dp"
+		android:src="@drawable/avatar_default"
+		android:background="@null"
+		android:scaleType="fitXY"
+	/>
+	<TextView
+		android:id="@+id/title_gamertag"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:ellipsize="end"
+		android:singleLine="true" 
+		android:layout_alignParentTop="true"
+		android:layout_toRightOf="@id/title_icon"
+		style="@style/psnRibbonGamertag" 
+	/>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_marginBottom="4dp"
+		android:layout_alignParentBottom="true"
+		android:layout_toRightOf="@id/title_icon"
+	>
+		<TextView
+			android:id="@+id/ribbon_line_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ellipsize="end"
+			android:singleLine="true" 
+			style="@style/psnRibbonTitle" 
+		/>
+	</LinearLayout>
+	<ProgressBar
+		android:id="@+id/ribbon_progress_bar"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_margin="4dp"
+		android:indeterminate="true"
+		android:visibility="gone"
+		style="?android:attr/progressBarStyleSmall"
+	/>
+</RelativeLayout>
