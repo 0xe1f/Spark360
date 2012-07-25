@@ -32,7 +32,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="72dp"
 		android:padding="2dp"
-		style="@style/OrangeRibbon"
+		style="@style/XboxRibbon"
 	>
 		<ImageView
 			android:id="@+id/title_icon" 

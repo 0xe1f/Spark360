@@ -29,7 +29,7 @@
 	android:minHeight="?android:attr/listPreferredItemHeight" 
 	android:orientation="vertical"
 	android:paddingRight="9dp"
-	style="@style/listViewActivatedStyle"
+	style="@style/xboxListViewActivatedStyle"
 >
 	<ImageView 
 		android:id="@+id/friend_avatar_icon" 

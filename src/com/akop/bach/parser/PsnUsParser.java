@@ -163,18 +163,21 @@ public class PsnUsParser
 			"<div class=\"bgame_list clearfix\">(.*?)</table>\\s*</div>",
 			Pattern.DOTALL | Pattern.MULTILINE);
 	
+	/*
+ <h6> <a href="http://us.playstation.com/games-and-media/games/dragons-dogma-ps3.html" 
+ onclick="waCodeFuncClicks('DragonsDogma','')">Dragon's Dogma&trade;</a> </h6> <p>Dragon&rsquo;s Dogma&reg; is an exciting new franchise which redefines the action genre from the team that...</p>	 * 
+ */
 	private static final Pattern PATTERN_GAME_CATALOG_ESSENTIALS = Pattern.compile(
 			"<div class=\"imagebox\">\\s*<a class=\"first\" href=" +
-			"\"([^\"]*)\" onclick=\"[^\"]*\"><img src=\"([^\"]*)\" alt=\"[^\"]*\" title=" +
-			"\"([^\"]*)\">");
+			"\"[^\"]*\"><img src=\"([^\"]*)\" alt=\"[^\"]*\" title=" +
+			"\"[^\"]*\">.*?<h6>\\s*<a href=\"([^\"]*)\" onclick=\"[^\"]*\">" +
+			"([^<]*)</a>\\s*</h6>\\s*<p>(.*?)</p>", 
+			Pattern.DOTALL);
 	private static final Pattern PATTERN_GAME_CATALOG_STATS = Pattern.compile(
 			"<p>([^:]*):\\s*([^<]*)</p>");
 	
 	private static final Pattern PATTERN_GAME_CATALOG_DETAILS = Pattern.compile(
 			"<meta name=\"([^\"]+)\" content=\"([^\"]+)\"\\s*/>");
-	
-	private static final Pattern PATTERN_GAME_CATALOG_NO_MORE = Pattern
-	        .compile("<label class=\"notSelectedRight\">");
 	
 	private static final Pattern PATTERN_GAME_CATALOG_GAME_XML = Pattern
 	        .compile("swf\"></a>\\s*<a href=\"([^\"]+\\.xml)\"></a>");
@@ -1329,6 +1332,18 @@ public class PsnUsParser
 		String catalogPage = getResponse(URL_GAME_CATALOG, inputs, true);
 		catalogPage = htmlDecode(catalogPage);
 		
+		int spacePos;
+		int records = 0;
+		
+		if ((spacePos = catalogPage.indexOf(" ")) > 0)
+		{
+			try
+			{
+				records = Integer.parseInt(catalogPage.substring(0, spacePos));
+			}
+			catch(NumberFormatException ex) { }
+		}
+		
 		if (App.LOGV)
 			started = displayTimeTaken("parseGameCatalog/data fetch", started);
 		
@@ -1340,8 +1355,8 @@ public class PsnUsParser
 		catalog.PageNumber = page;
 		catalog.PageSize = pageSize;
 		
-		SimpleDateFormat myParser = new SimpleDateFormat("MM.yyyy");
-		Pattern myDetector = Pattern.compile("^\\d{2}\\.\\d{4}$");
+		//SimpleDateFormat myParser = new SimpleDateFormat("MM.yyyy");
+		//Pattern myDetector = Pattern.compile("^\\d{2}\\.\\d{4}$");
 		
 		while (itemMatcher.find())
 		{
@@ -1357,15 +1372,18 @@ public class PsnUsParser
 			
 			GameCatalogItem item = new GameCatalogItem();
 			
+			item.BoxartUrl = m.group(1);
+			item.DetailUrl = m.group(2);
 			item.Title = htmlDecode(m.group(3));
-			item.DetailUrl = m.group(1);
-			item.BoxartUrl = m.group(2);
+			item.Overview = htmlDecode(m.group(4));
 			
 			m = PATTERN_GAME_CATALOG_STATS.matcher(content);
 			for (int row = 0; m.find(); row++)
 			{
 				if (row == 0)
 				{
+					/* AK: Gone, daddy gone...
+					
 					item.ReleaseDate = htmlDecode(m.group(2));
 					item.ReleaseDateTicks = 0;
 					
@@ -1383,6 +1401,7 @@ public class PsnUsParser
 						{
 						}
 					}
+					*/
 				}
 				else if (row == 1) // Platform
 				{
@@ -1405,8 +1424,13 @@ public class PsnUsParser
 			catalog.Items.add(item);
 		}
 		
-		catalog.MorePages = !PATTERN_GAME_CATALOG_NO_MORE.matcher(catalogPage).find() 
-				&& catalog.Items.size() >= pageSize;
+		catalog.MorePages = (catalog.PageNumber * catalog.PageSize) < records;
+		
+		if (App.LOGV)
+			App.logv("pN: " + catalog.PageNumber + 
+					" ;pS: " + catalog.PageSize + 
+					" ;records: " + records + 
+					" ;more? " + catalog.MorePages);
 		
 		if (App.LOGV)
 			displayTimeTaken("parseGameCatalog/parsing", started);

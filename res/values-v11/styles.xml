@@ -32,7 +32,7 @@
         <item name="android:actionBarStyle">@style/caffeineActionBar</item>
 	</style>
 	
-    <style name="caffeineActionBar" parent="@android:style/Widget.Holo.ActionBar">
+	<style name="caffeineActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/actionbar_default_background</item>
     </style>
     
@@ -45,25 +45,10 @@
         <item name="android:actionBarStyle">@style/caffeineActionBar</item>
 	</style>
 	
-	<style name="XBoxTheme" parent="GTheme">
-		<item name="android:windowBackground">@color/xbox_background</item>
-		<item name="android:cacheColorHint">@color/xbox_background</item>
-    	<item name="android:listViewStyle">@style/xboxListView</item>
-	    <item name="android:indeterminate">true</item>
-		<item name="android:actionBarStyle">@style/actionBar</item>
-	</style>
-    
     <style name="listViewActivatedStyle">
-		<item name="android:background">@drawable/xbox_activated_item</item>
-	</style>
-	
-	<style name="actionBar" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:displayOptions">showCustom</item>
-	    <item name="android:background">@drawable/xbox_ribbon_bg</item>
-		<item name="android:subtitleTextStyle">@style/actionBarSubtitle</item>
-		<item name="android:titleTextStyle">@style/actionBarTitle</item>
-	</style>
-	
+        <item name="android:background">@drawable/xbox_activated_item</item>
+    </style>
+    
 	<style name="actionBarSubtitle">
 		<item name="android:textSize">15sp</item>
 		<item name="android:textColor">#ffffffff</item>
@@ -77,8 +62,53 @@
 		<item name="android:layout_margin">0dp</item>
 	</style>
 	
-	<style name="OrangeRibbon">
-    	<item name="android:visibility">gone</item>
-	</style>
-	
+	<!-- XBL -->
+    <style name="XboxRibbon">
+        <item name="android:visibility">gone</item>
+    </style>
+    
+    <style name="xboxActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:displayOptions">showCustom</item>
+        <item name="android:background">@drawable/xbox_ribbon_bg</item>
+        <item name="android:subtitleTextStyle">@style/actionBarSubtitle</item>
+        <item name="android:titleTextStyle">@style/actionBarTitle</item>
+    </style>
+    
+    <style name="XBoxTheme" parent="GTheme">
+        <item name="android:windowBackground">@color/xbox_background</item>
+        <item name="android:cacheColorHint">@color/xbox_background</item>
+        <item name="android:listViewStyle">@style/xboxListView</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:actionBarStyle">@style/xboxActionBar</item>
+    </style>
+    
+    <style name="xboxListViewActivatedStyle">
+        <item name="android:background">@drawable/xbox_activated_item</item>
+    </style>
+    
+	<!-- PSN -->
+    <style name="PsnRibbon">
+        <item name="android:visibility">gone</item>
+    </style>
+    
+    <style name="psnActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:displayOptions">showCustom</item>
+        <item name="android:background">@drawable/psn_ribbon_bg</item>
+        <item name="android:subtitleTextStyle">@style/actionBarSubtitle</item>
+        <item name="android:titleTextStyle">@style/actionBarTitle</item>
+    </style>
+    
+    <style name="PsnTheme" parent="GTheme">
+        <item name="android:windowBackground">@color/psn_background</item>
+        <item name="android:cacheColorHint">@color/psn_background</item>
+        <item name="android:listViewStyle">@style/psnListView</item>
+        <item name="android:textColorLink">@color/hyperlink</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:actionBarStyle">@style/psnActionBar</item>
+    </style>
+    
+    <style name="psnListViewActivatedStyle">
+        <item name="android:background">@drawable/psn_activated_item</item>
+    </style>
+    
 </resources>

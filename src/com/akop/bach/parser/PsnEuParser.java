@@ -111,9 +111,11 @@ public class PsnEuParser
 	private static final Pattern PATTERN_PROGRESS = Pattern
 			.compile("<p class=\"percentage\">\\s*(\\d+)%\\s*</p>");
 	private static final Pattern PATTERN_AVATAR_URL = Pattern
-			.compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"\\s*/>");
+			.compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"\\s*/>",
+					Pattern.DOTALL);
 	private static final Pattern PATTERN_COMPARE_AVATAR_URL = Pattern
-	        .compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"");
+	        .compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"",
+	        		Pattern.DOTALL);
 	
 	private static final Pattern PATTERN_IS_PLUS = Pattern
 	        .compile("<div class=\"avatarPlayStationPlus\">");

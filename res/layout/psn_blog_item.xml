@@ -28,7 +28,7 @@
 	android:minHeight="?android:attr/listPreferredItemHeight" 
 	android:orientation="horizontal"
 	android:paddingRight="9dp"
-	style="@style/listViewActivatedStyle"
+	style="@style/psnListViewActivatedStyle"
 >
 	<ImageView
         android:id="@+id/blog_item_thumb"

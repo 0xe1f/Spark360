@@ -329,6 +329,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 				tv = (TextView)item.findViewById(R.id.cat_item_genre);
 				tv.setText(mItem.Genre);
 				tv = (TextView)item.findViewById(R.id.cat_item_relDate);
+				tv.setVisibility((mItem.ReleaseDate != null) ? View.VISIBLE : View.INVISIBLE);
 				tv.setText(getString(R.string.release_date_f, 
 						mItem.ReleaseDate));
 				iv = (ImageView)item.findViewById(R.id.cat_item_boxart);

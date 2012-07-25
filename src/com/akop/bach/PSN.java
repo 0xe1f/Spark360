@@ -574,6 +574,7 @@ public class PSN
 		private static final long serialVersionUID = -2084280535411809578L;
 		
 		public String Title = null;
+		public String Overview = null;
 		public String DetailUrl = null;
 		public String BoxartUrl = null;
 		

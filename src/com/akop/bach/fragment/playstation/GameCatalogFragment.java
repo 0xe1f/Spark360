@@ -145,6 +145,7 @@ public class GameCatalogFragment extends GenericFragment implements
 	private static class ViewHolder
 	{
 		public TextView title;
+		public TextView overview;
 		public TextView releaseDate;
 		public TextView genre;
 		public ImageView icon;
@@ -215,8 +216,10 @@ public class GameCatalogFragment extends GenericFragment implements
 				releaseDate = DateFormat.getMediumDateFormat(getActivity())
 				        .format(item.ReleaseDateTicks);
 			*/
-			vh.releaseDate.setText(getString(R.string.release_date_f, 
-					releaseDate));
+			vh.releaseDate.setVisibility(releaseDate != null ? View.VISIBLE : View.INVISIBLE);
+			vh.releaseDate.setText(getString(R.string.release_date_f, releaseDate));
+			vh.overview.setVisibility(item.Overview != null ? View.VISIBLE : View.INVISIBLE);
+			vh.overview.setText(item.Overview);
 			
 			String iconUrl = item.BoxartUrl;
 			SoftReference<Bitmap> icon = mIconCache.get(iconUrl);
@@ -262,6 +265,7 @@ public class GameCatalogFragment extends GenericFragment implements
 					vh = new ViewHolder();
 					
 					vh.title = (TextView)row.findViewById(R.id.cat_item_title);
+					vh.overview = (TextView)row.findViewById(R.id.cat_item_overview);
 					vh.icon = (ImageView)row.findViewById(R.id.cat_item_boxart);
 					vh.genre = (TextView)row.findViewById(R.id.cat_item_genre);
 					vh.releaseDate = (TextView)row.findViewById(R.id.cat_item_relDate);

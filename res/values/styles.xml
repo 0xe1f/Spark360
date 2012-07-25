@@ -130,7 +130,7 @@
     	<item name="android:listViewStyle">@style/psnListView</item>
 	</style>
 	
-	<style name="OrangeRibbon">
+	<style name="XboxRibbon">
     	<item name="android:background">@drawable/xbox_ribbon_bg</item>
 	</style>
 	
@@ -634,7 +634,9 @@
     </style>
     
 	<style name="listViewActivatedStyle" />
-	
+    <style name="xboxListViewActivatedStyle" />
+	<style name="psnListViewActivatedStyle" />
+    
     <style name="beaconText">
         <item name="android:textColor">@color/xbox_green</item>
     </style>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ Handel Project
+ Copyright (C) 2010 Akop Karapetyan
+ -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+	    android:state_activated="true" 
+	    android:state_pressed="false" 
+		android:drawable="@color/psn_activated_bg"
+	/>
+</selector>

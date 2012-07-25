@@ -28,7 +28,7 @@
 	android:minHeight="?android:attr/listPreferredItemHeight" 
     android:orientation="horizontal"
 	android:paddingRight="9dp"
-	style="@style/listViewActivatedStyle"
+	style="@style/psnListViewActivatedStyle"
 >
 	<ImageView 
 		android:id="@+id/cat_item_boxart" 
@@ -50,6 +50,18 @@
 		android:textAppearance="@style/TextAppearance.title"
 		android:ellipsize="marquee" 
 		android:singleLine="true"
+	/>
+	<TextView
+	    android:id="@+id/cat_item_overview"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" 
+        android:layout_toRightOf="@id/cat_item_boxart"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.secondary" 
+	    android:ellipsize="end"
+	    android:visibility="gone"
 	/>
 	<LinearLayout
         android:layout_width="fill_parent"

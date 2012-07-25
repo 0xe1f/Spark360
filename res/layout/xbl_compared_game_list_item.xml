@@ -27,7 +27,7 @@
 	android:layout_height="wrap_content" 
 	android:minHeight="?android:attr/listPreferredItemHeight" 
 	android:paddingRight="9dp"
-	style="@style/listViewActivatedStyle"
+	style="@style/xboxListViewActivatedStyle"
 >
 	<ImageView 
 		android:id="@+id/game_icon" 
