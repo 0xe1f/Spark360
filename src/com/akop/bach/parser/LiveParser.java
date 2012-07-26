@@ -33,8 +33,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.net.ssl.SSLException;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -65,10 +63,8 @@ public abstract class LiveParser extends Parser
 	private static final String URL_LOGIN_MSN =
 		"https://msnia.login.live.com/ppsecure/post.srf?wa=wsignin1.0&wreply=%1$s";
 	
-	private static final Pattern PATTERN_LIVE_AUTH_URL = Pattern.compile(
-			"var\\s*srf_uPost\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE);
-	private static final Pattern PATTERN_PPSX = Pattern
-			.compile("var\\s*srf_sRBlob\\s*=\\s*'([^']*)'");
+	private static final Pattern PATTERN_LIVE_AUTH_URL = Pattern
+			.compile(",urlPost:'([^']*)'");
 	
 	private static final Pattern PATTERN_ACTION_URL = Pattern.compile(
 			"action=\"(https?://[^\"]+)\"", Pattern.CASE_INSENSITIVE);
@@ -261,60 +257,6 @@ public abstract class LiveParser extends Parser
 		}
 	}
 	
-	private boolean oldAuthenticate(XboxLiveAccount xblAccount)
-			throws IOException, ParserException, AuthenticationException
-	{
-		HttpParams params = mHttpClient.getParams();
-		params.setParameter("http.useragent",
-				"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0;)");
-		
-		List<NameValuePair> inputs = new ArrayList<NameValuePair>(10);
-		
-		// 1. Initial login page fetch
-		String page = getResponse(getLoginUrl(xblAccount));
-		
-		// 2. Post to initial login page
-		Matcher m;
-		if (!(m = PATTERN_LIVE_AUTH_URL.matcher(page)).find())
-			return false;
-		
-		String url = getPostUrl(xblAccount, m.group(1));
-		getInputs(page, inputs, null);
-		
-		setValue(inputs, "login", xblAccount.getEmailAddress());
-		setValue(inputs, "passwd", xblAccount.getPassword());
-		setValue(inputs, "LoginOptions", 1);
-		setValue(inputs, "PPSX", "PassportRN");
-		
-		page = getResponse(url, inputs);
-		
-		// 3. Second post - just post whatever was returned again
-		url = getActionUrl(page);
-		getInputs(page, inputs, null);
-		
-		// Did authentication succeed?
-		if (!hasName(inputs, "ANON"))
-		{
-            if (App.LOGV) 
-            	App.logv("Authentication error");
-            
-			return false;
-		}
-		
-		try
-		{
-			// Final post
-			submitRequest(url, inputs);
-		}
-		catch(ClientProtocolException e)
-		{
-			// Because redirection is disabled, this call will throw an 
-			// exception when XBL redirects. We just ignore it
-		}
-		
-		return true;
-	}
-	
 	private boolean newAuthenticate(XboxLiveAccount xblAccount)
 			throws IOException, ParserException, AuthenticationException
 	{
@@ -327,21 +269,20 @@ public abstract class LiveParser extends Parser
 		// 2. Post to initial login page
 		Matcher m;
 		if (!(m = PATTERN_LIVE_AUTH_URL.matcher(page)).find())
+		{
+			if (App.LOGV)
+				App.logv("Authentication error in stage 1");
+			
 			return false;
+		}
 		
 		url = getPostUrl(xblAccount, m.group(1));
-		
-		if (!(m = PATTERN_PPSX.matcher(page)).find())
-			return false;
-		
-		String ppsx = m.group(1);
-		
 		getInputs(page, inputs, null);
 		
 		setValue(inputs, "login", xblAccount.getEmailAddress());
 		setValue(inputs, "passwd", xblAccount.getPassword());
+		setValue(inputs, "KMSI", 1);
 		setValue(inputs, "LoginOptions", 1);
-		setValue(inputs, "PPSX", ppsx);
 		
 		page = getResponse(url, inputs);
 		
@@ -352,9 +293,9 @@ public abstract class LiveParser extends Parser
 		// Did authentication succeed?
 		if (!hasName(inputs, "ANON") && !PATTERN_AUTHENTICATED.matcher(page).find())
 		{
-            if (App.LOGV) 
-            	App.logv("Authentication error");
-            
+			if (App.LOGV)
+				App.logv("Authentication error in stage 2");
+			
 			return false;
 		}
 		
@@ -376,25 +317,10 @@ public abstract class LiveParser extends Parser
 	protected boolean onAuthenticate(Account account) 
 			throws IOException, ParserException, AuthenticationException
 	{
-		boolean hasAuthenticated = false;
-		XboxLiveAccount xblAccount = (XboxLiveAccount)account;
-		
-		try
-		{
-			hasAuthenticated = newAuthenticate(xblAccount);
-		}
-		catch (SSLException ex)
-		{
-			if (App.LOGV)
-				App.logv("Falling back to old authentication");
-			
-			hasAuthenticated = oldAuthenticate(xblAccount);
-		}
-		
-		if (!hasAuthenticated)
+		if (!newAuthenticate((XboxLiveAccount)account))
 			throw new AuthenticationException(mContext.getString(R.string.credential_error_locked));
 		
-		return hasAuthenticated;
+		return true;
 	}
 	
 	@Override

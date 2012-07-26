@@ -528,4 +528,7 @@
 	
 	-->
 	
+	<!-- Unlocalized -->
+	<string name="error_redirecting">Server is repeatedly redirecting. Please try again later</string>
+	
 </resources>

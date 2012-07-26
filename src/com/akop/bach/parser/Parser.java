@@ -48,6 +48,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -104,6 +105,8 @@ public abstract class Parser
 			return context.getString(R.string.error_timed_out);
 		else if (e instanceof UnknownHostException)
 			return context.getString(R.string.error_dns_error);
+		else if (e instanceof ClientProtocolException)
+			return context.getString(R.string.error_redirecting);
 		else if (e instanceof IOException)
 			return context.getString(R.string.error_network_error);
 		else if (e instanceof AuthenticationException)
