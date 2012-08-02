@@ -383,7 +383,7 @@
         />
         
         <!--  Services -->
-    	<receiver android:name="com.akop.bach.service.BachUpdateAlarmReceiver">
+    	<receiver android:name=".service.UpdateAlarmReceiver">
             <intent-filter>
             	<action android:name="android.intent.action.BOOT_COMPLETED" />
                	<action android:name="com.akop.bach.intent.action.SERVICE_CANCEL" />
@@ -391,8 +391,9 @@
             	<action android:name="com.akop.bach.intent.action.SERVICE_RESCHEDULE" />
             </intent-filter>
     	</receiver>
+    	
     	<service
-    	    android:name=".service.BachUpdateService" 
+    	    android:name=".service.NotificationService" 
     	    android:enabled="true" 
     	/>
     	

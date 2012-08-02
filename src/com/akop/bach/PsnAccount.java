@@ -45,6 +45,8 @@ import com.akop.bach.parser.ParserException;
 import com.akop.bach.parser.PsnEuParser;
 import com.akop.bach.parser.PsnParser;
 import com.akop.bach.parser.PsnUsParser;
+import com.akop.bach.service.PsnServiceClient;
+import com.akop.bach.service.ServiceClient;
 import com.akop.bach.util.rss.RssChannel;
 
 public class PsnAccount
@@ -701,12 +703,18 @@ public class PsnAccount
 		 */
 		return null;
 	}
-
+	
 	@Override
 	public void setFriendsLastNotified(Context context, long[] friendIds)
 	{
 		/* TODO Auto-generated method stub
 		 * 
 		 */
+	}
+	
+	@Override
+	public ServiceClient createServiceClient() 
+	{
+		return new PsnServiceClient();
 	}
 }

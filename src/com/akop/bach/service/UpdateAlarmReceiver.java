@@ -1,5 +1,5 @@
 /*
- * BachUpdateAlarmReceiver.java 
+ * UpdateAlarmReceiver.java 
  * Copyright (C) 2010-2012 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
@@ -27,7 +27,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class BachUpdateAlarmReceiver extends BroadcastReceiver
+public class UpdateAlarmReceiver extends BroadcastReceiver
 {
 	@Override
 	public void onReceive(Context context, Intent intent)

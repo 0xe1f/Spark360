@@ -122,7 +122,7 @@ public class BachUpdateService extends UpdateService
 	@Override
 	protected PendingIntent createAlarmIntent(long checkId)
 	{
-		Intent intent = new Intent(this, BachUpdateAlarmReceiver.class);
+		Intent intent = new Intent(this, UpdateAlarmReceiver.class);
 		intent.putExtra("checkId", checkId);
 		
 		PendingIntent pi = PendingIntent.getBroadcast(this, 0, intent, 
@@ -400,5 +400,4 @@ public class BachUpdateService extends UpdateService
 			}
 		}
 	}
-	
 }

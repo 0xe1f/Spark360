@@ -45,6 +45,7 @@ import com.akop.bach.PSN.Trophies;
 import com.akop.bach.Preferences;
 import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
+import com.akop.bach.service.NotificationService;
 import com.akop.bach.service.UpdateService;
 
 public class AccountSettings
@@ -311,7 +312,7 @@ public class AccountSettings
 		
 		if (updateFreqChanged)
 		{
-			UpdateService.actionReschedule(this);
+			NotificationService.actionReschedule(this);
 		}
 		else
 		{

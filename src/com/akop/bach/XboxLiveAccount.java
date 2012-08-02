@@ -49,6 +49,8 @@ import com.akop.bach.activity.xboxlive.MessageView;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 import com.akop.bach.parser.XboxLiveParser;
+import com.akop.bach.service.ServiceClient;
+import com.akop.bach.service.XboxLiveServiceClient;
 
 public class XboxLiveAccount
 		extends AuthenticatingAccount
@@ -819,7 +821,7 @@ public class XboxLiveAccount
 			p.dispose();
 		}
 	}
-
+	
 	@Override
 	public void doBackgroundSynch(Context context)
 			throws AuthenticationException, IOException, ParserException
@@ -836,7 +838,7 @@ public class XboxLiveAccount
 			p.dispose();
 		}
 	}
-
+	
 	@Override
 	public void create(Context context, ContentValues cv)
 	{
@@ -963,5 +965,11 @@ public class XboxLiveAccount
 	public void setMessagesLastNotified(Context context, long[] messages)
 	{
 		NotifyStates.setMessagesLastNotified(context, this, messages);
+	}
+	
+	@Override
+	public ServiceClient createServiceClient() 
+	{
+		return new XboxLiveServiceClient();
 	}
 }

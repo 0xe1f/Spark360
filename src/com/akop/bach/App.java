@@ -76,6 +76,8 @@ public class App extends Application
 	
 	private static final String LOG_TAG = "bach";
 	
+	private static App sInstance = null;
+	
 	public void showAboutDialog(Context context)
 	{
 		About.actionShowAbout(context);
@@ -88,12 +90,19 @@ public class App extends Application
         
 		super.onCreate();
 		
+		sInstance = this;
+		
 		ErrorReporter.getInstance().disable();
 		
 		ImageCache.createInstance(this);
 		TaskController.create(this);
 		
 		BachUpdateService.actionReschedule(this);
+	}
+	
+	public static App getInstance()
+	{
+		return sInstance;
 	}
 	
 	public static void logv(String message)
