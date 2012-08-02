@@ -37,11 +37,11 @@ public class UpdateAlarmReceiver extends BroadcastReceiver
 		if (Intent.ACTION_BOOT_COMPLETED.equals(action))
 		{
 			// Reinitialize service on reboot
-			BachUpdateService.actionReschedule(context);
+			NotificationService.actionReschedule(context);
 		}
 		else
 		{
-			BachUpdateService.actionUpdate(context, intent.getLongExtra("checkId", -1));
+			NotificationService.actionUpdate(context, intent.getLongExtra("checkId", -1));
 		}
 	}
 }

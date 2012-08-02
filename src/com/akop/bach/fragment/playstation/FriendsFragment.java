@@ -71,7 +71,7 @@ import com.akop.bach.activity.playstation.FindGamer;
 import com.akop.bach.activity.playstation.GamerProfile;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.Parser;
-import com.akop.bach.service.UpdateService;
+import com.akop.bach.service.PsnServiceClient;
 import com.akop.bach.uiwidget.PsnFriendListItem;
 import com.akop.bach.uiwidget.PsnFriendListItem.OnStarClickListener;
 
@@ -549,7 +549,7 @@ public class FriendsFragment extends GenericFragment implements
 		
 		updateLastUpdateTime();
 		
-		UpdateService.clearFriendNotifications(getActivity(), mAccount);
+		PsnServiceClient.clearFriendNotifications(getActivity(), mAccount);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.registerContentObserver(Friends.CONTENT_URI, true, mObserver);

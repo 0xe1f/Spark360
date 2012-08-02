@@ -40,8 +40,9 @@ import com.akop.bach.Account;
 import com.akop.bach.App;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
+import com.akop.bach.XboxLive.NotifyStates;
 import com.akop.bach.XboxLiveAccount;
-import com.akop.bach.service.BachUpdateService;
+import com.akop.bach.service.NotificationService;
 
 public class AccountSettings extends PreferenceActivity
 {
@@ -279,10 +280,10 @@ public class AccountSettings extends PreferenceActivity
 		boolean updateFreqChanged = (mUpdateFrequency != mAccount.getSyncPeriod());
         
 		if (updateFreqChanged || mFriendNotifications != mAccount.getFriendNotifications())
-			mAccount.setFriendsLastNotified(this, null);
+			NotifyStates.setFriendsLastNotified(this, mAccount, null);
 		
 		if (updateFreqChanged || mMessageNotifications != mAccount.isMessageNotificationEnabled())
-			mAccount.setMessagesLastNotified(this, null);
+			NotifyStates.setMessagesLastNotified(this, mAccount, null);
 		
 		mAccount.setFriendNotifications(mFriendNotifications);
 		mAccount.setBeaconNotifications(mBeaconNotifications);
@@ -298,7 +299,7 @@ public class AccountSettings extends PreferenceActivity
 		
 		if (updateFreqChanged)
 		{
-			BachUpdateService.actionReschedule(this);
+			NotificationService.actionReschedule(this);
 		}
 		else
 		{

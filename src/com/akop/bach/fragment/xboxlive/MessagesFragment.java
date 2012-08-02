@@ -70,7 +70,7 @@ import com.akop.bach.fragment.AlertDialogFragment;
 import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.XboxLiveParser;
-import com.akop.bach.service.BachUpdateService;
+import com.akop.bach.service.XboxLiveServiceClient;
 
 public class MessagesFragment extends GenericFragment implements
 		OnItemClickListener, OnOkListener
@@ -449,7 +449,7 @@ public class MessagesFragment extends GenericFragment implements
 		
 		TaskController.get().addListener(mListener);
 		
-		BachUpdateService.clearMessageNotifications(getActivity(), mAccount);
+		XboxLiveServiceClient.clearMessageNotifications(getActivity(), mAccount);
 		if (System.currentTimeMillis() - mAccount.getLastMessageUpdate() > mAccount.getMessageRefreshInterval())
 			synchronizeWithServer();
 	}

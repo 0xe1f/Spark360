@@ -77,7 +77,7 @@ import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.Parser;
 import com.akop.bach.parser.XboxLiveParser;
-import com.akop.bach.service.BachUpdateService;
+import com.akop.bach.service.XboxLiveServiceClient;
 import com.akop.bach.uiwidget.XboxLiveFriendListItem;
 import com.akop.bach.uiwidget.XboxLiveFriendListItem.OnStarClickListener;
 
@@ -590,8 +590,8 @@ public class FriendsFragment extends GenericFragment implements
 		
 		updateLastUpdateTime();
 		
-		BachUpdateService.clearFriendNotifications(getActivity(), mAccount);
-		BachUpdateService.clearBeaconNotifications(getActivity(), mAccount);
+		XboxLiveServiceClient.clearFriendNotifications(getActivity(), mAccount);
+		XboxLiveServiceClient.clearBeaconNotifications(getActivity(), mAccount);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.registerContentObserver(Friends.CONTENT_URI, true, mObserver);

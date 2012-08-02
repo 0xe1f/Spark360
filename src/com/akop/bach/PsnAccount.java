@@ -29,16 +29,13 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.format.DateUtils;
 
-import com.akop.bach.PSN.Friends;
 import com.akop.bach.activity.AuthenticatingAccountLogin;
 import com.akop.bach.activity.playstation.AccountSettings;
 import com.akop.bach.activity.playstation.AccountSummary;
-import com.akop.bach.activity.playstation.FriendList;
 import com.akop.bach.activity.playstation.GameList;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
@@ -52,8 +49,7 @@ import com.akop.bach.util.rss.RssChannel;
 public class PsnAccount
 		extends AuthenticatingAccount
 		implements SupportsGames, SupportsAchievements, SupportsFriends,
-		SupportsCompareGames, SupportsCompareAchievements,
-		SupportsFriendNotifications
+		SupportsCompareGames, SupportsCompareAchievements
 {
 	private static final long serialVersionUID = 4804600471625415833L;
 	
@@ -602,7 +598,6 @@ public class PsnAccount
 		}
 	}
 	
-	@Override
 	public Uri getRingtoneUri()
 	{
 		if (mRingtone == null)
@@ -611,7 +606,6 @@ public class PsnAccount
 		return Uri.parse(mRingtone);
 	}
 	
-	@Override
 	public boolean isVibrationEnabled()
 	{
 		return mVibrate;
@@ -641,75 +635,9 @@ public class PsnAccount
 	}
 	
 	@Override
-	public Intent getFriendListIntent(Context context)
-	{
-		Intent intent = new Intent(context, FriendList.class);
-		intent.putExtra("account", this);
-		
-		return intent;
-	}
-	
-	@Override
-	public String getFriendScreenName(Context context, long friendId)
-	{
-		return Friends.getOnlineId(context, friendId);
-	}
-	
-	@Override
-	public void doBackgroundSynch(Context context)
-			throws AuthenticationException, IOException, ParserException
-	{
-		PsnParser p = createEuParser(context);
-		
-		try
-		{
-			p.fetchFriends(this);
-		}
-		finally
-		{
-			p.dispose();
-		}
-	}
-	
-	@Override
-	public long[] getOnlineFriendIds(Context context)
-	{
-		return Friends.getOnlineFriendIds(context, this);
-	}
-	
-	@Override
-	public boolean isFriendNotificationEnabled()
-	{
-		return getFriendNotifications() != FRIEND_NOTIFY_OFF;
-	}
-	
-	@Override
 	public void actionShowGames(Context context)
 	{
 		GameList.actionShow(context, this);
-	}
-
-	@Override
-	public int getFriendNotificationIconResource()
-	{
-		return R.drawable.psn_stat_notify_friend;
-	}
-
-	@Override
-	public long[] getFriendsLastNotified(Context context)
-	{
-		/* TODO Auto-generated method stub
-		 * 
-		 */
-		return null;
-	}
-	
-	@Override
-	public void setFriendsLastNotified(Context context, long[] friendIds)
-	{
-		/* TODO Auto-generated method stub
-		 * 
-		 */
 	}
 	
 	@Override

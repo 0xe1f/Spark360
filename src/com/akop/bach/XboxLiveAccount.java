@@ -36,15 +36,12 @@ import android.net.Uri;
 import android.text.format.DateUtils;
 
 import com.akop.bach.XboxLive.Friends;
-import com.akop.bach.XboxLive.Messages;
-import com.akop.bach.XboxLive.NotifyStates;
 import com.akop.bach.activity.AuthenticatingAccountLogin;
 import com.akop.bach.activity.xboxlive.AccountSettings;
 import com.akop.bach.activity.xboxlive.AccountSummary;
 import com.akop.bach.activity.xboxlive.FriendList;
 import com.akop.bach.activity.xboxlive.GameList;
 import com.akop.bach.activity.xboxlive.MessageCompose;
-import com.akop.bach.activity.xboxlive.MessageList;
 import com.akop.bach.activity.xboxlive.MessageView;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
@@ -56,8 +53,7 @@ public class XboxLiveAccount
 		extends AuthenticatingAccount
 		implements SupportsGames, SupportsAchievements,
 		SupportsCompareGames, SupportsCompareAchievements,
-		SupportsMessaging, SupportsFriendManagement, SupportsNotifications,
-		SupportsMessageNotifications, SupportsFriendNotifications
+		SupportsMessaging, SupportsFriendManagement
 {
 	private static final long serialVersionUID = -4961094611184799471L;
 	
@@ -163,7 +159,6 @@ public class XboxLiveAccount
 		return mCoverflowMode;
 	}
 	
-	@Override
 	public boolean isMessageNotificationEnabled()
 	{
 		return mMessageNotifications;
@@ -190,13 +185,11 @@ public class XboxLiveAccount
 		return mRingtone;
 	}
 	
-	@Override
 	public boolean isVibrationEnabled()
 	{
 		return mVibrate;
 	}
 	
-	@Override
 	public Uri getRingtoneUri()
 	{
 		if (mRingtone == null)
@@ -537,12 +530,6 @@ public class XboxLiveAccount
 		}
 	}
 	
-	@Override
-	public long[] getUnreadMessageIds(Context context)
-	{
-		return XboxLive.Messages.getUnreadMessageIds(context, this);
-	}
-	
 	// ISupportsFriends
 	
 	@Override
@@ -823,23 +810,6 @@ public class XboxLiveAccount
 	}
 	
 	@Override
-	public void doBackgroundSynch(Context context)
-			throws AuthenticationException, IOException, ParserException
-	{
-		XboxLiveParser p = new XboxLiveParser(context);
-		
-		try
-		{
-			p.fetchMessages(this);
-			p.fetchFriends(this);
-		}
-		finally
-		{
-			p.dispose();
-		}
-	}
-	
-	@Override
 	public void create(Context context, ContentValues cv)
 	{
 		XboxLiveParser p = new XboxLiveParser(context);
@@ -858,30 +828,6 @@ public class XboxLiveAccount
 	public void edit(Context context)
 	{
 		AccountSettings.actionEditSettings(context, this);
-	}
-
-	@Override
-	public Intent getMessageListIntent(Context context)
-	{
-		Intent notifIntent = new Intent(context, MessageList.class);
-    	notifIntent.putExtra("account", this);
-    	
-		return notifIntent;
-	}
-
-	@Override
-	public long[] getOnlineFriendIds(Context context)
-	{
-		return XboxLive.Friends.getOnlineFriendIds(context, this);
-	}
-
-	@Override
-	public Intent getFriendListIntent(Context context)
-	{
-		Intent notifIntent = new Intent(context, FriendList.class);
-    	notifIntent.putExtra("account", this);
-    	
-		return notifIntent;
 	}
 	
 	public Intent getFriendIntent(Context context, String gamertag)
@@ -903,68 +849,14 @@ public class XboxLiveAccount
 		return intent;
 	}
 	
-	@Override
-	public boolean isFriendNotificationEnabled()
-	{
-		return getFriendNotifications() != FRIEND_NOTIFY_OFF;
-	}
-	
 	public boolean isBeaconNotificationEnabled()
 	{
 		return getBeaconNotifications() != FRIEND_NOTIFY_OFF;
 	}
 	
-	@Override
-	public String getFriendScreenName(Context context, long friendId)
-	{
-		return Friends.getGamertag(context, friendId);
-	}
-	
-	@Override
-	public String getSender(Context context, long messageId)
-	{
-		return Messages.getSender(context, messageId);
-	}
-	
 	public boolean isMsnAccount()
 	{
 		return  getEmailAddress().endsWith("@msn.com");
-	}
-	
-	@Override
-    public int getMessageNotificationIconResource()
-    {
-	    return R.drawable.xbox_stat_notify_message;
-    }
-	
-	@Override
-    public int getFriendNotificationIconResource()
-    {
-	    return R.drawable.xbox_stat_notify_friend;
-    }
-	
-	@Override
-	public long[] getFriendsLastNotified(Context context)
-	{
-		return NotifyStates.getFriendsLastNotified(context, this);
-	}
-	
-	@Override
-	public void setFriendsLastNotified(Context context, long[] friendIds)
-	{
-		NotifyStates.setFriendsLastNotified(context, this, friendIds);
-	}
-	
-	@Override
-	public long[] getMessagesLastNotified(Context context)
-	{
-		return NotifyStates.getMessagesLastNotified(context, this);
-	}
-	
-	@Override
-	public void setMessagesLastNotified(Context context, long[] messages)
-	{
-		NotifyStates.setMessagesLastNotified(context, this, messages);
 	}
 	
 	@Override

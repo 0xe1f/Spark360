@@ -31,11 +31,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 
 import com.akop.bach.Account;
-import com.akop.bach.App;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
-import com.akop.bach.SupportsNotifications;
 import com.akop.bach.TaskController;
+import com.akop.bach.service.NotificationService;
 
 public class DeleteAccount extends Activity
 {
@@ -69,11 +68,7 @@ public class DeleteAccount extends Activity
 	{
 		Preferences.get(this).deleteAccount(this, mAccount); 
 		
-		if (mAccount instanceof SupportsNotifications)
-		{
-			App app = (App)getApplication();
-			app.rescheduleService();
-		}
+		NotificationService.actionReschedule(this);
 		
 		// Schedule the account data to be removed from system
 		TaskController.get().deleteAccount(mAccount, null);

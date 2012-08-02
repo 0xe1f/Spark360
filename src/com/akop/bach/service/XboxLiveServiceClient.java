@@ -44,6 +44,8 @@ import com.akop.bach.XboxLive.Friends;
 import com.akop.bach.XboxLive.Messages;
 import com.akop.bach.XboxLive.NotifyStates;
 import com.akop.bach.XboxLiveAccount;
+import com.akop.bach.activity.xboxlive.FriendList;
+import com.akop.bach.activity.xboxlive.MessageList;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 import com.akop.bach.parser.XboxLiveParser;
@@ -128,7 +130,7 @@ public class XboxLiveServiceClient extends ServiceClient
 					tickerTitle = context.getString(R.string.new_message);
 					tickerText = context.getString(R.string.notify_message_pending_f, 
 							account.getScreenName(), 
-							account.getSender(context, unreadMessages[0])); 
+							Messages.getSender(context, unreadMessages[0]));
 				}
 				else
 				{
@@ -138,11 +140,14 @@ public class XboxLiveServiceClient extends ServiceClient
 							account.getDescription(context));
 				}
 				
-				Notification notification = new Notification(account.getMessageNotificationIconResource(),
+				Notification notification = new Notification(R.drawable.xbox_stat_notify_message,
 						tickerText, System.currentTimeMillis());
 				
+				Intent intent = new Intent(context, MessageList.class);
+				intent.putExtra("account", account);
+		    	
 		    	PendingIntent contentIntent = PendingIntent.getActivity(context, 
-		    			0, account.getMessageListIntent(context), 0);
+		    			0, intent, 0);
 		    	
 		    	notification.flags |= Notification.FLAG_AUTO_CANCEL 
 		    			| Notification.FLAG_SHOW_LIGHTS;
@@ -215,7 +220,7 @@ public class XboxLiveServiceClient extends ServiceClient
 				{
 					tickerTitle = context.getString(R.string.friend_online);
 					tickerText = context.getString(R.string.notify_friend_online_f,
-							account.getFriendScreenName(context, friendsOnline[0]),
+							Friends.getGamertag(context, friendsOnline[0]),
 							account.getDescription(context)); 
 				}
 				else
@@ -226,12 +231,15 @@ public class XboxLiveServiceClient extends ServiceClient
 							account.getDescription(context));
 				}
 				
-				Notification notification = new Notification(account.getFriendNotificationIconResource(),
+				Notification notification = new Notification(R.drawable.xbox_stat_notify_friend,
 						tickerText, System.currentTimeMillis());
 				notification.flags |= Notification.FLAG_AUTO_CANCEL;
 				
+				Intent intent = new Intent(context, FriendList.class);
+		    	intent.putExtra("account", account);
+		    	
 		    	PendingIntent contentIntent = PendingIntent.getActivity(context, 
-		    			0, account.getFriendListIntent(context), 0);
+		    			0, intent, 0);
 		    	
 				notification.setLatestEventInfo(context, tickerTitle,
 						tickerText, contentIntent);
@@ -325,7 +333,8 @@ public class XboxLiveServiceClient extends ServiceClient
 						if (matchingFriends.length > 1)
 						{
 							iconOverlayNumber = matchingFriends.length;
-							intent = account.getFriendListIntent(context);
+							intent = new Intent(context, FriendList.class);
+					    	intent.putExtra("account", account);
 							ticker = context.getString(R.string.friends_playing_beaconed_game_title_f,
 									matchingFriends.length, title);
 							message = context.getString(R.string.friends_playing_beaconed_game_f,
@@ -334,8 +343,7 @@ public class XboxLiveServiceClient extends ServiceClient
 						}
 						else
 						{
-							String friendScreenName = account.getFriendScreenName(context, 
-									matchingFriends[0]);
+							String friendScreenName = Friends.getGamertag(context, matchingFriends[0]);
 							
 							intent = account.getFriendIntent(context, friendScreenName);
 							ticker = context.getString(R.string.friend_playing_beaconed_game_title_f,
@@ -442,7 +450,7 @@ public class XboxLiveServiceClient extends ServiceClient
 			newFriendsOnline = Friends.getOnlineFriendIds(context, 
 					xblAccount);
 			
-			if (xblAccount.isFriendNotificationEnabled())
+			if (xblAccount.getFriendNotifications() != XboxLiveAccount.FRIEND_NOTIFY_OFF)
 			{
 				notifyFriends(xblAccount, newFriendsOnline, 
 						status.friendsOnline);
@@ -523,10 +531,12 @@ public class XboxLiveServiceClient extends ServiceClient
 				status.unreadMessages.add(id);
 		}
 		
-		if (xblAccount.isFriendNotificationEnabled())
+		if (xblAccount.getFriendNotifications() != XboxLiveAccount.FRIEND_NOTIFY_OFF)
 		{
 			// Load last state
-			long[] lastNotified = xblAccount.getFriendsLastNotified(context);
+			long[] lastNotified = NotifyStates.getFriendsLastNotified(context, 
+					xblAccount);
+			
 			for (long id : lastNotified)
 				status.friendsOnline.add(id);
 		}
@@ -560,5 +570,15 @@ public class XboxLiveServiceClient extends ServiceClient
 		int notificationId = 0x2000000 | ((int)account.getId() & 0xffffff);
 		NotificationManager mgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
     	mgr.cancel(notificationId);
+	}
+	
+	public static void clearBeaconNotifications(Context context,
+			XboxLiveAccount account)
+	{
+		int notificationId = 0x40000 | (((int)account.getId() & 0xfff) << 4);
+		NotificationManager mgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+    	
+		for (int i = 0; i < MAX_BEACONS; i++)
+	    	mgr.cancel(notificationId++);
 	}
 }

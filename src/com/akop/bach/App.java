@@ -37,7 +37,7 @@ import android.util.Log;
 import com.akop.bach.activity.About;
 import com.akop.bach.provider.PsnProvider;
 import com.akop.bach.provider.XboxLiveProvider;
-import com.akop.bach.service.BachUpdateService;
+import com.akop.bach.service.NotificationService;
 
 @ReportsCrashes(
 		formKey = "dHFlZVgtcEtRUC1FVnI0TXVpZUQxMnc6MQ",
@@ -97,7 +97,7 @@ public class App extends Application
 		ImageCache.createInstance(this);
 		TaskController.create(this);
 		
-		BachUpdateService.actionReschedule(this);
+		NotificationService.actionReschedule(this);
 	}
 	
 	public static App getInstance()
@@ -113,11 +113,6 @@ public class App extends Application
 	public static void logv(String format, Object... args)
 	{
 		Log.v(LOG_TAG, String.format(format, args));
-	}
-	
-	public void rescheduleService()
-	{
-		BachUpdateService.actionReschedule(this);
 	}
 	
 	public static Account createAccountFromAuthority(Context context, String authority)

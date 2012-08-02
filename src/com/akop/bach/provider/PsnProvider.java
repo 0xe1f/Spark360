@@ -42,6 +42,7 @@ import com.akop.bach.PSN.Friends;
 import com.akop.bach.PSN.Games;
 import com.akop.bach.PSN.Profiles;
 import com.akop.bach.PSN.Trophies;
+import com.akop.bach.XboxLive.NotifyStates;
 import com.akop.bach.R;
 
 public class PsnProvider extends ContentProvider
@@ -56,6 +57,8 @@ public class PsnProvider extends ContentProvider
 	private static final int TROPHY_ID = 6;
 	private static final int FRIENDS = 7;
 	private static final int FRIEND_ID = 8;
+	private static final int NOTIFY_STATES = 9;
+	private static final int NOTIFY_STATE_ID = 10;
 	private static final int SEARCH_FRIEND_SUGGEST = 13;
 	
 	private static final UriMatcher sUriMatcher;
@@ -64,10 +67,11 @@ public class PsnProvider extends ContentProvider
 	private static final String GAMES_TABLE_NAME = "games";
 	private static final String TROPHIES_TABLE_NAME = "trophies";
 	private static final String FRIENDS_TABLE_NAME = "friends";
+	private static final String NOTIFY_STATES_TABLE_NAME = "notify_states";
 	
 	private static final String DATABASE_NAME = "psn.db";
 	
-	private static final int DATABASE_VERSION = 16;
+	private static final int DATABASE_VERSION = 17;
 	
     private DbHelper mDbHelper;
     
@@ -83,6 +87,8 @@ public class PsnProvider extends ContentProvider
 		sUriMatcher.addURI(AUTHORITY, "trophies/#", TROPHY_ID);
 		sUriMatcher.addURI(AUTHORITY, "friends", FRIENDS);
 		sUriMatcher.addURI(AUTHORITY, "friends/#", FRIEND_ID);
+		sUriMatcher.addURI(AUTHORITY, "notify_states", NOTIFY_STATES);
+		sUriMatcher.addURI(AUTHORITY, "notify_states/#", NOTIFY_STATE_ID);
 		
 		sUriMatcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY,
 				SEARCH_FRIEND_SUGGEST);
@@ -160,6 +166,12 @@ public class PsnProvider extends ContentProvider
 					+ Friends.TROPHIES_SILVER + " INTEGER NOT NULL, "
 					+ Friends.TROPHIES_GOLD + " INTEGER NOT NULL, "
 					+ Friends.TROPHIES_PLATINUM + " INTEGER NOT NULL);");
+			db.execSQL("CREATE TABLE " + NOTIFY_STATES_TABLE_NAME + " ("
+					+ NotifyStates._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ NotifyStates.ACCOUNT_ID + " INTEGER NOT NULL, "
+					+ NotifyStates.LAST_UPDATED + " INTEGER NOT NULL DEFAULT 0, "
+					+ NotifyStates.TYPE + " INTEGER NOT NULL, "
+					+ NotifyStates.DATA + " TEXT NOT NULL DEFAULT '');");
 		}
 		
 		@Override
@@ -220,6 +232,20 @@ public class PsnProvider extends ContentProvider
 				db.execSQL("DELETE FROM " + TROPHIES_TABLE_NAME);
 			}
 			
+			if (oldVersion < 17)
+			{
+				upgraded = true;
+				if (App.LOGV)
+					App.logv("PsnProvider: upgrading to version 17");
+				
+				db.execSQL("CREATE TABLE " + NOTIFY_STATES_TABLE_NAME + " ("
+						+ NotifyStates._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+						+ NotifyStates.ACCOUNT_ID + " INTEGER NOT NULL, "
+						+ NotifyStates.LAST_UPDATED + " INTEGER NOT NULL DEFAULT 0, "
+						+ NotifyStates.TYPE + " INTEGER NOT NULL, "
+						+ NotifyStates.DATA + " TEXT NOT NULL DEFAULT '');");
+			}
+			
 			if (!upgraded)
 			{
 				if (App.LOGV)
@@ -229,6 +255,7 @@ public class PsnProvider extends ContentProvider
 				db.execSQL("DROP TABLE IF EXISTS " + GAMES_TABLE_NAME);
 				db.execSQL("DROP TABLE IF EXISTS " + TROPHIES_TABLE_NAME);
 				db.execSQL("DROP TABLE IF EXISTS " + FRIENDS_TABLE_NAME);
+				db.execSQL("DROP TABLE IF EXISTS " + NOTIFY_STATES_TABLE_NAME);
 				
 				onCreate(db);
 			}
@@ -248,6 +275,8 @@ public class PsnProvider extends ContentProvider
 		case TROPHY_ID: return Trophies.CONTENT_ITEM_TYPE;
 		case FRIENDS: return Friends.CONTENT_TYPE;
 		case FRIEND_ID: return Friends.CONTENT_ITEM_TYPE;
+		case NOTIFY_STATES: return NotifyStates.CONTENT_TYPE;
+		case NOTIFY_STATE_ID: return NotifyStates.CONTENT_ITEM_TYPE;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -286,7 +315,7 @@ public class PsnProvider extends ContentProvider
 		Cursor c;
 		int match = sUriMatcher.match(uri); 
 		String orderBy = sortOrder;
-
+		
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		switch (match)
@@ -333,6 +362,15 @@ public class PsnProvider extends ContentProvider
 			qb.setTables(FRIENDS_TABLE_NAME);
 			qb.appendWhere(Friends._ID + "=" + uri.getPathSegments().get(1));
 			break;
+		case NOTIFY_STATES:
+			qb.setTables(NOTIFY_STATES_TABLE_NAME);
+			if (TextUtils.isEmpty(sortOrder))
+				orderBy = NotifyStates.DEFAULT_SORT_ORDER;
+			break;
+		case NOTIFY_STATE_ID:
+			qb.setTables(NOTIFY_STATES_TABLE_NAME);
+			qb.appendWhere(NotifyStates._ID + "=" + uri.getPathSegments().get(1));
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -356,6 +394,7 @@ public class PsnProvider extends ContentProvider
         int type = sUriMatcher.match(uri);
         int count;
         String id;
+        boolean notify = false;
         
 		switch (type)
 		{
@@ -399,12 +438,26 @@ public class PsnProvider extends ContentProvider
 							+ (!TextUtils.isEmpty(selection) ? " AND (" + selection
 									+ ')' : ""), selectionArgs);
 			break;
+		case NOTIFY_STATES:
+			count = db.delete(NOTIFY_STATES_TABLE_NAME, selection, selectionArgs);
+			notify = true;
+			break;
+		case NOTIFY_STATE_ID:
+			id = uri.getPathSegments().get(1);
+			count = db.delete(NOTIFY_STATES_TABLE_NAME,
+					NotifyStates._ID + "=" + id + 
+					(!TextUtils.isEmpty(selection) 
+							? " AND (" + selection + ')' : ""), selectionArgs);
+			
+			notify = true;
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
 		
 		// NOTE: suppressing update notification
-		//getContext().getContentResolver().notifyChange(uri, null);
+		if (notify)
+			getContext().getContentResolver().notifyChange(uri, null);
 		
 		return count;
 	}
@@ -506,6 +559,30 @@ public class PsnProvider extends ContentProvider
 			
 			break;
 			
+		case NOTIFY_STATES:
+			
+			if (initialValues == null)
+				throw new IllegalArgumentException("Missing notify state information");
+			
+			values = new ContentValues(initialValues);
+			
+			if (!values.containsKey(NotifyStates.ACCOUNT_ID))
+				throw new SQLException("Profile ID not specified");
+			if (!values.containsKey(NotifyStates.TYPE))
+				throw new SQLException("Type not specified");
+			if (!values.containsKey(NotifyStates.LAST_UPDATED))
+				values.put(NotifyStates.LAST_UPDATED, System.currentTimeMillis());
+			
+			db = mDbHelper.getWritableDatabase();
+			
+			if ((id = db.insert(NOTIFY_STATES_TABLE_NAME, null, values)) > 0)
+			{
+				newUri = ContentUris.withAppendedId(NotifyStates.CONTENT_URI, id);
+				getContext().getContentResolver().notifyChange(newUri, null);
+			}
+
+			break;
+		
 		default:
 			throw new IllegalArgumentException("Unrecognized URI" + uri);
 		}
@@ -524,6 +601,7 @@ public class PsnProvider extends ContentProvider
 		int type = sUriMatcher.match(uri);
 		int count;
 		String id;
+		boolean notify = false;
 		
 		switch (type)
 		{
@@ -569,12 +647,23 @@ public class PsnProvider extends ContentProvider
 							+ (!TextUtils.isEmpty(selection) ? " AND (" + selection
 									+ ')' : ""), selectionArgs);
 			break;
+		case NOTIFY_STATES:
+			count = db.update(NOTIFY_STATES_TABLE_NAME, values, selection, selectionArgs);
+			notify = true;
+			break;
+		case NOTIFY_STATE_ID:
+			id = uri.getPathSegments().get(1);
+			notify = true;
+			count = db.update(NOTIFY_STATES_TABLE_NAME, values,
+					NotifyStates._ID + "=" + id + (!TextUtils.isEmpty(selection) 
+							? " AND (" + selection + ')' : ""), selectionArgs);
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
 		
-		// NOTE: suppressing update notification
-		//getContext().getContentResolver().notifyChange(uri, null);
+		if (notify)
+			getContext().getContentResolver().notifyChange(uri, null);
 		
 		return count;
 	}

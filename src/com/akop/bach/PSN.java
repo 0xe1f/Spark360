@@ -31,12 +31,15 @@ import java.util.Map;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 
+import com.akop.bach.parser.Parser;
 import com.akop.bach.provider.PsnProvider;
 
 public class PSN
@@ -795,6 +798,108 @@ public class PSN
 		public int SilverTrophies;
 		public int BronzeTrophies;
 		public String Playing;
+	}
+	
+	public static final class NotifyStates implements BaseColumns
+	{
+		public static final int TYPE_FRIENDS = 1;
+		
+		private static final long NOTIFY_FRESH_MILLIS = 30 * DateUtils.MINUTE_IN_MILLIS;
+		
+		private NotifyStates() {}
+		
+		public static final Uri CONTENT_URI = Uri.parse("content://"
+				+ PsnProvider.AUTHORITY + "/notify_states");
+		
+		public static final String CONTENT_TYPE = 
+			"vnd.android.cursor.dir/vnd.akop.spark.psn-notify-states";
+		public static final String CONTENT_ITEM_TYPE = 
+			"vnd.android.cursor.item/vnd.akop.spark.psn-notify-states";
+		
+		public static final String ACCOUNT_ID = "AccountId";
+		public static final String TYPE = "Type";
+		public static final String DATA = "Data";
+		public static final String LAST_UPDATED = "LastUpdated";
+		
+		public static final String DEFAULT_SORT_ORDER = TYPE + " DESC";
+		
+		private static long[] stringToLongArray(String data)
+		{
+			String[] items = data.split(",");
+			long[] longArray = new long[items.length];
+			
+			for (int i = 0; i < items.length; i++)
+			{
+				try
+				{
+					longArray[i] = Long.parseLong(items[i]);
+				}
+				catch(Exception e)
+				{
+					longArray[i] = -1;
+					continue;
+				}
+			}
+			
+			return longArray;
+		}
+		
+		public static void setFriendsLastNotified(Context context, 
+				PsnAccount account, long[] lastNotified)
+		{
+			int type = TYPE_FRIENDS;
+			
+			ContentResolver cr = context.getContentResolver();
+			cr.delete(CONTENT_URI, 
+					ACCOUNT_ID + "=" + account.getId() + " AND " + 
+					TYPE + "=" + type, 
+					null);
+			
+			if (lastNotified != null && lastNotified.length > 0)
+			{
+				String data = Parser.joinString(lastNotified, ",");
+				
+				ContentValues cv = new ContentValues(10);
+				cv.put(ACCOUNT_ID, account.getId());
+				cv.put(TYPE, type);
+				cv.put(DATA, data);
+				cv.put(LAST_UPDATED, System.currentTimeMillis());
+				
+				cr.insert(CONTENT_URI, cv);
+			}
+		}
+		
+		public static long[] getFriendsLastNotified(Context context, PsnAccount account)
+		{
+			long[] lastNotified = null;
+			
+			Cursor cursor = context.getContentResolver().query(CONTENT_URI,
+					new String[] { DATA, LAST_UPDATED },
+					ACCOUNT_ID + "=" + account.getId() + " AND " + 
+					TYPE + "=" + TYPE_FRIENDS, 
+					null, null);
+			
+			if (cursor != null)
+			{
+				try
+				{
+					if (cursor.moveToNext())
+					{
+						if (System.currentTimeMillis() - cursor.getLong(1) < NOTIFY_FRESH_MILLIS)
+							lastNotified = stringToLongArray(cursor.getString(0));
+					}
+				}
+				finally
+				{
+					cursor.close();
+				}
+			}
+			
+			if (lastNotified == null)
+				lastNotified = new long[0];
+			
+			return lastNotified;
+		}
 	}
 	
 	public static String getOnlineStatusDescription(Context context, int onlineStatus)
