@@ -217,7 +217,7 @@
 									android:layout_width="wrap_content" 
 									android:layout_height="wrap_content" 
 									android:layout_marginLeft="5dp"
-									android:textAppearance="@style/TextAppearance.friendInfo" 
+									android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 								/>
 							</LinearLayout>
 						</RelativeLayout>
@@ -311,7 +311,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_marginLeft="5dp"
 								android:layout_alignParentRight="true"
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 							/>
 						</RelativeLayout>
 						<View
@@ -341,7 +341,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_marginLeft="5dp"
 								android:layout_alignParentRight="true"
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 							/>
 						</RelativeLayout>
 						<View
@@ -371,7 +371,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_marginLeft="5dp"
 								android:layout_alignParentRight="true"
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 							/>
 						</RelativeLayout>
 						<View
@@ -412,7 +412,7 @@
 									android:layout_width="wrap_content" 
 									android:layout_height="wrap_content" 
 									android:layout_marginLeft="5dp"
-									android:textAppearance="@style/TextAppearance.friendInfo" 
+									android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 								/>
 							</LinearLayout>
 						</RelativeLayout>
@@ -444,7 +444,7 @@
 								android:layout_marginLeft="5dp"
 								android:layout_alignParentTop="true"
 								android:layout_alignParentRight="true"
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 							/>
 						</RelativeLayout>
 						<View
@@ -466,7 +466,7 @@
 							android:id="@+id/profile_bio"
 							android:layout_width="fill_parent"
 							android:layout_height="wrap_content" 
-							android:textAppearance="@style/TextAppearance.friendInfo" 
+							android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
 						/>

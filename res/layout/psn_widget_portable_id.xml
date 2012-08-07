@@ -101,7 +101,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="10dp"
-					android:textAppearance="@style/TextAppearance.widgetText"
+					android:textAppearance="@style/TextAppearance.psnWidgetText"
 					android:text="0"
 				/>
 				<ImageView
@@ -114,7 +114,7 @@
 					android:id="@+id/widget_trophy_total"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="@style/TextAppearance.widgetText"
+					android:textAppearance="@style/TextAppearance.psnWidgetText"
 					android:text="0"
 				/>
 			</LinearLayout>
@@ -141,7 +141,7 @@
 				android:layout_height="1px"
 				android:layout_marginTop="2dp"
 				android:layout_marginBottom="2dp"
-				android:background="@color/widget_divider"
+				android:background="@color/psn_widget_divider"
 			/>
 			<LinearLayout
 				android:layout_width="fill_parent"
@@ -151,7 +151,7 @@
 				<TextView 
 					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content"
-					android:textAppearance="@style/TextAppearance.widgetText"
+					android:textAppearance="@style/TextAppearance.psnWidgetText"
 					android:text="@string/trophies_unlocked" 
 				/>
 				<TextView
@@ -159,7 +159,7 @@
 					android:layout_width="fill_parent" 
 					android:layout_height="wrap_content"
 					android:gravity="right"
-					android:textAppearance="@style/TextAppearance.widgetText"
+					android:textAppearance="@style/TextAppearance.psnWidgetText"
 				/>
 			</LinearLayout>
 			<LinearLayout
@@ -167,7 +167,7 @@
 				android:layout_height="1px"
 				android:layout_marginTop="2dp"
 				android:layout_marginBottom="2dp"
-				android:background="@color/widget_divider"
+				android:background="@color/psn_widget_divider"
 			/>
 			<LinearLayout
 				android:layout_width="fill_parent"
@@ -177,7 +177,7 @@
 				<TextView 
 					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content"
-					android:textAppearance="@style/TextAppearance.widgetText"
+					android:textAppearance="@style/TextAppearance.psnWidgetText"
 					android:text="@string/games_played" 
 				/>
 				<TextView
@@ -185,7 +185,7 @@
 					android:layout_width="fill_parent" 
 					android:layout_height="wrap_content"
 					android:gravity="right"
-					android:textAppearance="@style/TextAppearance.widgetText"
+					android:textAppearance="@style/TextAppearance.psnWidgetText"
 				/>
 			</LinearLayout>
 			<LinearLayout
@@ -193,7 +193,7 @@
 				android:layout_height="1px"
 				android:layout_marginTop="2dp"
 				android:layout_marginBottom="2dp"
-				android:background="@color/widget_divider"
+				android:background="@color/psn_widget_divider"
 			/>
 		</LinearLayout>
 	</RelativeLayout>
@@ -216,7 +216,7 @@
 			android:id="@+id/widget_trophies_platinum"
 			android:layout_width="80dp" 
 			android:layout_height="wrap_content" 
-			android:textAppearance="@style/TextAppearance.widgetText" 
+			android:textAppearance="@style/TextAppearance.psnWidgetText" 
 			android:background="@drawable/psn_trophy_background"
 			android:layout_alignParentRight="true"
 			android:layout_below="@id/placeholder_trophy"
@@ -225,7 +225,7 @@
 			android:id="@+id/widget_trophies_gold"
 			android:layout_width="112dp" 
 			android:layout_height="wrap_content" 
-			android:textAppearance="@style/TextAppearance.widgetText"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
 			android:background="@drawable/psn_trophy_background"
 			android:layout_alignParentRight="true"
 			android:layout_below="@id/widget_trophies_platinum"
@@ -235,7 +235,7 @@
 			android:layout_width="144dp" 
 			android:layout_height="wrap_content" 
 			android:paddingRight="64dp"
-			android:textAppearance="@style/TextAppearance.widgetText" 
+			android:textAppearance="@style/TextAppearance.psnWidgetText" 
 			android:background="@drawable/psn_trophy_background"
 			android:layout_alignParentRight="true"
 			android:layout_below="@id/widget_trophies_gold"
@@ -245,7 +245,7 @@
 			android:layout_width="176dp" 
 			android:layout_height="wrap_content" 
 			android:paddingRight="96dp"
-			android:textAppearance="@style/TextAppearance.widgetText" 
+			android:textAppearance="@style/TextAppearance.psnWidgetText" 
 			android:background="@drawable/psn_trophy_background"
 			android:layout_alignParentRight="true"
 			android:layout_below="@id/widget_trophies_silver"

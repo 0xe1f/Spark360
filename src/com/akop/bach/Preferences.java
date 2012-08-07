@@ -24,6 +24,7 @@
 package com.akop.bach;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.security.GeneralSecurityException;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
@@ -58,10 +59,11 @@ public class Preferences
 	private static Preferences sPrefs;
 	private SharedPreferences mSharedPrefs;
 	
-	private Cipher mV1Encryptor;
 	private Cipher mV1Decryptor;
 	private Cipher mV2Encryptor;
 	private Cipher mV2Decryptor;
+	private Cipher mV3Encryptor = null;
+	private Cipher mV3Decryptor = null;
 	private static final String VERSION2_CRYPT_KEY = "Caffeine|Spark";
 	
     private static final String UTF8 = "UTF-8";
@@ -88,6 +90,32 @@ public class Preferences
 		}
 	}
 	
+	private KeySpec getV3KeySpec()
+	{
+		KeySpec keySpec = null;
+		
+	    try 
+	    {
+	        Class<?> c = Class.forName("com.akop.bach.Secret");
+	        if (c != null)
+	        {
+		        Method generateKeySpec = 
+		        		c.getDeclaredMethod("generateKeySpec", new Class[0]);
+		        keySpec = (SecretKeySpec)generateKeySpec.invoke(null, new Object[0]);
+	        }
+	    } 
+	    catch (Exception ex) 
+	    {
+	    	if (App.LOGV)
+	    		ex.printStackTrace();
+	    }
+		
+        if (keySpec == null && App.LOGV)
+    		App.logv("Secret class not found");
+        
+		return keySpec;
+	}
+	
 	private void initCryptors(Context context)
 			throws GeneralSecurityException
 	{
@@ -103,10 +131,6 @@ public class Preferences
         		SALT, 1024, 256);
         SecretKey v1Tmp = factory.generateSecret(v1KeySpec);
         SecretKey v1Secret = new SecretKeySpec(v1Tmp.getEncoded(), "AES");
-        
-        mV1Encryptor = Cipher.getInstance(CIPHER_ALGORITHM);
-        mV1Encryptor.init(Cipher.ENCRYPT_MODE, v1Secret, 
-        		new IvParameterSpec(IV));
         
         mV1Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
         mV1Decryptor.init(Cipher.DECRYPT_MODE, v1Secret, 
@@ -124,6 +148,21 @@ public class Preferences
         mV2Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
         mV2Decryptor.init(Cipher.DECRYPT_MODE, v2Secret, 
         		new IvParameterSpec(IV));
+        
+        KeySpec v3KeySpec = getV3KeySpec();
+        if (v3KeySpec != null)
+        {
+            SecretKey v3Tmp = factory.generateSecret(v3KeySpec);
+            SecretKey v3Secret = new SecretKeySpec(v3Tmp.getEncoded(), "AES");
+            
+	        mV3Encryptor = Cipher.getInstance(CIPHER_ALGORITHM);
+	        mV3Encryptor.init(Cipher.ENCRYPT_MODE, v3Secret, 
+	        		new IvParameterSpec(IV));
+	        
+	        mV3Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
+	        mV3Decryptor.init(Cipher.DECRYPT_MODE, v3Secret, 
+	        		new IvParameterSpec(IV));
+        }
 	}
 	
 	public SharedPreferences getSharedPreferences()
@@ -331,7 +370,28 @@ public class Preferences
 			return null;
 		
 		// Determine version
-		if (ciphertext.startsWith("#2") && ciphertext.length() > 2)
+		if (ciphertext.startsWith("#3") && ciphertext.length() > 2)
+		{
+			// Versioned, v3
+			
+			try
+			{
+				return decrypt(ciphertext.substring(2), mV3Decryptor);
+			}
+			catch (UnsupportedEncodingException e)
+			{
+				throw new EncryptionException(e);
+			}
+			catch (GeneralSecurityException e)
+			{
+				throw new EncryptionException(e);
+			}
+			catch (Base64DecoderException e)
+			{
+				throw new EncryptionException(e);
+			}
+		}
+		else if (ciphertext.startsWith("#2") && ciphertext.length() > 2)
 		{
 			// Versioned, v2
 			
@@ -388,21 +448,42 @@ public class Preferences
 		{
 			String ciphertext = null;
 			
-			try
+			if (mV3Encryptor != null)
 			{
-				ciphertext = encrypt(plaintext, mV2Encryptor);
+				try
+				{
+					ciphertext = encrypt(plaintext, mV3Encryptor);
+				}
+				catch (UnsupportedEncodingException e)
+				{
+					throw new EncryptionException(e);
+				}
+				catch (GeneralSecurityException e)
+				{
+					throw new EncryptionException(e);
+				}
+				
+				if (ciphertext != null)
+					value = "#3" + ciphertext;
 			}
-			catch (UnsupportedEncodingException e)
+			else
 			{
-				throw new EncryptionException(e);
+				try
+				{
+					ciphertext = encrypt(plaintext, mV2Encryptor);
+				}
+				catch (UnsupportedEncodingException e)
+				{
+					throw new EncryptionException(e);
+				}
+				catch (GeneralSecurityException e)
+				{
+					throw new EncryptionException(e);
+				}
+				
+				if (ciphertext != null)
+					value = "#2" + ciphertext;
 			}
-			catch (GeneralSecurityException e)
-			{
-				throw new EncryptionException(e);
-			}
-			
-			if (ciphertext != null)
-				value = "#2" + ciphertext;
 		}
 		
 		editor.putString(key, value);

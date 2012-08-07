@@ -216,11 +216,11 @@
 	</style>
 	
 	<style 
-		name="TextAppearance.widgetText"
+		name="TextAppearance.xboxWidgetText"
 		parent="@style/TextAppearance.title"
 	>
 		<item name="android:textSize">13sp</item>
-		<item name="android:textColor">@color/widget_text</item>
+		<item name="android:textColor">@color/xbox_widget_text</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 	
@@ -260,7 +260,7 @@
 	</style>
 	
 	<style 
-		name="TextAppearance.friendInfo" 
+		name="TextAppearance.xboxFriendInfo" 
 		parent="@android:style/TextAppearance.Widget.TextView"
 	>
 		<item name="android:textSize">14sp</item>
@@ -581,7 +581,7 @@
 	</style>
 	
 	<style 
-		name="TextAppearance.friendStatus" 
+		name="TextAppearance.xboxFriendStatus" 
 		parent="@android:style/TextAppearance.Widget.TextView"
 	>
 		<item name="android:textSize">14sp</item>
@@ -778,7 +778,7 @@
 		parent="@android:style/TextAppearance.Widget.TextView"
 	>
 		<item name="android:textSize">16sp</item>
-		<item name="android:textColor">@color/widget_text</item>
+		<item name="android:textColor">@color/psn_widget_text</item>
 	</style>
 	
 	<style 
@@ -839,6 +839,15 @@
 		<item name="android:textColor">@color/primary_text</item>
 	</style>
 	
+	<style 
+		name="TextAppearance.psnWidgetText"
+		parent="@style/TextAppearance.title"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/psn_widget_text</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+	
 	<!-- These clash
 	
 	<style 
@@ -857,21 +866,7 @@
 		<item name="android:textStyle">bold</item>
 	</style>
 	
-	<style 
-		name="TextAppearance.friendInfo" 
-		parent="@android:style/TextAppearance.Widget.TextView"
-	>
-		<item name="android:textSize">12sp</item>
-		<item name="android:textColor">@color/primary_text</item>
-	</style>
 	
-	<style 
-		name="TextAppearance.friendStatus" 
-		parent="@android:style/TextAppearance.Widget.TextView"
-	>
-		<item name="android:textSize">14sp</item>
-		<item name="android:textColor">@color/primary_text</item>
-	</style>
 	
 	-->
 	

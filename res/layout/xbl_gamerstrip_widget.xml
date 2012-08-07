@@ -43,7 +43,7 @@
 			android:id="@+id/profile_gamertag"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textAppearance="@style/TextAppearance.widgetText"
+			android:textAppearance="@style/TextAppearance.xboxWidgetText"
 			android:layout_alignParentLeft="true"
 		/>
 		<LinearLayout
@@ -57,7 +57,7 @@
 				android:id="@+id/profile_gamerscore"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 			/>
 			<ImageView 
 				android:layout_width="wrap_content" 

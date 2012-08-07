@@ -210,7 +210,7 @@
 										android:id="@+id/profile_status"
 										android:layout_width="wrap_content"
 										android:layout_height="wrap_content"
-										android:textAppearance="@style/TextAppearance.friendStatus" 
+										android:textAppearance="@style/TextAppearance.xboxFriendStatus" 
 									/>
 								</LinearLayout>
 							</LinearLayout>
@@ -260,7 +260,7 @@
 										android:layout_width="wrap_content" 
 										android:layout_height="wrap_content" 
 										android:layout_marginLeft="5dp"
-										android:textAppearance="@style/TextAppearance.friendInfo" 
+										android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 									/>
 								</LinearLayout>
 							</RelativeLayout>
@@ -359,7 +359,7 @@
 									android:layout_toRightOf="@id/profile_name_cat"
 									android:layout_marginLeft="10dp"
 									android:gravity="right"
-									android:textAppearance="@style/TextAppearance.friendInfo" 
+									android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 								/>
 							</RelativeLayout>
 							<View
@@ -393,7 +393,7 @@
 									android:layout_toRightOf="@id/profile_location_cat"
 									android:layout_marginLeft="10dp"
 									android:gravity="right"
-									android:textAppearance="@style/TextAppearance.friendInfo" 
+									android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 								/>
 							</RelativeLayout>
 							<View
@@ -427,7 +427,7 @@
 									android:layout_toRightOf="@id/profile_motto_cat"
 									android:layout_marginLeft="10dp"
 									android:gravity="right"
-									android:textAppearance="@style/TextAppearance.friendInfo" 
+									android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 								/>
 							</RelativeLayout>
 							<View
@@ -449,7 +449,7 @@
 								android:id="@+id/profile_bio"
 								android:layout_width="fill_parent"
 								android:layout_height="wrap_content" 
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
 							/>

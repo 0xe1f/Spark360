@@ -54,8 +54,8 @@
 	<color name="summary_status">#ffffffff</color>
 	<color name="divider">#88666666</color>
 	<color name="widget_bg">#ff777777</color>
-	<color name="widget_text">#ffdddddd</color>
-	<color name="widget_divider">#ffdddddd</color>
+	<color name="xbox_widget_text">#ffdddddd</color>
+	<color name="xbox_widget_divider">#ffdddddd</color>
 	<color name="toast_text">#ffeeeeee</color>
 	
 	<color name="status_online">#ff00bb00</color>
@@ -82,12 +82,13 @@
 	<color name="hyperlink">#ffffcf00</color>
 	<color name="icon_background">#ffffffff</color>
 	
+	<color name="psn_widget_text">#ff777777</color>
+	<color name="psn_widget_divider">#ff777777</color>
+		
 	<!--  These clash
 	
 	<color name="background">#ffffffff</color>
 	<color name="divider">#88cccccc</color>
-	<color name="widget_text">#ff777777</color>
-	<color name="widget_divider">#ff777777</color>
 	
 	-->
 	

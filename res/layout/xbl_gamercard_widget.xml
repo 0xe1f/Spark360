@@ -96,7 +96,7 @@
 					<TextView 
 						android:layout_width="wrap_content" 
 						android:layout_height="wrap_content"
-						android:textAppearance="@style/TextAppearance.widgetText"
+						android:textAppearance="@style/TextAppearance.xboxWidgetText"
 						android:text="@string/rep" 
 					/>
 					<LinearLayout 
@@ -142,7 +142,7 @@
 					android:layout_height="1px"
 					android:layout_marginTop="2dp"
 					android:layout_marginBottom="2dp"
-					android:background="@color/widget_divider"
+					android:background="@color/xbox_widget_divider"
 				/>
 				<LinearLayout
 					android:layout_width="fill_parent" 
@@ -152,7 +152,7 @@
 					<TextView 
 						android:layout_width="wrap_content" 
 						android:layout_height="wrap_content"
-						android:textAppearance="@style/TextAppearance.widgetText"
+						android:textAppearance="@style/TextAppearance.xboxWidgetText"
 						android:text="@string/gamerscore" 
 					/>
 					<LinearLayout
@@ -165,7 +165,7 @@
 							android:id="@+id/profile_gamerscore"
 							android:layout_width="wrap_content" 
 							android:layout_height="wrap_content" 
-							android:textAppearance="@style/TextAppearance.widgetText"
+							android:textAppearance="@style/TextAppearance.xboxWidgetText"
 						/>
 						<ImageView 
 							android:layout_width="wrap_content" 
@@ -182,7 +182,7 @@
 					android:layout_marginTop="2dp"
 					android:layout_marginBottom="2dp"
 					android:visibility="invisible"
-					android:background="@color/widget_divider"
+					android:background="@color/xbox_widget_divider"
 				/>
 				<LinearLayout
 					android:layout_width="fill_parent" 
@@ -193,7 +193,7 @@
 					<TextView 
 						android:layout_width="wrap_content" 
 						android:layout_height="wrap_content"
-						android:textAppearance="@style/TextAppearance.widgetText"
+						android:textAppearance="@style/TextAppearance.xboxWidgetText"
 						android:text="@string/zone" 
 					/>
 					<TextView
@@ -201,7 +201,7 @@
 						android:layout_width="fill_parent" 
 						android:layout_height="wrap_content"
 						android:gravity="right"
-						android:textAppearance="@style/TextAppearance.widgetText"
+						android:textAppearance="@style/TextAppearance.xboxWidgetText"
 					/>
 				</LinearLayout>
 			</LinearLayout>
@@ -221,7 +221,7 @@
 			<TextView 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 				android:text="@string/achievements_unlocked" 
 			/>
 			<TextView
@@ -229,7 +229,7 @@
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
 				android:gravity="right"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 			/>
 		</LinearLayout>
 		<LinearLayout
@@ -237,7 +237,7 @@
 			android:layout_height="1px"
 			android:layout_marginTop="2dp"
 			android:layout_marginBottom="2dp"
-			android:background="@color/widget_divider"
+			android:background="@color/xbox_widget_divider"
 		/>
 		<LinearLayout
 			android:layout_width="fill_parent" 
@@ -247,7 +247,7 @@
 			<TextView 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 				android:text="@string/gamerscore_unlocked" 
 			/>
 			<TextView
@@ -255,7 +255,7 @@
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
 				android:gravity="right"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 			/>
 		</LinearLayout>
 		<LinearLayout
@@ -263,7 +263,7 @@
 			android:layout_height="1px"
 			android:layout_marginTop="2dp"
 			android:layout_marginBottom="2dp"
-			android:background="@color/widget_divider"
+			android:background="@color/xbox_widget_divider"
 		/>
 		<LinearLayout
 			android:layout_width="fill_parent" 
@@ -273,7 +273,7 @@
 			<TextView 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 				android:text="@string/last_played" 
 			/>
 			<TextView
@@ -281,7 +281,7 @@
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
 				android:gravity="right"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 			/>
 		</LinearLayout>
 		<LinearLayout
@@ -289,7 +289,7 @@
 			android:layout_height="1px"
 			android:layout_marginTop="2dp"
 			android:layout_marginBottom="2dp"
-			android:background="@color/widget_divider"
+			android:background="@color/xbox_widget_divider"
 		/>
 		<LinearLayout
 			android:layout_width="fill_parent" 
@@ -299,7 +299,7 @@
 			<TextView 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 				android:text="@string/games_played" 
 			/>
 			<TextView
@@ -307,7 +307,7 @@
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
 				android:gravity="right"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.xboxWidgetText"
 			/>
 		</LinearLayout>
 	</LinearLayout>

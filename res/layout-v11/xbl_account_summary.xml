@@ -234,7 +234,7 @@
 								android:layout_width="wrap_content" 
 								android:layout_height="wrap_content" 
 								android:layout_marginLeft="5dp"
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 							/>
 						</LinearLayout>
 					</RelativeLayout>
@@ -335,7 +335,7 @@
 								android:layout_width="wrap_content" 
 								android:layout_height="wrap_content" 
 								android:layout_marginLeft="5dp"
-								android:textAppearance="@style/TextAppearance.friendInfo" 
+								android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 							/>
 						</LinearLayout>
 					</RelativeLayout>
@@ -365,39 +365,9 @@
 							android:layout_marginLeft="5dp"
 							android:layout_alignParentTop="true"
 							android:layout_alignParentRight="true"
-							android:textAppearance="@style/TextAppearance.friendInfo" 
+							android:textAppearance="@style/TextAppearance.xboxFriendInfo" 
 						/>
 					</RelativeLayout>
-					<!--
-					<View
-						android:layout_width="fill_parent"
-						android:layout_height="1px"
-						android:layout_marginTop="5dp"
-						android:layout_marginBottom="5dp"
-						android:background="@color/divider"
-					/>
-					<RelativeLayout
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
-					>
-						<TextView
-							android:text="@string/zone"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content" 
-							android:layout_alignParentTop="true"
-							android:layout_alignParentLeft="true"
-							android:textAppearance="@style/TextAppearance.friendCategory" 
-						/>
-						<TextView
-							android:id="@+id/profile_zone"
-							android:layout_width="wrap_content" 
-							android:layout_height="wrap_content"
-							android:layout_alignParentTop="true"
-							android:layout_alignParentRight="true"
-							android:textAppearance="@style/TextAppearance.friendInfo" 
-						/>
-					</RelativeLayout>
-					-->
 				</LinearLayout>
 			</LinearLayout>
 		</ScrollView>

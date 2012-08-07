@@ -46,7 +46,7 @@
 			android:layout_height="wrap_content"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:textAppearance="@style/TextAppearance.widgetText"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
 		/>
 		<ImageView
 			android:layout_width="wrap_content" 
@@ -59,7 +59,7 @@
 			android:id="@+id/widget_level"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textAppearance="@style/TextAppearance.widgetText"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
 			android:text=""
 		/>
 		<ImageView
@@ -73,7 +73,7 @@
 			android:id="@+id/widget_trophy_total"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textAppearance="@style/TextAppearance.widgetText"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
 			android:text="0"
 		/>
 	</LinearLayout>
@@ -110,7 +110,7 @@
 				android:layout_width="40dp" 
 				android:layout_height="wrap_content" 
 				android:paddingLeft="5dp"
-				android:textAppearance="@style/TextAppearance.widgetText" 
+				android:textAppearance="@style/TextAppearance.psnWidgetText" 
 				android:background="@drawable/psn_trophy_background_small"
 				android:singleLine="true"
 			/>
@@ -132,7 +132,7 @@
 				android:layout_width="65dp" 
 				android:layout_height="wrap_content" 
 				android:paddingLeft="5dp"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.psnWidgetText"
 				android:background="@drawable/psn_trophy_background_small"
 				android:singleLine="true"
 			/>
@@ -154,7 +154,7 @@
 				android:layout_width="90dp" 
 				android:layout_height="wrap_content" 
 				android:paddingLeft="5dp"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.psnWidgetText"
 				android:background="@drawable/psn_trophy_background_small"
 				android:singleLine="true"
 			/>
@@ -176,7 +176,7 @@
 				android:layout_width="115dp" 
 				android:layout_height="wrap_content" 
 				android:paddingLeft="5dp"
-				android:textAppearance="@style/TextAppearance.widgetText"
+				android:textAppearance="@style/TextAppearance.psnWidgetText"
 				android:background="@drawable/psn_trophy_background_small"
 				android:singleLine="true"
 			/>
