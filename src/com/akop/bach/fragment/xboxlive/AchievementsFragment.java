@@ -259,7 +259,7 @@ public class AchievementsFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -472,8 +472,8 @@ public class AchievementsFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mBeaconListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mBeaconListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -484,8 +484,8 @@ public class AchievementsFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mBeaconListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mBeaconListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		cr.registerContentObserver(Games.CONTENT_URI, true, mObserver);
@@ -594,7 +594,7 @@ public class AchievementsFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().synchronizeAchievements(mAccount, mTitleId,
+		TaskController.getInstance().synchronizeAchievements(mAccount, mTitleId,
 				mListener);
 	}
 	
@@ -665,7 +665,7 @@ public class AchievementsFragment extends GenericFragment implements
 					iv.setImageResource(c.getInt(GamesFragment.GAME_BEACON_SET) != 0
 							? R.drawable.beacon_on : R.drawable.beacon_off);
 					
-					ImageCache ic = ImageCache.get();
+					ImageCache ic = ImageCache.getInstance();
 					String iconUrl = c.getString(GamesFragment.GAME_ICON_URL);
 					Bitmap bmp;
 					
@@ -712,7 +712,7 @@ public class AchievementsFragment extends GenericFragment implements
 		{
 			// Beacon is currently set, so unset it
 			
-			TaskController.get().runCustomTask(null, new CustomTask<Void>()
+			TaskController.getInstance().runCustomTask(null, new CustomTask<Void>()
 					{
 						@Override
 						public void runTask() throws AuthenticationException,
@@ -750,7 +750,7 @@ public class AchievementsFragment extends GenericFragment implements
 				@Override
 				public void beaconTextEntered(final String message)
 				{
-					TaskController.get().runCustomTask(null, new CustomTask<Void>()
+					TaskController.getInstance().runCustomTask(null, new CustomTask<Void>()
 							{
 								@Override
 								public void runTask() throws AuthenticationException,

@@ -112,7 +112,7 @@ public class AccountSelector
 	{
 		super.onResume();
 		
-		ImageCache.get().addListener(this);
+		ImageCache.getInstance().addListener(this);
 		
 		refreshAccounts();
 	}
@@ -122,7 +122,7 @@ public class AccountSelector
 	{
 		super.onPause();
 		
-		ImageCache.get().removeListener(this);
+		ImageCache.getInstance().removeListener(this);
 	}
 	
 	public static void actionSelectAccount(Activity activity, int requestCode)
@@ -167,7 +167,7 @@ public class AccountSelector
 			this.description = description;
 			this.iconUrl = iconUrl;
 			this.uuid = uuid;
-			this.icon = (iconUrl == null) ? null : ImageCache.get().getCachedBitmap(iconUrl);
+			this.icon = (iconUrl == null) ? null : ImageCache.getInstance().getCachedBitmap(iconUrl);
 		}
 	}
 	
@@ -246,7 +246,7 @@ public class AccountSelector
 			{
 				vh.avatarIcon.setImageResource(R.drawable.avatar_default);
 				if (info.iconUrl != null)
-					ImageCache.get().requestImage(info.iconUrl,
+					ImageCache.getInstance().requestImage(info.iconUrl,
 							AccountSelector.this, 0, info);
 			}
 			

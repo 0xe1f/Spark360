@@ -170,7 +170,7 @@ public class SentMessageViewFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -181,7 +181,7 @@ public class SentMessageViewFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		cr.registerContentObserver(SentMessages.CONTENT_URI, true, mObserver);

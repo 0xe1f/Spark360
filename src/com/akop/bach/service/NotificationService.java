@@ -122,9 +122,6 @@ public class NotificationService extends Service
 	
 	public static void actionReschedule(Context context)
 	{
-		if (!App.ENABLE_SERVICES)
-			return;
-		
 		acquireWakeLock(context);
 		
 		try
@@ -146,9 +143,6 @@ public class NotificationService extends Service
 	
 	public static void actionUpdate(Context context, long checkId)
 	{
-		if (!App.ENABLE_SERVICES)
-			return;
-		
 		acquireWakeLock(context);
 		
 		try

@@ -26,7 +26,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:background="@color/background"
+	android:background="@color/xbox_background"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
 >

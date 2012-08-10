@@ -190,7 +190,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
 				
@@ -355,7 +355,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -363,7 +363,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
         
 		synchronizeLocal();
 		
@@ -443,7 +443,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().runCustomTask(null, new CustomTask<RssChannel>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<RssChannel>()
 				{
 					@Override
 					public void runTask() throws Exception

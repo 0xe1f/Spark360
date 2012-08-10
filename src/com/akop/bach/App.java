@@ -70,9 +70,7 @@ import com.akop.bach.service.NotificationService;
 public class App extends Application
 {
 	public static final boolean LOGV = true;
-	public static final boolean ENABLE_INET = true;
-	public static final boolean ENABLE_SERVICES = true;
-	public static final boolean ENABLE_ACRA_SUBMISSIONS = false;
+	public static final boolean ENABLE_ACRA = false;
 	
 	private static final String LOG_TAG = "bach";
 	
@@ -93,9 +91,6 @@ public class App extends Application
 		sInstance = this;
 		
 		ErrorReporter.getInstance().disable();
-		
-		ImageCache.createInstance(this);
-		TaskController.create(this);
 		
 		NotificationService.actionReschedule(this);
 	}

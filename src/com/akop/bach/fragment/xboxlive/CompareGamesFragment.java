@@ -232,7 +232,7 @@ public class CompareGamesFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -378,8 +378,8 @@ public class CompareGamesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		ImageCache.get().removeListener(mGamerpicListener);
+		TaskController.getInstance().removeListener(mListener);
+		ImageCache.getInstance().removeListener(mGamerpicListener);
 	}
 	
 	@Override
@@ -387,8 +387,8 @@ public class CompareGamesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		ImageCache.get().addListener(mGamerpicListener);
+		TaskController.getInstance().addListener(mListener);
+		ImageCache.getInstance().addListener(mGamerpicListener);
         
 		synchronizeLocal();
 		
@@ -517,7 +517,7 @@ public class CompareGamesFragment extends GenericFragment implements
 	{
 		// Load gamerpics
 		
-		ImageCache ic = ImageCache.get();
+		ImageCache ic = ImageCache.getInstance();
 		if (mPayload != null)
 		{
 			if (mPayload.myAvatarIconUrl != null && mMyGamerpic == null)
@@ -541,7 +541,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().compareGames(mAccount, mGamertag, mListener);
+		TaskController.getInstance().compareGames(mAccount, mGamertag, mListener);
 	}
 	
 	@Override

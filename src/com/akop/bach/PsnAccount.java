@@ -31,6 +31,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 
 import com.akop.bach.activity.AuthenticatingAccountLogin;
@@ -146,7 +147,7 @@ public class PsnAccount
 	
 	public void setOnlineId(String onlineId)
 	{
-		if (!areStringsEqual(onlineId, mOnlineId))
+		if (!TextUtils.equals(onlineId, mOnlineId))
 		{
 			mOnlineId = onlineId;
 			mDirtyOnlineId = true;
@@ -563,7 +564,7 @@ public class PsnAccount
 	
 	public void setRingtone(String ringtone)
 	{
-		if (!areStringsEqual(ringtone, mRingtone))
+		if (!TextUtils.equals(ringtone, mRingtone))
 		{
 			mRingtone = ringtone;
 			mDirtyRingtone = true;

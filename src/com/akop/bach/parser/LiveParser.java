@@ -262,6 +262,10 @@ public abstract class LiveParser extends Parser
 	{
 		List<NameValuePair> inputs = new ArrayList<NameValuePair>(10);
 		
+		String password = xblAccount.getPassword();
+		if (password == null)
+			throw new ParserException(mContext.getString(R.string.password_decryption_error));
+		
 		// 1. Initial login page fetch
 		String url = getLoginUrl(xblAccount);
 		String page = getResponse(url);
@@ -280,7 +284,7 @@ public abstract class LiveParser extends Parser
 		getInputs(page, inputs, null);
 		
 		setValue(inputs, "login", xblAccount.getEmailAddress());
-		setValue(inputs, "passwd", xblAccount.getPassword());
+		setValue(inputs, "passwd", password);
 		setValue(inputs, "KMSI", 1);
 		setValue(inputs, "LoginOptions", 1);
 		

@@ -130,7 +130,7 @@ public class SearchFriendsList
 	private void loadIconsInBackground()
 	{
 		final CachePolicy cp = new CachePolicy();
-		final ImageCache ic = ImageCache.get();
+		final ImageCache ic = ImageCache.getInstance();
 		
 		Thread t = new Thread(new Runnable()
 		{
@@ -188,7 +188,7 @@ public class SearchFriendsList
 	{
 		super.onPause();
 		
-		ImageCache.get().removeListener(this);
+		ImageCache.getInstance().removeListener(this);
 	}
 	
 	@Override
@@ -196,7 +196,7 @@ public class SearchFriendsList
 	{
 		super.onResume();
 		
-		ImageCache.get().addListener(this);
+		ImageCache.getInstance().addListener(this);
 		loadIconsInBackground();
 	}
 	
@@ -294,7 +294,7 @@ public class SearchFriendsList
     		{
     			// Image has likely been garbage-collected
     			// Load it into the cache again
-    			Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+    			Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
     			if (bmp != null)
     			{
     				mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));

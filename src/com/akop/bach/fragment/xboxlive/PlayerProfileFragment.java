@@ -80,7 +80,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 		{
 			// Update friends
 			synchronizeWithServer();
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			
 			// Show toast
 			if (requestParam instanceof RequestInformation)
@@ -288,8 +288,8 @@ public class PlayerProfileFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mRequestListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mRequestListener);
 	}
 
 	@Override
@@ -297,8 +297,8 @@ public class PlayerProfileFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mRequestListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mRequestListener);
 		
 		synchronizeLocal();
 		
@@ -436,7 +436,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 			holder.gamerScore.setText(getString(R.string.x_f, mPayload.Gamerscore));
 			
 			Bitmap bmp;
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			
 			String gamerpicUrl = mPayload.IconUrl;
 			if (gamerpicUrl != null)
@@ -517,12 +517,12 @@ public class PlayerProfileFragment extends GenericFragment implements
 					holder.beaconRoot.addView(item);
 					
 					ImageView boxart = (ImageView)item.findViewById(R.id.title_boxart);
-					bmp = ImageCache.get().getCachedBitmap(boxartUrl);
+					bmp = ImageCache.getInstance().getCachedBitmap(boxartUrl);
 					
 					if (bmp != null)
 						boxart.setImageBitmap(bmp);
 					else
-						ImageCache.get().requestImage(boxartUrl, this, 0, boxartUrl);
+						ImageCache.getInstance().requestImage(boxartUrl, this, 0, boxartUrl);
 					
 					TextView titleName = (TextView)item.findViewById(R.id.title_name);
 					titleName.setText(title);
@@ -539,7 +539,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 	
 	private void synchronizeWithServer()
 	{
-		TaskController.get().runCustomTask(null, new CustomTask<GamerProfileInfo>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<GamerProfileInfo>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -580,14 +580,14 @@ public class PlayerProfileFragment extends GenericFragment implements
 		if (code == DIALOG_CONFIRM_ADD)
 		{
 			mHandler.showToast(getString(R.string.request_queued));
-			TaskController.get().addFriend(mAccount, param,
+			TaskController.getInstance().addFriend(mAccount, param,
 					new RequestInformation(R.string.added_friend_to_friend_list_f,
 							param), mRequestListener);
 		}
 		else if (code == DIALOG_CONFIRM_REMOVE)
 		{
 			mHandler.showToast(getString(R.string.request_queued));
-			TaskController.get().removeFriend(mAccount, param,
+			TaskController.getInstance().removeFriend(mAccount, param,
 					new RequestInformation(R.string.removed_friend_from_friend_list_f,
 							param), mRequestListener);
 		}

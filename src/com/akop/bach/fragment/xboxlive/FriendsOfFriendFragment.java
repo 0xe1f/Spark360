@@ -127,7 +127,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 		{
 			// Update friends
 			synchronizeWithServer();
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			
 			// Show toast
 			if (requestParam instanceof RequestInformation)
@@ -255,7 +255,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -280,7 +280,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -414,8 +414,8 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mRequestListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mRequestListener);
 	}
 	
 	@Override
@@ -423,8 +423,8 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mRequestListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mRequestListener);
 		
 		synchronizeLocal();
 		
@@ -618,7 +618,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().runCustomTask(mAccount, new CustomTask<FriendsOfFriend>()
+		TaskController.getInstance().runCustomTask(mAccount, new CustomTask<FriendsOfFriend>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -656,14 +656,14 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 		if (code == DIALOG_CONFIRM_ADD)
 		{
 			mHandler.showToast(getString(R.string.request_queued));
-			TaskController.get().addFriend(mAccount, param,
+			TaskController.getInstance().addFriend(mAccount, param,
 					new RequestInformation(R.string.added_friend_to_friend_list_f,
 							param), mRequestListener);
 		}
 		else if (code == DIALOG_CONFIRM_REMOVE)
 		{
 			mHandler.showToast(getString(R.string.request_queued));
-			TaskController.get().removeFriend(mAccount, param,
+			TaskController.getInstance().removeFriend(mAccount, param,
 					new RequestInformation(R.string.removed_friend_from_friend_list_f,
 							param), mRequestListener);
 		}

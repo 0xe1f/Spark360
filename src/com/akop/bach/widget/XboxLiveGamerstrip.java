@@ -224,7 +224,7 @@ public class XboxLiveGamerstrip
 		@Override
         protected List<TaskParam> doInBackground(TaskParam... params)
         {
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			List<TaskParam> outParams = new ArrayList<TaskParam>();
 			
 			for (int i = 0; i < params.length; i++)
@@ -276,7 +276,7 @@ public class XboxLiveGamerstrip
 		
 		if ((iconUrl = pd.avatarUrl) != null)
 		{
-			if ((bmp = ImageCache.get().getCachedBitmap(iconUrl)) != null)
+			if ((bmp = ImageCache.getInstance().getCachedBitmap(iconUrl)) != null)
 			{
 				// Cached; don't need to fetch
 				
@@ -307,7 +307,7 @@ public class XboxLiveGamerstrip
 			{
 				if ((iconUrl = pd.gameIconUrls[i]) != null)
 				{
-					if ((bmp = ImageCache.get().getCachedBitmap(iconUrl)) != null)
+					if ((bmp = ImageCache.getInstance().getCachedBitmap(iconUrl)) != null)
 					{
 						// Cached; don't need to fetch
 						

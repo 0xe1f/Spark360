@@ -320,7 +320,7 @@ public class XboxLiveGamercard extends AppWidgetProvider
 		@Override
         protected List<TaskParam> doInBackground(TaskParam... params)
         {
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			List<TaskParam> outParams = new ArrayList<TaskParam>();
 			
 			for (int i = 0; i < params.length; i++)
@@ -372,7 +372,7 @@ public class XboxLiveGamercard extends AppWidgetProvider
 		
 		if ((iconUrl = pd.avatarUrl) != null)
 		{
-			if ((bmp = ImageCache.get().getCachedBitmap(iconUrl)) != null)
+			if ((bmp = ImageCache.getInstance().getCachedBitmap(iconUrl)) != null)
 			{
 				// Cached; don't need to fetch
 				
@@ -420,7 +420,7 @@ public class XboxLiveGamercard extends AppWidgetProvider
 			{
 				if ((iconUrl = pd.gameIconUrls[i]) != null)
 				{
-					if ((bmp = ImageCache.get().getCachedBitmap(iconUrl)) != null)
+					if ((bmp = ImageCache.getInstance().getCachedBitmap(iconUrl)) != null)
 					{
 						// Cached; don't need to fetch
 						

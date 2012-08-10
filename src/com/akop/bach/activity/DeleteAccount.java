@@ -71,7 +71,7 @@ public class DeleteAccount extends Activity
 		NotificationService.actionReschedule(this);
 		
 		// Schedule the account data to be removed from system
-		TaskController.get().deleteAccount(mAccount, null);
+		TaskController.getInstance().deleteAccount(mAccount, null);
 	}
 	
 	@Override

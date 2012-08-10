@@ -133,7 +133,7 @@ public class FriendProfileFragment extends GenericFragment
 			@Override
 			public void onClick(View v)
 			{
-		    	TaskController.get().updateFriendProfile(mAccount, 
+		    	TaskController.getInstance().updateFriendProfile(mAccount, 
 		    			mGamertag, mListener);
 			}
 		});
@@ -155,7 +155,7 @@ public class FriendProfileFragment extends GenericFragment
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -166,7 +166,7 @@ public class FriendProfileFragment extends GenericFragment
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		cr.registerContentObserver(Friends.CONTENT_URI, true, mObserver);
@@ -237,7 +237,7 @@ public class FriendProfileFragment extends GenericFragment
 	
 	private void synchronizeWithServer()
 	{
-		TaskController.get().updateFriendProfile(mAccount, 
+		TaskController.getInstance().updateFriendProfile(mAccount, 
 				mGamertag, mListener);
 	}
 	
@@ -343,7 +343,7 @@ public class FriendProfileFragment extends GenericFragment
 						pb.setProgress(c.getInt(2));
 						
 						String imageUrl = mAccount.getLargeAvatar(c.getString(3));
-						ImageCache ic = ImageCache.get();
+						ImageCache ic = ImageCache.getInstance();
 						
 						Bitmap bmp;
 						ImageView iv;

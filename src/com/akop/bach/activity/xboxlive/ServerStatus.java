@@ -145,7 +145,7 @@ public class ServerStatus
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -153,8 +153,8 @@ public class ServerStatus
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		mHandler.showProgressBar(TaskController.get().isBusy());
+		TaskController.getInstance().addListener(mListener);
+		mHandler.showProgressBar(TaskController.getInstance().isBusy());
 		
 		if (mStatus == null)
 			requestServerStatus();
@@ -194,7 +194,7 @@ public class ServerStatus
 	
 	private void requestServerStatus()
 	{
-		TaskController.get().runCustomTask(null, new CustomTask<LiveStatusInfo>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<LiveStatusInfo>()
 				{
 					@Override
 					public void runTask()

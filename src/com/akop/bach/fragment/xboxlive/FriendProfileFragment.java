@@ -192,7 +192,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 			@Override
 			public void onClick(View v)
 			{
-		    	TaskController.get().updateFriendProfile(mAccount, 
+		    	TaskController.getInstance().updateFriendProfile(mAccount, 
 		    			mGamertag, mListener);
 			}
 		});
@@ -226,7 +226,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -237,7 +237,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		cr.registerContentObserver(Friends.CONTENT_URI, true, mObserver);
@@ -309,7 +309,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		TaskController controller = TaskController.get();
+		TaskController controller = TaskController.getInstance();
 		
 	    switch (item.getItemId()) 
 	    {
@@ -423,7 +423,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	
 	private void synchronizeWithServer()
 	{
-		TaskController.get().updateFriendProfile(mAccount, 
+		TaskController.getInstance().updateFriendProfile(mAccount, 
 				mGamertag, mListener);
 	}
 	
@@ -504,7 +504,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 						holder.gamerScore.setText(getString(R.string.x_f, c.getInt(2)));
 						
 						Bitmap bmp;
-						ImageCache ic = ImageCache.get();
+						ImageCache ic = ImageCache.getInstance();
 						
 						String gamerpicUrl = c.getString(3);
 						if (gamerpicUrl != null)
@@ -608,12 +608,12 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 						root.addView(item);
 						
 						ImageView boxart = (ImageView)item.findViewById(R.id.title_boxart);
-						Bitmap bmp = ImageCache.get().getCachedBitmap(boxartUrl);
+						Bitmap bmp = ImageCache.getInstance().getCachedBitmap(boxartUrl);
 						
 						if (bmp != null)
 							boxart.setImageBitmap(bmp);
 						else
-							ImageCache.get().requestImage(boxartUrl, this, c.getLong(0), boxartUrl);
+							ImageCache.getInstance().requestImage(boxartUrl, this, c.getLong(0), boxartUrl);
 						
 						TextView titleName = (TextView)item.findViewById(R.id.title_name);
 						titleName.setText(title);
@@ -636,7 +636,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 		if (code == DIALOG_CONFIRM_REMOVE)
 		{
 			mHandler.showToast(getString(R.string.request_queued));
-			TaskController.get()
+			TaskController.getInstance()
 					.removeFriend(mAccount, mGamertag,
 							new RequestInformation(R.string.removed_friend_from_friend_list_f, mGamertag),
 							mListener);

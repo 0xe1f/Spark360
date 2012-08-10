@@ -47,9 +47,7 @@ public class BeaconTextPrompt extends DialogFragment
 	{
 		BeaconTextPrompt f = new BeaconTextPrompt();
 
-		// Supply num input as an argument.
 		Bundle args = new Bundle();
-		//args.putInt("num", num);
 		f.setArguments(args);
 
 		return f;

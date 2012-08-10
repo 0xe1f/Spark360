@@ -228,13 +228,18 @@ public class PsnUsParser
 			ParserException
 	{
 		PsnAccount psnAccount = (PsnAccount)account;
+		
+		String password = psnAccount.getPassword();
+		if (password == null)
+			throw new ParserException(mContext.getString(R.string.password_decryption_error));
+		
 		HttpParams params = mHttpClient.getParams();
 		
 		// Prepare POSTDATA
 		List<NameValuePair> inputs = new ArrayList<NameValuePair>(3);
 		
 		addValue(inputs, "j_username", psnAccount.getEmailAddress());
-		addValue(inputs, "j_password", psnAccount.getPassword());
+		addValue(inputs, "j_password", password);
 		addValue(inputs, "returnURL", URL_RETURN_LOGIN);
 		
 		// Enable redirection (max 1)

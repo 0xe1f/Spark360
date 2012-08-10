@@ -103,8 +103,8 @@
 	</style>
 	
 	<style name="GTheme" parent="android:Theme.Light">
-		<item name="android:windowBackground">@color/background</item>
-		<item name="android:cacheColorHint">@color/background</item>
+		<item name="android:windowBackground">@color/generic_background</item>
+		<item name="android:cacheColorHint">@color/generic_background</item>
     	<item name="android:listViewStyle">@style/listView</item>
     	<item name="android:editTextStyle">@style/editText</item>
     	<item name="android:checkboxStyle">@style/checkbox</item>
@@ -251,7 +251,7 @@
 	</style>
 	
 	<style 
-		name="TextAppearance.friendCategory" 
+		name="TextAppearance.xboxFriendCategory" 
 		parent="@android:style/TextAppearance.Widget.TextView"
 	>
 		<item name="android:textSize">14sp</item>
@@ -424,8 +424,8 @@
 		name="listView" 
 		parent="@android:style/Widget.ListView"
 	>
-		<item name="android:background">@color/background</item>
-		<item name="android:cacheColorHint">@color/background</item>
+		<item name="android:background">@color/generic_background</item>
+		<item name="android:cacheColorHint">@color/generic_background</item>
 		<item name="android:divider">@drawable/divider</item>
 	</style>
 	
@@ -490,7 +490,6 @@
 	>
 		<item name="android:paddingTop">20dp</item>
 		<item name="android:paddingBottom">20dp</item>
-		<item name="android:background">@color/background</item>
 		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">@color/secondary_text</item>
 	</style>
@@ -585,14 +584,6 @@
 		parent="@android:style/TextAppearance.Widget.TextView"
 	>
 		<item name="android:textSize">14sp</item>
-		<item name="android:textColor">@color/primary_text</item>
-	</style>
-	
-	<style 
-		name="TextAppearance.selectorGamertag" 
-		parent="@android:style/TextAppearance.Widget.TextView"
-	>
-		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">@color/primary_text</item>
 	</style>
 	
@@ -847,27 +838,5 @@
 		<item name="android:textColor">@color/psn_widget_text</item>
 		<item name="android:textStyle">normal</item>
 	</style>
-	
-	<!-- These clash
-	
-	<style 
-		name="TextAppearance.selectorGamertag" 
-		parent="@android:style/TextAppearance.Widget.TextView"
-	>
-		<item name="android:textSize">18sp</item>
-	</style>
-	
-	<style 
-		name="TextAppearance.friendCategory" 
-		parent="@android:style/TextAppearance.Widget.TextView"
-	>
-		<item name="android:textSize">12sp</item>
-		<item name="android:textColor">@color/primary_text</item>
-		<item name="android:textStyle">bold</item>
-	</style>
-	
-	
-	
-	-->
 	
 </resources>

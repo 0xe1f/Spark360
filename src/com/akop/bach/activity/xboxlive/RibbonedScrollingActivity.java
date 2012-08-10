@@ -206,7 +206,7 @@ public abstract class RibbonedScrollingActivity
 	{
         if (iconUrl != null)
         {
-        	ImageCache ic = ImageCache.get();
+        	ImageCache ic = ImageCache.getInstance();
         	Bitmap bmp = null;
         	
         	if ((bmp = ic.getCachedBitmap(iconUrl)) != null)
@@ -266,7 +266,7 @@ public abstract class RibbonedScrollingActivity
 	{
 		super.onPause();
 		
-        ImageCache.get().removeListener(mRibbonImageListener);
+        ImageCache.getInstance().removeListener(mRibbonImageListener);
 	}
 	
 	@Override
@@ -274,8 +274,8 @@ public abstract class RibbonedScrollingActivity
 	{
 		super.onResume();
         
-        ImageCache.get().addListener(mRibbonImageListener);
-		mUpdater.showThrobber(TaskController.get().isBusy());
+        ImageCache.getInstance().addListener(mRibbonImageListener);
+		mUpdater.showThrobber(TaskController.getInstance().isBusy());
         mAccount.refresh(Preferences.get(this));
         
         updateRibbon();

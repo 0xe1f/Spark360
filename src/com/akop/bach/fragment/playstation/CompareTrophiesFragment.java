@@ -160,7 +160,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 				{
 					// Image has likely been garbage-collected
 					// Load it into the cache again
-					Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl, mCp);
+					Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl, mCp);
 					if (bmp != null)
 					{
 						mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -357,7 +357,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 				container, false);
 		
 		mMessage = (TextView)layout.findViewById(R.id.message);
-		mMessage.setText(R.string.select_game_to_compare);
+		mMessage.setText(R.string.select_game_to_compare_trophies);
 		
 		mListView = (ListView)layout.findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
@@ -398,8 +398,8 @@ public class CompareTrophiesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		ImageCache.get().removeListener(mGamerpicListener);
+		TaskController.getInstance().removeListener(mListener);
+		ImageCache.getInstance().removeListener(mGamerpicListener);
 	}
 	
 	@Override
@@ -407,8 +407,8 @@ public class CompareTrophiesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		ImageCache.get().addListener(mGamerpicListener);
+		TaskController.getInstance().addListener(mListener);
+		ImageCache.getInstance().addListener(mGamerpicListener);
         
 		synchronizeLocal();
 		
@@ -536,7 +536,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 	{
 		// Load gamerpics
 		
-		ImageCache ic = ImageCache.get();
+		ImageCache ic = ImageCache.getInstance();
 		
 		if (mMyGamerpicUrl != null && mMyGamerpic == null)
 		{
@@ -661,7 +661,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 			mListView.setEmptyView(mProgress);
 			mMessage.setVisibility(View.GONE);
 			
-			TaskController.get().compareAchievements(mAccount, mGamertag, 
+			TaskController.getInstance().compareAchievements(mAccount, mGamertag, 
 				mTitleUid, mListener);
 		}
 	}

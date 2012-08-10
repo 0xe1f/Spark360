@@ -123,7 +123,7 @@ public class RecentPlayersFragment extends GenericFragment implements
 		{
 			// Update friends
 			synchronizeWithServer();
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			
 			// Show toast
 			if (requestParam instanceof RequestInformation)
@@ -242,7 +242,7 @@ public class RecentPlayersFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -267,7 +267,7 @@ public class RecentPlayersFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -398,8 +398,8 @@ public class RecentPlayersFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mRequestListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mRequestListener);
 	}
 	
 	@Override
@@ -407,8 +407,8 @@ public class RecentPlayersFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mRequestListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mRequestListener);
 		
 		synchronizeLocal();
 		
@@ -558,7 +558,7 @@ public class RecentPlayersFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().runCustomTask(mAccount, new CustomTask<RecentPlayers>()
+		TaskController.getInstance().runCustomTask(mAccount, new CustomTask<RecentPlayers>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -592,7 +592,7 @@ public class RecentPlayersFragment extends GenericFragment implements
     public void okClicked(int code, long id, String param)
     {
 		mHandler.showToast(getString(R.string.request_queued));
-		TaskController.get().addFriend(mAccount, param,
+		TaskController.getInstance().addFriend(mAccount, param,
 				new RequestInformation(R.string.added_friend_to_friend_list_f,
 						param), mRequestListener);
     }

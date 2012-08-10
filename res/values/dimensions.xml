@@ -35,4 +35,5 @@
     <dimen name="psnTrophyBronzeWidth">196dp</dimen>
     <dimen name="psnTrophySilverRPad">64dp</dimen>
     <dimen name="psnTrophyBronzeRPad">96dp</dimen>
+    
 </resources>

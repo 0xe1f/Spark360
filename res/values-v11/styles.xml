@@ -37,8 +37,8 @@
     </style>
     
 	<style name="GTheme" parent="android:Theme.Holo.Light">
-		<item name="android:windowBackground">@color/background</item>
-		<item name="android:cacheColorHint">@color/background</item>
+		<item name="android:windowBackground">@color/generic_background</item>
+		<item name="android:cacheColorHint">@color/generic_background</item>
     	<item name="android:listViewStyle">@style/listView</item>
     	<item name="android:editTextStyle">@style/editText</item>
     	<item name="android:checkboxStyle">@style/checkbox</item>

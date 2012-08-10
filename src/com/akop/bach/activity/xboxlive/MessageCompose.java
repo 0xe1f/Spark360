@@ -171,7 +171,7 @@ public class MessageCompose
 				mRecipients.toArray(recipients);
 				mHandler.showToast(getString(R.string.message_queued_for_send));
 				
-				TaskController.get().sendMessage(mAccount, 
+				TaskController.getInstance().sendMessage(mAccount, 
 						recipients, 
 						mView.messageBody.getText().toString(), 
 						null,
@@ -216,14 +216,14 @@ public class MessageCompose
 	protected void onPause()
 	{
 		super.onPause();
-        TaskController.get().removeListener(mListener);
+        TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
-        TaskController.get().addListener(mListener);
+        TaskController.getInstance().addListener(mListener);
 		
 		validate();
 		refreshRecipients();

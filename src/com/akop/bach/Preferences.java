@@ -24,7 +24,6 @@
 package com.akop.bach;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.security.GeneralSecurityException;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
@@ -59,8 +58,6 @@ public class Preferences
 	private static Preferences sPrefs;
 	private SharedPreferences mSharedPrefs;
 	
-	private Cipher mV1Decryptor;
-	private Cipher mV2Encryptor;
 	private Cipher mV2Decryptor;
 	private Cipher mV3Encryptor = null;
 	private Cipher mV3Decryptor = null;
@@ -90,79 +87,37 @@ public class Preferences
 		}
 	}
 	
-	private KeySpec getV3KeySpec()
-	{
-		KeySpec keySpec = null;
-		
-	    try 
-	    {
-	        Class<?> c = Class.forName("com.akop.bach.Secret");
-	        if (c != null)
-	        {
-		        Method generateKeySpec = 
-		        		c.getDeclaredMethod("generateKeySpec", new Class[0]);
-		        keySpec = (SecretKeySpec)generateKeySpec.invoke(null, new Object[0]);
-	        }
-	    } 
-	    catch (Exception ex) 
-	    {
-	    	if (App.LOGV)
-	    		ex.printStackTrace();
-	    }
-		
-        if (keySpec == null && App.LOGV)
-    		App.logv("Secret class not found");
-        
-		return keySpec;
-	}
-	
 	private void initCryptors(Context context)
 			throws GeneralSecurityException
 	{
-		String v1CryptKey = Secure.getString(context.getContentResolver(),
+		String androidId = Secure.getString(context.getContentResolver(),
 				Secure.ANDROID_ID);
 		
-		if (v1CryptKey == null)
-			v1CryptKey = VERSION2_CRYPT_KEY; // Probably an Archos tablet
+		if (androidId == null)
+			androidId = VERSION2_CRYPT_KEY;
 		
         SecretKeyFactory factory = SecretKeyFactory.getInstance(KEYGEN_ALGORITHM);
-        
-        KeySpec v1KeySpec = new PBEKeySpec(v1CryptKey.toCharArray(), 
-        		SALT, 1024, 256);
-        SecretKey v1Tmp = factory.generateSecret(v1KeySpec);
-        SecretKey v1Secret = new SecretKeySpec(v1Tmp.getEncoded(), "AES");
-        
-        mV1Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
-        mV1Decryptor.init(Cipher.DECRYPT_MODE, v1Secret, 
-        		new IvParameterSpec(IV));
         
         KeySpec v2KeySpec = new PBEKeySpec(VERSION2_CRYPT_KEY.toCharArray(), 
         		SALT, 1024, 256);
         SecretKey v2Tmp = factory.generateSecret(v2KeySpec);
         SecretKey v2Secret = new SecretKeySpec(v2Tmp.getEncoded(), "AES");
         
-        mV2Encryptor = Cipher.getInstance(CIPHER_ALGORITHM);
-        mV2Encryptor.init(Cipher.ENCRYPT_MODE, v2Secret, 
-        		new IvParameterSpec(IV));
-        
         mV2Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
         mV2Decryptor.init(Cipher.DECRYPT_MODE, v2Secret, 
         		new IvParameterSpec(IV));
         
-        KeySpec v3KeySpec = getV3KeySpec();
-        if (v3KeySpec != null)
-        {
-            SecretKey v3Tmp = factory.generateSecret(v3KeySpec);
-            SecretKey v3Secret = new SecretKeySpec(v3Tmp.getEncoded(), "AES");
-            
-	        mV3Encryptor = Cipher.getInstance(CIPHER_ALGORITHM);
-	        mV3Encryptor.init(Cipher.ENCRYPT_MODE, v3Secret, 
-	        		new IvParameterSpec(IV));
-	        
-	        mV3Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
-	        mV3Decryptor.init(Cipher.DECRYPT_MODE, v3Secret, 
-	        		new IvParameterSpec(IV));
-        }
+        SecretKeyFactory v3factory = SecretKeyFactory.getInstance(Secret.KEYGEN_ALGORITHM);
+        String v3key = String.format("%s,%s", androidId, Secret.CRYPT_KEY);
+        KeySpec v3KeySpec = new PBEKeySpec(v3key.toCharArray(), Secret.SALT, 1024, 256);
+        SecretKey v3Tmp = v3factory.generateSecret(v3KeySpec);
+        SecretKey v3Secret = new SecretKeySpec(v3Tmp.getEncoded(), Secret.SECRET_KEY_ALGO);
+        
+        mV3Encryptor = Cipher.getInstance(Secret.CIPHER_ALGORITHM);
+        mV3Encryptor.init(Cipher.ENCRYPT_MODE, v3Secret, new IvParameterSpec(Secret.IV));
+        
+        mV3Decryptor = Cipher.getInstance(Secret.CIPHER_ALGORITHM);
+        mV3Decryptor.init(Cipher.DECRYPT_MODE, v3Secret, new IvParameterSpec(Secret.IV));
 	}
 	
 	public SharedPreferences getSharedPreferences()
@@ -360,7 +315,7 @@ public class Preferences
 		if (ciphertext == null)
 			return false;
 		
-		return !ciphertext.startsWith("#2");
+		return !ciphertext.startsWith("#3");
 	}
 	
 	public String getEncrypted(String key) throws EncryptionException
@@ -412,30 +367,6 @@ public class Preferences
 				throw new EncryptionException(e);
 			}
 		}
-		else
-		{
-			// Version 1/unversioned
-			
-			try
-			{
-				return decrypt(ciphertext, mV1Decryptor);
-			}
-			catch (UnsupportedEncodingException e)
-			{
-				if (App.LOGV)
-					e.printStackTrace();
-			}
-			catch (GeneralSecurityException e)
-			{
-				if (App.LOGV)
-					e.printStackTrace();
-			}
-			catch (Base64DecoderException e)
-			{
-				if (App.LOGV)
-					e.printStackTrace();
-			}
-		}
 		
 		return null;
 	}
@@ -448,42 +379,21 @@ public class Preferences
 		{
 			String ciphertext = null;
 			
-			if (mV3Encryptor != null)
+			try
 			{
-				try
-				{
-					ciphertext = encrypt(plaintext, mV3Encryptor);
-				}
-				catch (UnsupportedEncodingException e)
-				{
-					throw new EncryptionException(e);
-				}
-				catch (GeneralSecurityException e)
-				{
-					throw new EncryptionException(e);
-				}
-				
-				if (ciphertext != null)
-					value = "#3" + ciphertext;
+				ciphertext = encrypt(plaintext, mV3Encryptor);
 			}
-			else
+			catch (UnsupportedEncodingException e)
 			{
-				try
-				{
-					ciphertext = encrypt(plaintext, mV2Encryptor);
-				}
-				catch (UnsupportedEncodingException e)
-				{
-					throw new EncryptionException(e);
-				}
-				catch (GeneralSecurityException e)
-				{
-					throw new EncryptionException(e);
-				}
-				
-				if (ciphertext != null)
-					value = "#2" + ciphertext;
+				throw new EncryptionException(e);
 			}
+			catch (GeneralSecurityException e)
+			{
+				throw new EncryptionException(e);
+			}
+			
+			if (ciphertext != null)
+				value = "#3" + ciphertext;
 		}
 		
 		editor.putString(key, value);

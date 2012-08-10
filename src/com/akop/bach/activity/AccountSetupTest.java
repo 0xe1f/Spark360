@@ -216,7 +216,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -224,7 +224,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 	{
 		super.onResume();
 		
-		TaskController controller = TaskController.get();
+		TaskController controller = TaskController.getInstance();
         controller.addListener(mListener);
         
         if (mProfileData == null)

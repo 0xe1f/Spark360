@@ -204,7 +204,7 @@ public class FriendsFragment extends GenericFragment implements
 				public void run()
 				{
 					// Update friends
-					TaskController.get().updateFriendList(mAccount, mListener);
+					TaskController.getInstance().updateFriendList(mAccount, mListener);
 					
 					// Show toast
 					RequestInformation ri = (RequestInformation)requestParam;
@@ -334,7 +334,7 @@ public class FriendsFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -359,7 +359,7 @@ public class FriendsFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -565,7 +565,7 @@ public class FriendsFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().updateFriendList(mAccount, mListener);
+		TaskController.getInstance().updateFriendList(mAccount, mListener);
 	}
 	
 	@Override
@@ -573,8 +573,8 @@ public class FriendsFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mRequestListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mRequestListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -585,8 +585,8 @@ public class FriendsFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mRequestListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mRequestListener);
 		
 		updateLastUpdateTime();
 		
@@ -622,7 +622,7 @@ public class FriendsFragment extends GenericFragment implements
 			FindGamer.actionShow(getActivity(), this, 1);
 			return true;
 		case R.id.menu_refresh:
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			return true;
 	    }
 	    
@@ -705,7 +705,7 @@ public class FriendsFragment extends GenericFragment implements
 		XboxLiveFriendListItem friend = (XboxLiveFriendListItem)info.targetView;
 		
 		mSelectedGamertag = friend.mGamertag;
-		TaskController controller = TaskController.get();
+		TaskController controller = TaskController.getInstance();
 		
 		switch (menuItem.getItemId())
 		{
@@ -761,7 +761,7 @@ public class FriendsFragment extends GenericFragment implements
 		if (code == DIALOG_CONFIRM_REMOVE)
 		{
 			mHandler.showToast(getString(R.string.request_queued));
-			TaskController.get()
+			TaskController.getInstance()
 					.removeFriend(mAccount, mSelectedGamertag,
 							new RequestInformation(R.string.removed_friend_from_friend_list_f, mSelectedGamertag),
 							mRequestListener);

@@ -170,7 +170,7 @@ public class MessageSelectRecipients
 				// Image has likely been garbage-collected
 				// Load it into the cache again
 				
-				bmp = ImageCache.get().getCachedBitmap(item.iconUrl);
+				bmp = ImageCache.getInstance().getCachedBitmap(item.iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(item.iconUrl, new SoftReference<Bitmap>(bmp));
@@ -272,7 +272,7 @@ public class MessageSelectRecipients
 	{
 		super.onPause();
 		
-        ImageCache.get().removeListener(this);
+        ImageCache.getInstance().removeListener(this);
 	}
 	
 	@Override
@@ -280,7 +280,7 @@ public class MessageSelectRecipients
 	{
 		super.onResume();
 		
-        ImageCache.get().addListener(this);
+        ImageCache.getInstance().addListener(this);
         
 		loadIconsInBackground();
 	}
@@ -336,7 +336,7 @@ public class MessageSelectRecipients
 			@Override
 			public void run()
 			{
-				final ImageCache ic = ImageCache.get();
+				final ImageCache ic = ImageCache.getInstance();
 				
 				for (FriendItem item : mRecipients)
 				{

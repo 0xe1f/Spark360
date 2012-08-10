@@ -33,6 +33,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 public abstract class Account implements IAccount
 {
@@ -72,14 +73,6 @@ public abstract class Account implements IAccount
 		
 		refresh(preferences);
 	} 
-	
-	protected static boolean areStringsEqual(String s1, String s2)
-	{
-		if (s1 == null)
-			return s2 == null;
-		
-		return s1.equals(s2);
-	}
 	
 	public abstract boolean isValid();
 	public abstract String getLogonId();
@@ -184,7 +177,7 @@ public abstract class Account implements IAccount
 	
 	public final void setIconUrl(String iconUrl)
 	{
-		if (mDirtyIconUrl = !areStringsEqual(iconUrl, mIconUrl))
+		if (mDirtyIconUrl = !TextUtils.equals(iconUrl, mIconUrl))
 			mIconUrl = iconUrl;
 	}
 	

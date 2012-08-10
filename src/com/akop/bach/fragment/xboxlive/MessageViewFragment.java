@@ -191,7 +191,7 @@ public class MessageViewFragment extends GenericFragment
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -202,7 +202,7 @@ public class MessageViewFragment extends GenericFragment
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		cr.registerContentObserver(Messages.CONTENT_URI, true, mObserver);
@@ -283,7 +283,7 @@ public class MessageViewFragment extends GenericFragment
     {
 		mHandler.showToast(getString(R.string.message_queued_for_delete));
 		
-		TaskController.get().deleteMessage(mAccount, 
+		TaskController.getInstance().deleteMessage(mAccount, 
 				Messages.getUid(getActivity(), mTitleId),
 				getString(R.string.message_deleted),
 				mListener);
@@ -300,7 +300,7 @@ public class MessageViewFragment extends GenericFragment
 	{
 		if (mTitleId >= 0)
 		{
-			TaskController.get().synchronizeMessage(mAccount, 
+			TaskController.getInstance().synchronizeMessage(mAccount, 
 					Messages.getUid(getActivity(), mTitleId), null, mListener);
 		}
 	}
@@ -398,7 +398,7 @@ public class MessageViewFragment extends GenericFragment
 							
 							if (gamerpic != null)
 							{
-								Bitmap bmp = ImageCache.get().getCachedOrRequest(XboxLiveParser.getGamerpicUrl(mSender), 
+								Bitmap bmp = ImageCache.getInstance().getCachedOrRequest(XboxLiveParser.getGamerpicUrl(mSender), 
 										mAvatarLoader, 0,
 										null, sCp);
 								

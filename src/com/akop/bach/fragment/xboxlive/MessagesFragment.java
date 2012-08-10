@@ -224,7 +224,7 @@ public class MessagesFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -431,7 +431,7 @@ public class MessagesFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().synchronizeMessages(mAccount, mListener);
+		TaskController.getInstance().synchronizeMessages(mAccount, mListener);
 	}
 	
 	@Override
@@ -439,7 +439,7 @@ public class MessagesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -447,7 +447,7 @@ public class MessagesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		XboxLiveServiceClient.clearMessageNotifications(getActivity(), mAccount);
 		if (System.currentTimeMillis() - mAccount.getLastMessageUpdate() > mAccount.getMessageRefreshInterval())
@@ -522,7 +522,7 @@ public class MessagesFragment extends GenericFragment implements
 			switch (menuItem.getItemId())
 			{
 			case R.id.menu_mark_as_read:
-				TaskController.get().synchronizeMessage(mAccount, 
+				TaskController.getInstance().synchronizeMessage(mAccount, 
 						Messages.getUid(getActivity(), info.id), null, mListener);
 				return true;
 			case R.id.menu_reply:
@@ -554,7 +554,7 @@ public class MessagesFragment extends GenericFragment implements
 		if (code == DIALOG_CONFIRM)
 		{
 			mHandler.showToast(getString(R.string.message_queued_for_delete));
-			TaskController.get().deleteMessage(mAccount,
+			TaskController.getInstance().deleteMessage(mAccount,
 					id, getString(R.string.message_deleted), mListener);
 		}
     }

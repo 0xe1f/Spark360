@@ -30,7 +30,7 @@
         android:id="@+id/unselected"
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"
-        android:text="@string/select_game_to_view"
+        android:text="@string/select_game_to_view_achieves"
         android:padding="5dip" 
         android:visibility="gone"
         android:gravity="center"

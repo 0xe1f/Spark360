@@ -24,8 +24,8 @@
 <manifest 
     xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.akop.bach"
-	android:versionCode="108"
-	android:versionName="5.35beta"
+	android:versionCode="109"
+	android:versionName="5.40beta"
 >
     <uses-sdk 
         android:minSdkVersion="4"

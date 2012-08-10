@@ -221,7 +221,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 						
 						try
 						{
-							file = ImageCache.get().downloadImage(params[0]);
+							file = ImageCache.getInstance().downloadImage(params[0]);
 						}
 						catch(Exception e)
 						{
@@ -253,10 +253,10 @@ public class GameCatalogDetailsFragment extends GenericFragment
 	{
 		super.onPause();
 		
-		ImageCache.get().removeListener(this);
-		ImageCache.get().removeListener(mGalleryListener);
+		ImageCache.getInstance().removeListener(this);
+		ImageCache.getInstance().removeListener(mGalleryListener);
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -264,9 +264,9 @@ public class GameCatalogDetailsFragment extends GenericFragment
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		ImageCache.get().addListener(this);
-		ImageCache.get().addListener(mGalleryListener);
+		TaskController.getInstance().addListener(mListener);
+		ImageCache.getInstance().addListener(this);
+		ImageCache.getInstance().addListener(mGalleryListener);
 		
 	    if (mDetails == null && mItem != null)
 	    {
@@ -320,7 +320,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 			ImageView iv;
 			TextView tv;
 			View item;
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			
 			if ((item = container.findViewById(R.id.catalog_item)) != null)
 			{
@@ -450,7 +450,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 		if (mItem == null)
 			return;
 		
-		TaskController.get().runCustomTask(null, new CustomTask<GameCatalogItemDetails>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<GameCatalogItemDetails>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -585,7 +585,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 				
 				if (url != null)
 				{
-					ImageCache ic = ImageCache.get();
+					ImageCache ic = ImageCache.getInstance();
 					SoftReference<Bitmap> cachedBmp = mIconCache.get(url);
 	
 					if (cachedBmp == null || (bmp = cachedBmp.get()) == null)

@@ -349,7 +349,7 @@
     <string name="online_status_unavailable">Status de connexion indisponible</string>
     <string name="request_unsuccessful">Requête impossible: Merci de réessayer ultérieurement</string>
     <string name="sender_not_blocked">Impossible de bloquer l\'envoyeur. Merci de réessayer ultérieurement</string>
-    <string name="game_not_found">Impossible de trouver ce jeu dans votre collection. Merci de rafraîchir votre liste de jeu et d\'essayer à nouveau</string>
+    <string name="game_not_found_in_collection">Impossible de trouver ce jeu dans votre collection. Merci de rafraîchir votre liste de jeu et d\'essayer à nouveau</string>
     <string name="could_not_modify_beacon">Balises non modifiables. Merci de rafraîchir votre liste de jeu et d\'essayer à nouveau</string>
     <string name="optional_message">Message optionnel</string>
     <string name="want_to_play_with_friends">Je veux jouer à ce jeu avec des amis</string>
@@ -358,12 +358,12 @@
     <string name="beacons">Balises</string>
     <string name="lets_play_f">Laissons \ jouer \"%1$s\"</string>
     <string name="message_excerpt_f">%1$s…</string>
-    <string name="select_game_to_compare">Sélectionner un jeu pour comparer les succès</string>
+    <string name="select_game_to_compare_achieves">Sélectionner un jeu pour comparer les succès</string>
     <string name="select_account_or_create_new">Sélectionner un compte pour voir le profil, ou en créer un nouveau en cliquant sur <b>Nouveau compte</b></string>
     <string name="show_apps">Montrer les applications</string>
     <string name="show_apps_summary">Montrer ou cacher Les titres avec zero succès</string>
     <string name="select_message_to_view">Sélectionner un message</string>
-    <string name="select_game_to_view">Sélectionner un jeu pour voir ses succès</string>
+    <string name="select_game_to_view_achieves">Sélectionner un jeu pour voir ses succès</string>
     <string name="select_friend_to_view">Sélectionner un gamertag pour voir le profil</string>
     <string name="recent_players_empty">La liste des joueurs récents est vide</string>
     <string name="access_xbox_data">Accès au profil Xbox Live</string>
@@ -517,15 +517,12 @@
     <string name="catalog_button">Catalogue de jeu</string>
     <string name="access_trophies_data">Accès profil PSN</string>
     <string name="access_trophies_data_desc">Permettre à l\'application d\'accéder aux informations du profil PSN </string>
+    <string name="select_game_to_view_trophies">Sélectionner un jeu pour voir ses trophés</string>
+    <string name="select_game_to_compare_trophies">Sélectionner un jeu pour comparer les trophés</string>
+    <string name="game_not_found">Jeu non trouvé</string>
     
-    <!-- These clash
-        
-    <string name="select_game_to_view">Sélectionner un jeu pour voir ses trophés</string>
-    <string name="select_game_to_compare">Sélectionner un jeu pour comparer les tophés</string>
-    <string name="game_not_found">jeu non trouvé</string>
-    <string name="select_game_to_view">Sélectionner un jeu pour voir ses trophés</string>
-    <string name="select_game_to_compare">Sélectionner un jeu pour comparer ses trophés</string>
-    
-    -->
-    
+	<!-- Unlocalized
+	<string name="error_redirecting"></string>
+	<string name="password_decryption_error"></string>
+	-->
 </resources>

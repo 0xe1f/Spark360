@@ -248,7 +248,7 @@ public class GamesFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -478,7 +478,7 @@ public class GamesFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().synchronizeGames(mAccount, mListener);
+		TaskController.getInstance().synchronizeGames(mAccount, mListener);
 	}
 	
 	@Override
@@ -486,8 +486,8 @@ public class GamesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mBeaconListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mBeaconListener);
 	}
 	
 	@Override
@@ -495,8 +495,8 @@ public class GamesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mBeaconListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mBeaconListener);
 		
 		if (System.currentTimeMillis() - mAccount.getLastGameUpdate() > mAccount.getGameHistoryRefreshInterval())
 			synchronizeWithServer();
@@ -544,7 +544,7 @@ public class GamesFragment extends GenericFragment implements
 		{
 			// Beacon is currently set, so unset it
 			
-			TaskController.get().runCustomTask(null, new CustomTask<Void>()
+			TaskController.getInstance().runCustomTask(null, new CustomTask<Void>()
 					{
 						@Override
 						public void runTask() throws AuthenticationException,
@@ -582,7 +582,7 @@ public class GamesFragment extends GenericFragment implements
 				@Override
 				public void beaconTextEntered(final String message)
 				{
-					TaskController.get().runCustomTask(null, new CustomTask<Void>()
+					TaskController.getInstance().runCustomTask(null, new CustomTask<Void>()
 							{
 								@Override
 								public void runTask() throws AuthenticationException,

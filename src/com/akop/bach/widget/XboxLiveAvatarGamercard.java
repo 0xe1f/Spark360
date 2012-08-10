@@ -187,7 +187,7 @@ public class XboxLiveAvatarGamercard extends AppWidgetProvider
 		if (pd == null)
 			return;
 		
-		ImageCache ic = ImageCache.get();
+		ImageCache ic = ImageCache.getInstance();
 		
 		// Gamertag
 		

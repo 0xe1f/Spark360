@@ -237,7 +237,7 @@ public class TrophiesFragment extends GenericFragment implements
 				{
 					// Image has likely been garbage-collected
 					// Load it into the cache again
-					Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl, mCp);
+					Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl, mCp);
 					if (bmp != null)
 					{
 						mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -463,7 +463,7 @@ public class TrophiesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -474,7 +474,7 @@ public class TrophiesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		cr.registerContentObserver(Games.CONTENT_URI, true, mObserver);
@@ -579,7 +579,7 @@ public class TrophiesFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().synchronizeAchievements(mAccount, mTitleId,
+		TaskController.getInstance().synchronizeAchievements(mAccount, mTitleId,
 				mListener);
 	}
 	
@@ -656,7 +656,7 @@ public class TrophiesFragment extends GenericFragment implements
 					if ((tv = (TextView)view.findViewById(R.id.game_trophies_all)) != null)
 						tv.setText((platinum + gold + silver + bronze) + "");
 					
-					ImageCache ic = ImageCache.get();
+					ImageCache ic = ImageCache.getInstance();
 					String iconUrl = c.getString(GamesFragment.COLUMN_ICON_URL);
 					Bitmap bmp;
 					

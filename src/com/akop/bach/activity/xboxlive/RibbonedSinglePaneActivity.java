@@ -179,7 +179,7 @@ public abstract class RibbonedSinglePaneActivity extends FragmentActivity
         
         if (iconUrl != null)
         {
-        	ImageCache ic = ImageCache.get();
+        	ImageCache ic = ImageCache.getInstance();
         	if ((bmp = ic.getCachedBitmap(iconUrl)) != null)
         		mHandler.updateAvatar(bmp);
         	
@@ -208,8 +208,8 @@ public abstract class RibbonedSinglePaneActivity extends FragmentActivity
 	{
 	    super.onPause();
 	    
-	    ImageCache.get().removeListener(mRibbonImageListener);
-	    TaskController.get().removeListener(mListener);
+	    ImageCache.getInstance().removeListener(mRibbonImageListener);
+	    TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -219,8 +219,8 @@ public abstract class RibbonedSinglePaneActivity extends FragmentActivity
 	    
 	    toggleProgressBar(false);
 	    
-	    ImageCache.get().addListener(mRibbonImageListener);
-	    TaskController.get().addListener(mListener);
+	    ImageCache.getInstance().addListener(mRibbonImageListener);
+	    TaskController.getInstance().addListener(mListener);
 	    
 	    updateRibbon();
 	}

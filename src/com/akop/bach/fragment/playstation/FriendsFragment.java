@@ -306,7 +306,7 @@ public class FriendsFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl, mCp);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl, mCp);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -526,7 +526,7 @@ public class FriendsFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().updateFriendList(mAccount, mListener);
+		TaskController.getInstance().updateFriendList(mAccount, mListener);
 	}
 	
 	@Override
@@ -534,7 +534,7 @@ public class FriendsFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -545,7 +545,7 @@ public class FriendsFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		updateLastUpdateTime();
 		
@@ -575,7 +575,7 @@ public class FriendsFragment extends GenericFragment implements
 			FindGamer.actionShow(getActivity(), this, 1);
 			return true;
 	    case R.id.menu_refresh:
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 	    	return true;
 	    case R.id.menu_search_friends:
 			return getActivity().onSearchRequested();

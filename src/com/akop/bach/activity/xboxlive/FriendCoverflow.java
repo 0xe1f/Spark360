@@ -123,7 +123,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 	private void loadIconsInBackground()
 	{
 		final CachePolicy cp = new CachePolicy();
-		final ImageCache ic = ImageCache.get();
+		final ImageCache ic = ImageCache.getInstance();
 		
 		Thread t = new Thread(new Runnable()
 		{
@@ -277,7 +277,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 				Object result)
 		{
 			// Update friends
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			
 			// Show toast
 			RequestInformation ri = (RequestInformation)requestParam;
@@ -353,7 +353,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 				// Image has likely been garbage-collected
 				// Load it into the cache again
 				
-				if ((bmp = ImageCache.get().getCachedBitmap(iconUrl)) != null)
+				if ((bmp = ImageCache.getInstance().getCachedBitmap(iconUrl)) != null)
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
 			}
 			
@@ -418,10 +418,10 @@ public class FriendCoverflow extends RibbonedActivity implements
 	{
 		super.onPause();
 		
-		ImageCache.get().removeListener(this);
+		ImageCache.getInstance().removeListener(this);
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mRequestListener);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mRequestListener);
 	}
 	
 	@Override
@@ -429,17 +429,17 @@ public class FriendCoverflow extends RibbonedActivity implements
 	{
 		super.onResume();
 		
-		ImageCache.get().addListener(this);
+		ImageCache.getInstance().addListener(this);
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mRequestListener);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mRequestListener);
 		
 		loadIconsInBackground();
 		
 		if (System.currentTimeMillis() - mAccount.getLastFriendUpdate() > mAccount
 				.getFriendRefreshInterval())
 		{
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 		}
 		
 		if (mAdapter != null)
@@ -469,7 +469,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 			FindGamer.actionShow(this, R.id.menu_find_gamer);
 			return true;
 		case R.id.menu_refresh:
-			TaskController.get().updateFriendList(mAccount, mListener);
+			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			return true;
 		}
 		return false;

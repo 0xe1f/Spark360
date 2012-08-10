@@ -198,7 +198,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<LinearLayout
 								android:layout_width="wrap_content" 
@@ -226,7 +226,7 @@
 							android:layout_height="1px"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<RelativeLayout
 							android:layout_width="fill_parent"
@@ -241,7 +241,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<LinearLayout 
 								android:layout_width="wrap_content" 
@@ -289,7 +289,7 @@
 							android:layout_height="1px"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<RelativeLayout
 							android:layout_width="fill_parent"
@@ -303,7 +303,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<TextView
 								android:id="@+id/profile_name"
@@ -319,7 +319,7 @@
 							android:layout_height="1px"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<RelativeLayout
 							android:layout_width="fill_parent"
@@ -333,7 +333,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<TextView
 								android:id="@+id/profile_location"
@@ -349,7 +349,7 @@
 							android:layout_height="1px"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<RelativeLayout
 							android:layout_width="fill_parent"
@@ -363,7 +363,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<TextView
 								android:id="@+id/profile_motto"
@@ -379,7 +379,7 @@
 							android:layout_height="1px"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<RelativeLayout
 							android:layout_width="fill_parent"
@@ -393,7 +393,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<LinearLayout
 								android:layout_width="wrap_content" 
@@ -421,7 +421,7 @@
 							android:layout_height="1px"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<RelativeLayout
 							android:layout_width="fill_parent"
@@ -435,7 +435,7 @@
 								android:layout_height="wrap_content" 
 								android:layout_alignParentTop="true"
 								android:layout_alignParentLeft="true"
-								android:textAppearance="@style/TextAppearance.friendCategory" 
+								android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
 							/>
 							<TextView
 								android:id="@+id/profile_membership"
@@ -452,13 +452,13 @@
 							android:layout_height="1px"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="3dp"
-							android:background="@color/divider"
+							android:background="@color/xbox_divider"
 						/>
 						<TextView
 							android:text="@string/info_bio"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content" 
-							android:textAppearance="@style/TextAppearance.friendCategory" 
+							android:textAppearance="@style/TextAppearance.xboxFriendCategory" 
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
 						/>

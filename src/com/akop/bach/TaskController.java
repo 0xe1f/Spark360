@@ -159,7 +159,7 @@ public class TaskController implements Runnable
 		@Override
 		public void run()
 		{
-			TaskController tc = TaskController.get();
+			TaskController tc = TaskController.getInstance();
 			
 			try
 			{
@@ -239,9 +239,9 @@ public class TaskController implements Runnable
     private static TaskController inst = null;
     private Application mApp;
     
-	private TaskController(Application app)
+	private TaskController()
 	{
-		mApp = app;
+		mApp = App.getInstance();
 		mTasks = new LinkedBlockingQueue<Task>();
 		mListeners = new HashSet<TaskListener>();
 		mCurrentTask = null;
@@ -250,14 +250,11 @@ public class TaskController implements Runnable
 		mThread.start();
 	}
 	
-	public synchronized static void create(Application app)
+	public static TaskController getInstance()
 	{
 		if (inst == null)
-			inst = new TaskController(app);
-	}
-	
-	public static TaskController get()
-	{
+			inst = new TaskController();
+		
 		return inst;
 	}
 
@@ -356,9 +353,6 @@ public class TaskController implements Runnable
 	
 	private synchronized boolean addTask(Task newTask)
 	{
-		if (!App.ENABLE_INET)
-			return false;
-		
 		// Check for duplicate tasks
 		if (mCurrentTask != null && mCurrentTask.description.equals(newTask.description))
 		{

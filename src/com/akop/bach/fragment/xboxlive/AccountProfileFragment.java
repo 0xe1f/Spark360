@@ -173,7 +173,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 		if (mAccount == null)
 			return; // Nothing to synch
 		
-		TaskController tc = TaskController.get();
+		TaskController tc = TaskController.getInstance();
 		long time = System.currentTimeMillis();
 		
 		if (force || time - mAccount.getLastSummaryUpdate() > mAccount.getSummaryRefreshInterval())
@@ -208,7 +208,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 			layout.findViewById(R.id.profile).setVisibility(View.VISIBLE);
 			layout.findViewById(R.id.message).setVisibility(View.GONE);
 			
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			String avatarUrl = XboxLiveParser.getAvatarUrl(mAccount.getGamertag());
 			Bitmap bmp;
 			
@@ -407,10 +407,10 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		TaskController.get().removeListener(mProfileUpdater);
+		TaskController.getInstance().removeListener(mListener);
+		TaskController.getInstance().removeListener(mProfileUpdater);
 		
-        ImageCache.get().removeListener(this);
+        ImageCache.getInstance().removeListener(this);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		
@@ -424,10 +424,10 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		TaskController.get().addListener(mProfileUpdater);
+		TaskController.getInstance().addListener(mListener);
+		TaskController.getInstance().addListener(mProfileUpdater);
 		
-        ImageCache.get().addListener(this);
+        ImageCache.getInstance().addListener(this);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		
@@ -514,7 +514,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	public void updateProfile(XboxLiveAccount account, final String motto,
 			final String name, final String location, final String bio)
 	{
-		TaskController.get().runCustomTask(mAccount, new CustomTask<Void>()
+		TaskController.getInstance().runCustomTask(mAccount, new CustomTask<Void>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,

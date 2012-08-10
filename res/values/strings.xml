@@ -349,7 +349,7 @@
     <string name="online_status_unavailable">Online status unavailable</string>
 	<string name="request_unsuccessful">Request unsuccessful. Please try again in a moment</string>
 	<string name="sender_not_blocked">Unable to block sender. Please try again in a moment</string>
-	<string name="game_not_found">Could not find the game in your collection. Please refresh your game list and try again</string>
+	<string name="game_not_found_in_collection">Could not find the game in your collection. Please refresh your game list and try again</string>
 	<string name="could_not_modify_beacon">Could not modify beacon. Please refresh your game list and try again</string>
 	<string name="optional_message">Optional Message</string>
 	<string name="want_to_play_with_friends">I want to play this game with friends</string>
@@ -358,12 +358,12 @@
 	<string name="beacons">Beacons</string>
 	<string name="lets_play_f">Let\'s play \"%1$s\"</string>
 	<string name="message_excerpt_f">%1$s&#8230;</string>
-	<string name="select_game_to_compare">Select a game to compare achievements</string>
+	<string name="select_game_to_compare_achieves">Select a game to compare achievements</string>
 	<string name="select_account_or_create_new">Select an account to view profile, or create a new one by pressing <b>New account</b></string>
 	<string name="show_apps">Show apps</string>
 	<string name="show_apps_summary">Show or hide zero-achievement titles</string>
 	<string name="select_message_to_view">Select a message</string>
-	<string name="select_game_to_view">Select a game to view its achievements</string>
+	<string name="select_game_to_view_achieves">Select a game to view its achievements</string>
 	<string name="select_friend_to_view">Select a screen name to view profile</string>
     <string name="recent_players_empty">List of recent players is empty</string>
     <string name="access_xbox_data">Access Xbox Live profile</string>
@@ -517,18 +517,12 @@
     <string name="catalog_button">Game Catalog</string>
     <string name="access_trophies_data">Access PSN profile</string>
     <string name="access_trophies_data_desc">Allows application to access PSN profile information</string>
-    
-	<!-- These clash
-	
-	<string name="select_game_to_view">Select a game to view its trophies</string>
-    <string name="select_game_to_compare">Select a game to compare trophies</string>
+	<string name="select_game_to_view_trophies">Select a game to view trophies</string>
+    <string name="select_game_to_compare_trophies">Select a game to compare trophies</string>
 	<string name="game_not_found">Game not found</string>
-    <string name="select_game_to_view">Select a game to view its trophies</string>
-    <string name="select_game_to_compare">Select a game to compare trophies</string>
-	
-	-->
-	
+    
 	<!-- Unlocalized -->
 	<string name="error_redirecting">Server is repeatedly redirecting. Please try again later</string>
+	<string name="password_decryption_error">Could not read account password from the device. If you are using a custom build, please delete, then add the account again.</string>
 	
 </resources>

@@ -233,7 +233,7 @@ public class GameCatalogFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl, mCp);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl, mCp);
 				if (bmp != null)
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
 				
@@ -494,8 +494,8 @@ public class GameCatalogFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		ImageCache.get().removeListener(this);
+		TaskController.getInstance().removeListener(mListener);
+		ImageCache.getInstance().removeListener(this);
 	}
 	
 	@Override
@@ -503,8 +503,8 @@ public class GameCatalogFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		ImageCache.get().addListener(this);
+		TaskController.getInstance().addListener(mListener);
+		ImageCache.getInstance().addListener(this);
         
 		synchronizeLocal();
 		
@@ -576,8 +576,8 @@ public class GameCatalogFragment extends GenericFragment implements
 					
 					if (cachedIcon == null || cachedIcon.get() == null)
 					{
-						if (!ImageCache.get().isCached(item.BoxartUrl, mCp))
-							ImageCache.get().requestImage(iconUrl, this, 
+						if (!ImageCache.getInstance().isCached(item.BoxartUrl, mCp))
+							ImageCache.getInstance().requestImage(iconUrl, this, 
 									0, iconUrl, false, mCp);
 					}
 				}
@@ -660,7 +660,7 @@ public class GameCatalogFragment extends GenericFragment implements
 		mMessage.setVisibility(View.GONE);
 		
 		mLastRequestedPage = mLastFetchedPage + 1;
-		TaskController.get().runCustomTask(mAccount, new CustomTask<GameCatalogList>()
+		TaskController.getInstance().runCustomTask(mAccount, new CustomTask<GameCatalogList>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,

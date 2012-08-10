@@ -29,8 +29,8 @@
 	<color name="caf_secondary_text">#ff7f7f7f</color>
     <color name="white">#ffffffff</color>
 	
-    <color name="background">#ffeaeaea</color>
-	<color name="primary_text">#ff222222</color>
+    <color name="generic_background">#ffeaeaea</color>
+ 	<color name="primary_text">#ff222222</color>
 	<color name="secondary_text">#ff444444</color>
 	
 	<color name="xbox_background">#ffe6e7e6</color>
@@ -52,7 +52,7 @@
 	<color name="disabled_text">#ffbbbbbb</color>
 	<color name="summary_top_background">@android:color/transparent</color>
 	<color name="summary_status">#ffffffff</color>
-	<color name="divider">#88666666</color>
+	<color name="xbox_divider">#88666666</color>
 	<color name="widget_bg">#ff777777</color>
 	<color name="xbox_widget_text">#ffdddddd</color>
 	<color name="xbox_widget_divider">#ffdddddd</color>
@@ -84,12 +84,5 @@
 	
 	<color name="psn_widget_text">#ff777777</color>
 	<color name="psn_widget_divider">#ff777777</color>
-		
-	<!--  These clash
-	
-	<color name="background">#ffffffff</color>
-	<color name="divider">#88cccccc</color>
-	
-	-->
 	
 </resources>

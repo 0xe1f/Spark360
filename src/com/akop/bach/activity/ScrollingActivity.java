@@ -206,7 +206,7 @@ public abstract class ScrollingActivity
 	{
 		super.onPause();
 		
-		ImageCache ic = ImageCache.get();
+		ImageCache ic = ImageCache.getInstance();
         ic.removeListener(this);
 	}
 	
@@ -215,7 +215,7 @@ public abstract class ScrollingActivity
 	{
 		super.onResume();
 		
-		ImageCache ic = ImageCache.get();
+		ImageCache ic = ImageCache.getInstance();
         ic.addListener(this);
 	}
 	
@@ -328,7 +328,7 @@ public abstract class ScrollingActivity
 			@Override
 			public void run()
 			{
-				final ImageCache ic = ImageCache.get();
+				final ImageCache ic = ImageCache.getInstance();
 				final String iconUrlKey = getIconUrlKey(); 
 				
 				for (Map<String, Object> listItem : list)
@@ -369,7 +369,7 @@ public abstract class ScrollingActivity
 		{
 			// Image has likely been garbage-collected
 			// Load it into the cache again
-			Bitmap bmp = ImageCache.get().getCachedBitmap(imageUrl);
+			Bitmap bmp = ImageCache.getInstance().getCachedBitmap(imageUrl);
 			if (bmp != null)
 			{
 				mIconCache.put(imageUrl, new SoftReference<Bitmap>(bmp));

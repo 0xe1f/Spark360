@@ -215,9 +215,9 @@ public class GameOverview
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-		ImageCache.get().removeListener(this);
-		ImageCache.get().removeListener(mGalleryListener);
+		TaskController.getInstance().removeListener(mListener);
+		ImageCache.getInstance().removeListener(this);
+		ImageCache.getInstance().removeListener(mGalleryListener);
 		
 		if (mProgDlg != null)
 		{
@@ -236,11 +236,11 @@ public class GameOverview
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-		ImageCache.get().addListener(this);
-		ImageCache.get().addListener(mGalleryListener);
+		TaskController.getInstance().addListener(mListener);
+		ImageCache.getInstance().addListener(this);
+		ImageCache.getInstance().addListener(mGalleryListener);
 		
-        mHandler.showThrobber(TaskController.get().isBusy());
+        mHandler.showThrobber(TaskController.getInstance().isBusy());
 		
 		if (mData == null)
 			loadGameOverview(mGameUrl);
@@ -271,7 +271,7 @@ public class GameOverview
 		tv = (TextView)findViewById(R.id.game_esrb_rating);
 		tv.setText(mData.EsrbRatingDescription);
 		
-		ImageCache ic = ImageCache.get();
+		ImageCache ic = ImageCache.getInstance();
 		Bitmap bmp;
 		
 		if (mData.EsrbRatingIconUrl != null)
@@ -319,7 +319,7 @@ public class GameOverview
 								
 								try
 								{
-									file = ImageCache.get().downloadImage(url);
+									file = ImageCache.getInstance().downloadImage(url);
 								}
 								catch(Exception ex)
 								{
@@ -371,7 +371,7 @@ public class GameOverview
 	
 	private void loadGameOverview(final String url)
 	{
-		TaskController.get().runCustomTask(null, new CustomTask<GameOverviewInfo>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<GameOverviewInfo>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -460,7 +460,7 @@ public class GameOverview
         	
 	        if (url != null)
 	        {
-	        	ImageCache ic = ImageCache.get();
+	        	ImageCache ic = ImageCache.getInstance();
 	        	SoftReference<Bitmap> cachedBmp = mIconCache.get(url);
 	        	
 	        	if (cachedBmp == null || (bmp = cachedBmp.get()) == null)

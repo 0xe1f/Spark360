@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 
 import com.akop.bach.XboxLive.Friends;
@@ -200,7 +201,7 @@ public class XboxLiveAccount
 	
 	public void setGamertag(String gamertag)
 	{
-		if (!areStringsEqual(gamertag, mGamertag))
+		if (!TextUtils.equals(gamertag, mGamertag))
 		{
 			mGamertag = gamertag;
 			mDirtyGamertag = true;
@@ -256,7 +257,7 @@ public class XboxLiveAccount
 	
 	public void setRingtone(String ringtone)
 	{
-		if (!areStringsEqual(ringtone, mRingtone))
+		if (!TextUtils.equals(ringtone, mRingtone))
 		{
 			mRingtone = ringtone;
 			mDirtyRingtone = true;

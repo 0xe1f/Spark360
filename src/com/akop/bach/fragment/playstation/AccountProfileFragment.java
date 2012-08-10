@@ -109,7 +109,7 @@ public class AccountProfileFragment extends GenericFragment
 		if (mAccount == null)
 			return; // Nothing to synch
 		
-		TaskController tc = TaskController.get();
+		TaskController tc = TaskController.getInstance();
 		long time = System.currentTimeMillis();
 		
 		if (force || time - mAccount.getLastSummaryUpdate() > mAccount.getSummaryRefreshInterval())
@@ -193,7 +193,7 @@ public class AccountProfileFragment extends GenericFragment
 					pb.setProgress(c.getInt(2));
 					
 					String imageUrl = mAccount.getLargeAvatar(c.getString(3));
-					ImageCache ic = ImageCache.get();
+					ImageCache ic = ImageCache.getInstance();
 					Bitmap bmp;
 					ImageView iv;
 					
@@ -313,8 +313,8 @@ public class AccountProfileFragment extends GenericFragment
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
-        ImageCache.get().removeListener(this);
+		TaskController.getInstance().removeListener(mListener);
+        ImageCache.getInstance().removeListener(this);
 		
 		ContentResolver cr = getActivity().getContentResolver();
         cr.unregisterContentObserver(mObserver);
@@ -325,8 +325,8 @@ public class AccountProfileFragment extends GenericFragment
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-        ImageCache.get().addListener(this);
+		TaskController.getInstance().addListener(mListener);
+        ImageCache.getInstance().addListener(this);
 		
 		ContentResolver cr = getActivity().getContentResolver();
 		

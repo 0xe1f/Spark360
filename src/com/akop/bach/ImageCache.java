@@ -40,7 +40,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
-import android.app.Application;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,6 +68,7 @@ public class ImageCache implements Runnable
 	
     private MediaScannerConnection mMsc;
     
+	@TargetApi(8)
 	class Api8Helper
 	{
 		public File getExternalCacheDir()
@@ -183,13 +184,13 @@ public class ImageCache implements Runnable
 	private File mSdImageDir;
 	private File mSdCacheDir;
     
-	private ImageCache(Application application)
+	private ImageCache()
 	{
-		mContext = application.getApplicationContext();
+		mContext = App.getInstance();
 		mTasks = new LinkedBlockingQueue<Task>();
 		mListeners = new HashSet<OnImageReadyListener>();
 		mCurrentTask = null;
-		mCacheDir = application.getCacheDir();
+		mCacheDir = mContext.getCacheDir();
 		mSdCacheDir = null;
 		mSdImageDir = null;
 		
@@ -221,24 +222,19 @@ public class ImageCache implements Runnable
 		mThread.start();
 	}
 	
-	public synchronized static ImageCache createInstance(Application application)
+	public static ImageCache getInstance()
 	{
 		if (inst == null)
-			inst = new ImageCache(application);
+			inst = new ImageCache();
 		
 		return inst;
 	}
 	
-	public synchronized static ImageCache get()
-	{
-		return inst;
-	}
-
 	public boolean isBusy()
 	{
 		return mBusy;
 	}
-
+	
 	public void run()
 	{
 		Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -303,12 +299,6 @@ public class ImageCache implements Runnable
 		return new File(getCacheDirectory(), filename.replaceAll("\\W", "_"));
 	}
 	
-	public boolean isUsingExternalCache()
-	{
-		return (mSdCacheDir != null && Environment.MEDIA_MOUNTED
-				.equals(Environment.getExternalStorageState()));
-	}
-	
 	public File getCacheDirectory()
 	{
 		File cacheDir = mCacheDir;
@@ -323,26 +313,7 @@ public class ImageCache implements Runnable
 		return cacheDir;
 	}
 	
-	public long getCacheSize()
-	{
-		long size = 0;
-		
-		try
-		{
-			File[] files = getCacheDirectory().listFiles();
-			for (File file : files)
-				size += file.length();
-		}
-		catch(Exception e)
-		{
-			if (App.LOGV)
-				e.printStackTrace();
-		}
-		
-		return size;
-	}
-	
-	public void clearCache()
+	public void clearDiskCache()
 	{
 		try
 		{

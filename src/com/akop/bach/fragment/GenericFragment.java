@@ -97,7 +97,7 @@ public abstract class GenericFragment extends Fragment implements
 				return null;
 			
 			CachePolicy cp = getCachePolicy();
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			
 			try
 			{
@@ -133,9 +133,11 @@ public abstract class GenericFragment extends Fragment implements
 							{
 								Bitmap bmp;
 								
+								// TODO: LAME
 								if ("http://tiles.xbox.com/consoleAssets/FFED0000/en-US/smallboxart.jpg".equalsIgnoreCase(iconUrl))
 								{
 									// Xbox.com boxart
+									
 									bmp = BitmapFactory.decodeResource(getResources(), 
 											R.drawable.xbox_xboxdotcom);
 									GenericFragment.this.onImageReady(id, iconUrl, bmp);
@@ -204,7 +206,7 @@ public abstract class GenericFragment extends Fragment implements
 	{
 	    super.onPause();
 	    
-		ImageCache.get().removeListener(this);
+		ImageCache.getInstance().removeListener(this);
 		if (mIconTask != null)
 			mIconTask.cancel(false);
 	}
@@ -214,7 +216,7 @@ public abstract class GenericFragment extends Fragment implements
 	{
 	    super.onResume();
 	    
-		ImageCache.get().addListener(this);
+		ImageCache.getInstance().addListener(this);
 		
 		syncIcons();
 	}

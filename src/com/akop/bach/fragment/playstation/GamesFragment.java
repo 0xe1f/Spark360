@@ -212,7 +212,7 @@ public class GamesFragment extends GenericFragment implements
 			{
 				// Image has likely been garbage-collected
 				// Load it into the cache again
-				Bitmap bmp = ImageCache.get().getCachedBitmap(iconUrl, mCp);
+				Bitmap bmp = ImageCache.getInstance().getCachedBitmap(iconUrl, mCp);
 				if (bmp != null)
 				{
 					mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
@@ -428,7 +428,7 @@ public class GamesFragment extends GenericFragment implements
 		mListView.setEmptyView(mProgress);
 		mMessage.setVisibility(View.GONE);
 		
-		TaskController.get().synchronizeGames(mAccount, mListener);
+		TaskController.getInstance().synchronizeGames(mAccount, mListener);
 	}
 	
 	@Override
@@ -436,7 +436,7 @@ public class GamesFragment extends GenericFragment implements
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 	
 	@Override
@@ -444,7 +444,7 @@ public class GamesFragment extends GenericFragment implements
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		if (System.currentTimeMillis() - mAccount.getLastGameUpdate() > mAccount.getGameHistoryRefreshInterval())
 			synchronizeWithServer();

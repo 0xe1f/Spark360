@@ -187,7 +187,7 @@ public class GamerProfileFragment extends GenericFragment
 	{
 		super.onPause();
 		
-		TaskController.get().removeListener(mListener);
+		TaskController.getInstance().removeListener(mListener);
 	}
 
 	@Override
@@ -195,7 +195,7 @@ public class GamerProfileFragment extends GenericFragment
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
+		TaskController.getInstance().addListener(mListener);
 		
 		synchronizeLocal();
 	}
@@ -226,7 +226,7 @@ public class GamerProfileFragment extends GenericFragment
 		if (mGamertag == null)
 			return;
 		
-		TaskController.get().runCustomTask(null, new CustomTask<GamerProfileInfo>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<GamerProfileInfo>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -312,7 +312,7 @@ public class GamerProfileFragment extends GenericFragment
 			pb.setProgress(mGamerProfile.Progress);
 			
 			String imageUrl = mAccount.getLargeAvatar(mGamerProfile.AvatarUrl);
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			
 			Bitmap bmp;
 			ImageView iv;

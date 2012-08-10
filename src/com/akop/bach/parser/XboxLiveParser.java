@@ -1104,7 +1104,7 @@ public class XboxLiveParser extends LiveParser
 		
 		String titleId = Games.getUid(mContext, gameId);
 		if (titleId == null)
-			throw new ParserException(mContext, R.string.game_not_found);
+			throw new ParserException(mContext, R.string.game_not_found_in_collection);
 		
 		String token = getVToken(String.format(URL_VTOKEN_ACTIVITY, 
 				mLocale));

@@ -263,7 +263,7 @@ public abstract class RibbonedActivity
 		
         if (iconUrl != null)
         {
-        	ImageCache ic = ImageCache.get();
+        	ImageCache ic = ImageCache.getInstance();
         	Bitmap bmp = null;
         	
         	if ((bmp = ic.getCachedBitmap(iconUrl)) != null)
@@ -314,7 +314,7 @@ public abstract class RibbonedActivity
 	{
 		super.onPause();
 		
-        ImageCache.get().removeListener(mRibbonImageListener);
+        ImageCache.getInstance().removeListener(mRibbonImageListener);
 	}
 	
 	@Override
@@ -322,9 +322,9 @@ public abstract class RibbonedActivity
 	{
 		super.onResume();
         
-		mHandler.showThrobber(TaskController.get().isBusy());
+		mHandler.showThrobber(TaskController.getInstance().isBusy());
         mAccount.refresh(Preferences.get(this));
-        ImageCache.get().addListener(mRibbonImageListener);
+        ImageCache.getInstance().addListener(mRibbonImageListener);
         
         updateRibbon();
 	}

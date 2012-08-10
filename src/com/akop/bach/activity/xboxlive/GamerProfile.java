@@ -273,7 +273,7 @@ public class GamerProfile
 					{
 						if (mInfo != null)
 						{
-							TaskController.get().addFriend(mAccount, 
+							TaskController.getInstance().addFriend(mAccount, 
 									mInfo.Gamertag, null, mListener);
 						
 							mHandler.showToast(R.string.request_queued);
@@ -321,7 +321,7 @@ public class GamerProfile
 			mView.gamerScore.setText(getString(R.string.x_f, mInfo.Gamerscore));
 			
 			Bitmap bmp;
-			ImageCache ic = ImageCache.get();
+			ImageCache ic = ImageCache.getInstance();
 			
 			String gamerpicUrl = mInfo.IconUrl;
 			if (gamerpicUrl != null)
@@ -403,12 +403,12 @@ public class GamerProfile
 					root.addView(item);
 					
 					ImageView boxart = (ImageView)item.findViewById(R.id.title_boxart);
-					bmp = ImageCache.get().getCachedBitmap(boxartUrl);
+					bmp = ImageCache.getInstance().getCachedBitmap(boxartUrl);
 					
 					if (bmp != null)
 						boxart.setImageBitmap(bmp);
 					else
-						ImageCache.get().requestImage(boxartUrl, this, 0, boxartUrl);
+						ImageCache.getInstance().requestImage(boxartUrl, this, 0, boxartUrl);
 					
 					TextView titleName = (TextView)item.findViewById(R.id.title_name);
 					titleName.setText(title);
@@ -425,13 +425,13 @@ public class GamerProfile
 	{
 		super.onPause();
 		
-        TaskController.get().removeListener(mListener);
-        ImageCache.get().removeListener(this);
+        TaskController.getInstance().removeListener(mListener);
+        ImageCache.getInstance().removeListener(this);
 	}
 	
 	private void refreshProfile()
 	{
-		TaskController.get().runCustomTask(null, new CustomTask<GamerProfileInfo>()
+		TaskController.getInstance().runCustomTask(null, new CustomTask<GamerProfileInfo>()
 				{
 					@Override
 					public void runTask() throws AuthenticationException,
@@ -456,10 +456,10 @@ public class GamerProfile
 	{
 		super.onResume();
 		
-		TaskController.get().addListener(mListener);
-        ImageCache.get().addListener(this);
+		TaskController.getInstance().addListener(mListener);
+        ImageCache.getInstance().addListener(this);
         
-        mHandler.showThrobber(TaskController.get().isBusy());
+        mHandler.showThrobber(TaskController.getInstance().isBusy());
         mAccount.refresh(Preferences.get(this));
         
         if (mInfo == null)
