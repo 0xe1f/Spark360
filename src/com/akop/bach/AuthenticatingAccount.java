@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 public abstract class AuthenticatingAccount
 		extends Account
@@ -67,7 +68,7 @@ public abstract class AuthenticatingAccount
 	
 	public void setEmailAddress(String emailAddress)
 	{
-		if (!areStringsEqual(emailAddress, mEmailAddress))
+		if (!TextUtils.equals(emailAddress, mEmailAddress))
 		{
 			mEmailAddress = emailAddress;
 			mDirtyEmailAddress = true; 
@@ -76,7 +77,7 @@ public abstract class AuthenticatingAccount
 	
 	public void setPassword(String password)
 	{
-		if (!areStringsEqual(password, mPassword))
+		if (!TextUtils.equals(password, mPassword))
 		{
 			mPassword = password;
 			mDirtyPassword = true; 
