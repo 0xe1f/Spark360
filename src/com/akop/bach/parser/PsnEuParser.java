@@ -241,7 +241,7 @@ public class PsnEuParser
 		
 		String password = psnAccount.getPassword();
 		if (password == null)
-			throw new ParserException(mContext.getString(R.string.password_decryption_error));
+			throw new ParserException(mContext.getString(R.string.decryption_error));
 		
 		HttpParams params = mHttpClient.getParams();
 		

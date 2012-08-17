@@ -79,8 +79,6 @@
         <ImageView 
             android:id="@+id/friend_title" 
             android:src="@drawable/xbox_game_empty_boxart"
-            android:layout_alignParentLeft="true" 
-            android:layout_alignParentTop="true" 
             android:layout_marginRight="4dp"
             android:layout_width="42dp" 
             android:layout_height="42dp"

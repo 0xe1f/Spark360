@@ -76,14 +76,6 @@ public class SentMessageViewFragment extends GenericFragment implements
 		}
 	}
 	
-	class HoneyCombHelper
-	{
-		public void invalidateMenu()
-		{
-			getActivity().invalidateOptionsMenu();
-		}
-	}
-	
 	private final ContentObserver mObserver = new ContentObserver(new Handler())
 	{
 		@Override

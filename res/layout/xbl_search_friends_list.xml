@@ -21,10 +21,8 @@
  -  02111-1307  USA.
  -->
 
-<FrameLayout
+<merge
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
 	android:orientation="vertical"
 >
 	<ListView
@@ -42,4 +40,4 @@
 		android:textAppearance="@style/TextAppearance.largeMessage" 
         android:visibility="gone" 
     />
-</FrameLayout>
+</merge>

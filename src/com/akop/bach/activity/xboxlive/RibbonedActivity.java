@@ -23,6 +23,7 @@
 
 package com.akop.bach.activity.xboxlive;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -64,6 +65,7 @@ public abstract class RibbonedActivity
 	protected XboxLiveHandler mHandler = new XboxLiveHandler();
 	private AlertDialog mAlert;
 	
+	@TargetApi(11)
 	class ActionBarHelper
 	{
 		public void init()

@@ -28,7 +28,6 @@
     <!-- PSN -->
     <dimen name="psnButtonMinWidth">135sp</dimen>
     <dimen name="psnSmallButtonMinWidth">62sp</dimen>
-    <dimen name="psBlogItemSampleHeight">115sp</dimen>
     <dimen name="psnTrophyPlatinumWidth">100dp</dimen>
     <dimen name="psnTrophyGoldWidth">132dp</dimen>
     <dimen name="psnTrophySilverWidth">164dp</dimen>

@@ -23,6 +23,7 @@
 
 package com.akop.bach.activity.xboxlive;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -112,6 +113,7 @@ public abstract class RibbonedSinglePaneActivity extends FragmentActivity
 		}
 	};
 	
+	@TargetApi(11)
 	class ActionBarHelper
 	{
 		public void init()

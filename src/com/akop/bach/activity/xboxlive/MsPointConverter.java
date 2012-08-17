@@ -24,13 +24,13 @@
 package com.akop.bach.activity.xboxlive;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,10 +59,8 @@ public class MsPointConverter extends Activity implements OnItemSelectedListener
 	private static final int CUR_JPY = 8;
 	
 	private static final long[] MSPOINT_INCREMENTS = { 80, 160, 240, 400, 800, 1200, 1600, 2400 };  
-	private static final HashMap<Integer, Long> CONVERSION_RATIOS = 
-		new HashMap<Integer, Long>();
-	private static final HashMap<Integer, String> CURRENCY_SYMBOLS = 
-		new HashMap<Integer, String>();
+	private static final SparseArray<Long> CONVERSION_RATIOS = new SparseArray<Long>();
+	private static final SparseArray<String> CURRENCY_SYMBOLS = new SparseArray<String>();
 	
 	static
 	{

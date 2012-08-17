@@ -118,14 +118,6 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 		LinearLayout beaconRoot;
 	}
 	
-	class HoneyCombHelper
-	{
-		public void invalidateMenu()
-		{
-			getActivity().invalidateOptionsMenu();
-		}
-	}
-	
 	private final ContentObserver mObserver = new ContentObserver(new Handler())
 	{
 		@Override

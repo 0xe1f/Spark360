@@ -33,6 +33,12 @@
     />
     
 	<permission
+		android:name="com.akop.permission.ACCESS_SPARK_FEATURES"
+		android:label="@string/access_spark_features"
+		android:description="@string/access_spark_features_desc"
+		android:protectionLevel="normal" 
+	/>
+	<permission
 		android:name="com.akop.permission.ACCESS_XBL_PROFILE"
 		android:label="@string/access_xbox_data"
 		android:description="@string/access_xbox_data_desc"
@@ -104,6 +110,7 @@
         <activity android:name=".activity.AccountSetupTest"
             	  android:theme="@style/GTheme" />
         <activity android:name=".activity.AuthenticatingAccountLogin"
+            	  android:exported="false"
             	  android:label="@string/login_settings"
             	  android:theme="@style/GTheme">
             <intent-filter>
@@ -113,6 +120,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.DeleteAccount"
+            	  android:exported="false"
                   android:label="@string/delete_account"
                   android:theme="@android:style/Theme.Translucent">
             <intent-filter>
@@ -127,6 +135,7 @@
         
         <!-- XBL -->
 		<activity android:name=".activity.xboxlive.AccountSettings"
+		    	  android:exported="false"
 		    	  android:label="@string/account_settings"
 		    	  android:theme="@style/GTheme">
             <intent-filter>
@@ -136,6 +145,7 @@
             </intent-filter>
 		</activity>
         <activity android:name=".activity.xboxlive.AccountSummary"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:label="@string/account_summary"
             	  android:theme="@style/XBoxTheme">
             <intent-filter>
@@ -151,6 +161,7 @@
 		<activity android:name=".activity.xboxlive.CompareGames"
         		  android:theme="@style/XBoxTheme" />
         <activity android:name=".activity.xboxlive.Configure2x2GamercardWidget"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
                	  android:label="@string/select_account"
                	  android:theme="@android:style/Theme.Dialog">
 		    <intent-filter>
@@ -159,6 +170,7 @@
         </activity>
         <activity android:name=".activity.xboxlive.ConfigureGamercardWidget"
                   android:label="@string/select_account"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
                   android:theme="@android:style/Theme.Dialog">
 		    <intent-filter>
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -166,6 +178,7 @@
         </activity>
         <activity android:name=".activity.xboxlive.ConfigureGamerstripWidget"
             	  android:label="@string/select_account"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:theme="@android:style/Theme.Dialog">
 		    <intent-filter>
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -174,6 +187,7 @@
 		<activity android:name=".activity.xboxlive.CreateAccountShortcut"
 		    	  android:label="@string/xbox_live_account"
 		    	  android:icon="@drawable/xbox_icon_account"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		    	  android:theme="@style/GTheme">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -183,6 +197,7 @@
 		<activity android:name=".activity.xboxlive.CreateFriendShortcut"
 		    	  android:label="@string/xbox_live_friend"
 		    	  android:icon="@drawable/xbox_icon_friend"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		    	  android:theme="@style/GTheme">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -215,6 +230,7 @@
         <activity android:name=".activity.xboxlive.FriendsOfFriendList"
         		  android:theme="@style/XBoxTheme" />
         <activity android:name=".activity.xboxlive.FriendSummary"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:theme="@style/XBoxTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -248,6 +264,7 @@
 		<activity android:name=".activity.xboxlive.RecentPlayerList"
         		  android:theme="@style/XBoxTheme" />
 	    <activity android:name=".activity.xboxlive.SearchFriendsList"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 	        	  android:theme="@style/GTheme">
 	        <intent-filter>
 	            <action android:name="android.intent.action.SEARCH" />
@@ -267,6 +284,7 @@
         
         <!-- PSN -->
 		<activity android:name=".activity.playstation.AccountSettings"
+		    	  android:exported="false"
 		    	  android:label="@string/account_settings"
 		    	  android:theme="@style/CafTheme">
             <intent-filter>
@@ -277,6 +295,7 @@
         </activity>
         <activity android:name=".activity.playstation.AccountSummary"
             	  android:label="@string/account_summary"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:theme="@style/PsnTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -290,6 +309,7 @@
             	  android:theme="@style/PsnTheme" />
         <activity android:name=".activity.playstation.ConfigureGamerstripWidget"
             	  android:label="@string/select_account"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:theme="@android:style/Theme.Dialog">
 		    <intent-filter>
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -297,6 +317,7 @@
         </activity>
         <activity android:name=".activity.playstation.ConfigurePortableIdWidget"
             	  android:label="@string/select_account"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:theme="@android:style/Theme.Dialog">
 		    <intent-filter>
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -304,6 +325,7 @@
         </activity>
 		<activity android:name=".activity.playstation.CreateAccountShortcut"
 		    	  android:label="@string/psn_account"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		    	  android:icon="@drawable/psn_account_shortcut">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -312,6 +334,7 @@
 		</activity>
         <activity android:name=".activity.playstation.CreateFriendShortcut"
             	  android:label="@string/psn_friend"
+            	  android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
             	  android:icon="@drawable/psn_friend_shortcut">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -333,6 +356,7 @@
         </activity>
         <activity
             android:name=".activity.playstation.FriendSummary"
+			android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
         	android:theme="@style/PsnTheme"
         >
             <intent-filter>
@@ -360,6 +384,7 @@
             	  android:label="@string/playstation_blog"
             	  android:theme="@style/PsnTheme" />
         <activity android:name=".activity.playstation.PsnAccountLogin"
+		          android:exported="false"
             	  android:label="@string/login_settings"
             	  android:theme="@style/CafTheme">
             <intent-filter>
@@ -368,7 +393,10 @@
                 <data android:mimeType="vnd.android.cursor.dir/vnd.akop.bach.psn-profile" />
             </intent-filter>
         </activity>
-	    <activity android:name=".activity.playstation.SearchFriendsList">
+	    <activity 
+	        android:name=".activity.playstation.SearchFriendsList"
+          	android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
+	    >
 	        <intent-filter>
 	            <action android:name="android.intent.action.SEARCH" />
 	        </intent-filter>
@@ -404,6 +432,7 @@
 			android:name=".widget.XboxLiveGamercard" 
 			android:label="@string/xbl_gamercard"
 			android:icon="@drawable/xbox_icon_gamercard"
+           	android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		>
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -417,6 +446,7 @@
 			android:name=".widget.XboxLiveGamerstrip" 
 			android:label="@string/xbl_gamerstrip"
 			android:icon="@drawable/xbox_icon_gamercard"
+      	    android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		>
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -430,6 +460,7 @@
 			android:name=".widget.XboxLive2x2Gamercard" 
 			android:label="@string/xbl_gamercard_2x2"
 			android:icon="@drawable/xbox_icon_gamercard"
+      	    android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		>
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -445,6 +476,7 @@
 			android:name=".widget.PsnGamerstrip" 
 			android:label="@string/psn_portable_id_strip"
 			android:icon="@drawable/psn_widget_icon"
+      	    android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		>
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -458,6 +490,7 @@
 			android:name=".widget.PsnPortableId" 
 			android:label="@string/psn_portable_id_card"
         	android:icon="@drawable/psn_widget_icon"
+      	    android:permission="com.akop.permission.ACCESS_SPARK_FEATURES"
 		>
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

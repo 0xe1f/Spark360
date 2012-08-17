@@ -770,7 +770,7 @@ public abstract class Parser
 			
 	        if (!account.isValid())
 	        	throw new AuthenticationException(mContext, 
-	        			R.string.error_account_corrupted);
+	        			R.string.decryption_error);
 	        
 	        // Perform the actual authentication
 	        if (!onAuthenticate(account))

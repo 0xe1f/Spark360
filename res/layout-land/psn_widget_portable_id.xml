@@ -102,7 +102,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginRight="10dp"
 					android:textAppearance="@style/TextAppearance.psnWidgetText"
-					android:text="0"
+					android:text="@string/zero"
 				/>
 				<ImageView
 					android:layout_width="wrap_content" 
@@ -115,7 +115,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:textAppearance="@style/TextAppearance.psnWidgetText"
-					android:text="0"
+					android:text="@string/zero"
 				/>
 			</LinearLayout>
 			<ProgressBar 
@@ -139,7 +139,7 @@
 		>
 			<LinearLayout
 				android:layout_width="fill_parent" 
-				android:layout_height="1px"
+				android:layout_height="1dp"
 				android:layout_marginTop="2dp"
 				android:layout_marginBottom="2dp"
 				android:background="@color/psn_widget_divider"
@@ -165,7 +165,7 @@
 			</LinearLayout>
 			<LinearLayout
 				android:layout_width="fill_parent" 
-				android:layout_height="1px"
+				android:layout_height="1dp"
 				android:layout_marginTop="2dp"
 				android:layout_marginBottom="2dp"
 				android:background="@color/psn_widget_divider"
@@ -191,7 +191,7 @@
 			</LinearLayout>
 			<LinearLayout
 				android:layout_width="fill_parent" 
-				android:layout_height="1px"
+				android:layout_height="1dp"
 				android:layout_marginTop="2dp"
 				android:layout_marginBottom="2dp"
 				android:background="@color/psn_widget_divider"
@@ -201,7 +201,6 @@
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/widget_aggregate"
 		android:layout_marginTop="5dp"
 		android:gravity="right"
 	>

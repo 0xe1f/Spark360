@@ -35,6 +35,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.FloatMath;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -317,9 +318,9 @@ public abstract class ScrollingActivity
 	{
 		// Convert to DIPs
 		
-		final int newImageWidth = (int)Math.ceil(getImageWidth()
+		final int newImageWidth = (int)FloatMath.ceil(getImageWidth()
 				* getResources().getDisplayMetrics().density);
-		final int newImageHeight = (int)Math.ceil(getImageHeight() 
+		final int newImageHeight = (int)FloatMath.ceil(getImageHeight() 
 				* getResources().getDisplayMetrics().density);
 		final CachePolicy cp = new CachePolicy(newImageWidth, newImageHeight);
 		

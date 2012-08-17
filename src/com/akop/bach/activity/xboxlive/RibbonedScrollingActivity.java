@@ -23,6 +23,7 @@
 
 package com.akop.bach.activity.xboxlive;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -133,6 +134,7 @@ public abstract class RibbonedScrollingActivity
 		}
 	}
 	
+	@TargetApi(11)
 	class ActionBarHelper
 	{
 		public void init()

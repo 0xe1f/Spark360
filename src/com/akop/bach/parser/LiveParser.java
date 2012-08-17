@@ -264,7 +264,7 @@ public abstract class LiveParser extends Parser
 		
 		String password = xblAccount.getPassword();
 		if (password == null)
-			throw new ParserException(mContext.getString(R.string.password_decryption_error));
+			throw new ParserException(mContext.getString(R.string.decryption_error));
 		
 		// 1. Initial login page fetch
 		String url = getLoginUrl(xblAccount);

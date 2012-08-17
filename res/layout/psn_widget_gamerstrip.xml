@@ -74,7 +74,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="@style/TextAppearance.psnWidgetText"
-			android:text="0"
+			android:text="@string/zero"
 		/>
 	</LinearLayout>
 	<ImageView 

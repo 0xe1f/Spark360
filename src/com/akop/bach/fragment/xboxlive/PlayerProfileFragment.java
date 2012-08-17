@@ -185,14 +185,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 		LinearLayout beaconRoot;
 	}
 	
-	class HoneyCombHelper
-	{
-		public void invalidateMenu()
-		{
-			getActivity().invalidateOptionsMenu();
-		}
-	}
-	
 	public static PlayerProfileFragment newInstance(XboxLiveAccount account)
 	{
 		return newInstance(account, null);

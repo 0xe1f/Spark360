@@ -72,13 +72,6 @@
 	        android:layout_height="48dp"
 	        android:layout_marginRight="4dp"
 	    />
-	    <LinearLayout 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content" 
-			android:orientation="vertical"
-	    >
-	       <!-- TODO: more stuff -->
-	    </LinearLayout>
 	</LinearLayout>
     <TextView
         android:id="@+id/friend_status"

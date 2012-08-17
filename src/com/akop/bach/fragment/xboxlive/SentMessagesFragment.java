@@ -192,7 +192,7 @@ public class SentMessagesFragment extends GenericFragment implements
 				@Override
 				public void run()
 				{
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 				}
 			});
 		}

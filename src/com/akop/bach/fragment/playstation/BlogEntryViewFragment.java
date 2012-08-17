@@ -45,14 +45,6 @@ public class BlogEntryViewFragment extends GenericFragment
 {
 	private RssItem mItem;
 	
-	class HoneyCombHelper
-	{
-		public void invalidateMenu()
-		{
-			getActivity().invalidateOptionsMenu();
-		}
-	}
-	
 	public static BlogEntryViewFragment newInstance()
 	{
 		return newInstance(null);

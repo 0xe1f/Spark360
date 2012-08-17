@@ -67,20 +67,20 @@ public class RssHandler extends DefaultHandler
 	{
 		mStateMap = new HashMap<String, Integer>();
 		
-		mStateMap.put("title", new Integer(STATE_IN_ITEM_TITLE));
-		mStateMap.put("link", new Integer(STATE_IN_ITEM_LINK));
+		mStateMap.put("title", Integer.valueOf(STATE_IN_ITEM_TITLE));
+		mStateMap.put("link", Integer.valueOf(STATE_IN_ITEM_LINK));
 		//mStateMap.put("description", new Integer(STATE_IN_ITEM_DESC));
 		//mStateMap.put("content", new Integer(STATE_IN_ITEM_DESC));
-		mStateMap.put("content:encoded", new Integer(STATE_IN_ITEM_CONTENT));
+		mStateMap.put("content:encoded", Integer.valueOf(STATE_IN_ITEM_CONTENT));
 		
-		mStateMap.put("dc:date", new Integer(STATE_IN_ITEM_DATE));
-		mStateMap.put("updated", new Integer(STATE_IN_ITEM_DATE));
-		mStateMap.put("pubDate", new Integer(STATE_IN_ITEM_DATE));
+		mStateMap.put("dc:date", Integer.valueOf(STATE_IN_ITEM_DATE));
+		mStateMap.put("updated", Integer.valueOf(STATE_IN_ITEM_DATE));
+		mStateMap.put("pubDate", Integer.valueOf(STATE_IN_ITEM_DATE));
 		
-		mStateMap.put("dc:author", new Integer(STATE_IN_ITEM_AUTHOR));
-		mStateMap.put("dc:creator", new Integer(STATE_IN_ITEM_AUTHOR));
-		mStateMap.put("author", new Integer(STATE_IN_ITEM_AUTHOR));
-		mStateMap.put("thumbnail_url", new Integer(STATE_IN_ITEM_THUMB));
+		mStateMap.put("dc:author", Integer.valueOf(STATE_IN_ITEM_AUTHOR));
+		mStateMap.put("dc:creator", Integer.valueOf(STATE_IN_ITEM_AUTHOR));
+		mStateMap.put("author", Integer.valueOf(STATE_IN_ITEM_AUTHOR));
+		mStateMap.put("thumbnail_url", Integer.valueOf(STATE_IN_ITEM_THUMB));
 	}
 	
 	private RssHandler(String url)

@@ -90,14 +90,6 @@ public class MessageViewFragment extends GenericFragment
 		}
 	}
 	
-	class HoneyCombHelper
-	{
-		public void invalidateMenu()
-		{
-			getActivity().invalidateOptionsMenu();
-		}
-	}
-	
 	private final ContentObserver mObserver = new ContentObserver(new Handler())
 	{
 		@Override

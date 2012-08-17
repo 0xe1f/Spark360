@@ -148,8 +148,6 @@
 				android:id="@+id/total_stats"
 				android:layout_width="160dp"
 				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentTop="true"
 				android:layout_marginRight="10dp"
 				android:orientation="vertical"
 				android:gravity="center_horizontal"

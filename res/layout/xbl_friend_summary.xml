@@ -82,7 +82,7 @@
 							android:background="@drawable/xbox_simple_button"
 						>
 							<TextView
-								android:text=" "
+								android:text="@string/nbsp"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:textAppearance="@style/TextAppearance.profileCount"
@@ -110,7 +110,7 @@
 							android:background="@drawable/xbox_simple_button"
 						>
 							<TextView
-								android:text=" "
+								android:text="@string/nbsp"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:textAppearance="@style/TextAppearance.profileCount"
@@ -138,7 +138,7 @@
 							android:background="@drawable/xbox_simple_button"
 						>
 							<TextView
-								android:text=" "
+								android:text="@string/nbsp"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:textAppearance="@style/TextAppearance.profileCount"
@@ -221,7 +221,7 @@
 						/>
 						<View
 							android:layout_width="fill_parent"
-							android:layout_height="1px"
+							android:layout_height="1dp"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
 							android:background="@color/xbox_divider"
@@ -263,7 +263,7 @@
 						</RelativeLayout>
 	                    <View
 	                        android:layout_width="fill_parent"
-	                        android:layout_height="1px"
+	                        android:layout_height="1dp"
 	                        android:layout_marginTop="3dp"
 	                        android:layout_marginBottom="3dp"
 	                        android:background="@color/xbox_divider"
@@ -327,7 +327,7 @@
 	                    </RelativeLayout>
 						<View
 							android:layout_width="fill_parent"
-							android:layout_height="1px"
+							android:layout_height="1dp"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
 							android:background="@color/xbox_divider"
@@ -361,7 +361,7 @@
 						</RelativeLayout>
 						<View
 							android:layout_width="fill_parent"
-							android:layout_height="1px"
+							android:layout_height="1dp"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
 							android:background="@color/xbox_divider"
@@ -395,7 +395,7 @@
 						</RelativeLayout>
 						<View
 							android:layout_width="fill_parent"
-							android:layout_height="1px"
+							android:layout_height="1dp"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
 							android:background="@color/xbox_divider"
@@ -429,7 +429,7 @@
 						</RelativeLayout>
 						<View
 							android:layout_width="fill_parent"
-							android:layout_height="1px"
+							android:layout_height="1dp"
 							android:layout_marginTop="3dp"
 							android:layout_marginBottom="3dp"
 							android:background="@color/xbox_divider"

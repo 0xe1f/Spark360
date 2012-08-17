@@ -141,14 +141,6 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 		}
     };
     
-	class HoneyCombHelper
-	{
-		public void invalidateMenu()
-		{
-			getActivity().invalidateOptionsMenu();
-		}
-	}
-	
 	public static AccountProfileFragment newInstance()
 	{
 		return newInstance(null);

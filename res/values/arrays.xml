@@ -76,27 +76,11 @@
         <item>us</item>
         <item>eu</item>
     </string-array>
-    <string-array name="region_entries_with_none">
-        <item>@string/select</item>
-        <item>@string/region_us</item>
-        <item>@string/region_eu</item>
-    </string-array>
-    <string-array name="region_values_with_none" translatable="false">
-        <item>eu</item> <!--  Use default, in case of unforeseen error -->
-        <item>us</item>
-        <item>eu</item>
-    </string-array>
     <string-array name="console_entries">
         <item>@string/console_ps3</item>
         <item>@string/console_psvita</item>
         <item>@string/console_ps2</item>
         <item>@string/console_psp</item>
     </string-array>
-    <integer-array name="console_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </integer-array>
     
 </resources>
