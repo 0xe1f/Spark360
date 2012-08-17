@@ -91,7 +91,6 @@
 	<string name="notify_friend_online_f">%1$s ahora está conectado %2$s</string>
 	
 	<!-- LVL -->
-	<string name="validating_license">La verificación de la licencia&#8230;</string>
 	<string name="widget_could_not_be_added">El widget se puede añadir.</string>
 	<string name="friend_online">Amigo en línea</string>
 	<string name="new_messages">Mensajes nuevos</string>
@@ -140,7 +139,6 @@
     <string name="compare_games">Comparar juegos</string>
     <string name="xbox_live">Xbox Live</string>
     <string name="rep">Reputación</string>
-    <string name="points_balance">saldo de puntos</string>
     <string name="vibrate">Vibración</string>
     <string name="vibrate_summary">Vibración para nuevos notificaciones</string>
     
@@ -157,9 +155,7 @@
     <string name="no_achievements">No logros</string>
     <string name="game_history_empty">Su historia de los juegos está vacía</string>
     <string name="no_games_to_compare">No hay juegos para comparar</string>
-    <string name="comparing_games">Comparación de los juegos&#8230;</string>
     <string name="game_has_no_achieves">Este juego no tiene logros</string>
-    <string name="comparing_achieves">Logros comparado…</string>
     <string name="last_played">Último inicio de sesión</string>
     <string name="last_played_f">Último inicio de sesión %1$s</string>
     <string name="x_f">%1$,d</string>
@@ -249,7 +245,6 @@
     <string name="do_not_notify">Desactivar</string>
     <string name="notify_on_favorite">Amigos favoritos</string>
     <string name="notify_on_all">Todos los amigos</string>
-    <string name="membership">Afiliación</string>
     <string name="xbox_live_status">Estado de Xbox Live</string>
     <string name="xbox_live_account">Cuenta de Xbox Live</string>
     <string name="no_results">No hay resultados para \"%1$s\"</string>

@@ -58,8 +58,9 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
-	<uses-permission android:name="com.akop.permission.ACCESS_PSN_PROFILE" />
-	<uses-permission android:name="com.akop.permission.ACCESS_XBL_PROFILE" />
+    <uses-permission android:name="com.akop.permission.ACCESS_PSN_PROFILE" />
+    <uses-permission android:name="com.akop.permission.ACCESS_PSN_PROFILE" />
+    <uses-permission android:name="com.akop.permission.ACCESS_SPARK_FEATURES" />
 	
     <supports-screens
         android:largeScreens="true"

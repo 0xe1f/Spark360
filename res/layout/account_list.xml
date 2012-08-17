@@ -21,11 +21,7 @@
  -  02111-1307  USA.
  -->
 
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView 
     	android:id="@+id/accounts_none"
     	android:padding="5dip" 
@@ -41,4 +37,4 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" 
 	/>
-</FrameLayout>
+</merge>

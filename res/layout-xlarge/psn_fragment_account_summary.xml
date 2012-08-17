@@ -291,7 +291,7 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="5dp"
-				android:src="@drawable/psn_trophy_platinum_summary"
+				android:src="@drawable/psn_trophy_platinum"
 				android:visibility="invisible" 
 			/>
 			<TextView
@@ -338,7 +338,7 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="5dp"
-				android:src="@drawable/psn_trophy_platinum_summary" 
+				android:src="@drawable/psn_trophy_platinum" 
 				android:layout_alignLeft="@id/profile_trophies_plat"
 				android:layout_above="@id/profile_trophies_plat"
 			/>
@@ -347,7 +347,7 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="5dp"
-				android:src="@drawable/psn_trophy_gold_summary" 
+				android:src="@drawable/psn_trophy_gold" 
 				android:layout_alignLeft="@id/profile_trophies_gold"
 				android:layout_alignBottom="@id/profile_trophies_plat"
 			/>
@@ -356,7 +356,7 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="5dp"
-				android:src="@drawable/psn_trophy_silver_summary" 
+				android:src="@drawable/psn_trophy_silver" 
 				android:layout_alignLeft="@id/profile_trophies_silver"
 				android:layout_alignBottom="@id/profile_trophies_gold"
 			/>
@@ -365,7 +365,7 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="5dp"
-				android:src="@drawable/psn_trophy_bronze_summary" 
+				android:src="@drawable/psn_trophy_bronze" 
 				android:layout_alignLeft="@id/profile_trophies_bronze"
 				android:layout_alignBottom="@id/profile_trophies_silver"
 			/>

@@ -33,6 +33,7 @@
 	    android:orientation="horizontal"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
+        android:baselineAligned="false"
 	>
 	    <FrameLayout
 	        android:id="@+id/fragment_titles"

@@ -444,7 +444,7 @@
 	>
 		<item name="android:background">@color/psn_background</item>
 		<item name="android:cacheColorHint">@color/psn_background</item>
-		<item name="android:divider">@drawable/psn_divider</item>
+		<item name="android:divider">@drawable/divider</item>
 	</style>
 	
 	<style 

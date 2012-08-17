@@ -91,7 +91,6 @@
     <string name="notify_friend_online_f">%1$s ist nun Online auf %2$s</string>
     
     <!-- LVL -->
-    <string name="validating_license">Lizenz wird überprüft&#8230;</string>
     <string name="widget_could_not_be_added">Das Widget konnte nicht hinzugefügt werden.</string>
     <string name="friend_online">Freund online</string>
     <string name="new_messages">Neue Nachrichten</string>
@@ -140,7 +139,6 @@
     <string name="compare_games">Games-Vergleich</string>
     <string name="xbox_live">Xbox Live</string>
     <string name="rep">Rep</string>
-    <string name="points_balance">Punktestand</string>
     <string name="vibrate">Vibrieren</string>
     <string name="vibrate_summary">Auch bei neuen Benachrichtigungen vibrieren</string>
     
@@ -157,9 +155,7 @@
     <string name="no_achievements">Keine Erfolge</string>
     <string name="game_history_empty">Deine Gamesliste ist leer.</string>
     <string name="no_games_to_compare">Keine Games zum vergleichen.</string>
-    <string name="comparing_games">Games-Vergleich&#8230;</string>
     <string name="game_has_no_achieves">Das Game hat keine Erfolge.</string>
-    <string name="comparing_achieves">Erfolge Vergleich&#8230;</string>
     <string name="last_played">Zuletzt gespielt</string>
     <string name="last_played_f">Zuletzt gespielt %1$s</string>
     <string name="x_f">%1$,d</string>
@@ -249,7 +245,6 @@
     <string name="do_not_notify">Aus</string>
     <string name="notify_on_favorite">Favorisierte Freunde</string>
     <string name="notify_on_all">Alle Freunde</string>
-    <string name="membership">Mitgliedschaft</string>
     <string name="xbox_live_status">Xbox Live Status</string>
     <string name="xbox_live_account">Xbox Live Account</string>
     <string name="no_results">Keine Ergebnisse gefunden fpr \"%1$s\"</string>

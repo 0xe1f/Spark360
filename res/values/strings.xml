@@ -91,7 +91,6 @@
 	<string name="notify_friend_online_f">%1$s is now online on %2$s</string>
 	
 	<!-- LVL -->
-	<string name="validating_license">Verifying license&#8230;</string>
 	<string name="widget_could_not_be_added">Widget could not be added.</string>
 	<string name="friend_online">Friend online</string>
 	<string name="new_messages">New messages</string>
@@ -140,7 +139,6 @@
 	<string name="compare_games">Compare games</string>
 	<string name="xbox_live">Xbox Live</string>
 	<string name="rep">Rep</string>
-	<string name="points_balance">Points Balance</string>
 	<string name="vibrate">Vibrate</string>
 	<string name="vibrate_summary">Also vibrate on new notifications</string>
 	
@@ -157,9 +155,7 @@
 	<string name="no_achievements">No achievements</string>
 	<string name="game_history_empty">Your game history is empty.</string>
 	<string name="no_games_to_compare">No games to compare.</string>
-	<string name="comparing_games">Comparing games&#8230;</string>
 	<string name="game_has_no_achieves">This game has no achievements.</string>
-	<string name="comparing_achieves">Comparing achievements&#8230;</string>
 	<string name="last_played">Last played</string>
 	<string name="last_played_f">Last played %1$s</string>
 	<string name="x_f">%1$,d</string>
@@ -249,7 +245,6 @@
 	<string name="do_not_notify">Off</string>
 	<string name="notify_on_favorite">Favorite friends</string>
 	<string name="notify_on_all">All friends</string>
-    <string name="membership">Membership</string>
 	<string name="xbox_live_status">Xbox Live Status</string>
 	<string name="xbox_live_account">Xbox Live account</string>
 	<string name="no_results">No results found for \"%1$s\"</string>
