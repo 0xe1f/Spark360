@@ -74,48 +74,42 @@
 		android:textAppearance="@style/TextAppearance.xboxWidgetText"
 	/>
 	
-	<RelativeLayout
+	<LinearLayout
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
+		android:orientation="horizontal"
 		android:layout_marginLeft="4dp"
 		android:layout_marginRight="4dp"
 	>
-		<LinearLayout
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
-			android:orientation="horizontal"
-		>
-			<ImageView 
-				android:id="@+id/profile_game0"
-				android:layout_width="37dp" 
-				android:layout_height="52dp"
-				android:layout_marginRight="6dp"
-			/>
-			<ImageView 
-				android:id="@+id/profile_game1"
-				android:layout_width="37dp" 
-				android:layout_height="52dp"
-				android:layout_marginRight="6dp"
-			/>
-			<ImageView 
-				android:id="@+id/profile_game2"
-				android:layout_width="37dp" 
-				android:layout_height="52dp"
-				android:layout_marginRight="6dp"
-			/>
-			<ImageView 
-				android:id="@+id/profile_game3"
-				android:layout_width="37dp" 
-				android:layout_height="52dp"
-				android:layout_marginRight="6dp"
-			/>
-			<ImageView 
-				android:id="@+id/profile_game4"
-				android:layout_width="37dp" 
-				android:layout_height="52dp"
-			/>
-		</LinearLayout>
-	</RelativeLayout>
+		<ImageView 
+			android:id="@+id/profile_game0"
+			android:layout_width="37dp" 
+			android:layout_height="52dp"
+			android:layout_marginRight="6dp"
+		/>
+		<ImageView 
+			android:id="@+id/profile_game1"
+			android:layout_width="37dp" 
+			android:layout_height="52dp"
+			android:layout_marginRight="6dp"
+		/>
+		<ImageView 
+			android:id="@+id/profile_game2"
+			android:layout_width="37dp" 
+			android:layout_height="52dp"
+			android:layout_marginRight="6dp"
+		/>
+		<ImageView 
+			android:id="@+id/profile_game3"
+			android:layout_width="37dp" 
+			android:layout_height="52dp"
+			android:layout_marginRight="6dp"
+		/>
+		<ImageView 
+			android:id="@+id/profile_game4"
+			android:layout_width="37dp" 
+			android:layout_height="52dp"
+		/>
+	</LinearLayout>
 </RelativeLayout>

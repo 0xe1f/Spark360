@@ -27,26 +27,20 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	android:padding="5dp"
 	android:background="@drawable/toast_frame"
 >
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_margin="5dp"
-		android:orientation="vertical"
-	>
-		<TextView
-			android:id="@+id/trophy_title"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:layout_marginBottom="5dp"
-			android:textAppearance="@style/TextAppearance.toastTitle" 
-		/>
-		<TextView
-			android:id="@+id/trophy_description"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:textAppearance="@style/TextAppearance.toastText" 
-		/>
-	</LinearLayout>
+	<TextView
+		android:id="@+id/trophy_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_marginBottom="5dp"
+		android:textAppearance="@style/TextAppearance.toastTitle" 
+	/>
+	<TextView
+		android:id="@+id/trophy_description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:textAppearance="@style/TextAppearance.toastText" 
+	/>
 </LinearLayout>

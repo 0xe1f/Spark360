@@ -29,26 +29,20 @@
 	android:background="@drawable/xbox_ach_toast_frame"
     android:orientation="vertical"
 >
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:orientation="vertical"
-	>
-		<TextView
-			android:id="@+id/achievement_title"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:textAppearance="@style/TextAppearance.achToastTitle"
-	        android:ellipsize="end"
-	        android:singleLine="true" 
-		/>
-		<TextView
-			android:id="@+id/achievement_description"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:textAppearance="@style/TextAppearance.achToastText" 
-			android:maxLines="2"
-            android:ellipsize="end"
-		/>
-	</LinearLayout>
+	<TextView
+		android:id="@+id/achievement_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:textAppearance="@style/TextAppearance.achToastTitle"
+        android:ellipsize="end"
+        android:singleLine="true" 
+	/>
+	<TextView
+		android:id="@+id/achievement_description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:textAppearance="@style/TextAppearance.achToastText" 
+		android:maxLines="2"
+           android:ellipsize="end"
+	/>
 </LinearLayout>

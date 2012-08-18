@@ -68,102 +68,85 @@
 	<LinearLayout
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
-		android:orientation="vertical"
+		android:orientation="horizontal"
 		android:background="@color/widget_bg"
 		android:padding="5dp"
 	>
+		<ImageView 
+			android:id="@+id/profile_gamerpic"
+			android:src="@drawable/avatar_default"
+			android:layout_width="64dip" 
+			android:layout_height="64dip"
+			android:layout_marginRight="5dp"
+		/>
 		<LinearLayout
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
+			android:orientation="vertical"
 		>
-			<ImageView 
-				android:id="@+id/profile_gamerpic"
-				android:src="@drawable/avatar_default"
-				android:layout_width="64dip" 
-				android:layout_height="64dip"
-				android:layout_marginRight="5dp"
+			<LinearLayout 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="right"
+			>
+				<ImageView 
+					android:id="@+id/profile_rep_star0"
+					android:src="@drawable/xbox_ic_star0"
+					android:layout_width="14dp" 
+					android:layout_height="14dp"
+				/>
+				<ImageView 
+					android:id="@+id/profile_rep_star1"
+					android:src="@drawable/xbox_ic_star0"
+					android:layout_width="14dp" 
+					android:layout_height="14dp"
+				/>
+				<ImageView 
+					android:id="@+id/profile_rep_star2"
+					android:src="@drawable/xbox_ic_star0"
+					android:layout_width="14dp" 
+					android:layout_height="14dp"
+				/>
+				<ImageView 
+					android:id="@+id/profile_rep_star3"
+					android:src="@drawable/xbox_ic_star0"
+					android:layout_width="14dp" 
+					android:layout_height="14dp"
+				/>
+				<ImageView 
+					android:id="@+id/profile_rep_star4"
+					android:src="@drawable/xbox_ic_star0"
+					android:layout_width="14dp" 
+					android:layout_height="14dp"
+				/>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="fill_parent" 
+				android:layout_height="1dp"
+				android:layout_marginTop="2dp"
+				android:layout_marginBottom="2dp"
+				android:background="@color/xbox_widget_divider"
 			/>
 			<LinearLayout
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
-				android:orientation="vertical"
+				android:gravity="right"
+				android:orientation="horizontal"
 			>
-				<LinearLayout
-					android:layout_width="fill_parent" 
-					android:layout_height="wrap_content"
-				>
-					<LinearLayout 
-						android:layout_width="fill_parent" 
-						android:layout_height="wrap_content"
-						android:orientation="horizontal"
-						android:gravity="right"
-					>
-						<ImageView 
-							android:id="@+id/profile_rep_star0"
-							android:src="@drawable/xbox_ic_star0"
-							android:layout_width="14dp" 
-							android:layout_height="14dp"
-						/>
-						<ImageView 
-							android:id="@+id/profile_rep_star1"
-							android:src="@drawable/xbox_ic_star0"
-							android:layout_width="14dp" 
-							android:layout_height="14dp"
-						/>
-						<ImageView 
-							android:id="@+id/profile_rep_star2"
-							android:src="@drawable/xbox_ic_star0"
-							android:layout_width="14dp" 
-							android:layout_height="14dp"
-						/>
-						<ImageView 
-							android:id="@+id/profile_rep_star3"
-							android:src="@drawable/xbox_ic_star0"
-							android:layout_width="14dp" 
-							android:layout_height="14dp"
-						/>
-						<ImageView 
-							android:id="@+id/profile_rep_star4"
-							android:src="@drawable/xbox_ic_star0"
-							android:layout_width="14dp" 
-							android:layout_height="14dp"
-						/>
-					</LinearLayout>
-				</LinearLayout>
-				<LinearLayout
-					android:layout_width="fill_parent" 
-					android:layout_height="1dp"
-					android:layout_marginTop="2dp"
-					android:layout_marginBottom="2dp"
-					android:background="@color/xbox_widget_divider"
+				<TextView
+					android:id="@+id/profile_gamerscore"
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" 
+					android:textAppearance="@style/TextAppearance.xboxWidgetText"
 				/>
-				<LinearLayout
-					android:layout_width="fill_parent" 
+				<ImageView 
+					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content"
-					android:orientation="horizontal"
-				>
-					<LinearLayout
-						android:layout_width="fill_parent" 
-						android:layout_height="wrap_content"
-						android:gravity="right"
-						android:orientation="horizontal"
-					>
-						<TextView
-							android:id="@+id/profile_gamerscore"
-							android:layout_width="wrap_content" 
-							android:layout_height="wrap_content" 
-							android:textAppearance="@style/TextAppearance.xboxWidgetText"
-						/>
-						<ImageView 
-							android:layout_width="wrap_content" 
-							android:layout_height="wrap_content"
-							android:layout_marginLeft="4dp"
-							android:layout_gravity="center_vertical"
-							android:src="@drawable/xbox_g_widget"
-						/>
-					</LinearLayout>
-				</LinearLayout>
+					android:layout_marginLeft="4dp"
+					android:layout_gravity="center_vertical"
+					android:src="@drawable/xbox_g_widget"
+				/>
 			</LinearLayout>
 		</LinearLayout>
 	</LinearLayout>
