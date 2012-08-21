@@ -87,7 +87,7 @@
     </style>
     
 	<!-- PSN -->
-    <style name="PsnRibbon">
+    <style name="psnRibbon">
         <item name="android:visibility">gone</item>
     </style>
     

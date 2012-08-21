@@ -163,14 +163,10 @@ public class PsnUsParser
 			"<div class=\"bgame_list clearfix\">(.*?)</table>\\s*</div>",
 			Pattern.DOTALL | Pattern.MULTILINE);
 	
-	/*
- <h6> <a href="http://us.playstation.com/games-and-media/games/dragons-dogma-ps3.html" 
- onclick="waCodeFuncClicks('DragonsDogma','')">Dragon's Dogma&trade;</a> </h6> <p>Dragon&rsquo;s Dogma&reg; is an exciting new franchise which redefines the action genre from the team that...</p>	 * 
- */
 	private static final Pattern PATTERN_GAME_CATALOG_ESSENTIALS = Pattern.compile(
 			"<div class=\"imagebox\">\\s*<a class=\"first\" href=" +
 			"\"[^\"]*\"><img src=\"([^\"]*)\" alt=\"[^\"]*\" title=" +
-			"\"[^\"]*\">.*?<h6>\\s*<a href=\"([^\"]*)\" onclick=\"[^\"]*\">" +
+			"\"[^\"]*\".*?<h6>\\s*<a href=\"([^\"]*)\" onclick=\"[^\"]*\">" +
 			"([^<]*)</a>\\s*</h6>\\s*<p>(.*?)</p>", 
 			Pattern.DOTALL);
 	private static final Pattern PATTERN_GAME_CATALOG_STATS = Pattern.compile(
@@ -1362,6 +1358,7 @@ public class PsnUsParser
 		
 		//SimpleDateFormat myParser = new SimpleDateFormat("MM.yyyy");
 		//Pattern myDetector = Pattern.compile("^\\d{2}\\.\\d{4}$");
+		boolean noMatches = false;
 		
 		while (itemMatcher.find())
 		{
@@ -1369,6 +1366,7 @@ public class PsnUsParser
 			
 			if (!(m = PATTERN_GAME_CATALOG_ESSENTIALS.matcher(content)).find())
 			{
+				noMatches = true;
 				if (App.LOGV)
 					App.logv("PATTERN_GAME_CATALOG_ESSENTIALS matched nothing");
 				
@@ -1429,7 +1427,10 @@ public class PsnUsParser
 			catalog.Items.add(item);
 		}
 		
-		catalog.MorePages = (catalog.PageNumber * catalog.PageSize) < records;
+		if (noMatches && catalog.Items.size() < 1)
+			catalog.MorePages = false;
+		else
+			catalog.MorePages = (catalog.PageNumber * catalog.PageSize) < records;
 		
 		if (App.LOGV)
 			App.logv("pN: " + catalog.PageNumber + 

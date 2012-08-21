@@ -28,17 +28,16 @@
 >
 	<ImageButton
 		android:id="@+id/title_icon" 
-		android:layout_width="50dp" 
-		android:layout_height="50dp"
+        android:layout_width="48dp" 
+        android:layout_height="48dp"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true"
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
-		android:layout_marginTop="4dp"
-		android:layout_marginBottom="2dp"
 		android:padding="0dp"
 		android:src="@drawable/avatar_default"
 		android:background="@null"
+        android:scaleType="fitCenter"
 	/>
 	<TextView
 		android:id="@+id/title_gamertag"

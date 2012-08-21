@@ -69,7 +69,7 @@ import com.akop.bach.service.NotificationService;
 )
 public class App extends Application
 {
-	public static final boolean LOGV = true;
+	public static final boolean LOGV = false;
 	public static final boolean ENABLE_ACRA = false;
 	
 	private static final String LOG_TAG = "bach";
