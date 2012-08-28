@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 
+import com.akop.bach.XboxLive.Profiles;
 import com.akop.bach.XboxLive.Friends;
 import com.akop.bach.activity.AuthenticatingAccountLogin;
 import com.akop.bach.activity.xboxlive.AccountSettings;
@@ -843,8 +844,7 @@ public class XboxLiveAccount
 		}
 		else
 		{
-			intent = new Intent(Intent.ACTION_VIEW,
-					ContentUris.withAppendedId(Friends.CONTENT_URI, friendId));
+			intent = new Intent(Intent.ACTION_VIEW, getFriendUri(friendId));
 		}
 		
 		return intent;
@@ -864,5 +864,29 @@ public class XboxLiveAccount
 	public ServiceClient createServiceClient() 
 	{
 		return new XboxLiveServiceClient();
+	}
+	
+	@Override
+	public Uri getProfileUri() 
+	{
+		return ContentUris.withAppendedId(Profiles.CONTENT_URI, getId());
+	}
+	
+	@Override
+	public Uri getFriendUri(long friendId) 
+	{
+		return ContentUris.withAppendedId(Friends.CONTENT_URI, friendId);
+	}
+	
+	@Override
+	public String getFriendScreenName(long friendId) 
+	{
+		return Friends.getGamertag(App.getInstance(), friendId);
+	}
+	
+	@Override
+	public Uri getFriendsUri()
+	{
+		return Friends.CONTENT_URI;
 	}
 }

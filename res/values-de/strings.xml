@@ -435,10 +435,13 @@
 	<string name="game_not_found">Game wurde nicht gefunden</string>
     
 	<!-- Unlocalized
-	<string name="error_redirecting"></string>
-	<string name="decryption_error"></string>
-    <string name="access_spark_features"></string>
-    <string name="access_spark_features_desc"></string>
+         
+         please see the default locale (values/strings.xml) for English text
+         
+    <string name="error_redirecting"></string>
+    <string name="decryption_error"></string>
+    <string name="gamer_profile"></string>
+    <string name="gamer_friend_profile"></string>
 	-->
 	<!-- Need re-localization -->
     <string name="notify_friends_online_f">%1$s hat Freunde Online auf %3$s</string>

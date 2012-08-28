@@ -21,7 +21,7 @@
  *
  */
 
-package com.akop.bach.activity.playstation;
+package com.akop.bach.activity;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -29,20 +29,18 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -52,10 +50,8 @@ import com.akop.bach.App;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
-import com.akop.bach.PSN.Friends;
 import com.akop.bach.R;
 import com.akop.bach.SupportsFriends;
-import com.akop.bach.uiwidget.PsnFriendListItem;
 
 public class FriendSelector
 		extends ListActivity
@@ -70,18 +66,18 @@ public class FriendSelector
 	private static final String[] PROJECTION = 
 	{ 
 		Friends._ID,
-		Friends.ONLINE_ID,
+		Friends.GAMERTAG,
 		Friends.ICON_URL,
 	};
 	
-	private static final int COLUMN_ONLINE_ID = 1;
+	private static final int COLUMN_GAMERTAG = 1;
 	private static final int COLUMN_ICON_URL = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.psn_friend_selector);
+		setContentView(R.layout.friend_selector);
 		
 		if ((mAccount = (SupportsFriends)getIntent().getSerializableExtra("account")) == null)
 		{
@@ -95,9 +91,9 @@ public class FriendSelector
 		mIconCache = new HashMap<String, SoftReference<Bitmap>>();
 		
 		FriendCursorAdapter adapter = new FriendCursorAdapter(this, 
-				managedQuery(Friends.CONTENT_URI, PROJECTION, 
+				managedQuery(mAccount.getFriendsUri(), PROJECTION, 
 						Friends.ACCOUNT_ID + "=" + mAccount.getId(),
-						null, Friends.DEFAULT_SORT_ORDER));
+						null, null));
 		
 		ListView lv = (ListView)findViewById(android.R.id.list);
 		
@@ -119,43 +115,40 @@ public class FriendSelector
 			@Override
 			public void run()
 			{
-				Cursor cursor = managedQuery(Friends.CONTENT_URI,
+				Cursor cursor = getContentResolver().query(mAccount.getFriendsUri(),
 						new String[] { Friends._ID, Friends.ICON_URL },
 						Friends.ACCOUNT_ID + "=" + mAccount.getId(), null, 
-						Friends.DEFAULT_SORT_ORDER);
+						null);
 				
 				if (cursor != null)
 				{
 					try
 					{
-						try
+						while (cursor.moveToNext())
 						{
-							while (cursor.moveToNext())
-							{
-								if (isFinishing())
-									break;
+							if (isFinishing())
+								break;
+							
+							String iconUrl = (String)cursor.getString(1);
+				    		SoftReference<Bitmap> cachedIcon = mIconCache.get(iconUrl);
+				    		
+				    		// Is it in the in-memory cache?
+				    		if (cachedIcon == null || cachedIcon.get() == null)
+				    		{
+								Bitmap icon = ic.getCachedBitmap(iconUrl);
 								
-								String iconUrl = (String)cursor.getString(1);
-					    		SoftReference<Bitmap> cachedIcon = mIconCache.get(iconUrl);
-					    		
-					    		// Is it in the in-memory cache?
-					    		if (cachedIcon == null || cachedIcon.get() == null)
-					    		{
-									Bitmap icon = ic.getCachedBitmap(iconUrl);
-									
-									// It's not in the in-memory cache; is it
-									// in the disk cache?
-									if (icon == null)
-										ic.requestImage(iconUrl, FriendSelector.this,
-												cursor.getInt(0), iconUrl, false, cp);
-					    		}
-							}
+								// It's not in the in-memory cache; is it
+								// in the disk cache?
+								if (icon == null)
+									ic.requestImage(iconUrl, FriendSelector.this,
+											cursor.getInt(0), iconUrl, false, cp);
+				    		}
 						}
-						catch(Exception e)
-						{
-							if (App.LOGV)
-								e.printStackTrace();
-						}
+					}
+					catch(Exception e)
+					{
+						if (App.LOGV)
+							e.printStackTrace();
 					}
 					finally
 					{
@@ -187,14 +180,10 @@ public class FriendSelector
 	}
 	
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+	public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long id)
 	{
-		if (!(arg1 instanceof PsnFriendListItem))
-			return;
-		
-		PsnFriendListItem friend = (PsnFriendListItem)arg1;
 		Intent intent = new Intent();
-		intent.putExtra("friendId", friend.mFriendId);
+		intent.putExtra("friendId", id);
 		
 		setResult(RESULT_OK, intent);
 		finish();
@@ -205,16 +194,16 @@ public class FriendSelector
 	{
 		String iconUrl = (String)param;
 		mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
-		getContentResolver().notifyChange(
-				ContentUris.withAppendedId(Friends.CONTENT_URI, id), null);
+		getContentResolver().notifyChange(mAccount.getFriendUri(id), null);
 	}
 	
 	public class FriendCursorAdapter extends CursorAdapter
 	{
 		private class ViewHolder
 		{
-			public TextView onlineId;
+			public TextView screenName;
 			public ImageView avatar;
+			public CheckBox selected;
 		}
 		
 		public FriendCursorAdapter(Context context, Cursor c)
@@ -227,12 +216,15 @@ public class FriendSelector
 		{
 			LayoutInflater li = (LayoutInflater)context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			PsnFriendListItem view = (PsnFriendListItem) li.inflate(
-					R.layout.psn_friend_selector_item, parent, false);
+			View view = li.inflate(R.layout.friend_selector_item, parent, false);
 			
 			ViewHolder vh = new ViewHolder();
-			vh.onlineId = (TextView)view.findViewById(R.id.friend_online_id);
+			vh.screenName = (TextView)view.findViewById(R.id.friend_screen_name);
 			vh.avatar = (ImageView)view.findViewById(R.id.friend_avatar);
+			vh.selected = (CheckBox)view.findViewById(R.id.friend_selected);
+			
+			if (!mAllowMultiselect)
+				vh.selected.setVisibility(View.GONE);
 			
 			view.setTag(vh);
 			
@@ -242,13 +234,9 @@ public class FriendSelector
 		@Override
 		public void bindView(View view, Context context, Cursor cursor)
 		{
-			PsnFriendListItem friend = (PsnFriendListItem)view;
             ViewHolder vh = (ViewHolder)view.getTag();
             
-            friend.mFriendId = cursor.getLong(0);
-            friend.mOnlineId = cursor.getString(COLUMN_ONLINE_ID);
-            
-            vh.onlineId.setText(friend.mOnlineId);
+            vh.screenName.setText(cursor.getString(COLUMN_GAMERTAG));
             
             String iconUrl = cursor.getString(COLUMN_ICON_URL);
     		SoftReference<Bitmap> icon = mIconCache.get(iconUrl);
@@ -275,23 +263,10 @@ public class FriendSelector
     			}
     		}
 		}
-		
-		public void setFavorite(long friendId, boolean favorite)
-		{
-			ContentValues cv = new ContentValues();
-			cv.put(Friends.IS_FAVORITE, (favorite) ? 1 : 0);
-			
-			ContentResolver cr = getContentResolver();
-			Uri uri = ContentUris.withAppendedId(Friends.CONTENT_URI, friendId);
-			
-			cr.update(uri, cv, null, null);
-			cr.notifyChange(uri, null);
-		}
 	}
 	
 	public static void actionSelectFriends(Activity activity, 
-			SupportsFriends account,
-			ArrayList<Long> selected,
+			SupportsFriends account, ArrayList<Long> selected,
 			boolean allowMultiselect)
 	{
 		Intent intent = new Intent(activity, FriendSelector.class);

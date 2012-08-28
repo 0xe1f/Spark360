@@ -26,6 +26,7 @@ package com.akop.bach;
 import java.io.IOException;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
@@ -41,4 +42,7 @@ public interface SupportsFriends extends IAccount
 	long getFriendRefreshInterval();
 	long getLastFriendUpdate();
 	void setLastFriendUpdate(long ms);
+	Uri getFriendUri(long friendId);
+	Uri getFriendsUri();
+	String getFriendScreenName(long friendId);
 }

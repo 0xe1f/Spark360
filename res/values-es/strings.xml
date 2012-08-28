@@ -434,11 +434,14 @@
     <string name="select_game_to_compare_trophies">Seleccione un juego de comparar los trofeos</string>
     <string name="game_not_found">Juego que no se encuentra</string>
     
-	<!-- Unlocalized
+	<!-- Unlocalized - 
+	     
+	     please see the default locale (values/strings.xml) for English text
+	     
 	<string name="error_redirecting"></string>
 	<string name="decryption_error"></string>
-    <string name="access_spark_features"></string>
-    <string name="access_spark_features_desc"></string>
+    <string name="gamer_profile"></string>
+    <string name="gamer_friend_profile"></string>
 	-->
 	<!-- Need re-localization -->
 	<string name="notify_friends_online_f">%1$s ha conectado amigos %3$s</string>

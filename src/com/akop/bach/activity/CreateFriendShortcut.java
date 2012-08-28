@@ -1,5 +1,5 @@
 /*
- * CreateAccountShortcut.java 
+ * CreateFriendShortcut.java 
  * Copyright (C) 2010-2012 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
@@ -21,52 +21,82 @@
  *
  */
 
-package com.akop.bach.activity.xboxlive;
+package com.akop.bach.activity;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.R;
-import com.akop.bach.XboxLive.Profiles;
-import com.akop.bach.activity.AccountSelector;
+import com.akop.bach.SupportsFriends;
 
-public class CreateAccountShortcut
+public class CreateFriendShortcut
 		extends Activity
 {
+	private final static int SELECT_ACCOUNT = 0;
+	private final static int SELECT_FRIEND = 1;
+	
+	private SupportsFriends mAccount;
+	private long mFriendId;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		
-		AccountSelector.actionSelectAccount(this);
+		mAccount = null;
+		mFriendId = -1;
+		
+		if (savedInstanceState != null)
+		{
+			if (savedInstanceState.containsKey("account"))
+				mAccount = (SupportsFriends)savedInstanceState
+						.getSerializable("account");
+			
+			if (savedInstanceState.containsKey("friendId"))
+				mFriendId = savedInstanceState.getLong("friendId");
+		}
+		
+		if (mAccount == null)
+			AccountSelector.actionSelectAccount(this, SELECT_ACCOUNT);
 	}
 	
-	private void createShortcut(IAccount account)
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
 	{
-		if (account == null)
+		super.onSaveInstanceState(outState);
+		
+		if (mAccount != null)
+			outState.putSerializable("account", mAccount);
+		if (mFriendId > -1)
+			outState.putLong("friendId", mFriendId);
+	}
+	
+	private void createShortcut()
+	{
+		if (mAccount == null || mFriendId < 0)
 		{
 			if (App.LOGV)
-				App.logv("Missing account");
+				App.logv("Missing account or friend ID");
 			
 			finish();
 			return;
 		}
 		
-        // The meat of our shortcut
 		Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
-				ContentUris.withAppendedId(Profiles.CONTENT_URI, account.getId()));
+				mAccount.getFriendUri(mFriendId));
+		shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP 
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		
         // The result we are passing back from this activity
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, account.getScreenName());
+		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, 
+				mAccount.getFriendScreenName(mFriendId));
 		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 				Intent.ShortcutIconResource.fromContext(this,
-						R.drawable.xbox_icon_account));
+						R.drawable.shortcut_friend));
 		
         setResult(RESULT_OK, intent);
  	}
@@ -77,8 +107,23 @@ public class CreateAccountShortcut
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (resultCode == RESULT_OK)
-			createShortcut((IAccount)data.getSerializableExtra("account"));
-		
-		finish();
+		{
+			if (requestCode == SELECT_ACCOUNT)
+			{
+				mAccount = (SupportsFriends)data.getSerializableExtra("account");
+				FriendSelector.actionSelectFriends(this, mAccount);
+			}
+			else if (requestCode == SELECT_FRIEND)
+			{
+				mFriendId = data.getLongExtra("friendId", -1);
+				createShortcut();
+				
+				finish();
+			}
+		}
+		else
+		{
+			finish();
+		}
 	}
 }

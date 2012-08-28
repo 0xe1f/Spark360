@@ -27,13 +27,13 @@ import java.lang.reflect.Constructor;
 import java.util.Set;
 import java.util.UUID;
 
-import com.akop.bach.service.ServiceClient;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+
+import com.akop.bach.service.ServiceClient;
 
 public abstract class Account implements IAccount
 {

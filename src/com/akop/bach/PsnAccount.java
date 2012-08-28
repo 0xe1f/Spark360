@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,6 +35,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 
+import com.akop.bach.PSN.Friends;
+import com.akop.bach.PSN.Profiles;
 import com.akop.bach.activity.AuthenticatingAccountLogin;
 import com.akop.bach.activity.playstation.AccountSettings;
 import com.akop.bach.activity.playstation.AccountSummary;
@@ -645,5 +648,29 @@ public class PsnAccount
 	public ServiceClient createServiceClient() 
 	{
 		return new PsnServiceClient();
+	}
+	
+	@Override
+	public Uri getProfileUri() 
+	{
+		return ContentUris.withAppendedId(Profiles.CONTENT_URI, getId());
+	}
+	
+	@Override
+	public Uri getFriendUri(long friendId) 
+	{
+		return ContentUris.withAppendedId(Friends.CONTENT_URI, friendId);
+	}
+	
+	@Override
+	public String getFriendScreenName(long friendId) 
+	{
+		return Friends.getOnlineId(App.getInstance(), friendId);
+	}
+	
+	@Override
+	public Uri getFriendsUri()
+	{
+		return Friends.CONTENT_URI;
 	}
 }

@@ -29,6 +29,7 @@ import java.io.Serializable;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
@@ -39,6 +40,7 @@ public interface IAccount extends Serializable
 	String getUuid();
 	String getScreenName();
 	String getDescription(Context context);
+	Uri getProfileUri();
 	
 	void refresh(Preferences preferences);
 	ContentValues validate(Context context)

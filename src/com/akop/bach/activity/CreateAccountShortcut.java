@@ -21,18 +21,15 @@
  *
  */
 
-package com.akop.bach.activity.playstation;
+package com.akop.bach.activity;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
-import com.akop.bach.PSN.Profiles;
 import com.akop.bach.R;
-import com.akop.bach.activity.AccountSelector;
 
 public class CreateAccountShortcut
 		extends Activity
@@ -45,7 +42,7 @@ public class CreateAccountShortcut
 		AccountSelector.actionSelectAccount(this);
 	}
 	
-	private void createShortcut(IAccount account)
+	private void createShortcut(Account account)
 	{
 		if (account == null)
 		{
@@ -56,9 +53,10 @@ public class CreateAccountShortcut
 			return;
 		}
 		
-        // The meat of our shortcut
 		Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
-				ContentUris.withAppendedId(Profiles.CONTENT_URI, account.getId()));
+				account.getProfileUri());
+		shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP 
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		
         // The result we are passing back from this activity
         Intent intent = new Intent();
@@ -66,7 +64,7 @@ public class CreateAccountShortcut
 		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, account.getScreenName());
 		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 				Intent.ShortcutIconResource.fromContext(this,
-						R.drawable.psn_account_shortcut));
+						R.drawable.shortcut_profile));
 		
         setResult(RESULT_OK, intent);
  	}
@@ -77,7 +75,7 @@ public class CreateAccountShortcut
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (resultCode == RESULT_OK)
-			createShortcut((IAccount)data.getSerializableExtra("account"));
+			createShortcut((Account)data.getSerializableExtra("account"));
 		
 		finish();
 	}

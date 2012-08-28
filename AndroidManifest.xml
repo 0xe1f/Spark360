@@ -174,24 +174,6 @@
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 		    </intent-filter>
         </activity>
-		<activity android:name=".activity.xboxlive.CreateAccountShortcut"
-		    	  android:label="@string/xbox_live_account"
-		    	  android:icon="@drawable/xbox_icon_account"
-		    	  android:theme="@style/GTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-		</activity>
-		<activity android:name=".activity.xboxlive.CreateFriendShortcut"
-		    	  android:label="@string/xbox_live_friend"
-		    	  android:icon="@drawable/xbox_icon_friend"
-		    	  android:theme="@style/GTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-		</activity>
 		<activity android:name=".activity.xboxlive.EditProfile"
             	  android:label="@string/edit_profile"
             	  android:theme="@style/XBoxTheme" />
@@ -212,7 +194,7 @@
                 android:value=".activity.xboxlive.SearchFriendsList" 
             />
        	</activity>
-        <activity android:name=".activity.xboxlive.FriendSelector"
+        <activity android:name=".activity.FriendSelector"
             	  android:label="@string/select_friend"
             	  android:theme="@style/CafTheme" />
         <activity android:name=".activity.xboxlive.FriendsOfFriendList"
@@ -306,17 +288,17 @@
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 		    </intent-filter>
         </activity>
-		<activity android:name=".activity.playstation.CreateAccountShortcut"
-		    	  android:label="@string/psn_account"
-		    	  android:icon="@drawable/psn_account_shortcut">
+		<activity android:name=".activity.CreateAccountShortcut"
+		    	  android:label="@string/gamer_profile"
+		    	  android:icon="@drawable/shortcut_profile">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
 		</activity>
-        <activity android:name=".activity.playstation.CreateFriendShortcut"
-            	  android:label="@string/psn_friend"
-            	  android:icon="@drawable/psn_friend_shortcut">
+        <activity android:name=".activity.CreateFriendShortcut"
+            	  android:label="@string/gamer_friend_profile"
+            	  android:icon="@drawable/shortcut_friend">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
                 <category android:name="android.intent.category.DEFAULT"/>

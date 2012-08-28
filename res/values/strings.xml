@@ -437,8 +437,8 @@
 	<!-- Unlocalized, or changed since localization -->
 	<string name="error_redirecting">Server is repeatedly redirecting. Please try again later</string>
 	<string name="decryption_error">Could not read encrypted account information. If you are using a custom build, please delete, then add the account again.</string>
-    <string name="access_spark_features">Access Spark 360 Features</string>
-    <string name="access_spark_features_desc">Allows applications to access parts of Spark 360</string>
+    <string name="gamer_profile">Gamer Profile</string>
+	<string name="gamer_friend_profile">Friend Profile</string>
 	<!--  -->
 	<!-- Need re-localization -->
 	<string name="notify_friends_online_f">%1$s has %2$d friends online on %3$s</string>
