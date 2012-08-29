@@ -438,8 +438,8 @@
          
          please see the default locale (values/strings.xml) for English text
          
-    <string name="error_redirecting"></string>
-    <string name="decryption_error"></string>
+    <string name="error_redirecting">Der Server leitet permanent weiter. Bitte versuche es später erneut.</string>
+    <string name="decryption_error">Verschlüsselte Account-Informationen können nicht gelesen werden. Wenn ein selbst erstellter benutzt wird, dann bitte löschen und den Account neu hinzufügen.</string>
     <string name="gamer_profile"></string>
     <string name="gamer_friend_profile"></string>
 	-->
