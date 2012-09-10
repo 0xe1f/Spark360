@@ -246,7 +246,6 @@
     <string name="notify_on_favorite">Favorisierte Freunde</string>
     <string name="notify_on_all">Alle Freunde</string>
     <string name="xbox_live_status">Xbox Live Status</string>
-    <string name="xbox_live_account">Xbox Live Account</string>
     <string name="no_results">Keine Ergebnisse gefunden fpr \"%1$s\"</string>
     <string name="xbox_live_friends">Xbox Live Freunde</string>
     <string name="xbox_live_friend">Xbox Live Freund</string>
@@ -379,7 +378,6 @@
     <string name="comparing_x_trophies_with_y_f">%1$s: Vergleiche %2$s Trophäen</string>
     <string name="psn_friends">PSN Freunde</string>
     <string name="psn_friend">PSN Freund</string>
-    <string name="psn_account">PSN Account</string>
     <string name="psn_profile_not_found_f">PSN Profil für \"%1$s\" nicht gefunden</string>
     <string name="psn_profile_f">PSN Profil: %1$s</string>
     <string name="online_id">Online ID</string>
@@ -433,13 +431,13 @@
     <string name="select_game_to_view_trophies">Wähle ein Game aus, um die Trophäen zu sehen</string>
     <string name="select_game_to_compare_trophies">Wähle ein Game aus, um Trophäen zu vergleichen</string>
 	<string name="game_not_found">Game wurde nicht gefunden</string>
-    
+    <string name="error_redirecting">Der Server leitet permanent weiter. Bitte versuche es später erneut.</string>
+    <string name="decryption_error">Verschlüsselte Account-Informationen können nicht gelesen werden. Wenn ein selbst erstellter benutzt wird, dann bitte löschen und den Account neu hinzufügen.</string>
+	
 	<!-- Unlocalized
          
          please see the default locale (values/strings.xml) for English text
          
-    <string name="error_redirecting">Der Server leitet permanent weiter. Bitte versuche es später erneut.</string>
-    <string name="decryption_error">Verschlüsselte Account-Informationen können nicht gelesen werden. Wenn ein selbst erstellter benutzt wird, dann bitte löschen und den Account neu hinzufügen.</string>
     <string name="gamer_profile"></string>
     <string name="gamer_friend_profile"></string>
 	-->

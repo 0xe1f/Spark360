@@ -57,7 +57,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
@@ -123,7 +123,7 @@ public class GamesFragment extends GenericFragment implements
 	private TaskListener mBeaconListener = new TaskListener("GameBeacon")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -145,7 +145,7 @@ public class GamesFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("XBoxGames")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -162,7 +162,7 @@ public class GamesFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -315,7 +315,7 @@ public class GamesFragment extends GenericFragment implements
 		GamesFragment f = new GamesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;
@@ -392,7 +392,7 @@ public class GamesFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putLong("currentId", mTitleId);
 		}
 	}

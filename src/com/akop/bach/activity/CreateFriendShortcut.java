@@ -68,7 +68,7 @@ public class CreateFriendShortcut
 		super.onSaveInstanceState(outState);
 		
 		if (mAccount != null)
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 		if (mFriendId > -1)
 			outState.putLong("friendId", mFriendId);
 	}

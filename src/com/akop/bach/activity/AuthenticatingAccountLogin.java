@@ -38,7 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.AuthenticatingAccount;
 import com.akop.bach.Preferences;
@@ -89,7 +89,7 @@ public class AuthenticatingAccountLogin
         
         TextView tv = (TextView)findViewById(R.id.account_setup_login_directions);
 		tv.setText(getString(R.string.type_your_credentials_f, 
-				mAccount.getDescription(this)));
+				mAccount.getDescription()));
 		
 		mEmailAddress = (EditText)findViewById(R.id.account_setup_login_email);
 		mPassword = (EditText)findViewById(R.id.account_setup_login_password);
@@ -123,8 +123,8 @@ public class AuthenticatingAccountLogin
 		String emailAddress = mEmailAddress.getText().toString();
 		
 		// Make sure the account is not a duplicate
-		Account[] accounts = Preferences.get(this).getAccounts();
-		for (Account account: accounts)
+		BasicAccount[] accounts = Preferences.get(this).getAccounts();
+		for (BasicAccount account: accounts)
 		{
 			if (account instanceof AuthenticatingAccount)
 			{

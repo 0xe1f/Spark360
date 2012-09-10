@@ -28,13 +28,13 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.akop.bach.R;
-import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.XboxLive.GamerProfileInfo;
+import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.FriendsOfFriendFragment;
-import com.akop.bach.fragment.xboxlive.PlayerProfileFragment;
 import com.akop.bach.fragment.xboxlive.FriendsOfFriendFragment.OnPlayerSelectedListener;
+import com.akop.bach.fragment.xboxlive.PlayerProfileFragment;
 
-public class FriendsOfFriendList extends RibbonedMultiPaneActivity implements
+public class FriendsOfFriendList extends XboxLiveMultiPane implements
         OnPlayerSelectedListener
 {
 	private String getGamertag()
@@ -45,13 +45,13 @@ public class FriendsOfFriendList extends RibbonedMultiPaneActivity implements
 	@Override
 	protected Fragment instantiateDetailFragment()
 	{
-		return PlayerProfileFragment.newInstance(mAccount);
+		return PlayerProfileFragment.newInstance(getAccount());
 	}
 	
 	@Override
 	protected Fragment instantiateTitleFragment()
 	{
-		return FriendsOfFriendFragment.newInstance(mAccount, getGamertag());
+		return FriendsOfFriendFragment.newInstance(getAccount(), getGamertag());
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class FriendsOfFriendList extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			PlayerProfile.actionShow(this, mAccount, info);
+			PlayerProfile.actionShow(this, getAccount(), info);
 		}
 	}
 	

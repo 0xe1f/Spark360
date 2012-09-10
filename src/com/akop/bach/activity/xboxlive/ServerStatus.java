@@ -35,8 +35,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
 import com.akop.bach.TaskController.CustomTask;
@@ -90,7 +90,7 @@ public class ServerStatus
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam,
+		public void onTaskSucceeded(Account account, Object requestParam,
 				Object result)
 		{
 			mHandler.updateStatus(result);

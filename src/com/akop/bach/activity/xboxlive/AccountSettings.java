@@ -36,7 +36,7 @@ import android.preference.PreferenceActivity;
 import android.preference.RingtonePreference;
 import android.view.KeyEvent;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
@@ -103,7 +103,7 @@ public class AccountSettings extends PreferenceActivity
 		String ringtone = mAccount.getRingtone();
 		
         addPreferencesFromResource(R.xml.xbl_account_settings);
-		setTitle(getString(R.string.account_settings_f, mAccount.getDescription(this)));
+		setTitle(getString(R.string.account_settings_f, mAccount.getDescription()));
 		
 		findPreference("login").setOnPreferenceClickListener(
 				new Preference.OnPreferenceClickListener()
@@ -257,7 +257,7 @@ public class AccountSettings extends PreferenceActivity
 		mMessageNotifyPref.setEnabled(mUpdateFrequency > 0);
 	}
 	
-	public static void actionEditSettings(Context context, Account account)
+	public static void actionEditSettings(Context context, BasicAccount account)
 	{
 		Intent intent = new Intent(context, AccountSettings.class);
 		intent.putExtra("account", account);

@@ -56,8 +56,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.OnImageReadyListener;
 import com.akop.bach.R;
@@ -133,7 +133,7 @@ public class AchievementsFragment extends GenericFragment implements
 	private TaskListener mBeaconListener = new TaskListener("GameBeacon")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -152,7 +152,7 @@ public class AchievementsFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("XBoxAchievements")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -168,7 +168,7 @@ public class AchievementsFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam,
+		public void onTaskSucceeded(Account account, Object requestParam,
 				Object result)
 		{
 			mHandler.post(new Runnable()
@@ -326,7 +326,7 @@ public class AchievementsFragment extends GenericFragment implements
 		AchievementsFragment f = new AchievementsFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putLong("titleId", titleId);
 		args.putBoolean("showGameTotals", showGameTotals);
 		f.setArguments(args);
@@ -423,7 +423,7 @@ public class AchievementsFragment extends GenericFragment implements
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putSerializable("account", mAccount);
+		outState.putParcelable("account", mAccount);
 		outState.putLong("titleId", mTitleId);
 	}
 	

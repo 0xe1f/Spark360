@@ -34,7 +34,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.PSN;
 import com.akop.bach.XboxLive;
@@ -55,7 +55,7 @@ public class Main extends Activity
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-		Account account = (Account)getIntent().getSerializableExtra("account");
+		BasicAccount account = (BasicAccount)getIntent().getSerializableExtra("account");
 		if (account != null)
 		{
 			if (App.LOGV)

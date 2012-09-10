@@ -33,7 +33,7 @@ import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
 import com.akop.bach.fragment.playstation.GamerProfileFragment;
 
-public class GamerProfile extends RibbonedSinglePaneActivity
+public class GamerProfile extends PsnSinglePane
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -53,7 +53,7 @@ public class GamerProfile extends RibbonedSinglePaneActivity
 	@Override
     protected Fragment createFragment()
     {
-	    return GamerProfileFragment.newInstance(mAccount, 
+	    return GamerProfileFragment.newInstance(getAccount(), 
 	    		getIntent().getStringExtra("gamertag"));
     }
 	

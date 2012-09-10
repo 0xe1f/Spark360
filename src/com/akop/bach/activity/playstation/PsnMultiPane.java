@@ -1,5 +1,5 @@
 /*
- * SearchMessageView.java 
+ * PsnMultiPaneActivity.java 
  * Copyright (C) 2010-2012 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
@@ -21,38 +21,28 @@
  *
  */
 
-package com.akop.bach.activity.xboxlive;
+package com.akop.bach.activity.playstation;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-
+import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
-import com.akop.bach.SupportsMessaging;
-import com.akop.bach.fragment.xboxlive.SentMessageViewFragment;
+import com.akop.bach.activity.RibbonedMultiPane;
 
-public class SentMessageView extends XboxLiveSinglePane
+public abstract class PsnMultiPane extends RibbonedMultiPane
 {
-	public static void actionShow(Context context, 
-			SupportsMessaging account, long messageId)
+	protected PsnAccount getAccount()
 	{
-		Intent intent = new Intent(context, SentMessageView.class);
-		intent.putExtra("account", account);
-		intent.putExtra("messageId", messageId);
-		
-		context.startActivity(intent);
+		return (PsnAccount)mAccount;
 	}
 	
 	@Override
-    protected String getSubtitle()
-    {
-		return getString(R.string.sent_messages);
-    }
-	
-	@Override
-	protected Fragment createFragment() 
+	protected int getLayout() 
 	{
-		return SentMessageViewFragment.newInstance(getAccount(), 
-				getIntent().getLongExtra("messageId", -1));
+		return R.layout.psn_multipane;
+	}
+
+	@Override
+	protected int getActionBarLayout() 
+	{
+		return R.layout.psn_actionbar_custom;
 	}
 }

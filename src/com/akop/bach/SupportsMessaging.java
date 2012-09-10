@@ -30,7 +30,7 @@ import android.content.Context;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 
-public interface SupportsMessaging extends IAccount
+public interface SupportsMessaging extends Account
 {
 	void updateMessages(Context context)
 			throws AuthenticationException, IOException, ParserException;

@@ -34,19 +34,19 @@ import com.akop.bach.fragment.playstation.GameCatalogDetailsFragment;
 import com.akop.bach.fragment.playstation.GameCatalogFragment;
 import com.akop.bach.fragment.playstation.GameCatalogFragment.OnItemSelectedListener;
 
-public class GameCatalog extends RibbonedMultiPaneActivity implements
+public class GameCatalog extends PsnMultiPane implements
         OnItemSelectedListener
 {
 	@Override
 	protected Fragment instantiateDetailFragment()
 	{
-		return GameCatalogDetailsFragment.newInstance(mAccount);
+		return GameCatalogDetailsFragment.newInstance(getAccount());
 	}
 	
 	@Override
 	protected Fragment instantiateTitleFragment()
 	{
-		return GameCatalogFragment.newInstance(mAccount);
+		return GameCatalogFragment.newInstance(getAccount());
 	}
 	
 	public static void actionShow(Context context, PsnAccount account)
@@ -75,7 +75,7 @@ public class GameCatalog extends RibbonedMultiPaneActivity implements
 			if (item == null || item.DetailUrl == null)
 				return;
 			
-			GameCatalogDetails.actionShow(this, mAccount, item);
+			GameCatalogDetails.actionShow(this, getAccount(), item);
 		}
 	}
 }

@@ -286,7 +286,7 @@ public abstract class RibbonedScrollingActivity
 	@Override
 	protected void toggleProgressBar(boolean show)
 	{
-		ProgressBar bar = (ProgressBar)findViewById(R.id.title_progress_bar);
+		ProgressBar bar = (ProgressBar)findViewById(R.id.ribbon_progress_bar);
 		if (bar != null)
 			bar.setVisibility(show ? View.VISIBLE : View.GONE);
 		

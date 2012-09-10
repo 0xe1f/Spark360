@@ -33,19 +33,19 @@ import com.akop.bach.fragment.xboxlive.AchievementsFragment;
 import com.akop.bach.fragment.xboxlive.GamesFragment;
 import com.akop.bach.fragment.xboxlive.GamesFragment.OnGameSelectedListener;
 
-public class GameList extends RibbonedMultiPaneActivity implements
+public class GameList extends XboxLiveMultiPane implements
         OnGameSelectedListener
 {
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return AchievementsFragment.newInstance(mAccount, false);
+	    return AchievementsFragment.newInstance(getAccount(), false);
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return GamesFragment.newInstance(mAccount);
+	    return GamesFragment.newInstance(getAccount());
     }
 	
 	@Override
@@ -58,7 +58,7 @@ public class GameList extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			AchievementList.actionShow(this, mAccount, id);
+			AchievementList.actionShow(this, getAccount(), id);
 		}
     }
 	

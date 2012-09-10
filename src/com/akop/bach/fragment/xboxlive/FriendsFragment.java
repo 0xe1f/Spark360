@@ -56,7 +56,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
@@ -86,7 +86,6 @@ public class FriendsFragment extends GenericFragment implements
 {
 	private static int DIALOG_CONFIRM_REMOVE = 1;
 	
-	private MyHandler mHandler = new MyHandler();
 	private ListView mListView = null;
 	private TextView mMessage = null;
 	private View mProgress = null;
@@ -95,21 +94,6 @@ public class FriendsFragment extends GenericFragment implements
 	
 	private SectionedAdapter mAdapter = null;
 	private XboxLiveAccount mAccount = null;
-	
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	}
 	
 	private static final String[] PROJECTION = 
 	{ 
@@ -180,7 +164,7 @@ public class FriendsFragment extends GenericFragment implements
 	private TaskListener mRequestListener = new TaskListener("XBoxCancelRequest")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -196,7 +180,7 @@ public class FriendsFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, final Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, final Object requestParam, Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -219,7 +203,7 @@ public class FriendsFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("XBoxFriends")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -235,7 +219,7 @@ public class FriendsFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -382,7 +366,7 @@ public class FriendsFragment extends GenericFragment implements
 		FriendsFragment f = new FriendsFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;
@@ -488,7 +472,7 @@ public class FriendsFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putLong("currentId", mTitleId);
 		}
 	}

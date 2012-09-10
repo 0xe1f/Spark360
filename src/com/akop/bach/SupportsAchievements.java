@@ -30,7 +30,7 @@ import android.content.Context;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 
-public interface SupportsAchievements extends IAccount
+public interface SupportsAchievements extends Account
 {
 	void updateAchievements(Context context, Object gameId)	
 		throws AuthenticationException, IOException, ParserException;

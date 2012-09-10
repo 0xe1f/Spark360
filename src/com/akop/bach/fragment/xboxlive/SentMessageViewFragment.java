@@ -43,7 +43,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
@@ -61,21 +60,6 @@ import com.akop.bach.parser.Parser;
 public class SentMessageViewFragment extends GenericFragment implements
 		OnClickListener, OnOkListener
 {
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	}
-	
 	private final ContentObserver mObserver = new ContentObserver(new Handler())
 	{
 		@Override
@@ -104,7 +88,6 @@ public class SentMessageViewFragment extends GenericFragment implements
 	private XboxLiveAccount mAccount;
 	private String mRecipients;
 	private long mTitleId = -1;
-	private MyHandler mHandler = new MyHandler();
 	private TaskListener mListener = new TaskListener();
 	
 	public static SentMessageViewFragment newInstance(XboxLiveAccount account)
@@ -118,7 +101,7 @@ public class SentMessageViewFragment extends GenericFragment implements
 		SentMessageViewFragment f = new SentMessageViewFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putLong("titleId", titleId);
 		f.setArguments(args);
 		

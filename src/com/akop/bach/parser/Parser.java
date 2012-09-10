@@ -70,7 +70,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Environment;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.R;
 import com.akop.bach.util.SerializableCookie;
@@ -572,7 +572,7 @@ public abstract class Parser
 		return android.text.Html.fromHtml(replaced).toString().trim();
 	}
 	
-	protected boolean deleteSession(Account account)
+	protected boolean deleteSession(BasicAccount account)
 	{
 		if (account == null)
 			return false;
@@ -590,7 +590,7 @@ public abstract class Parser
 		}
 	}
 	
-	protected boolean saveSession(Account account)
+	protected boolean saveSession(BasicAccount account)
 	{
 		ObjectOutputStream objStream = null;
 		final List<Cookie> cookies = mHttpClient.getCookieStore().getCookies();
@@ -635,13 +635,13 @@ public abstract class Parser
 		return true;
 	}
 	
-	protected String getSessionFile(Account account)
+	protected String getSessionFile(BasicAccount account)
 	{
 		return account.getUuid() + ".session";
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected boolean loadSession(Account account)
+	protected boolean loadSession(BasicAccount account)
 	{
 		ObjectInputStream objStream = null;
 		final List<Cookie> serializableCookies;
@@ -721,16 +721,16 @@ public abstract class Parser
 		mHttpClient.getCookieStore().addCookie(cookie);
 	}
 	
-	protected abstract boolean onAuthenticate(Account account)
+	protected abstract boolean onAuthenticate(BasicAccount account)
 			throws IOException, ParserException, AuthenticationException;
 	
-	public abstract void deleteAccount(Account account)
+	public abstract void deleteAccount(BasicAccount account)
 			throws AuthenticationException, IOException, ParserException;
 	
-	public abstract ContentValues validateAccount(Account account)
+	public abstract ContentValues validateAccount(BasicAccount account)
 		throws AuthenticationException, IOException, ParserException;
 	
-	public final boolean authenticate(Account account, boolean useStoredSession) 
+	public final boolean authenticate(BasicAccount account, boolean useStoredSession) 
 		throws IOException, ParserException, AuthenticationException
 	{
         long started = System.currentTimeMillis();

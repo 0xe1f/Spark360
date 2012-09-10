@@ -55,7 +55,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.PSN;
@@ -78,7 +78,6 @@ import com.akop.bach.uiwidget.PsnFriendListItem.OnStarClickListener;
 public class FriendsFragment extends GenericFragment implements
         OnItemClickListener, OnStarClickListener
 {
-	private Handler mHandler = new Handler();
 	private ListView mListView = null;
 	private TextView mMessage = null;
 	private View mProgress = null;
@@ -169,7 +168,7 @@ public class FriendsFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("PsnFriends")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -185,7 +184,7 @@ public class FriendsFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -329,7 +328,7 @@ public class FriendsFragment extends GenericFragment implements
 		FriendsFragment f = new FriendsFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;
@@ -443,7 +442,7 @@ public class FriendsFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putLong("currentId", mTitleId);
 		}
 	}

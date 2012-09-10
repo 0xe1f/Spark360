@@ -32,7 +32,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.DateFormat;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -52,8 +51,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
@@ -76,7 +75,6 @@ public class BlogEntriesFragment extends GenericFragment implements
 	private BaseAdapter mAdapter;
 	private RssChannel mPayload = null;
 	private IconCursor mIconCursor = null;
-	private Handler mHandler = new Handler();
 	private PsnAccount mAccount = null;
 	private int mTitleIndex = -1;
 	private ListView mListView = null;
@@ -86,7 +84,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("PsnBlog")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -103,7 +101,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -206,7 +204,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 		BlogEntriesFragment f = new BlogEntriesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;
@@ -286,7 +284,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putInt("titleIndex", mTitleIndex);
 			
 			if (mPayload != null)

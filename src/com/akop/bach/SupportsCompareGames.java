@@ -30,7 +30,7 @@ import android.content.Context;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 
-public interface SupportsCompareGames extends IAccount
+public interface SupportsCompareGames extends Account
 {
 	Object compareGames(Context context, Object userId)
 		throws AuthenticationException, IOException, ParserException;

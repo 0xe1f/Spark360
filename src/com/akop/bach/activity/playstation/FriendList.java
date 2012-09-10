@@ -33,19 +33,19 @@ import com.akop.bach.fragment.playstation.FriendProfileFragment;
 import com.akop.bach.fragment.playstation.FriendsFragment;
 import com.akop.bach.fragment.playstation.FriendsFragment.OnFriendSelectedListener;
 
-public class FriendList extends RibbonedMultiPaneActivity implements
+public class FriendList extends PsnMultiPane implements
 		OnFriendSelectedListener
 {
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return FriendProfileFragment.newInstance(mAccount);
+	    return FriendProfileFragment.newInstance(getAccount());
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return FriendsFragment.newInstance(mAccount);
+	    return FriendsFragment.newInstance(getAccount());
     }
 	
 	@Override
@@ -58,7 +58,7 @@ public class FriendList extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			FriendSummary.actionShow(this, mAccount, id);
+			FriendSummary.actionShow(this, getAccount(), id);
 		}
     }
 	

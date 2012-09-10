@@ -38,7 +38,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.PSN.ComparedGameInfo;
 import com.akop.bach.PSN.ComparedTrophyInfo;
@@ -183,7 +183,7 @@ public abstract class PsnParser
 	}
 	
 	@Override
-	protected abstract boolean onAuthenticate(Account account)
+	protected abstract boolean onAuthenticate(BasicAccount account)
 			throws IOException, ParserException;
 	
 	protected abstract ContentValues parseSummaryData(PsnAccount account)
@@ -550,7 +550,7 @@ public abstract class PsnParser
 	}
 	
 	@Override
-	public ContentValues validateAccount(Account account)
+	public ContentValues validateAccount(BasicAccount account)
 			throws AuthenticationException, IOException, ParserException
 	{
 		if (!authenticate(account, false))
@@ -565,7 +565,7 @@ public abstract class PsnParser
 	}
 	
 	@Override
-	public void deleteAccount(Account account)
+	public void deleteAccount(BasicAccount account)
 	{
 		ContentResolver cr = mContext.getContentResolver();
 		long accountId = account.getId();
@@ -614,7 +614,7 @@ public abstract class PsnParser
         deleteSession(account);
 	}
 	
-	public void createAccount(Account account, ContentValues cv)
+	public void createAccount(BasicAccount account, ContentValues cv)
 	{
 		// Add profile to database
 		ContentResolver cr = mContext.getContentResolver();

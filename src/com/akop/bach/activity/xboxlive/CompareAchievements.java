@@ -29,16 +29,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.akop.bach.R;
-import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.XboxLive.ComparedGameCursor;
+import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.CompareAchievementsFragment;
 
 public class CompareAchievements
-		extends RibbonedSinglePaneActivity
+		extends XboxLiveSinglePane
 {
 	private String mGamertag;
 	private String mGameTitle;
@@ -49,25 +47,10 @@ public class CompareAchievements
 	{
 		super.onCreate(savedInstanceState);
 		
-		String yourGamerpicUrl = getIntent().getStringExtra("yourGamerpicUrl"); 
 		HashMap<Integer, Object> gameInfo = (HashMap<Integer, Object>)getIntent().getSerializableExtra("gameInfo");
 		
 		mGamertag = getIntent().getStringExtra("gamertag");
 		mGameTitle = (String)gameInfo.get(ComparedGameCursor.COLUMN_TITLE);
-		
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (CompareAchievementsFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = CompareAchievementsFragment.newInstance(mAccount, mGamertag, gameInfo, yourGamerpicUrl);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
 	}
 	
 	public static void actionShow(Context context,
@@ -90,4 +73,15 @@ public class CompareAchievements
 		return getString(R.string.compare_x_achieves_vs_f, 
 				mGamertag, mGameTitle);
     }
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Fragment createFragment() 
+	{
+		String yourGamerpicUrl = getIntent().getStringExtra("yourGamerpicUrl"); 
+		HashMap<Integer, Object> gameInfo = (HashMap<Integer, Object>)getIntent().getSerializableExtra("gameInfo");
+		
+		return CompareAchievementsFragment.newInstance(getAccount(), 
+				mGamertag, gameInfo, yourGamerpicUrl);
+	}
 }

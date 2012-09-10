@@ -36,7 +36,7 @@ import com.akop.bach.fragment.xboxlive.CompareAchievementsFragment;
 import com.akop.bach.fragment.xboxlive.CompareGamesFragment;
 import com.akop.bach.fragment.xboxlive.CompareGamesFragment.OnGameSelectedListener;
 
-public class CompareGames extends RibbonedMultiPaneActivity implements
+public class CompareGames extends XboxLiveMultiPane implements
         OnGameSelectedListener
 {
 	private String mGamertag;
@@ -58,13 +58,13 @@ public class CompareGames extends RibbonedMultiPaneActivity implements
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return CompareAchievementsFragment.newInstance(mAccount, mGamertag);
+	    return CompareAchievementsFragment.newInstance(getAccount(), mGamertag);
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return CompareGamesFragment.newInstance(mAccount, mGamertag);
+	    return CompareGamesFragment.newInstance(getAccount(), mGamertag);
     }
 	
 	public static void actionShow(Context context, XboxLiveAccount account, String gamertag)
@@ -92,7 +92,7 @@ public class CompareGames extends RibbonedMultiPaneActivity implements
 		else
 		{
 			CompareAchievements.actionShow(this,
-					yourGamerpicUrl, gameInfo, mAccount, mGamertag);
+					yourGamerpicUrl, gameInfo, getAccount(), mGamertag);
 		}
     }
 }

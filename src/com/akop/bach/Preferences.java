@@ -51,12 +51,14 @@ public class Preferences
 	public static class WidgetInfo
 	{
 		public int widgetId;
-		public Account account;
+		public BasicAccount account;
 		public ComponentName componentName;
 	}
 	
 	private static Preferences sPrefs;
 	private SharedPreferences mSharedPrefs;
+	
+	private Secret mSecret = null;
 	
 	private Cipher mV2Decryptor;
 	private Cipher mV3Encryptor = null;
@@ -87,9 +89,33 @@ public class Preferences
 		}
 	}
 	
+	private Secret getSecret()
+	{
+		if (mSecret == null)
+		{
+			try
+			{
+				Class<?> privateSecret = Class.forName("com.akop.bach.PrivateSecret");
+				mSecret = (Secret)privateSecret.newInstance();
+			}
+			catch(Exception ex)
+			{
+				if (App.LOGV)
+					App.logv("Could not instantiate PrivateSecret");
+			}
+			
+			if (mSecret == null)
+				mSecret = new GenericSecret();
+		}
+		
+		return mSecret;
+	}
+	
 	private void initCryptors(Context context)
 			throws GeneralSecurityException
 	{
+		Secret secret = getSecret();
+		
 		String androidId = Secure.getString(context.getContentResolver(),
 				Secure.ANDROID_ID);
 		
@@ -107,17 +133,17 @@ public class Preferences
         mV2Decryptor.init(Cipher.DECRYPT_MODE, v2Secret, 
         		new IvParameterSpec(IV));
         
-        SecretKeyFactory v3factory = SecretKeyFactory.getInstance(Secret.KEYGEN_ALGORITHM);
-        String v3key = String.format("%s,%s", androidId, Secret.CRYPT_KEY);
-        KeySpec v3KeySpec = new PBEKeySpec(v3key.toCharArray(), Secret.SALT, 1024, 256);
+        SecretKeyFactory v3factory = SecretKeyFactory.getInstance(secret.getKeygenAlgo());
+        String v3key = String.format("%s,%s", androidId, secret.getCryptKey());
+        KeySpec v3KeySpec = new PBEKeySpec(v3key.toCharArray(), secret.getSalt(), 1024, 256);
         SecretKey v3Tmp = v3factory.generateSecret(v3KeySpec);
-        SecretKey v3Secret = new SecretKeySpec(v3Tmp.getEncoded(), Secret.SECRET_KEY_ALGO);
+        SecretKey v3Secret = new SecretKeySpec(v3Tmp.getEncoded(), secret.getSecretKeyAlgo());
         
-        mV3Encryptor = Cipher.getInstance(Secret.CIPHER_ALGORITHM);
-        mV3Encryptor.init(Cipher.ENCRYPT_MODE, v3Secret, new IvParameterSpec(Secret.IV));
+        mV3Encryptor = Cipher.getInstance(secret.getCipherAlgo());
+        mV3Encryptor.init(Cipher.ENCRYPT_MODE, v3Secret, new IvParameterSpec(secret.getIv()));
         
-        mV3Decryptor = Cipher.getInstance(Secret.CIPHER_ALGORITHM);
-        mV3Decryptor.init(Cipher.DECRYPT_MODE, v3Secret, new IvParameterSpec(Secret.IV));
+        mV3Decryptor = Cipher.getInstance(secret.getCipherAlgo());
+        mV3Decryptor.init(Cipher.DECRYPT_MODE, v3Secret, new IvParameterSpec(secret.getIv()));
 	}
 	
 	public SharedPreferences getSharedPreferences()
@@ -133,19 +159,19 @@ public class Preferences
 		return sPrefs;
 	}
 	
-	public Account getAccount(String uuid)
+	public BasicAccount getAccount(String uuid)
 	{
 		String uuids = getSharedPreferences().getString("accountUuids", null);
 		if (uuids == null || uuids.length() < 1)
 			return null;
 		
 		if (Arrays.asList(uuids.split(",")).contains(uuid))
-			return Account.create(this, uuid);
+			return BasicAccount.create(this, uuid);
 		
 		return null;
 	}
 	
-	public Account getAccount(long id)
+	public BasicAccount getAccount(long id)
 	{
 		String uuids = getSharedPreferences().getString("accountUuids", null);
 		if (uuids == null || uuids.length() < 1)
@@ -153,22 +179,22 @@ public class Preferences
 		
 		String[] uuidList = uuids.split(",");
 		for (int i = 0, length = uuidList.length; i < length; i++)
-			if (Account.isMatch(this, uuidList[i], id))
-				return Account.create(this, uuidList[i]);
+			if (BasicAccount.isMatch(this, uuidList[i], id))
+				return BasicAccount.create(this, uuidList[i]);
 		
 		return null;
 	}
 	
-	public Account[] getAccounts()
+	public BasicAccount[] getAccounts()
 	{
 		String uuids = getSharedPreferences().getString("accountUuids", null);
 		if (uuids == null || uuids.length() < 1)
-			return new Account[] {};
+			return new BasicAccount[] {};
 		
 		String[] uuidList = uuids.split(",");
-		Account[] accounts = new Account[uuidList.length];
+		BasicAccount[] accounts = new BasicAccount[uuidList.length];
 		for (int i = 0, length = uuidList.length; i < length; i++)
-			accounts[i] = Account.create(this, uuidList[i]);
+			accounts[i] = BasicAccount.create(this, uuidList[i]);
 		
 		return accounts;
 	}
@@ -179,9 +205,9 @@ public class Preferences
 		return (uuids == null || uuids.length() < 1);
 	}
 	
-	public Account getDefaultAccount()
+	public BasicAccount getDefaultAccount()
 	{
-		Account[] accounts = getAccounts();
+		BasicAccount[] accounts = getAccounts();
 		if (accounts.length > 0)
 			return accounts[0];
 		return null;
@@ -199,7 +225,7 @@ public class Preferences
 				App.logv(key + " = " + getSharedPreferences().getAll().get(key));
 	}
 	
-	public boolean isNewAccount(Account account)
+	public boolean isNewAccount(BasicAccount account)
 	{
         return !getSharedPreferences().getString("accountUuids", "").contains(account.getUuid());
 	}
@@ -217,7 +243,7 @@ public class Preferences
         return counter;
 	}
 	
-	public void addAccount(Account account)
+	public void addAccount(BasicAccount account)
 	{
         String accountUuids = getSharedPreferences().getString("accountUuids", "");
         accountUuids += (accountUuids.length() != 0 ? "," : "") + account.getUuid();
@@ -240,7 +266,7 @@ public class Preferences
     		
         	if (uuid != null && flatCn != null)
         	{
-	    		Account account = getAccount(uuid);
+	    		BasicAccount account = getAccount(uuid);
 	    		if (account != null)
 	    		{
 	    			info = new WidgetInfo();
@@ -255,7 +281,7 @@ public class Preferences
 		return info;
 	}
 	
-	public int[] getAllWidgetIds(Context context, Account account)
+	public int[] getAllWidgetIds(Context context, BasicAccount account)
 	{
 		Set<String> prefSet = Preferences.get(context).getSharedPreferences().getAll().keySet();
 		List<Integer> widgetIds = new ArrayList<Integer>(); 
@@ -431,7 +457,7 @@ public class Preferences
         editor.commit();
 	}
 	
-	public synchronized void deleteAccount(Context context, Account account)
+	public synchronized void deleteAccount(Context context, BasicAccount account)
 	{
 		// Delete account
 		account.delete(context);

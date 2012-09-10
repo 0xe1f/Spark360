@@ -27,15 +27,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
 import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.AccountProfileFragment;
 
-public class AccountSummary extends RibbonedSinglePaneActivity
+public class AccountSummary extends XboxLiveSinglePane
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -53,20 +51,6 @@ public class AccountSummary extends RibbonedSinglePaneActivity
 		}
 		
 		super.onCreate(savedInstanceState);
-		
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (AccountProfileFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = AccountProfileFragment.newInstance(mAccount);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
 	}
 	
 	public static void actionShow(Context context, XboxLiveAccount account)
@@ -81,4 +65,10 @@ public class AccountSummary extends RibbonedSinglePaneActivity
     {
 		return getString(R.string.my_profile);
     }
+	
+	@Override
+	protected Fragment createFragment() 
+	{
+	    return AccountProfileFragment.newInstance(getAccount());
+	}
 }

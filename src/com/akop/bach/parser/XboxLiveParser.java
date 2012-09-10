@@ -62,7 +62,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
@@ -3077,7 +3077,7 @@ public class XboxLiveParser extends LiveParser
 	}
 	
 	@Override
-	public ContentValues validateAccount(Account account)
+	public ContentValues validateAccount(BasicAccount account)
 			throws AuthenticationException, IOException, ParserException
 	{
 		if (!authenticate(account, true))
@@ -3093,7 +3093,7 @@ public class XboxLiveParser extends LiveParser
 	}
 	
 	@Override
-	public void deleteAccount(Account account)
+	public void deleteAccount(BasicAccount account)
 	{
 		ContentResolver cr = mContext.getContentResolver();
 		long accountId = account.getId();
@@ -3226,7 +3226,7 @@ public class XboxLiveParser extends LiveParser
         
 	}
 	
-	public void createAccount(Account account, ContentValues cv)
+	public void createAccount(BasicAccount account, ContentValues cv)
 	{
 		XboxLiveAccount xblAccount = (XboxLiveAccount)account;
 		

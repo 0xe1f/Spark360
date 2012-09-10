@@ -47,8 +47,8 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -236,13 +236,13 @@ public class FriendCoverflow extends RibbonedActivity implements
 		}
 		
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mHandler.showError(e);
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam,
+		public void onTaskSucceeded(Account account, Object requestParam,
 				Object result)
 		{
 			mHandler.setLoadText(getString(R.string.no_friends));
@@ -267,13 +267,13 @@ public class FriendCoverflow extends RibbonedActivity implements
 		}
 		
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mHandler.showToast(Parser.getErrorMessage(FriendCoverflow.this, e));
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam,
+		public void onTaskSucceeded(Account account, Object requestParam,
 				Object result)
 		{
 			// Update friends

@@ -25,13 +25,15 @@ package com.akop.bach;
 
 import java.io.IOException;
 
+import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 
-public interface SupportsFriends extends IAccount
+public interface SupportsFriends extends Account
 {
 	void updateFriends(Context context)	
 		throws AuthenticationException, IOException, ParserException;
@@ -45,4 +47,5 @@ public interface SupportsFriends extends IAccount
 	Uri getFriendUri(long friendId);
 	Uri getFriendsUri();
 	String getFriendScreenName(long friendId);
+	Cursor createCursor(Activity activity);
 }

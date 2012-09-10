@@ -30,7 +30,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
@@ -39,7 +39,7 @@ import com.akop.bach.service.NotificationService;
 public class DeleteAccount extends Activity
 {
 	private static final int DIALOG_WARN_DELETE = 1;
-	private Account mAccount;
+	private BasicAccount mAccount;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

@@ -27,7 +27,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.R;
 
@@ -42,7 +42,7 @@ public class CreateAccountShortcut
 		AccountSelector.actionSelectAccount(this);
 	}
 	
-	private void createShortcut(Account account)
+	private void createShortcut(BasicAccount account)
 	{
 		if (account == null)
 		{
@@ -75,7 +75,7 @@ public class CreateAccountShortcut
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (resultCode == RESULT_OK)
-			createShortcut((Account)data.getSerializableExtra("account"));
+			createShortcut((BasicAccount)data.getSerializableExtra("account"));
 		
 		finish();
 	}

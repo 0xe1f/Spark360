@@ -32,7 +32,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,8 +45,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -72,7 +71,6 @@ public class CompareGamesFragment extends GenericFragment implements
 	private MyCursorAdapter mAdapter = null;
 	private IconCursor mIconCursor = null;
 	private ComparedGameInfo mPayload;
-	private Handler mHandler = new Handler();
 	private PsnAccount mAccount = null;
 	private long mTitleId = -1;
 	private String mGamertag;
@@ -111,7 +109,7 @@ public class CompareGamesFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("PsnCompareGames")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -128,7 +126,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -318,7 +316,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		CompareGamesFragment f = new CompareGamesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putString("gamertag", gamertag);
 		f.setArguments(args);
 		
@@ -408,7 +406,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putString("gamertag", mGamertag);
 			outState.putLong("currentId", mTitleId);
 			

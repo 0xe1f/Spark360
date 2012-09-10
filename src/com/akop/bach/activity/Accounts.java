@@ -31,12 +31,11 @@ import android.support.v4.app.Fragment;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
 import com.akop.bach.XboxLiveAccount;
-import com.akop.bach.activity.xboxlive.RibbonedMultiPaneActivity;
 import com.akop.bach.fragment.AccountsFragment;
 import com.akop.bach.fragment.AccountsFragment.OnAccountSelectedListener;
 import com.akop.bach.fragment.xboxlive.AccountProfileFragment;
 
-public class Accounts extends RibbonedMultiPaneActivity implements
+public class Accounts extends RibbonedMultiPane implements
         OnAccountSelectedListener
 {
 	@Override
@@ -111,5 +110,17 @@ public class Accounts extends RibbonedMultiPaneActivity implements
 			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 	    	startActivity(intent);
 		}
+	}
+	
+	@Override
+	protected int getActionBarLayout() 
+	{
+		return R.layout.xbl_actionbar_custom; // TODO: make it neutral
+	}
+	
+	@Override
+	protected int getLayout() 
+	{
+		return R.layout.xbl_multipane; // TODO: make it neutral
 	}
 }

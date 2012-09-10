@@ -25,37 +25,14 @@ package com.akop.bach.activity.xboxlive;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.akop.bach.R;
 import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.EditProfileFragment;
 
-public class EditProfile extends RibbonedSinglePaneActivity
+public class EditProfile extends XboxLiveSinglePane
 {
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (EditProfileFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = EditProfileFragment.newInstance(mAccount);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
-	}
-	
 	public static void actionShow(Context context, XboxLiveAccount account)
 	{
     	Intent intent = new Intent(context, EditProfile.class);
@@ -68,4 +45,10 @@ public class EditProfile extends RibbonedSinglePaneActivity
     {
 		return getString(R.string.edit_profile);
     }
+	
+	@Override
+	protected Fragment createFragment() 
+	{
+		return EditProfileFragment.newInstance(getAccount());
+	}
 }

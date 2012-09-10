@@ -33,7 +33,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.PSN.Friends;
 import com.akop.bach.PSN.NotifyStates;
@@ -104,14 +104,14 @@ public class PsnServiceClient extends ServiceClient
 					tickerTitle = context.getString(R.string.friend_online);
 					tickerText = context.getString(R.string.notify_friend_online_f,
 							Friends.getOnlineId(context, friendsOnline[0]),
-							account.getDescription(context)); 
+							account.getDescription()); 
 				}
 				else
 				{
 					tickerTitle = context.getString(R.string.friends_online);
 					tickerText = context.getString(R.string.notify_friends_online_f,
 							account.getScreenName(), friendsOnline.length,
-							account.getDescription(context));
+							account.getDescription());
 				}
 				
 				Notification notification = new Notification(R.drawable.psn_stat_notify_friend,
@@ -151,7 +151,7 @@ public class PsnServiceClient extends ServiceClient
 	}
 	
 	@Override
-	public Object setupParameters(Account account) 
+	public Object setupParameters(BasicAccount account) 
 	{
 		Context context = getContext();
 		PsnAccount psnAccount = (PsnAccount)account;
@@ -175,7 +175,7 @@ public class PsnServiceClient extends ServiceClient
 	}
 
 	@Override
-	protected void synchronize(Account account)
+	protected void synchronize(BasicAccount account)
 			throws IOException, ParserException, AuthenticationException
 	{
 		Context context = getContext();
@@ -193,7 +193,7 @@ public class PsnServiceClient extends ServiceClient
 	}
 	
 	@Override
-	protected void notify(Account account, AccountSchedule schedule) 
+	protected void notify(BasicAccount account, AccountSchedule schedule) 
 	{
 		Context context = getContext();
 		PsnAccount psnAccount = (PsnAccount)account;

@@ -28,7 +28,7 @@ import java.io.IOException;
 import android.app.NotificationManager;
 import android.content.Context;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
@@ -40,12 +40,12 @@ public abstract class ServiceClient
 	protected static final int DEFAULT_LIGHTS_OFF_MS = 10000;
 	protected static final int DEFAULT_LIGHTS_COLOR = 0xffffffff;
 	
-	public abstract Object setupParameters(Account account);
+	public abstract Object setupParameters(BasicAccount account);
 	
-	protected abstract void synchronize(Account account)
+	protected abstract void synchronize(BasicAccount account)
 			throws IOException, ParserException, AuthenticationException;
 	
-	protected abstract void notify(Account account, AccountSchedule schedule);
+	protected abstract void notify(BasicAccount account, AccountSchedule schedule);
 	
 	protected Context getContext()
 	{
@@ -57,7 +57,7 @@ public abstract class ServiceClient
 		return (NotificationManager)App.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
 	}
 	
-	public void update(Account account, AccountSchedule schedule)
+	public void update(BasicAccount account, AccountSchedule schedule)
 	{
 		try
 		{

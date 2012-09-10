@@ -25,48 +25,14 @@ package com.akop.bach.activity.xboxlive;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
-import com.akop.bach.App;
 import com.akop.bach.R;
 import com.akop.bach.SupportsMessaging;
 import com.akop.bach.fragment.xboxlive.MessageViewFragment;
 
-public class MessageView extends RibbonedSinglePaneActivity
+public class MessageView extends XboxLiveSinglePane
 {
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		
-        long titleId = getIntent().getLongExtra("messageId", -1);
-        if (titleId < 0)
-		{
-        	if (App.LOGV)
-        		App.logv("Message not specified");
-        	
-			finish();
-			return;
-		}
-		
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (MessageViewFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = MessageViewFragment.newInstance(mAccount, titleId);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
-	}
-	
 	public static void actionShow(Context context, 
 			SupportsMessaging account, long messageId)
 	{
@@ -82,4 +48,11 @@ public class MessageView extends RibbonedSinglePaneActivity
     {
 		return getString(R.string.my_messages);
     }
+	
+	@Override
+	protected Fragment createFragment() 
+	{
+		return MessageViewFragment.newInstance(getAccount(), 
+				getIntent().getLongExtra("messageId", -1));
+	}
 }

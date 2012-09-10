@@ -23,35 +23,15 @@
 
 package com.akop.bach;
 
-public class Secret
+public interface Secret
 {
-	// Note that for security reasons,
-	// the values in this class will differ in the official and beta builds
-	
-	public static final String CRYPT_KEY = "TheOwlsAreNotWhatTheySeem";
-	public static final String PASSWORD = "WithoutChemicalsHePoints";
+	String getCryptKey();
+	String getPassword();
     
-	public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
-	public static final String KEYGEN_ALGORITHM = "PBEWITHSHAAND256BITAES-CBC-BC";
-	public static final String SECRET_KEY_ALGO = "AES";
+	String getCipherAlgo();
+	String getKeygenAlgo();
+	String getSecretKeyAlgo();
     
-    public static byte[] SALT =
-	{ 
-		(byte)0xb1,(byte)0x46,(byte)0xa1,(byte)0x0d,(byte)0x0b,
-		(byte)0x37,(byte)0x89,(byte)0xb8,(byte)0x20,(byte)0x94,
-		(byte)0xed,(byte)0xab,(byte)0xd1,(byte)0x00,(byte)0x8b,
-		(byte)0x73,(byte)0x0d,(byte)0x47,(byte)0x0a,(byte)0xd6,
-	};
-    
-    public static byte[] IV =
-	{
-    	(byte)0x8e,(byte)0x35,(byte)0x54,(byte)0xae,
-    	(byte)0x2b,(byte)0x5a,(byte)0xa3,(byte)0xf8,
-    	(byte)0xf3,(byte)0x71,(byte)0xef,(byte)0x09,
-    	(byte)0x98,(byte)0xf4,(byte)0xb1,(byte)0x11,
-	};
-    
-	private Secret()
-	{
-	}
+	byte[] getSalt();
+	byte[] getIv();
 }

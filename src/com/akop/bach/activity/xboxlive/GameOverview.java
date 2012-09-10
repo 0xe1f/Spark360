@@ -47,7 +47,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -140,13 +140,13 @@ public class GameOverview
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam,
+		public void onTaskSucceeded(Account account, Object requestParam,
 				Object result)
 		{
 			mLocalHandler.updateStatus(result);
 		}
 		
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mHandler.showError(e);
 		}

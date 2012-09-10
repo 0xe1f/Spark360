@@ -27,7 +27,6 @@ import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.PSN.GamerProfileInfo;
@@ -58,14 +57,13 @@ public class GamerProfileFragment extends GenericFragment
 	
 	private PsnAccount mAccount;
 	private String mGamertag;
-	private Handler mHandler = new Handler();
 	private TextView mMessage;
 	private GamerProfileInfo mGamerProfile;
 	
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -79,7 +77,7 @@ public class GamerProfileFragment extends GenericFragment
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -109,7 +107,7 @@ public class GamerProfileFragment extends GenericFragment
 		GamerProfileFragment f = new GamerProfileFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putString("gamertag", gamertag);
 		f.setArguments(args);
 		

@@ -44,7 +44,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.OnImageReadyListener;
 import com.akop.bach.Preferences;
@@ -91,14 +91,14 @@ public class AccountSelector
 	
 	private void refreshAccounts()
 	{
-		Account[] accounts = Preferences.get(this).getAccounts();
+		BasicAccount[] accounts = Preferences.get(this).getAccounts();
 		AccountInfo[] infos = new AccountInfo[accounts.length];
 		
 		for (int i = 0; i < accounts.length; i++)
 		{
-			Account account = accounts[i];
+			BasicAccount account = accounts[i];
 			infos[i] = new AccountInfo(account.getScreenName(),
-					account.getDescription(this),
+					account.getDescription(),
 					account.getIconUrl(), 
 					account.getUuid());
 		}
@@ -266,7 +266,7 @@ public class AccountSelector
 		}
 		else
 		{
-			Account account = Preferences.get(this).getAccount(accountInfo.uuid);
+			BasicAccount account = Preferences.get(this).getAccount(accountInfo.uuid);
 			
 			intent.putExtra("account", account);
 		}

@@ -110,7 +110,7 @@ public class App extends Application
 		Log.v(LOG_TAG, String.format(format, args));
 	}
 	
-	public static Account createAccountFromAuthority(Context context, String authority)
+	public static BasicAccount createAccountFromAuthority(Context context, String authority)
 	{
 		if (XboxLiveProvider.AUTHORITY.equals(authority))
 			return new XboxLiveAccount(context);

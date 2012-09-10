@@ -30,7 +30,6 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -48,8 +47,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.PSN;
@@ -78,7 +77,6 @@ public class GameCatalogFragment extends GenericFragment implements
 	
 	private CachePolicy mCp = null;
 	private MyAdapter mAdapter = null;
-	private Handler mHandler = new Handler();
 	private PsnAccount mAccount = null;
 	private int mItemPos = -1;
 	private ListView mListView = null;
@@ -100,7 +98,7 @@ public class GameCatalogFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -118,7 +116,7 @@ public class GameCatalogFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -300,7 +298,7 @@ public class GameCatalogFragment extends GenericFragment implements
 		GameCatalogFragment f = new GameCatalogFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;

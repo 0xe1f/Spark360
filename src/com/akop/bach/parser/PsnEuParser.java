@@ -41,7 +41,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.PSN;
 import com.akop.bach.PSN.ComparedGameInfo;
@@ -234,7 +234,7 @@ public class PsnEuParser
 	}
 	
 	@Override
-	protected boolean onAuthenticate(Account account) 
+	protected boolean onAuthenticate(BasicAccount account) 
 		throws IOException, ParserException
 	{
 		PsnAccount psnAccount = (PsnAccount)account;
@@ -279,7 +279,7 @@ public class PsnEuParser
 	}
 	
 	@Override
-	protected String getSessionFile(Account account)
+	protected String getSessionFile(BasicAccount account)
 	{
 		return account.getUuid() + ".eu.session";
 	}
@@ -631,6 +631,7 @@ public class PsnEuParser
 			final long accountId = account.getId();
 			
 			int rowsInserted = 0;
+			@SuppressWarnings("unused")
 			int rowsUpdated = 0;
 			int rowsDeleted = 0;
 			

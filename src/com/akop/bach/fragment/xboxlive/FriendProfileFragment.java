@@ -40,7 +40,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
@@ -85,22 +84,6 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	private XboxLiveAccount mAccount;
 	private long mTitleId = -1;
 	private String mGamertag;
-	private MyHandler mHandler = new MyHandler();
-	
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	}
 	
 	private class ViewHolder
 	{
@@ -140,7 +123,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 		FriendProfileFragment f = new FriendProfileFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putLong("titleId", titleId);
 		f.setArguments(args);
 		
@@ -243,7 +226,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putSerializable("account", mAccount);
+		outState.putParcelable("account", mAccount);
 		outState.putLong("titleId", mTitleId);
 	}
 	

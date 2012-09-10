@@ -33,11 +33,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 
-import com.akop.bach.XboxLive.Profiles;
 import com.akop.bach.XboxLive.Friends;
+import com.akop.bach.XboxLive.Profiles;
 import com.akop.bach.activity.AuthenticatingAccountLogin;
 import com.akop.bach.activity.xboxlive.AccountSettings;
 import com.akop.bach.activity.xboxlive.AccountSummary;
@@ -57,8 +59,6 @@ public class XboxLiveAccount
 		SupportsCompareGames, SupportsCompareAchievements,
 		SupportsMessaging, SupportsFriendManagement
 {
-	private static final long serialVersionUID = -4961094611184799471L;
-	
 	// These should match the values declared in 
 	// @arrays/friend_notification_values
 	public static final int FRIEND_NOTIFY_OFF = 0;
@@ -397,9 +397,9 @@ public class XboxLiveAccount
 	}
 	
 	@Override
-	public String getDescription(Context context)
+	public String getDescription()
 	{
-		return context.getString(R.string.xbox_live);
+		return App.getInstance().getString(R.string.xbox_live);
 	}
 	
 	@Override
@@ -888,5 +888,97 @@ public class XboxLiveAccount
 	public Uri getFriendsUri()
 	{
 		return Friends.CONTENT_URI;
+	}
+	
+	private static final String[] PROJECTION = 
+	{ 
+		Friends._ID,
+		Friends.GAMERTAG,
+		Friends.ICON_URL,
+	};
+	
+	@Override
+	public Cursor createCursor(Activity activity) 
+	{
+		return activity.managedQuery(getFriendsUri(), PROJECTION, 
+				Friends.ACCOUNT_ID + "=" + getId(), null, null);
+	}
+	
+	public static final Parcelable.Creator<XboxLiveAccount> CREATOR = new Parcelable.Creator<XboxLiveAccount>() 
+	{
+		public XboxLiveAccount createFromParcel(Parcel in) 
+		{
+			return new XboxLiveAccount(in);
+		}
+		
+		public XboxLiveAccount[] newArray(int size) 
+		{
+			return new XboxLiveAccount[size];
+		}
+	};
+	
+	protected XboxLiveAccount(Parcel in) 
+	{
+		super(in);
+		
+		mDirtyGamertag = (in.readByte() != 0);
+		mGamertag = in.readString();
+		mDirtyLastGameSync = (in.readByte() != 0);
+		mLastGameSync = in.readLong();
+		mDirtyLastFriendSync = (in.readByte() != 0);
+		mLastFriendSync = in.readLong();
+		mDirtyLastMessageSync = (in.readByte() != 0);
+		mLastMessageSync = in.readLong();
+		mDirtyLastSummarySync = (in.readByte() != 0);
+		mLastSummarySync = in.readLong();
+		mDirtyIsGold = (in.readByte() != 0);
+		mIsGold = (in.readByte() != 0);
+		mDirtyRingtone = (in.readByte() != 0);
+		mRingtone = in.readString();
+		mDirtyVibrate = (in.readByte() != 0);
+		mVibrate = (in.readByte() != 0);
+		mDirtyFriendNotifications = (in.readByte() != 0);
+		mFriendNotifications = in.readInt();
+		mDirtyMessageNotifications = (in.readByte() != 0);
+		mMessageNotifications = (in.readByte() != 0);
+		mDirtyBeaconNotifications = (in.readByte() != 0);
+		mBeaconNotifications = in.readInt();
+		mDirtyCoverflowMode = (in.readByte() != 0);
+		mCoverflowMode = in.readInt();
+		mDirtyShowApps = (in.readByte() != 0);
+		mShowApps = (in.readByte() != 0);
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		super.writeToParcel(dest, flags);
+		
+		dest.writeByte(mDirtyGamertag ? (byte)1 : 0);
+		dest.writeString(mGamertag);
+		dest.writeByte(mDirtyLastGameSync ? (byte)1 : 0);
+		dest.writeLong(mLastGameSync);
+		dest.writeByte(mDirtyLastFriendSync ? (byte)1 : 0);
+		dest.writeLong(mLastFriendSync);
+		dest.writeByte(mDirtyLastMessageSync ? (byte)1 : 0);
+		dest.writeLong(mLastMessageSync);
+		dest.writeByte(mDirtyLastSummarySync ? (byte)1 : 0);
+		dest.writeLong(mLastSummarySync);
+		dest.writeByte(mDirtyIsGold ? (byte)1 : 0);
+		dest.writeByte(mIsGold ? (byte)1 : 0);
+		dest.writeByte(mDirtyRingtone ? (byte)1 : 0);
+		dest.writeString(mRingtone);
+		dest.writeByte(mDirtyVibrate ? (byte)1 : 0);
+		dest.writeByte(mVibrate ? (byte)1 : 0);
+		dest.writeByte(mDirtyFriendNotifications ? (byte)1 : 0);
+		dest.writeInt(mFriendNotifications);
+		dest.writeByte(mDirtyMessageNotifications ? (byte)1 : 0);
+		dest.writeByte(mMessageNotifications ? (byte)1 : 0);
+		dest.writeByte(mDirtyBeaconNotifications ? (byte)1 : 0);
+		dest.writeInt(mBeaconNotifications);
+		dest.writeByte(mDirtyCoverflowMode ? (byte)1 : 0);
+		dest.writeInt(mCoverflowMode);
+		dest.writeByte(mDirtyShowApps ? (byte)1 : 0);
+		dest.writeByte(mShowApps ? (byte)1 : 0);
 	}
 }

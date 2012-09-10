@@ -53,7 +53,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.PSN;
 import com.akop.bach.PSN.ComparedGameCursor;
@@ -220,7 +220,7 @@ public class PsnUsParser
 	}
 	
 	@Override
-	protected boolean onAuthenticate(Account account) throws IOException,
+	protected boolean onAuthenticate(BasicAccount account) throws IOException,
 			ParserException
 	{
 		PsnAccount psnAccount = (PsnAccount)account;
@@ -284,7 +284,7 @@ public class PsnUsParser
 	}
 	
 	@Override
-	protected String getSessionFile(Account account)
+	protected String getSessionFile(BasicAccount account)
 	{
 		return account.getUuid() + ".us.session";
 	}
@@ -738,6 +738,7 @@ public class PsnUsParser
 			List<ContentValues> newCvs = new ArrayList<ContentValues>(100);
 			
 			int rowsInserted = 0;
+			@SuppressWarnings("unused")
 			int rowsUpdated = 0;
 			int rowsDeleted = 0;
 			
@@ -1886,7 +1887,7 @@ public class PsnUsParser
 	}
 	
 	@Override
-	public ContentValues validateAccount(Account account)
+	public ContentValues validateAccount(BasicAccount account)
 			throws AuthenticationException, IOException, ParserException
 	{
 		if (!authenticate(account, false))
@@ -1901,7 +1902,7 @@ public class PsnUsParser
 	}
 	
 	@Override
-	public void deleteAccount(Account account)
+	public void deleteAccount(BasicAccount account)
 	{
 		ContentResolver cr = mContext.getContentResolver();
 		long accountId = account.getId();
@@ -1950,7 +1951,7 @@ public class PsnUsParser
         deleteSession(account);
 	}
 	
-	public void createAccount(Account account, ContentValues cv)
+	public void createAccount(BasicAccount account, ContentValues cv)
 	{
 		// Add profile to database
 		ContentResolver cr = mContext.getContentResolver();

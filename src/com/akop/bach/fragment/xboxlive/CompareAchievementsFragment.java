@@ -46,8 +46,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.OnImageReadyListener;
 import com.akop.bach.R;
@@ -205,7 +205,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("XboxCompareAchieves")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -222,7 +222,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -268,7 +268,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 		CompareAchievementsFragment f = new CompareAchievementsFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putString("gamertag", gamertag);
 		args.putSerializable("gameInfo", gameInfo);
 		args.putString("yourGamerpicUrl", yourGamerpicUrl);
@@ -283,7 +283,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 		CompareAchievementsFragment f = new CompareAchievementsFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putString("gamertag", gamertag);
 		f.setArguments(args);
 		

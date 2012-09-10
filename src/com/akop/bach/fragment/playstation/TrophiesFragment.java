@@ -54,8 +54,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -135,7 +135,7 @@ public class TrophiesFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("PsnTrophies")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -151,7 +151,7 @@ public class TrophiesFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam,
+		public void onTaskSucceeded(Account account, Object requestParam,
 				Object result)
 		{
 			mHandler.post(new Runnable()
@@ -286,8 +286,6 @@ public class TrophiesFragment extends GenericFragment implements
 		}
 	};
 	
-	private Handler mHandler = new Handler();
-	
 	private PsnAccount mAccount;
 	private long mTitleId = -1;
 	
@@ -311,7 +309,7 @@ public class TrophiesFragment extends GenericFragment implements
 		TrophiesFragment f = new TrophiesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putLong("titleId", titleId);
 		args.putBoolean("showGameTotals", showGameTotals);
 		f.setArguments(args);
@@ -413,7 +411,7 @@ public class TrophiesFragment extends GenericFragment implements
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putSerializable("account", mAccount);
+		outState.putParcelable("account", mAccount);
 		outState.putLong("titleId", mTitleId);
 	}
 	

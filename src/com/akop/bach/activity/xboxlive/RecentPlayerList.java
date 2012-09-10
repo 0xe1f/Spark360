@@ -28,25 +28,25 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.akop.bach.R;
-import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.XboxLive.GamerProfileInfo;
+import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.PlayerProfileFragment;
 import com.akop.bach.fragment.xboxlive.RecentPlayersFragment;
 import com.akop.bach.fragment.xboxlive.RecentPlayersFragment.OnPlayerSelectedListener;
 
-public class RecentPlayerList extends RibbonedMultiPaneActivity implements
+public class RecentPlayerList extends XboxLiveMultiPane implements
         OnPlayerSelectedListener
 {
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return PlayerProfileFragment.newInstance(mAccount);
+	    return PlayerProfileFragment.newInstance(getAccount());
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return RecentPlayersFragment.newInstance(mAccount);
+	    return RecentPlayersFragment.newInstance(getAccount());
     }
 
 	@Override
@@ -59,7 +59,7 @@ public class RecentPlayerList extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			PlayerProfile.actionShow(this, mAccount, info);
+			PlayerProfile.actionShow(this, getAccount(), info);
 		}
     }
 	

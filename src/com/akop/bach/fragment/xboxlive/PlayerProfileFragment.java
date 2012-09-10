@@ -28,7 +28,6 @@ import java.io.IOException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,9 +37,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.R;
@@ -70,13 +68,13 @@ public class PlayerProfileFragment extends GenericFragment implements
 	private TaskListener mRequestListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mHandler.showToast(Parser.getErrorMessage(getActivity(), e));
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result) 
+		public void onTaskSucceeded(Account account, Object requestParam, Object result) 
 		{
 			// Update friends
 			synchronizeWithServer();
@@ -94,7 +92,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -107,7 +105,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -150,25 +148,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 	private XboxLiveAccount mAccount;
 	private String mGamertag;
 	private GamerProfileInfo mPayload;
-	private MyHandler mHandler = new MyHandler();
-	
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast toast = Toast.makeText(getActivity(), message, 
-							Toast.LENGTH_LONG);
-					
-					toast.show();
-				}
-			});
-		}
-	}
 	
 	private class ViewHolder
 	{
@@ -196,7 +175,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 		PlayerProfileFragment f = new PlayerProfileFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putSerializable("info", info);
 		f.setArguments(args);
 		

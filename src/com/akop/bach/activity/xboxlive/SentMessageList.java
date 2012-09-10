@@ -33,19 +33,19 @@ import com.akop.bach.fragment.xboxlive.SentMessageViewFragment;
 import com.akop.bach.fragment.xboxlive.SentMessagesFragment;
 import com.akop.bach.fragment.xboxlive.SentMessagesFragment.OnMessageSelectedListener;
 
-public class SentMessageList extends RibbonedMultiPaneActivity implements
+public class SentMessageList extends XboxLiveMultiPane implements
         OnMessageSelectedListener
 {
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return SentMessageViewFragment.newInstance(mAccount);
+	    return SentMessageViewFragment.newInstance(getAccount());
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return SentMessagesFragment.newInstance(mAccount);
+	    return SentMessagesFragment.newInstance(getAccount());
     }
 	
 	@Override
@@ -58,7 +58,7 @@ public class SentMessageList extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			SentMessageView.actionShow(this, mAccount, id);
+			SentMessageView.actionShow(this, getAccount(), id);
 		}
     }
 	
@@ -72,6 +72,6 @@ public class SentMessageList extends RibbonedMultiPaneActivity implements
 	@Override
     protected String getSubtitle()
     {
-	    return getString(R.string.sent_messages, mAccount.getGamertag());
+	    return getString(R.string.sent_messages, getAccount().getGamertag());
     }
 }

@@ -42,7 +42,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.Preferences;
 import com.akop.bach.Preferences.WidgetInfo;
@@ -74,12 +74,12 @@ public abstract class ConfigureWidget
 	
 	private void refreshAccounts()
 	{
-		Account[] accounts = Preferences.get(this).getAccounts();
+		BasicAccount[] accounts = Preferences.get(this).getAccounts();
 		
 		Class<?> accountClass = getAccountClass();
 		List<AccountInfo> list = new ArrayList<AccountInfo>();
 		
-		for (Account account : accounts)
+		for (BasicAccount account : accounts)
 			if (accountClass.isInstance(account))
 				list.add(new AccountInfo(account.getScreenName(),
 						account.getUuid()));
@@ -127,7 +127,7 @@ public abstract class ConfigureWidget
 		// Configure the widget
 		AccountInfo selected = (AccountInfo)getListView().getItemAtPosition(pos);
 		Preferences prefs = Preferences.get(this);
-		Account account = prefs.getAccount(selected.uuid);
+		BasicAccount account = prefs.getAccount(selected.uuid);
 		Class<?> widgetClass = getWidgetClass();
 		
 		if (account != null)

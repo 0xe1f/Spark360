@@ -51,7 +51,7 @@ import org.apache.http.params.HttpParams;
 
 import android.content.Context;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.R;
 import com.akop.bach.XboxLiveAccount;
@@ -318,7 +318,7 @@ public abstract class LiveParser extends Parser
 	}
 	
 	@Override
-	protected boolean onAuthenticate(Account account) 
+	protected boolean onAuthenticate(BasicAccount account) 
 			throws IOException, ParserException, AuthenticationException
 	{
 		if (!newAuthenticate((XboxLiveAccount)account))

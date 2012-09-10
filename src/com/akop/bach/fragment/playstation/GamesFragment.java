@@ -33,7 +33,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -54,7 +53,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.PSN.Games;
@@ -110,7 +109,7 @@ public class GamesFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("PsnGames")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -127,7 +126,7 @@ public class GamesFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -264,7 +263,6 @@ public class GamesFragment extends GenericFragment implements
 	};
 	
 	private CachePolicy mCp = null;
-	private Handler mHandler = new Handler();
 	private CursorAdapter mAdapter = null;
 	private ListView mListView = null;
 	private TextView mMessage = null;
@@ -278,7 +276,7 @@ public class GamesFragment extends GenericFragment implements
 		GamesFragment f = new GamesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;
@@ -358,7 +356,7 @@ public class GamesFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putLong("currentId", mTitleId);
 		}
 	}

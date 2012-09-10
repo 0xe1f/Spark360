@@ -1,5 +1,5 @@
 /*
- * NotificationService.java
+ * AchievementUpdaterService.java
  * Copyright (C) 2010-2012 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
@@ -23,25 +23,23 @@
 
 package com.akop.bach.service;
 
-import java.text.DateFormat;
-import java.util.HashMap;
-
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Context;
+import android.app.IntentService;
 import android.content.Intent;
-import android.os.IBinder;
-import android.os.PowerManager;
-import android.os.SystemClock;
-import android.text.format.DateUtils;
 
-import com.akop.bach.App;
-import com.akop.bach.BasicAccount;
-import com.akop.bach.Preferences;
-
-public class NotificationService extends Service
+public class AchievementUpdaterService extends IntentService
 {
+	public AchievementUpdaterService() 
+	{
+		super("AchievementUpdaterService");
+	}
+	
+	@Override
+	protected void onHandleIntent(Intent intent) 
+	{
+		
+	}
+	
+	/*
 	private static final String ACTION_UPDATE = "com.akop.bach.intent.action.SERVICE_UPDATE";
 	private static final String ACTION_RESCHEDULE = "com.akop.bach.intent.action.SERVICE_RESCHEDULE";
 	private static final String ACTION_CANCEL = "com.akop.bach.intent.action.SERVICE_CANCEL";
@@ -57,10 +55,10 @@ public class NotificationService extends Service
 		public long syncFreqMs;
 		public Object param;
 		
-		public AccountSchedule(BasicAccount account, Context context)
+		public AccountSchedule(Account account, Context context)
 		{
 			this.description = account.getScreenName() + 
-					" (" + account.getDescription() + ")";
+					" (" + account.getDescription(context) + ")";
 			this.accountId = account.getId();
 			this.lastSyncMs = 0;
 			this.nextSyncMs = 0;
@@ -127,8 +125,8 @@ public class NotificationService extends Service
 		try
 		{
 			Intent intent = new Intent();
-			intent.setClass(context, NotificationService.class);
-			intent.setAction(NotificationService.ACTION_RESCHEDULE);
+			intent.setClass(context, AchievementUpdaterService.class);
+			intent.setAction(AchievementUpdaterService.ACTION_RESCHEDULE);
 			
 			context.startService(intent);
 		}
@@ -148,8 +146,8 @@ public class NotificationService extends Service
 		try
 		{
 			Intent intent = new Intent();
-			intent.setClass(context, NotificationService.class);
-			intent.setAction(NotificationService.ACTION_UPDATE);
+			intent.setClass(context, AchievementUpdaterService.class);
+			intent.setAction(AchievementUpdaterService.ACTION_UPDATE);
 			intent.putExtra("checkId", checkId);
 			
 			context.startService(intent);
@@ -316,14 +314,14 @@ public class NotificationService extends Service
 						}
 						finally
 						{
-							releaseWakeLock(NotificationService.this);
+							releaseWakeLock(AchievementUpdaterService.this);
 						}
 					}
 				}).start();
 			}
 			catch(Exception e)
 			{
-				releaseWakeLock(NotificationService.this);
+				releaseWakeLock(AchievementUpdaterService.this);
 			}
 		}
 	}
@@ -331,7 +329,7 @@ public class NotificationService extends Service
 	private void update(long accountId)
 	{
 		Preferences prefs = Preferences.get(this);
-		BasicAccount account = prefs.getAccount(accountId);
+		Account account = prefs.getAccount(accountId);
 		
 		if (account == null)
 		{
@@ -360,12 +358,12 @@ public class NotificationService extends Service
 		if (App.LOGV)
 			App.logv("SparkService/setupSchedules");
 		
-		BasicAccount[] accounts = Preferences.get(this).getAccounts();
+		Account[] accounts = Preferences.get(this).getAccounts();
 		
 		synchronized(mSchedules)
 		{
 			mSchedules.clear();
-			for (BasicAccount account : accounts)
+			for (Account account : accounts)
 			{
 				if (account.isAutoSyncEnabled())
 				{
@@ -385,4 +383,5 @@ public class NotificationService extends Service
 			}
 		}
 	}
+	*/
 }

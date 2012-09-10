@@ -386,7 +386,9 @@
     	    android:enabled="true" 
     	/>
     	
-        <!--  Widgets -->
+		<service android:name=".service.AchievementUpdaterService" />
+		
+    	<!--  Widgets -->
         
         <!-- XBL -->
 		<receiver

@@ -35,7 +35,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,8 +51,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -74,7 +73,6 @@ public class GameCatalogDetailsFragment extends GenericFragment
 {
 	private CachePolicy mCp = null;
 	private PsnAccount mAccount;
-	private Handler mHandler = new Handler();
 	private TextView mMessage;
 	private WebView mDescription;
 	private Gallery mGallery;
@@ -89,7 +87,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -103,7 +101,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -133,7 +131,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 		GameCatalogDetailsFragment f = new GameCatalogDetailsFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putSerializable("gameItem", item);
 		f.setArguments(args);
 		

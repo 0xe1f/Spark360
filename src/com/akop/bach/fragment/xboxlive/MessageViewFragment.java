@@ -41,7 +41,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -75,21 +74,6 @@ public class MessageViewFragment extends GenericFragment
 		}
 	};
 	
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	}
-	
 	private final ContentObserver mObserver = new ContentObserver(new Handler())
 	{
 		@Override
@@ -122,7 +106,6 @@ public class MessageViewFragment extends GenericFragment
 	private XboxLiveAccount mAccount;
 	private String mSender;
 	private long mTitleId = -1;
-	private MyHandler mHandler = new MyHandler();
 	private TaskListener mListener = new TaskListener();
 	
 	public static MessageViewFragment newInstance(XboxLiveAccount account)
@@ -136,7 +119,7 @@ public class MessageViewFragment extends GenericFragment
 		MessageViewFragment f = new MessageViewFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putLong("titleId", titleId);
 		f.setArguments(args);
 		
@@ -207,7 +190,7 @@ public class MessageViewFragment extends GenericFragment
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putSerializable("account", mAccount);
+		outState.putParcelable("account", mAccount);
 		outState.putLong("titleId", mTitleId);
 	}
 	

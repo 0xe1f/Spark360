@@ -41,7 +41,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
@@ -109,7 +109,7 @@ public class GamerProfile
 		}
 		
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mHandler.showError(e);
 		}
@@ -121,7 +121,7 @@ public class GamerProfile
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result) 
+		public void onTaskSucceeded(Account account, Object requestParam, Object result) 
 		{
 			if (result instanceof GamerProfileInfo)
 			{

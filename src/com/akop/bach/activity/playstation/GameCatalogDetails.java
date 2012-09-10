@@ -32,7 +32,7 @@ import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
 import com.akop.bach.fragment.playstation.GameCatalogDetailsFragment;
 
-public class GameCatalogDetails extends RibbonedSinglePaneActivity
+public class GameCatalogDetails extends PsnSinglePane
 {
 	public static void actionShow(Context context, PsnAccount account,
 			GameCatalogItem item)
@@ -55,7 +55,7 @@ public class GameCatalogDetails extends RibbonedSinglePaneActivity
     @Override
     protected Fragment createFragment()
     {
-		return GameCatalogDetailsFragment.newInstance(mAccount,
+		return GameCatalogDetailsFragment.newInstance(getAccount(),
 				(GameCatalogItem)getIntent().getSerializableExtra("gameItem"));
     }
 }

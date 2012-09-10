@@ -34,7 +34,7 @@ import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
 import com.akop.bach.fragment.playstation.CompareTrophiesFragment;
 
-public class CompareTrophies extends RibbonedSinglePaneActivity
+public class CompareTrophies extends PsnSinglePane
 {
 	public static void actionShow(Context context, String yourGamerpicUrl,
 	        HashMap<Integer, Object> gameInfo, PsnAccount account,
@@ -72,7 +72,7 @@ public class CompareTrophies extends RibbonedSinglePaneActivity
 		        .getSerializableExtra("gameInfo");
 		String gamertag = getIntent().getStringExtra("gamertag");
 		
-		return CompareTrophiesFragment.newInstance(mAccount, gamertag,
+		return CompareTrophiesFragment.newInstance(getAccount(), gamertag,
 		        gameInfo, yourGamerpicUrl);
     }
 }

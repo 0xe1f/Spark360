@@ -27,13 +27,11 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Parcel;
 import android.text.TextUtils;
 
-public abstract class AuthenticatingAccount
-		extends Account
+public abstract class AuthenticatingAccount extends BasicAccount 
 {
-	private static final long serialVersionUID = 1247034636107680725L;
-	
 	private static final Pattern sEmailAddressValidator = Pattern.compile(
 			"^[.\\w!#$%&'*+/=?`{|}~^-]+@[A-Z0-9-]+(?:\\.[A-Z0-9-]+)*$",
 			Pattern.CASE_INSENSITIVE);
@@ -167,5 +165,26 @@ public abstract class AuthenticatingAccount
 	public String getLogonId()
 	{
 		return mEmailAddress;
+	}
+	
+	protected AuthenticatingAccount(Parcel in) 
+	{
+		super(in);
+		
+		mDirtyEmailAddress = (in.readByte() != 0);
+		mEmailAddress = in.readString();
+		mDirtyPassword = (in.readByte() != 0);
+		mPassword = in.readString();
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		super.writeToParcel(dest, flags);
+		
+		dest.writeByte(mDirtyEmailAddress ? (byte)1 : 0);
+		dest.writeString(mEmailAddress);
+		dest.writeByte(mDirtyPassword ? (byte)1 : 0);
+		dest.writeString(mPassword);
 	}
 }

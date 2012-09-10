@@ -41,7 +41,7 @@ import android.widget.Toast;
 
 import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
@@ -51,7 +51,7 @@ import com.akop.bach.parser.ParserException;
 
 public class AccountSetupTest extends Activity implements OnClickListener
 {
-	private Account mAccount;
+	private BasicAccount mAccount;
 	private ContentValues mProfileData;
 	private boolean mCreateAccount;
 	
@@ -116,7 +116,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 	private TaskListener mListener = new TaskListener("AccountSetupTest")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			String message = null;
 			if (e instanceof IOException 
@@ -132,7 +132,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mProfileData = (ContentValues)result;
 			mHandler.complete(true);
@@ -146,7 +146,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.account_test);
 		
-		mAccount = (Account)getIntent().getSerializableExtra("account");
+		mAccount = (BasicAccount)getIntent().getSerializableExtra("account");
 		mCreateAccount = getIntent().getBooleanExtra("createAccount", false);
 		
 		mMessage = (TextView)findViewById(R.id.account_setup_test_message);
@@ -158,7 +158,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 		mNextButton.setOnClickListener(this);
 		
 		if (savedInstanceState != null)
-			mAccount = (Account)savedInstanceState.get("account");
+			mAccount = (BasicAccount)savedInstanceState.get("account");
 		
 		mProfileData = null;
 	}
@@ -168,11 +168,11 @@ public class AccountSetupTest extends Activity implements OnClickListener
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putSerializable("account", mAccount);
+		outState.putParcelable("account", mAccount);
 	}
 	
 	public static void actionTestSettings(Activity context, 
-			Account account, 
+			BasicAccount account, 
 			boolean createAccount)
 	{
 		Intent intent = new Intent(context, AccountSetupTest.class);

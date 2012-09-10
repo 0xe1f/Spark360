@@ -35,7 +35,7 @@ import com.akop.bach.Preferences;
 import com.akop.bach.PsnAccount;
 import com.akop.bach.fragment.playstation.FriendProfileFragment;
 
-public class FriendSummary extends RibbonedSinglePaneActivity
+public class FriendSummary extends PsnSinglePane
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -109,6 +109,6 @@ public class FriendSummary extends RibbonedSinglePaneActivity
 	@Override
     protected Fragment createFragment()
     {
-	    return FriendProfileFragment.newInstance(mAccount, getTitleId());
+	    return FriendProfileFragment.newInstance(getAccount(), getTitleId());
     }
 }

@@ -1,5 +1,5 @@
 /*
- * RibbonedMultipaneActivity.java 
+ * RibbonedSinglePaneActivity.java 
  * Copyright (C) 2010-2012 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
@@ -21,7 +21,7 @@
  *
  */
 
-package com.akop.bach.activity.playstation;
+package com.akop.bach.activity;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -42,16 +42,16 @@ import com.akop.bach.App;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.CachePolicy;
 import com.akop.bach.ImageCache.OnImageReadyListener;
-import com.akop.bach.PsnAccount;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
 import com.akop.bach.TaskController.TaskListener;
+import com.akop.bach.fragment.ErrorDialogFragment;
+import com.akop.bach.parser.Parser;
 
-public abstract class RibbonedMultiPaneActivity extends FragmentActivity
+public abstract class RibbonedSinglePane extends FragmentActivity
 {
-	protected PsnAccount mAccount;
-	protected Fragment mTitleFragment;
-	protected Fragment mDetailFragment;
+	protected BasicAccount mAccount;
 	protected MyHandler mHandler = new MyHandler();
 	protected static CachePolicy sCp = new CachePolicy(CachePolicy.SECONDS_IN_HOUR * 4);
 	
@@ -106,31 +106,22 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
 				}
 			});
 		}
+		
+		public void onAnyTaskFailed(int notified, Exception e) 
+		{
+			String message = Parser.getErrorMessage(RibbonedSinglePane.this, e);
+			
+			ErrorDialogFragment frag = ErrorDialogFragment.newInstance(message, e);
+			frag.show(getSupportFragmentManager(), "errorDialog");
+		}
 	};
-	
-	protected int getLayout()
-	{
-		return R.layout.psn_multipane;
-	}
-	
-	protected String getBachTitle()
-	{
-		return (mAccount != null) ? mAccount.getScreenName() : null;
-	}
-	
-	protected abstract String getSubtitle();
-	
-	protected boolean allowNullAccounts()
-	{
-		return false;
-	}
 	
 	@TargetApi(11)
     class ActionBarHelper
 	{
 		public void init()
 		{
-			getActionBar().setCustomView(R.layout.psn_actionbar_custom);
+			getActionBar().setCustomView(getActionBarLayout());
 		}
 		
 		public void setSubtitle(String subtitle)
@@ -139,7 +130,14 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
 		}
 	}
 	
-	@Override
+	protected abstract String getSubtitle();
+	
+	protected abstract Fragment createFragment();
+	
+	protected abstract int getLayout();
+	
+	protected abstract int getActionBarLayout();
+	
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -147,8 +145,10 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(getLayout());
 		
-		if ((mAccount = (PsnAccount)getIntent().getSerializableExtra("account")) == null
-				&& !allowNullAccounts())
+		if (mAccount == null)
+			mAccount = (BasicAccount)getIntent().getSerializableExtra("account");
+		
+		if (mAccount == null)
 		{
 			if (App.LOGV)
 				App.logv("Account is null");
@@ -162,58 +162,20 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
         	new ActionBarHelper().init();
         }
         
-        // this part was under each activity
-        
-        if (!initializeParameters())
-        {
-        	finish();
-        	return;
-        }
-        
 		FragmentManager fm = getSupportFragmentManager();
 		Fragment titleFrag;
 		
 		FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         
-		if ((titleFrag = fm.findFragmentByTag("title")) == null)
+		if ((titleFrag = fm.findFragmentByTag("details")) == null)
 		{
-			titleFrag = instantiateTitleFragment();
-	        ft.replace(R.id.fragment_titles, titleFrag, "title");
-		}
-		
-		if (isDualPane())
-		{
-			if ((mDetailFragment = fm.findFragmentByTag("details")) == null)
-			{
-				if ((mDetailFragment = instantiateDetailFragment()) != null)
-					ft.replace(R.id.fragment_details, mDetailFragment, "details");
-			}
-			else if (mDetailFragment.isDetached())
-			{
-				ft.attach(mDetailFragment);
-			}
-		}
-		else
-		{
-			Fragment detailFragment;
-			if ((detailFragment = fm.findFragmentByTag("details")) != null)
-			{
-				ft.detach(detailFragment);
-			}
+			titleFrag = createFragment();
+			ft.replace(R.id.fragment_titles, titleFrag, "details");
 		}
 		
 		ft.commit();
 	}
-	
-	protected boolean initializeParameters()
-	{
-		return true;
-	}
-	
-	protected abstract Fragment instantiateTitleFragment();
-	
-	protected abstract Fragment instantiateDetailFragment();
 	
 	protected void updateRibbon()
 	{
@@ -227,13 +189,13 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
 				public void onClick(View v)
 				{
 					if (mAccount != null)
-						mAccount.open(RibbonedMultiPaneActivity.this);
+						mAccount.open(RibbonedSinglePane.this);
 				}
 			});
 		}
 		
     	Bitmap bmp = null;
-        String iconUrl = (mAccount != null) ? mAccount.getIconUrl() : null;
+        String iconUrl = mAccount.getIconUrl();
         
         if (iconUrl != null)
         {
@@ -244,25 +206,17 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
         	if (ic.isExpired(iconUrl, sCp))
                 ic.requestImage(iconUrl, mRibbonImageListener, 0, null, sCp);
         }
-        else
-        {
-			ImageView iv = (ImageView)findViewById(R.id.title_icon);
-			if (iv != null)
-				iv.setImageResource(R.drawable.icon);
-        }
         
-        String title = getBachTitle();
+        String title = mAccount.getScreenName();
         String subtitle = getSubtitle();
         
-        TextView tv;
-        
-        if ((tv = (TextView)findViewById(R.id.title_gamertag)) != null)
-        	tv.setText(title);
-        
-        if ((tv = (TextView)findViewById(R.id.ribbon_line_1)) != null)
-        	tv.setText(subtitle);
-        
+        TextView tv = (TextView)findViewById(R.id.title_gamertag);
+        tv.setText(title);
         setTitle(title);
+        
+        tv = (TextView)findViewById(R.id.ribbon_line_1);
+        tv.setText(subtitle);
+        
         if (android.os.Build.VERSION.SDK_INT >= 11)
         {
         	new ActionBarHelper().setSubtitle(subtitle);
@@ -289,16 +243,6 @@ public abstract class RibbonedMultiPaneActivity extends FragmentActivity
 	    TaskController.getInstance().addListener(mListener);
 	    
 	    updateRibbon();
-	}
-	
-	protected View getDetailPane()
-	{
-		return findViewById(R.id.fragment_details);
-	}
-	
-	protected boolean isDualPane()
-	{
-		return (findViewById(R.id.fragment_details) != null);
 	}
 	
 	protected void toggleProgressBar(boolean show)

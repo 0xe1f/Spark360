@@ -38,7 +38,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.akop.bach.IAccount;
+import com.akop.bach.Account;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
 import com.akop.bach.TaskController.TaskListener;
@@ -96,13 +96,13 @@ public class MessageCompose
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mHandler.showToast(getString(R.string.message_sent));
 		}
 		
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mComposeHandler.allowEdits(true); // Allow edits again
 			mHandler.showToast(Parser.getErrorMessage(MessageCompose.this, e));

@@ -32,7 +32,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -48,10 +47,9 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.R;
 import com.akop.bach.SectionedAdapter;
@@ -88,7 +86,6 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 	private SectionedAdapter mAdapter = null;
 	private IconCursor2 mIconCursor = null;
 	private FriendsOfFriend mPayload;
-	private MyHandler mHandler = new MyHandler();
 	private XboxLiveAccount mAccount = null;
 	private String mGamertag = null;
 	private long mTitleId = -1;
@@ -96,34 +93,16 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 	private TextView mMessage = null;
 	private View mProgress = null;
 	
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast toast = Toast.makeText(getActivity(), message, 
-							Toast.LENGTH_LONG);
-					
-					toast.show();
-				}
-			});
-		}
-	}
-	
 	private TaskListener mRequestListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 			mHandler.showToast(Parser.getErrorMessage(getActivity(), e));
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result) 
+		public void onTaskSucceeded(Account account, Object requestParam, Object result) 
 		{
 			// Update friends
 			synchronizeWithServer();
@@ -141,7 +120,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener()
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -161,7 +140,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -301,7 +280,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 		FriendsOfFriendFragment f = new FriendsOfFriendFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putString("gamertag", gamertag);
 		f.setArguments(args);
 		

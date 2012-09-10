@@ -56,7 +56,6 @@ public class FriendProfileFragment extends GenericFragment
 	private PsnAccount mAccount;
 	private long mTitleId = -1;
 	private String mGamertag;
-	private Handler mHandler = new Handler();
 	
 	@TargetApi(11)
     class HoneyCombHelper
@@ -89,7 +88,7 @@ public class FriendProfileFragment extends GenericFragment
 		FriendProfileFragment f = new FriendProfileFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putLong("titleId", titleId);
 		f.setArguments(args);
 		
@@ -179,7 +178,7 @@ public class FriendProfileFragment extends GenericFragment
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putSerializable("account", mAccount);
+		outState.putParcelable("account", mAccount);
 		outState.putLong("titleId", mTitleId);
 	}
 	

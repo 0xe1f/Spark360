@@ -34,7 +34,7 @@ import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
 import com.akop.bach.fragment.playstation.TrophiesFragment;
 
-public class TrophyList extends RibbonedSinglePaneActivity
+public class TrophyList extends PsnSinglePane
 {
 	private String mTitle = null;
 	
@@ -59,7 +59,7 @@ public class TrophyList extends RibbonedSinglePaneActivity
 	@Override
     protected Fragment createFragment()
     {
-	    return TrophiesFragment.newInstance(mAccount, 
+	    return TrophiesFragment.newInstance(getAccount(), 
 	    		getIntent().getLongExtra("gameId", -1), true);
     }
 	

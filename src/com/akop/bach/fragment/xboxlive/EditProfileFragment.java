@@ -61,7 +61,7 @@ public class EditProfileFragment extends DialogFragment
 		Bundle args = new Bundle();
 		
 		if (account != null)
-			args.putSerializable("account", account);
+			args.putParcelable("account", account);
 		
 		f.setArguments(args);
 		

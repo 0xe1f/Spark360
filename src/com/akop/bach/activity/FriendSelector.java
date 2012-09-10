@@ -29,7 +29,6 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -40,7 +39,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,19 +55,12 @@ public class FriendSelector
 		extends ListActivity
 		implements OnImageReadyListener, OnItemClickListener
 {
-	private boolean mAllowMultiselect;
 	private SupportsFriends mAccount;
 	
 	private TextView mNoRecords;
 	private HashMap<String, SoftReference<Bitmap>> mIconCache;
 	
-	private static final String[] PROJECTION = 
-	{ 
-		Friends._ID,
-		Friends.GAMERTAG,
-		Friends.ICON_URL,
-	};
-	
+	private static final int COLUMN_ID = 0;
 	private static final int COLUMN_GAMERTAG = 1;
 	private static final int COLUMN_ICON_URL = 2;
 	
@@ -85,24 +76,17 @@ public class FriendSelector
 			return;
 		}
 		
-		mAllowMultiselect = getIntent().getBooleanExtra("multiselect", false);
-		
 		mNoRecords = (TextView)findViewById(R.id.friends_none);
 		mIconCache = new HashMap<String, SoftReference<Bitmap>>();
 		
 		FriendCursorAdapter adapter = new FriendCursorAdapter(this, 
-				managedQuery(mAccount.getFriendsUri(), PROJECTION, 
-						Friends.ACCOUNT_ID + "=" + mAccount.getId(),
-						null, null));
+				mAccount.createCursor(this));
 		
 		ListView lv = (ListView)findViewById(android.R.id.list);
 		
 		lv.setEmptyView(mNoRecords);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
-		
-		if (!mAllowMultiselect)
-			findViewById(R.id.buttons).setVisibility(View.GONE);
 	}
 	
 	private void loadIconsInBackground()
@@ -115,10 +99,7 @@ public class FriendSelector
 			@Override
 			public void run()
 			{
-				Cursor cursor = getContentResolver().query(mAccount.getFriendsUri(),
-						new String[] { Friends._ID, Friends.ICON_URL },
-						Friends.ACCOUNT_ID + "=" + mAccount.getId(), null, 
-						null);
+				Cursor cursor = mAccount.createCursor(FriendSelector.this);
 				
 				if (cursor != null)
 				{
@@ -129,7 +110,7 @@ public class FriendSelector
 							if (isFinishing())
 								break;
 							
-							String iconUrl = (String)cursor.getString(1);
+							String iconUrl = (String)cursor.getString(COLUMN_ICON_URL);
 				    		SoftReference<Bitmap> cachedIcon = mIconCache.get(iconUrl);
 				    		
 				    		// Is it in the in-memory cache?
@@ -141,7 +122,7 @@ public class FriendSelector
 								// in the disk cache?
 								if (icon == null)
 									ic.requestImage(iconUrl, FriendSelector.this,
-											cursor.getInt(0), iconUrl, false, cp);
+											cursor.getInt(COLUMN_ID), iconUrl, false, cp);
 				    		}
 						}
 					}
@@ -203,7 +184,6 @@ public class FriendSelector
 		{
 			public TextView screenName;
 			public ImageView avatar;
-			public CheckBox selected;
 		}
 		
 		public FriendCursorAdapter(Context context, Cursor c)
@@ -221,10 +201,6 @@ public class FriendSelector
 			ViewHolder vh = new ViewHolder();
 			vh.screenName = (TextView)view.findViewById(R.id.friend_screen_name);
 			vh.avatar = (ImageView)view.findViewById(R.id.friend_avatar);
-			vh.selected = (CheckBox)view.findViewById(R.id.friend_selected);
-			
-			if (!mAllowMultiselect)
-				vh.selected.setVisibility(View.GONE);
 			
 			view.setTag(vh);
 			

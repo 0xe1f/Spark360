@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  
- - layout/friend_selector.xml
+ - drawable/divider.xml
  - Copyright (C) 2010-2012 Akop Karapetyan
  -
- - This file is part of Spark 360, the online gaming service client. 
+ - This file is part of Spark 360, the online gaming service client.
  -
  -  This program is free software; you can redistribute it and/or modify
  -  it under the terms of the GNU General Public License as published by
@@ -21,25 +21,9 @@
  -  02111-1307  USA.
  -->
 
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
+<shape 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
 >
-	<ListView
-		android:id="@android:id/list"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-	/>
-    <TextView 
-    	android:id="@+id/friends_none"
-    	android:padding="5dip" 
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-        android:text="@string/no_friends"
-        android:gravity="center"
-		android:textAppearance="@style/TextAppearance.largeMessage" 
-        android:visibility="gone" 
-    />
-</LinearLayout>
+     <solid android:color="#ced3c6" />
+</shape>

@@ -35,7 +35,8 @@ import com.akop.bach.fragment.xboxlive.FriendProfileFragment;
 import com.akop.bach.fragment.xboxlive.FriendsFragment;
 import com.akop.bach.fragment.xboxlive.FriendsFragment.OnFriendSelectedListener;
 
-public class FriendList extends RibbonedMultiPaneActivity implements OnFriendSelectedListener
+public class FriendList extends XboxLiveMultiPane implements
+		OnFriendSelectedListener 
 {
 	@Override
 	protected boolean initializeParameters()
@@ -49,13 +50,13 @@ public class FriendList extends RibbonedMultiPaneActivity implements OnFriendSel
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return FriendProfileFragment.newInstance(mAccount);
+	    return FriendProfileFragment.newInstance(getAccount());
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return FriendsFragment.newInstance(mAccount);
+	    return FriendsFragment.newInstance(getAccount());
     }
 	
 	@Override
@@ -68,7 +69,7 @@ public class FriendList extends RibbonedMultiPaneActivity implements OnFriendSel
 		}
 		else
 		{
-			FriendSummary.actionShow(this, mAccount, id);
+			FriendSummary.actionShow(this, getAccount(), id);
 		}
     }
 	
@@ -78,18 +79,18 @@ public class FriendList extends RibbonedMultiPaneActivity implements OnFriendSel
     	intent.putExtra("account", account);
     	context.startActivity(intent);
 	}
-
+	
 	@Override
     protected String getSubtitle()
     {
-	    return getString(R.string.friends_of_f, mAccount.getGamertag());
+	    return getString(R.string.friends_of_f, getAccount().getGamertag());
     }
 	
 	public boolean reoriented()
 	{
 		Configuration config = getResources().getConfiguration();
 		int orientation = config.orientation;
-		int coverflowMode = mAccount.getCoverflowMode();
+		int coverflowMode = getAccount().getCoverflowMode();
 		
 		if (coverflowMode == XboxLiveAccount.COVERFLOW_IN_LANDSCAPE 
 				&& orientation == Configuration.ORIENTATION_LANDSCAPE)
@@ -97,7 +98,7 @@ public class FriendList extends RibbonedMultiPaneActivity implements OnFriendSel
 			if (App.LOGV)
 				App.logv("Reorienting ...");
 			
-			FriendCoverflow.actionShowFriends(this, mAccount);
+			FriendCoverflow.actionShowFriends(this, getAccount());
 			return true;
 		}
 		else if (coverflowMode == XboxLiveAccount.COVERFLOW_ALWAYS)
@@ -105,7 +106,7 @@ public class FriendList extends RibbonedMultiPaneActivity implements OnFriendSel
 			if (App.LOGV)
 				App.logv("Reorienting ...");
 			
-			FriendCoverflow.actionShowFriends(this, mAccount);
+			FriendCoverflow.actionShowFriends(this, getAccount());
 			return true;
 		}
 		

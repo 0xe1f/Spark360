@@ -27,8 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.akop.bach.App;
 import com.akop.bach.R;
@@ -36,7 +34,7 @@ import com.akop.bach.XboxLive.Games;
 import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.AchievementsFragment;
 
-public class AchievementList extends RibbonedSinglePaneActivity
+public class AchievementList extends XboxLiveSinglePane
 {
 	private String mTitle = null;
 	
@@ -56,20 +54,6 @@ public class AchievementList extends RibbonedSinglePaneActivity
 		}
 		
 		mTitle = Games.getTitle(this, titleId);
-		
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (AchievementsFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = AchievementsFragment.newInstance(mAccount, titleId, true);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
 	}
 	
 	public static void actionShow(Context context, XboxLiveAccount account, long gameId)
@@ -85,4 +69,11 @@ public class AchievementList extends RibbonedSinglePaneActivity
     {
 		return getString(R.string.achievements_of_f, mTitle);
     }
+	
+	@Override
+	protected Fragment createFragment() 
+	{
+	    return AchievementsFragment.newInstance(getAccount(), 
+	    		getIntent().getLongExtra("gameId", -1), true);
+	}
 }

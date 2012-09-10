@@ -31,7 +31,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -49,7 +48,6 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akop.bach.R;
 import com.akop.bach.XboxLive;
@@ -183,22 +181,6 @@ public class SentMessagesFragment extends GenericFragment implements
 		}
 	};
 	
-	private class MyHandler extends Handler
-	{
-		public void showToast(final String message)
-		{
-			this.post(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	}
-	
-	private MyHandler mHandler = new MyHandler();
 	private XboxLiveAccount mAccount = null;
 	private long mTitleId = -1;
 	private ListView mListView = null;
@@ -210,7 +192,7 @@ public class SentMessagesFragment extends GenericFragment implements
 		SentMessagesFragment f = new SentMessagesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		f.setArguments(args);
 		
 		return f;
@@ -285,7 +267,7 @@ public class SentMessagesFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putLong("currentId", mTitleId);
 		}
 	}

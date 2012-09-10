@@ -27,17 +27,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.akop.bach.App;
-import com.akop.bach.R;
 import com.akop.bach.XboxLive.GamerProfileInfo;
 import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.PlayerProfileFragment;
 
 public class PlayerProfile
-		extends RibbonedSinglePaneActivity
+		extends XboxLiveSinglePane
 {
 	private String mGamertag = null;
 	
@@ -57,20 +54,6 @@ public class PlayerProfile
 		}
 		
 		mGamertag = info.Gamertag;
-        
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (PlayerProfileFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = PlayerProfileFragment.newInstance(mAccount, info);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
 	}
 	
 	public static void actionShow(Context context, 
@@ -88,4 +71,11 @@ public class PlayerProfile
     {
 		return mGamertag;
     }
+	
+	@Override
+	protected Fragment createFragment() 
+	{
+		return PlayerProfileFragment.newInstance(getAccount(), 
+				(GamerProfileInfo)getIntent().getSerializableExtra("info"));
+	}
 }

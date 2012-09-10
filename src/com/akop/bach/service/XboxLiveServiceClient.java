@@ -36,7 +36,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.R;
 import com.akop.bach.XboxLive;
@@ -137,7 +137,7 @@ public class XboxLiveServiceClient extends ServiceClient
 					tickerTitle = context.getString(R.string.new_messages);
 					tickerText = context.getString(R.string.notify_messages_pending_f,
 							account.getScreenName(), unreadMessages.length,
-							account.getDescription(context));
+							account.getDescription());
 				}
 				
 				Notification notification = new Notification(R.drawable.xbox_stat_notify_message,
@@ -221,14 +221,14 @@ public class XboxLiveServiceClient extends ServiceClient
 					tickerTitle = context.getString(R.string.friend_online);
 					tickerText = context.getString(R.string.notify_friend_online_f,
 							Friends.getGamertag(context, friendsOnline[0]),
-							account.getDescription(context)); 
+							account.getDescription()); 
 				}
 				else
 				{
 					tickerTitle = context.getString(R.string.friends_online);
 					tickerText = context.getString(R.string.notify_friends_online_f,
 							account.getScreenName(), friendsOnline.length,
-							account.getDescription(context));
+							account.getDescription());
 				}
 				
 				Notification notification = new Notification(R.drawable.xbox_stat_notify_friend,
@@ -339,7 +339,7 @@ public class XboxLiveServiceClient extends ServiceClient
 									matchingFriends.length, title);
 							message = context.getString(R.string.friends_playing_beaconed_game_f,
 									matchingFriends.length, 
-									account.getDescription(context));
+									account.getDescription());
 						}
 						else
 						{
@@ -350,7 +350,7 @@ public class XboxLiveServiceClient extends ServiceClient
 									friendScreenName, title);
 							message = context.getString(R.string.friend_playing_beaconed_game_f,
 									friendScreenName, 
-									account.getDescription(context));
+									account.getDescription());
 						}
 						
 						NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
@@ -390,7 +390,7 @@ public class XboxLiveServiceClient extends ServiceClient
 	}
 	
 	@Override
-	protected void synchronize(Account account)
+	protected void synchronize(BasicAccount account)
 			throws IOException, ParserException, AuthenticationException	
 	{
 		Context context = getContext();
@@ -409,7 +409,7 @@ public class XboxLiveServiceClient extends ServiceClient
 	}
 	
 	@Override
-	protected void notify(Account account, AccountSchedule schedule) 
+	protected void notify(BasicAccount account, AccountSchedule schedule) 
 	{
 		Context context = getContext();
 		XboxLiveAccount xblAccount = (XboxLiveAccount)account;
@@ -511,7 +511,7 @@ public class XboxLiveServiceClient extends ServiceClient
 	}
 	
 	@Override
-	public Object setupParameters(Account account)
+	public Object setupParameters(BasicAccount account)
 	{
 		Context context = getContext();
 		XboxLiveAccount xblAccount = (XboxLiveAccount)account;

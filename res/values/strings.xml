@@ -246,7 +246,6 @@
 	<string name="notify_on_favorite">Favorite friends</string>
 	<string name="notify_on_all">All friends</string>
 	<string name="xbox_live_status">Xbox Live Status</string>
-	<string name="xbox_live_account">Xbox Live account</string>
 	<string name="no_results">No results found for \"%1$s\"</string>
 	<string name="xbox_live_friends">Xbox Live friends</string>
 	<string name="xbox_live_friend">Xbox Live friend</string>
@@ -379,7 +378,6 @@
 	<string name="comparing_x_trophies_with_y_f">%1$s: Compare %2$s Trophies</string>
 	<string name="psn_friends">PSN friends</string>
 	<string name="psn_friend">PSN friend</string>
-	<string name="psn_account">PSN account</string>
 	<string name="psn_profile_not_found_f">PSN Profile for \"%1$s\" not found</string>
 	<string name="psn_profile_f">PSN Profile: %1$s</string>
 	<string name="online_id">Online ID</string>

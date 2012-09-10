@@ -49,8 +49,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.ImageCache.OnImageReadyListener;
 import com.akop.bach.R;
@@ -113,7 +113,7 @@ public class CompareGamesFragment extends GenericFragment implements
 	private TaskListener mListener = new TaskListener("XboxCompareGames")
 	{
 		@Override
-		public void onTaskFailed(IAccount account, final Exception e)
+		public void onTaskFailed(Account account, final Exception e)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -130,7 +130,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		}
 		
 		@Override
-		public void onTaskSucceeded(IAccount account, Object requestParam, final Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, final Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -252,7 +252,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		CompareGamesFragment f = new CompareGamesFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putString("gamertag", gamertag);
 		f.setArguments(args);
 		
@@ -341,7 +341,7 @@ public class CompareGamesFragment extends GenericFragment implements
 		
 		if (mAccount != null)
 		{
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 			outState.putString("gamertag", mGamertag);
 			outState.putLong("currentId", mTitleId);
 			

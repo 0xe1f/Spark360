@@ -25,7 +25,6 @@ package com.akop.bach.activity.playstation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.akop.bach.PsnAccount;
@@ -33,14 +32,8 @@ import com.akop.bach.R;
 import com.akop.bach.fragment.playstation.BlogEntryViewFragment;
 import com.akop.bach.util.rss.RssItem;
 
-public class PsBlogEntry extends RibbonedSinglePaneActivity
+public class PsBlogEntry extends PsnSinglePane
 {
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-	}
-	
 	@Override
     protected Fragment createFragment()
     {

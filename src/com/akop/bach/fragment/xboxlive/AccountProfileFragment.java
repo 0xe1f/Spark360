@@ -42,8 +42,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akop.bach.Account;
 import com.akop.bach.App;
-import com.akop.bach.IAccount;
 import com.akop.bach.ImageCache;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
@@ -93,7 +93,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	private TaskListener mListener = new TaskListener();
 	private TaskListener mProfileUpdater = new TaskListener()
 	{
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 			mHandler.post(new Runnable()
 			{
@@ -153,7 +153,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 		Bundle args = new Bundle();
 		
 		if (account != null)
-			args.putSerializable("account", account);
+			args.putParcelable("account", account);
 		
 		f.setArguments(args);
 		
@@ -391,7 +391,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 		super.onSaveInstanceState(outState);
 		
 		if (mAccount != null)
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 	}
 	
 	@Override

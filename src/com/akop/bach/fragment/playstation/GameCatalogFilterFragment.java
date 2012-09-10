@@ -60,7 +60,7 @@ public class GameCatalogFilterFragment extends DialogFragment
 		GameCatalogFilterFragment f = new GameCatalogFilterFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("account", account);
+		args.putParcelable("account", account);
 		args.putInt("sortOrder", account.getCatalogSortOrder());
 		args.putInt("releaseStatus", account.getCatalogReleaseStatus());
 		args.putInt("console", account.getCatalogConsole());

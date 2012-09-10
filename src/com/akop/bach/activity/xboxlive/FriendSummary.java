@@ -27,8 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.akop.bach.App;
 import com.akop.bach.Preferences;
@@ -40,23 +38,22 @@ import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.FriendProfileFragment;
 
 public class FriendSummary
-		extends RibbonedSinglePaneActivity
+		extends XboxLiveSinglePane
 {
 	private String mGamertag = null;
+	private long mFriendId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		long titleId = -1;
-		
 		if (getIntent() != null && getIntent().getData() != null)
 		{
 			String seg = getIntent().getData().getLastPathSegment();
 			if (seg != null)
 			{
-				titleId = Long.valueOf(seg);
+				mFriendId = Long.valueOf(seg);
 				
-				long accountId = Friends.getAccountId(this, titleId);
+				long accountId = Friends.getAccountId(this, mFriendId);
 				Preferences prefs = Preferences.get(this);
 				
 				mAccount = (XboxLiveAccount)prefs.getAccount(accountId);
@@ -65,10 +62,10 @@ public class FriendSummary
 		
 		super.onCreate(savedInstanceState);
 		
-        if (titleId < 0)
-        	titleId = getIntent().getLongExtra("friendId", -1);
+        if (mFriendId < 0)
+        	mFriendId = getIntent().getLongExtra("friendId", -1);
         
-		if (titleId < 0)
+		if (mFriendId < 0)
 		{
         	if (App.LOGV)
         		App.logv("Friend not specified");
@@ -77,7 +74,7 @@ public class FriendSummary
 			return;
 		}
 		
-        if ((mGamertag = XboxLive.Friends.getGamertag(this, titleId)) == null)
+        if ((mGamertag = XboxLive.Friends.getGamertag(this, mFriendId)) == null)
         {
         	if (App.LOGV)
         		App.logv("Friend not found");
@@ -85,20 +82,6 @@ public class FriendSummary
         	finish();
         	return;
         }
-        
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment titleFrag;
-		
-		FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        
-		if ((titleFrag = (FriendProfileFragment)fm.findFragmentByTag("details")) == null)
-		{
-			titleFrag = FriendProfileFragment.newInstance(mAccount, titleId);
-			ft.replace(R.id.fragment_titles, titleFrag, "details");
-		}
-		
-		ft.commit();
 	}
 	
 	public static void actionShow(Context context, long friendId)
@@ -124,10 +107,16 @@ public class FriendSummary
 		if (friendId > -1)
 			actionShow(context, account, friendId);
 	}
-
+	
 	@Override
     protected String getSubtitle()
     {
 		return getString(R.string.friends_f, mGamertag);
     }
+	
+	@Override
+	protected Fragment createFragment() 
+	{
+		return FriendProfileFragment.newInstance(getAccount(), mFriendId);
+	}
 }

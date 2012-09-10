@@ -33,19 +33,19 @@ import com.akop.bach.fragment.playstation.GamesFragment;
 import com.akop.bach.fragment.playstation.GamesFragment.OnGameSelectedListener;
 import com.akop.bach.fragment.playstation.TrophiesFragment;
 
-public class GameList extends RibbonedMultiPaneActivity implements
+public class GameList extends PsnMultiPane implements
         OnGameSelectedListener
 {
 	@Override
     protected Fragment instantiateDetailFragment()
     {
-	    return TrophiesFragment.newInstance(mAccount, false);
+	    return TrophiesFragment.newInstance(getAccount(), false);
     }
 	
 	@Override
     protected Fragment instantiateTitleFragment()
     {
-	    return GamesFragment.newInstance(mAccount);
+	    return GamesFragment.newInstance(getAccount());
     }
 	
 	@Override
@@ -58,7 +58,7 @@ public class GameList extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			TrophyList.actionShow(this, mAccount, id);
+			TrophyList.actionShow(this, getAccount(), id);
 		}
     }
 	

@@ -31,7 +31,10 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 
@@ -55,8 +58,6 @@ public class PsnAccount
 		implements SupportsGames, SupportsAchievements, SupportsFriends,
 		SupportsCompareGames, SupportsCompareAchievements
 {
-	private static final long serialVersionUID = 4804600471625415833L;
-	
 	public static final String REGION_US = "us";
 	public static final String REGION_EU = "eu";
 	
@@ -272,9 +273,9 @@ public class PsnAccount
 	}
 	
 	@Override
-	public String getDescription(Context context)
+	public String getDescription()
 	{
-		return context.getString(R.string.playstation_network);
+		return App.getInstance().getString(R.string.playstation_network);
 	}
 	
 	@Override
@@ -672,5 +673,93 @@ public class PsnAccount
 	public Uri getFriendsUri()
 	{
 		return Friends.CONTENT_URI;
+	}
+	
+	private static final String[] PROJECTION = 
+	{ 
+		Friends._ID,
+		Friends.ONLINE_ID,
+		Friends.ICON_URL,
+	};
+	
+	@Override
+	public Cursor createCursor(Activity activity) 
+	{
+		return activity.managedQuery(getFriendsUri(), PROJECTION, 
+				Friends.ACCOUNT_ID + "=" + getId(), null, null);
+	}
+	
+	public static final Parcelable.Creator<PsnAccount> CREATOR = new Parcelable.Creator<PsnAccount>() 
+	{
+		public PsnAccount createFromParcel(Parcel in) 
+		{
+			return new PsnAccount(in);
+		}
+		
+		public PsnAccount[] newArray(int size) 
+		{
+			return new PsnAccount[size];
+		}
+	};
+	
+	protected PsnAccount(Parcel in) 
+	{
+		super(in);
+		
+		mDirtyOnlineId = (in.readByte() != 0);
+		mOnlineId = in.readString();
+		mDirtyRingtone = (in.readByte() != 0);
+		mRingtone = in.readString();
+		mDirtyVibrate = (in.readByte() != 0);
+		mVibrate = (in.readByte() != 0);
+		mDirtyFriendNotifications = (in.readByte() != 0);
+		mFriendNotifications = in.readInt();
+		mDirtyLastSummarySync = (in.readByte() != 0);
+		mLastSummarySync = in.readLong();
+		mDirtyLastGameSync = (in.readByte() != 0);
+		mLastGameSync = in.readLong();
+		mDirtyLastFriendSync = (in.readByte() != 0);
+		mLastFriendSync = in.readLong();
+		mDirtyPsnServer = (in.readByte() != 0);
+		mPsnServer = in.readString();
+		mDirtyLocale = (in.readByte() != 0);
+		mLocale = in.readString();
+		mDirtyConsole = (in.readByte() != 0);
+		mConsole = in.readInt();
+		mDirtySortFilter = (in.readByte() != 0);
+		mSortOrder = in.readInt();
+		mDirtyReleaseStatus = (in.readByte() != 0);
+		mReleaseStatus = in.readInt();
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		super.writeToParcel(dest, flags);
+		
+		dest.writeByte(mDirtyOnlineId ? (byte)1 : 0);
+		dest.writeString(mOnlineId);
+		dest.writeByte(mDirtyRingtone ? (byte)1 : 0);
+		dest.writeString(mRingtone);
+		dest.writeByte(mDirtyVibrate ? (byte)1 : 0);
+		dest.writeByte(mVibrate ? (byte)1 : 0);
+		dest.writeByte(mDirtyFriendNotifications ? (byte)1 : 0);
+		dest.writeInt(mFriendNotifications);
+		dest.writeByte(mDirtyLastSummarySync ? (byte)1 : 0);
+		dest.writeLong(mLastSummarySync);
+		dest.writeByte(mDirtyLastGameSync ? (byte)1 : 0);
+		dest.writeLong(mLastGameSync);
+		dest.writeByte(mDirtyLastFriendSync ? (byte)1 : 0);
+		dest.writeLong(mLastFriendSync);
+		dest.writeByte(mDirtyPsnServer ? (byte)1 : 0);
+		dest.writeString(mPsnServer);
+		dest.writeByte(mDirtyLocale ? (byte)1 : 0);
+		dest.writeString(mLocale);
+		dest.writeByte(mDirtyConsole ? (byte)1 : 0);
+		dest.writeInt(mConsole);
+		dest.writeByte(mDirtySortFilter ? (byte)1 : 0);
+		dest.writeInt(mSortOrder);
+		dest.writeByte(mDirtyReleaseStatus ? (byte)1 : 0);
+		dest.writeInt(mReleaseStatus);
 	}
 }

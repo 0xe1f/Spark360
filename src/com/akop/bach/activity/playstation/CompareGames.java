@@ -36,7 +36,7 @@ import com.akop.bach.fragment.playstation.CompareGamesFragment;
 import com.akop.bach.fragment.playstation.CompareGamesFragment.OnGameSelectedListener;
 import com.akop.bach.fragment.playstation.CompareTrophiesFragment;
 
-public class CompareGames extends RibbonedMultiPaneActivity implements
+public class CompareGames extends PsnMultiPane implements
         OnGameSelectedListener
 {
 	private String mGamertag;
@@ -58,13 +58,13 @@ public class CompareGames extends RibbonedMultiPaneActivity implements
 	@Override
 	protected Fragment instantiateDetailFragment()
 	{
-		return CompareTrophiesFragment.newInstance(mAccount, mGamertag);
+		return CompareTrophiesFragment.newInstance(getAccount(), mGamertag);
 	}
 	
 	@Override
 	protected Fragment instantiateTitleFragment()
 	{
-		return CompareGamesFragment.newInstance(mAccount, mGamertag);
+		return CompareGamesFragment.newInstance(getAccount(), mGamertag);
 	}
 	
 	public static void actionShow(Context context, PsnAccount account,
@@ -94,7 +94,7 @@ public class CompareGames extends RibbonedMultiPaneActivity implements
 		else
 		{
 			CompareTrophies.actionShow(this, yourGamerpicUrl, gameInfo,
-					mAccount, mGamertag);
+					getAccount(), mGamertag);
 		}
 	}
 }

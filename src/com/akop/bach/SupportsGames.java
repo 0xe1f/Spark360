@@ -30,7 +30,7 @@ import android.content.Context;
 import com.akop.bach.parser.AuthenticationException;
 import com.akop.bach.parser.ParserException;
 
-public interface SupportsGames extends IAccount
+public interface SupportsGames extends Account
 {
 	void updateGames(Context context)	
 		throws AuthenticationException, IOException, ParserException;

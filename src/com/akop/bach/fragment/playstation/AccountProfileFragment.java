@@ -61,7 +61,6 @@ import com.akop.bach.fragment.GenericFragment;
 
 public class AccountProfileFragment extends GenericFragment
 {
-	private Handler mHandler = new Handler();
 	private PsnAccount mAccount = null;
 	private TaskListener mListener = new TaskListener();
 	
@@ -97,7 +96,7 @@ public class AccountProfileFragment extends GenericFragment
 		Bundle args = new Bundle();
 		
 		if (account != null)
-			args.putSerializable("account", account);
+			args.putParcelable("account", account);
 		
 		f.setArguments(args);
 		
@@ -305,7 +304,7 @@ public class AccountProfileFragment extends GenericFragment
 		super.onSaveInstanceState(outState);
 		
 		if (mAccount != null)
-			outState.putSerializable("account", mAccount);
+			outState.putParcelable("account", mAccount);
 	}
 	
 	@Override

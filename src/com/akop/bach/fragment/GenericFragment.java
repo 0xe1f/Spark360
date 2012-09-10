@@ -32,7 +32,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.akop.bach.App;
 import com.akop.bach.ImageCache;
@@ -44,6 +46,23 @@ import com.akop.bach.SerializableMatrixCursor;
 public abstract class GenericFragment extends Fragment implements
         OnImageReadyListener
 {
+	protected static GenericHandler mHandler = new GenericHandler();
+	protected static class GenericHandler extends Handler
+	{
+		public void showToast(final String message)
+		{
+			this.post(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					Toast.makeText(App.getInstance(), message, 
+							Toast.LENGTH_LONG).show();
+				}
+			});
+		}
+	}
+	
 	@TargetApi(11)
     protected class HoneyCombHelper
 	{

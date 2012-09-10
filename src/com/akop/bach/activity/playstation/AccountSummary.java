@@ -33,7 +33,7 @@ import com.akop.bach.PsnAccount;
 import com.akop.bach.R;
 import com.akop.bach.fragment.playstation.AccountProfileFragment;
 
-public class AccountSummary extends RibbonedSinglePaneActivity
+public class AccountSummary extends PsnSinglePane
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -63,7 +63,7 @@ public class AccountSummary extends RibbonedSinglePaneActivity
 	@Override
 	protected Fragment createFragment()
 	{
-		return AccountProfileFragment.newInstance(mAccount);
+		return AccountProfileFragment.newInstance(getAccount());
 	}
 	
 	@Override

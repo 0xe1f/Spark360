@@ -70,7 +70,7 @@
 		/>
 	</LinearLayout>
 	<ProgressBar
-		android:id="@+id/title_progress_bar"
+		android:id="@+id/ribbon_progress_bar"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"

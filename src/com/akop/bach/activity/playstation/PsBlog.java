@@ -34,7 +34,7 @@ import com.akop.bach.fragment.playstation.BlogEntriesFragment.OnBlogEntrySelecte
 import com.akop.bach.fragment.playstation.BlogEntryViewFragment;
 import com.akop.bach.util.rss.RssItem;
 
-public class PsBlog extends RibbonedMultiPaneActivity implements
+public class PsBlog extends PsnMultiPane implements
 		OnBlogEntrySelectedListener
 {
 	@Override
@@ -46,7 +46,7 @@ public class PsBlog extends RibbonedMultiPaneActivity implements
 	@Override
 	protected Fragment instantiateTitleFragment()
 	{
-		return BlogEntriesFragment.newInstance(mAccount);
+		return BlogEntriesFragment.newInstance(getAccount());
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class PsBlog extends RibbonedMultiPaneActivity implements
 		}
 		else
 		{
-			PsBlogEntry.actionShow(this, mAccount, item);
+			PsBlogEntry.actionShow(this, getAccount(), item);
 		}
 	}
 	

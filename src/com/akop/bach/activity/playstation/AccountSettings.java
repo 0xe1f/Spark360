@@ -38,7 +38,7 @@ import android.preference.PreferenceActivity;
 import android.preference.RingtonePreference;
 import android.view.KeyEvent;
 
-import com.akop.bach.Account;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
 import com.akop.bach.PSN.Games;
 import com.akop.bach.PSN.Trophies;
@@ -102,7 +102,7 @@ public class AccountSettings
 		String ringtone = mAccount.getRingtone();
 		
         addPreferencesFromResource(R.xml.psn_account_settings);
-		setTitle(getString(R.string.account_settings_f, mAccount.getDescription(this)));
+		setTitle(getString(R.string.account_settings_f, mAccount.getDescription()));
 		
 		findPreference("login").setOnPreferenceClickListener(
 				new Preference.OnPreferenceClickListener()
@@ -224,7 +224,7 @@ public class AccountSettings
 		mRingtonePref.setEnabled(mUpdateFrequency > 0);
 	}
 	
-	public static void actionEditSettings(Context context, Account account)
+	public static void actionEditSettings(Context context, BasicAccount account)
 	{
 		Intent intent = new Intent(context, AccountSettings.class);
 		intent.putExtra("account", account);

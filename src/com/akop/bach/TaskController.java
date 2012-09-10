@@ -84,11 +84,11 @@ public class TaskController implements Runnable
 		{
 		}
 		
-		public void onTaskFailed(IAccount account, Exception e)
+		public void onTaskFailed(Account account, Exception e)
 		{
 		}
 		
-		public void onTaskSucceeded(IAccount account, Object requestParam, Object result)
+		public void onTaskSucceeded(Account account, Object requestParam, Object result)
 		{
 		}
 		
@@ -130,22 +130,22 @@ public class TaskController implements Runnable
 		public TaskListener listener;
 		public String description;
 		public boolean alwaysRun;
-		public IAccount mAccount;
+		public Account mAccount;
 		public Object requestParam;
 		public Exception taskError;
 		public boolean isDisabled;
 		
-		public Task(String description, IAccount account, TaskListener listener)
+		public Task(String description, Account account, TaskListener listener)
 		{
 			this(description, account, listener, false, null);
 		}
 		
-		public Task(String description, IAccount account, TaskListener listener, boolean alwaysRun)
+		public Task(String description, Account account, TaskListener listener, boolean alwaysRun)
 		{
 			this(description, account, listener, alwaysRun, null);
 		}
 		
-		public Task(String description, IAccount account, TaskListener listener, boolean alwaysRun, Object requestParam)
+		public Task(String description, Account account, TaskListener listener, boolean alwaysRun, Object requestParam)
 		{
 			this.isDisabled = false;
 			this.mAccount = account;
@@ -417,9 +417,7 @@ public class TaskController implements Runnable
         }
 	}
 	
-	// IAccount
-	
-	public void validateAccount(final IAccount account, final TaskListener listener)
+	public void validateAccount(final BasicAccount account, final TaskListener listener)
 	{
 		addTask(new Task("validateAccount:" + account.getUuid(), account, listener) 
 		{
@@ -431,7 +429,7 @@ public class TaskController implements Runnable
 		});
 	}
 	
-	public void deleteAccount(final IAccount account, final TaskListener listener)
+	public void deleteAccount(final BasicAccount account, final TaskListener listener)
 	{
 		addTask(new Task("deleteAccount:" + account.getUuid(), account, listener, true) 
 		{
@@ -443,7 +441,7 @@ public class TaskController implements Runnable
 		});
 	}
 	
-	public void synchronizeSummary(final IAccount account, final TaskListener listener)
+	public void synchronizeSummary(final BasicAccount account, final TaskListener listener)
 	{
 		addTask(new Task("synchronizeSummary:" + account.getUuid(), account, listener) 
 		{
@@ -682,7 +680,7 @@ public class TaskController implements Runnable
 		});
 	}
 	
-	public void runCustomTask(final IAccount account, final CustomTask<?> job,
+	public void runCustomTask(final BasicAccount account, final CustomTask<?> job,
 			final TaskListener listener)
 	{
 		addTask(new Task("customTask:" + job, account, listener) 
