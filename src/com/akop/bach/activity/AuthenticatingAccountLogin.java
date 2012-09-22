@@ -75,7 +75,7 @@ public class AuthenticatingAccountLogin
 		else
 		{
 			mCreate = false;
-			mAccount = (AuthenticatingAccount)getIntent().getSerializableExtra("account");
+			mAccount = (AuthenticatingAccount)getIntent().getParcelableExtra("account");
 		}
 		
         if (mAccount == null)

@@ -23,22 +23,58 @@
 
 package com.akop.bach.util.rss;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class RssChannel implements Serializable
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RssChannel implements Parcelable
 {
-    private static final long serialVersionUID = -6020089738604852631L;
-    
 	public String title;
 	public String description;
 	public String link;
+	public ArrayList<RssItem> items;
 	
-	public List<RssItem> items;
+	public static final Parcelable.Creator<RssChannel> CREATOR = new Parcelable.Creator<RssChannel>() 
+	{
+		public RssChannel createFromParcel(Parcel in) 
+		{
+			return new RssChannel(in);
+		}
+		
+		public RssChannel[] newArray(int size) 
+		{
+			return new RssChannel[size];
+		}
+	};
 	
 	public RssChannel()
 	{
 		this.items = new ArrayList<RssItem>();
+	}
+	
+	private RssChannel(Parcel in) 
+	{
+		this.items = new ArrayList<RssItem>();
+		
+		this.title = in.readString();
+		this.description = in.readString();
+		this.link = in.readString();
+		in.readTypedList(this.items, RssItem.CREATOR);
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		dest.writeString(this.title);
+		dest.writeString(this.description);
+		dest.writeString(this.link);
+		dest.writeTypedList(this.items);
+	}
+	
+	@Override
+	public int describeContents() 
+	{
+		return 0;
 	}
 }

@@ -213,7 +213,12 @@ public class CompareAchievementsFragment extends GenericFragment implements
 				public void run()
 				{
 					if (getActivity() != null && e != null)
+					{
+						if (App.LOGV)
+							e.printStackTrace();
+						
 						mMessage.setText(XboxLiveParser.getErrorMessage(getActivity(), e));
+					}
 					
 					mListView.setEmptyView(mMessage);
 					mProgress.setVisibility(View.GONE);
@@ -298,7 +303,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 	    
 	    Bundle args = getArguments();
 	    
-	    mAccount = (XboxLiveAccount)args.getSerializable("account");
+	    mAccount = (XboxLiveAccount)args.getParcelable("account");
 	    mGamertag = args.getString("gamertag");
 		mMyGamerpicUrl = mAccount.getIconUrl();
 		mYourGamerpicUrl = args.getString("yourGamerpicUrl");
@@ -327,6 +332,9 @@ public class CompareAchievementsFragment extends GenericFragment implements
 	    	}
 	    	catch(Exception e)
 	    	{
+	    		if (App.LOGV)
+	    			e.printStackTrace();
+	    		
 	    		mPayload = null;
 	    		mIconCursor = null;
 	    	}

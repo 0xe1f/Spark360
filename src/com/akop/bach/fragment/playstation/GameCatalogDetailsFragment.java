@@ -148,7 +148,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 	    mCp = new CachePolicy();
 		mCp.resizeHeight = 96;
 		
-	    mAccount = (PsnAccount)args.getSerializable("account");
+	    mAccount = (PsnAccount)args.getParcelable("account");
 	    mItem = (GameCatalogItem)args.getSerializable("gameItem");
 	    mDetails = null;
 	    

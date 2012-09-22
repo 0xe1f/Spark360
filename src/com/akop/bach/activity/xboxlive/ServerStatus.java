@@ -124,7 +124,7 @@ public class ServerStatus
 		{
 			if (savedInstanceState.containsKey("status"))
 				mStatus = (LiveStatusInfo)savedInstanceState
-						.getSerializable("status");
+						.getParcelable("status");
 		}
 		
 		if (mStatus != null)
@@ -137,7 +137,7 @@ public class ServerStatus
 		super.onSaveInstanceState(outState);
 		
 		if (mStatus != null)
-			outState.putSerializable("status", mStatus);
+			outState.putParcelable("status", mStatus);
 	}
 	
 	@Override

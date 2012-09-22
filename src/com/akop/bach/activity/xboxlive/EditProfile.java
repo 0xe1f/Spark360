@@ -39,7 +39,7 @@ public class EditProfile extends XboxLiveSinglePane
     	intent.putExtra("account", account);
     	context.startActivity(intent);
 	}
-
+	
 	@Override
     protected String getSubtitle()
     {

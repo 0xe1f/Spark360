@@ -294,7 +294,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 	    
 	    Bundle args = getArguments();
 	    
-	    mAccount = (XboxLiveAccount)args.getSerializable("account");
+	    mAccount = (XboxLiveAccount)args.getParcelable("account");
 	    mGamertag = args.getString("gamertag");
 	    mIconCursor = null;
 	    mPayload = null;

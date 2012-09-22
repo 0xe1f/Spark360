@@ -125,7 +125,7 @@ public class EditProfileFragment extends DialogFragment
 		super.onCreate(state);
 		
 	    Bundle args = getArguments();
-		mAccount = (XboxLiveAccount)args.getSerializable("account");
+		mAccount = (XboxLiveAccount)args.getParcelable("account");
 		
 		setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Dialog);
 	}

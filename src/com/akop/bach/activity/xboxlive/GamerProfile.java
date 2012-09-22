@@ -163,7 +163,7 @@ public class GamerProfile
         
         mInfo = null;
 		if (savedInstanceState != null && savedInstanceState.containsKey("info"))
-        	mInfo = (GamerProfileInfo)savedInstanceState.getSerializable("info");
+        	mInfo = (GamerProfileInfo)savedInstanceState.getParcelable("info");
 		
 		setTitle(mGamertag);
 		
@@ -206,7 +206,7 @@ public class GamerProfile
 		super.onSaveInstanceState(outState);
 		
 		if (mInfo != null)
-			outState.putSerializable("info", mInfo);
+			outState.putParcelable("info", mInfo);
 	}
 	
 	@Override

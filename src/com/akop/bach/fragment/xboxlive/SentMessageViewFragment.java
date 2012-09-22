@@ -117,7 +117,7 @@ public class SentMessageViewFragment extends GenericFragment implements
 		{
 		    Bundle args = getArguments();
 		    
-		    mAccount = (XboxLiveAccount)args.getSerializable("account");
+		    mAccount = (XboxLiveAccount)args.getParcelable("account");
 		    mTitleId = args.getLong("titleId", -1);
 		}
 		

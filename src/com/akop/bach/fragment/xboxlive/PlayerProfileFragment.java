@@ -176,7 +176,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 		
 		Bundle args = new Bundle();
 		args.putParcelable("account", account);
-		args.putSerializable("info", info);
+		args.putParcelable("info", info);
 		f.setArguments(args);
 		
 		return f;
@@ -190,8 +190,8 @@ public class PlayerProfileFragment extends GenericFragment implements
 	    Bundle args = getArguments();
 	    
 	    mResynchronize = false;
-	    mAccount = (XboxLiveAccount)args.getSerializable("account");
-	    mPayload = (GamerProfileInfo)args.getSerializable("info");
+	    mAccount = (XboxLiveAccount)args.getParcelable("account");
+	    mPayload = (GamerProfileInfo)args.getParcelable("info");
 	    mGamertag = null;
 	    mResynchronize = false;
 	    
@@ -205,7 +205,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 	    {
     		mResynchronize = state.getBoolean("resync");
     		mGamertag = state.getString("gamertag");
-    		mPayload = (GamerProfileInfo)state.getSerializable("info");
+    		mPayload = (GamerProfileInfo)state.getParcelable("info");
 	    }
 	    
 		setHasOptionsMenu(true);
@@ -286,7 +286,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 		super.onSaveInstanceState(outState);
 		
 		outState.putBoolean("resync", mResynchronize);
-		outState.putSerializable("info", mPayload);
+		outState.putParcelable("info", mPayload);
 		outState.putString("gamertag", mGamertag);
 	}
 	

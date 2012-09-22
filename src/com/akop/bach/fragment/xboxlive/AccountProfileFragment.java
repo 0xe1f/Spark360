@@ -319,13 +319,13 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 		    Bundle args = getArguments();
 			
 			if (args.containsKey("account"))
-				mAccount = (XboxLiveAccount)args.getSerializable("account");
+				mAccount = (XboxLiveAccount)args.getParcelable("account");
 			else
 				mAccount = null;
 		}
 		
 	    if (state != null && state.containsKey("account"))
-			mAccount = (XboxLiveAccount)state.getSerializable("account");
+			mAccount = (XboxLiveAccount)state.getParcelable("account");
 	    
 		setHasOptionsMenu(true);
 	}

@@ -121,7 +121,7 @@ public class GamerProfileFragment extends GenericFragment
 		
 	    Bundle args = getArguments();
 	    
-	    mAccount = (PsnAccount)args.getSerializable("account");
+	    mAccount = (PsnAccount)args.getParcelable("account");
 	    mGamertag = args.getString("gamertag");
 	    mGamerProfile = null;
 	    

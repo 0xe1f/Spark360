@@ -146,7 +146,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.account_test);
 		
-		mAccount = (BasicAccount)getIntent().getSerializableExtra("account");
+		mAccount = (BasicAccount)getIntent().getParcelableExtra("account");
 		mCreateAccount = getIntent().getBooleanExtra("createAccount", false);
 		
 		mMessage = (TextView)findViewById(R.id.account_setup_test_message);

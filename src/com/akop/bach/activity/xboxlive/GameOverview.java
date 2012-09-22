@@ -194,7 +194,7 @@ public class GameOverview
 		{
 			if (savedInstanceState.containsKey("data"))
 				mData = (GameOverviewInfo)savedInstanceState
-						.getSerializable("data");
+						.getParcelable("data");
 		}
 		
 		if (mData != null)
@@ -207,7 +207,7 @@ public class GameOverview
 		super.onSaveInstanceState(outState);
 		
 		if (mData != null)
-			outState.putSerializable("data", mData);
+			outState.putParcelable("data", mData);
 	}
 	
 	@Override

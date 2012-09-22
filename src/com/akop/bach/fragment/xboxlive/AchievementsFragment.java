@@ -343,13 +343,13 @@ public class AchievementsFragment extends GenericFragment implements
 		{
 		    Bundle args = getArguments();
 		    
-		    mAccount = (XboxLiveAccount)args.getSerializable("account");
+		    mAccount = (XboxLiveAccount)args.getParcelable("account");
 		    mTitleId = args.getLong("titleId", -1);
 		}
 		
 	    if (state != null)
 	    {
-			mAccount = (XboxLiveAccount)state.getSerializable("account");
+			mAccount = (XboxLiveAccount)state.getParcelable("account");
 			mTitleId = state.getLong("titleId");
 		}
 	    

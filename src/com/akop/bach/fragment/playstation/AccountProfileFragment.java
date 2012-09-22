@@ -234,13 +234,13 @@ public class AccountProfileFragment extends GenericFragment
 		    Bundle args = getArguments();
 			
 			if (args.containsKey("account"))
-				mAccount = (PsnAccount)args.getSerializable("account");
+				mAccount = (PsnAccount)args.getParcelable("account");
 			else
 				mAccount = null;
 		}
 		
 	    if (state != null && state.containsKey("account"))
-			mAccount = (PsnAccount)state.getSerializable("account");
+			mAccount = (PsnAccount)state.getParcelable("account");
 	    
 		setHasOptionsMenu(true);
 	}

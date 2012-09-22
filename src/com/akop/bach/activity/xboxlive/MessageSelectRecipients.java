@@ -199,7 +199,7 @@ public class MessageSelectRecipients
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.xbl_friend_selector);
 		
-        mAccount = (XboxLiveAccount)getIntent().getSerializableExtra("account");
+        mAccount = (XboxLiveAccount)getIntent().getParcelableExtra("account");
         mSave = (Button)findViewById(R.id.dialog_save);
         mDiscard = (Button)findViewById(R.id.dialog_discard);
         mToggle = (Button)findViewById(R.id.dialog_toggle);

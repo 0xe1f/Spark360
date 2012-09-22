@@ -315,7 +315,7 @@ public class GameCatalogFragment extends GenericFragment implements
 		
 	    Bundle args = getArguments();
 	    
-	    mAccount = (PsnAccount)args.getSerializable("account");
+	    mAccount = (PsnAccount)args.getParcelable("account");
 	    mItemPos = -1;
 		
 		mLastRequestedPage = 0;

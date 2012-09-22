@@ -55,7 +55,7 @@ public class BlogEntryViewFragment extends GenericFragment
 		BlogEntryViewFragment f = new BlogEntryViewFragment();
 		
 		Bundle args = new Bundle();
-		args.putSerializable("item", item);
+		args.putParcelable("item", item);
 		f.setArguments(args);
 		
 		return f;
@@ -68,12 +68,12 @@ public class BlogEntryViewFragment extends GenericFragment
 		
 	    Bundle args = getArguments();
 	    
-		mItem = (RssItem)args.getSerializable("item");
+		mItem = (RssItem)args.getParcelable("item");
 		
 		if (state != null)
 		{
 			if (state.containsKey("item"))
-				mItem = (RssItem)state.getSerializable("item");
+				mItem = (RssItem)state.getParcelable("item");
 		}
 		
 		setHasOptionsMenu(true);
@@ -117,7 +117,7 @@ public class BlogEntryViewFragment extends GenericFragment
 		super.onSaveInstanceState(outState);
 		
 		if (mItem != null)
-			outState.putSerializable("item", mItem);
+			outState.putParcelable("item", mItem);
 	}
 	
 	public void resetTitle(RssItem item)

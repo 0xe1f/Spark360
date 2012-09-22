@@ -55,7 +55,7 @@ public class Main extends Activity
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-		BasicAccount account = (BasicAccount)getIntent().getSerializableExtra("account");
+		BasicAccount account = (BasicAccount)getIntent().getParcelableExtra("account");
 		if (account != null)
 		{
 			if (App.LOGV)

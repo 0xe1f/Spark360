@@ -304,7 +304,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 		
 	    Bundle args = getArguments();
 	    
-	    mAccount = (PsnAccount)args.getSerializable("account");
+	    mAccount = (PsnAccount)args.getParcelable("account");
 	    mGamertag = args.getString("gamertag");
 		mMyGamerpicUrl = mAccount.getIconUrl();
 		mYourGamerpicUrl = args.getString("yourGamerpicUrl");

@@ -46,6 +46,8 @@ public class FriendSummary
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		mFriendId = -1;
+		
 		if (getIntent() != null && getIntent().getData() != null)
 		{
 			String seg = getIntent().getData().getLastPathSegment();
@@ -59,8 +61,6 @@ public class FriendSummary
 				mAccount = (XboxLiveAccount)prefs.getAccount(accountId);
 			}
 		}
-		
-		super.onCreate(savedInstanceState);
 		
         if (mFriendId < 0)
         	mFriendId = getIntent().getLongExtra("friendId", -1);
@@ -82,6 +82,8 @@ public class FriendSummary
         	finish();
         	return;
         }
+		
+		super.onCreate(savedInstanceState);
 	}
 	
 	public static void actionShow(Context context, long friendId)

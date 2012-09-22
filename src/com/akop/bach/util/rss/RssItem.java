@@ -23,13 +23,13 @@
 
 package com.akop.bach.util.rss;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class RssItem implements Serializable
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RssItem implements Parcelable
 {
-    private static final long serialVersionUID = 6455525019733077056L;
-    
 	public String title = "";
 	public Date date;
 	public String description = "";
@@ -37,4 +37,54 @@ public class RssItem implements Serializable
 	public String author = "";
 	public String thumbUrl;
 	public String content = "";
+	
+	public static final Parcelable.Creator<RssItem> CREATOR = new Parcelable.Creator<RssItem>() 
+	{
+		public RssItem createFromParcel(Parcel in) 
+		{
+			return new RssItem(in);
+		}
+		
+		public RssItem[] newArray(int size) 
+		{
+			return new RssItem[size];
+		}
+	};
+	
+	public RssItem()
+	{
+		this.title = "";
+		this.description = "";
+		this.author = "";
+		this.content = "";
+	}
+	
+	private RssItem(Parcel in) 
+	{
+		this.title = in.readString();
+		this.date = new Date(in.readLong());
+		this.description = in.readString();
+		this.link = in.readString();
+		this.author = in.readString();
+		this.thumbUrl = in.readString();
+		this.content = in.readString();
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		dest.writeString(this.title);
+		dest.writeLong(this.date.getTime());
+		dest.writeString(this.description);
+		dest.writeString(this.link);
+		dest.writeString(this.author);
+		dest.writeString(this.thumbUrl);
+		dest.writeString(this.thumbUrl);
+	}
+	
+	@Override
+	public int describeContents() 
+	{
+		return 0;
+	}
 }

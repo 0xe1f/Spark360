@@ -76,7 +76,7 @@ public class AccountSettings
 		mAccount = null;
 		if (getIntent().hasExtra("account"))
 		{
-			mAccount = (PsnAccount)getIntent().getSerializableExtra("account");
+			mAccount = (PsnAccount)getIntent().getParcelableExtra("account");
 		}
 		else if (getIntent().getData() != null)
 		{

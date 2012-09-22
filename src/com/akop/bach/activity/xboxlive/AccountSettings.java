@@ -75,7 +75,7 @@ public class AccountSettings extends PreferenceActivity
 		mAccount = null;
 		if (getIntent().hasExtra("account"))
 		{
-			mAccount = (XboxLiveAccount)getIntent().getSerializableExtra("account");
+			mAccount = (XboxLiveAccount)getIntent().getParcelableExtra("account");
 		}
 		else if (getIntent().getData() != null)
 		{

@@ -75,7 +75,7 @@ public class CreateAccountShortcut
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (resultCode == RESULT_OK)
-			createShortcut((BasicAccount)data.getSerializableExtra("account"));
+			createShortcut((BasicAccount)data.getParcelableExtra("account"));
 		
 		finish();
 	}

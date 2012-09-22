@@ -331,7 +331,7 @@ public class GamesFragment extends GenericFragment implements
 		    Bundle args = getArguments();
 			ContentResolver cr = getActivity().getContentResolver();
 		    
-		    mAccount = (XboxLiveAccount)args.getSerializable("account");
+		    mAccount = (XboxLiveAccount)args.getParcelable("account");
 			mTitleId = getFirstTitleId(cr.query(Games.CONTENT_URI,
 					new String[] { Games._ID, },
 					Games.ACCOUNT_ID + "=" + mAccount.getId(), 
@@ -340,7 +340,7 @@ public class GamesFragment extends GenericFragment implements
 		
 	    if (state != null && state.containsKey("account"))
 	    {
-			mAccount = (XboxLiveAccount)state.getSerializable("account");
+			mAccount = (XboxLiveAccount)state.getParcelable("account");
 			mTitleId = state.getLong("titleId");
 		}
 	    

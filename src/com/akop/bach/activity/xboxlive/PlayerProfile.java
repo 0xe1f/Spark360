@@ -43,7 +43,7 @@ public class PlayerProfile
 	{
 		super.onCreate(savedInstanceState);
 		
-		GamerProfileInfo info = (GamerProfileInfo)getIntent().getSerializableExtra("info");
+		GamerProfileInfo info = (GamerProfileInfo)getIntent().getParcelableExtra("info");
 		if (info == null)
 		{
 			if (App.LOGV)
@@ -76,6 +76,6 @@ public class PlayerProfile
 	protected Fragment createFragment() 
 	{
 		return PlayerProfileFragment.newInstance(getAccount(), 
-				(GamerProfileInfo)getIntent().getSerializableExtra("info"));
+				(GamerProfileInfo)getIntent().getParcelableExtra("info"));
 	}
 }

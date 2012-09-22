@@ -167,7 +167,7 @@ public abstract class RibbonedMultiPane extends FragmentActivity
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(getLayout());
 		
-		if ((mAccount = (BasicAccount)getIntent().getSerializableExtra("account")) == null
+		if ((mAccount = (BasicAccount)getIntent().getParcelableExtra("account")) == null
 				&& !allowNullAccounts())
 		{
 			if (App.LOGV)

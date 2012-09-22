@@ -45,12 +45,12 @@ public class CompareAchievements
     @Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
-		
 		HashMap<Integer, Object> gameInfo = (HashMap<Integer, Object>)getIntent().getSerializableExtra("gameInfo");
 		
 		mGamertag = getIntent().getStringExtra("gamertag");
 		mGameTitle = (String)gameInfo.get(ComparedGameCursor.COLUMN_TITLE);
+		
+		super.onCreate(savedInstanceState);
 	}
 	
 	public static void actionShow(Context context,

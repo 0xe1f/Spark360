@@ -296,7 +296,7 @@ public class MessagesFragment extends GenericFragment implements
 		    Bundle args = getArguments();
 			ContentResolver cr = getActivity().getContentResolver();
 		    
-		    mAccount = (XboxLiveAccount)args.getSerializable("account");
+		    mAccount = (XboxLiveAccount)args.getParcelable("account");
 			mTitleId = getFirstTitleId(cr.query(Messages.CONTENT_URI,
 					new String[] { Messages._ID, },
 					Messages.ACCOUNT_ID + "=" + mAccount.getId(), 
@@ -305,7 +305,7 @@ public class MessagesFragment extends GenericFragment implements
 		
 	    if (state != null && state.containsKey("account"))
 	    {
-			mAccount = (XboxLiveAccount)state.getSerializable("account");
+			mAccount = (XboxLiveAccount)state.getParcelable("account");
 			mTitleId = state.getLong("titleId");
 		}
 	    

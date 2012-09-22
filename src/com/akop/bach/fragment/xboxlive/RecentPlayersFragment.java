@@ -279,7 +279,7 @@ public class RecentPlayersFragment extends GenericFragment implements
 	    
 	    Bundle args = getArguments();
 	    
-	    mAccount = (XboxLiveAccount)args.getSerializable("account");
+	    mAccount = (XboxLiveAccount)args.getParcelable("account");
 	    mIconCursor = null;
 	    mPayload = null;
 	    mAdapter = null;

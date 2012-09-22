@@ -151,7 +151,7 @@ public abstract class RibbonedScrollingActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-        if ((mAccount = (XboxLiveAccount)getIntent().getSerializableExtra("account")) == null)
+        if ((mAccount = (XboxLiveAccount)getIntent().getParcelableExtra("account")) == null)
         {
         	finish();
         	return;

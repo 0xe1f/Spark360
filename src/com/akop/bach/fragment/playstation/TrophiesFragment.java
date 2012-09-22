@@ -329,13 +329,13 @@ public class TrophiesFragment extends GenericFragment implements
 		{
 		    Bundle args = getArguments();
 		    
-		    mAccount = (PsnAccount)args.getSerializable("account");
+		    mAccount = (PsnAccount)args.getParcelable("account");
 		    mTitleId = args.getLong("titleId", -1);
 		}
 		
 	    if (state != null)
 	    {
-			mAccount = (PsnAccount)state.getSerializable("account");
+			mAccount = (PsnAccount)state.getParcelable("account");
 			mTitleId = state.getLong("titleId");
 		}
 	    

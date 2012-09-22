@@ -28,7 +28,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -36,6 +35,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 
@@ -1558,8 +1559,7 @@ public class XboxLive
         }
 	}
 	
-	public static final class ComparedGameCursor extends
-	        SerializableMatrixCursor
+	public static final class ComparedGameCursor extends SerializableMatrixCursor
 	{
         private static final long serialVersionUID = 4841347936245189704L;
         
@@ -1652,8 +1652,7 @@ public class XboxLive
 		}
 	}
 	
-	public static final class ComparedAchievementCursor extends
-	        SerializableMatrixCursor
+	public static final class ComparedAchievementCursor extends SerializableMatrixCursor
 	{
         private static final long serialVersionUID = -6952024669915353534L;
         
@@ -1741,107 +1740,104 @@ public class XboxLive
 		}
 	}
 	
-	public static final class GameInfo implements Serializable
+	public static final class RecentPlayers implements Serializable
 	{
-		private static final long serialVersionUID = -2962146474397804509L;
+        private static final long serialVersionUID = -6056933243040134741L;
+        
+		public RecentPlayersCursor Players;
 		
-		public static final String _ID = "Id";
-		public static final String UID = "Uid";
-		public static final String TITLE = "Title";
-		public static final String LAST_PLAYED = "LastPlayed";
-		public static final String ACHIEVEMENTS = "Achievements";
-		public static final String GAMERSCORE = "Gamerscore";
-		public static final String ICON_URL = "IconUrl";
-		public static final String GAME_URL = "GameUrl";
-		
-		public static Map<String, Object> create(Context context,
-				long id,
-				String title,
-				long lastPlayed, 
-				int achUnlocked,
-				int achTotal,
-				int gsAcquired,
-				int gsTotal,
-				String iconUrl,
-				String gameUrl)
+		public RecentPlayers(ContentResolver cr)
 		{
-			Map<String, Object> info = new HashMap<String, Object>();
-			
-			info.put(_ID, id);
-			info.put(TITLE, title);
-			info.put(ICON_URL, iconUrl);
-			info.put(GAME_URL, gameUrl);
-			info.put(LAST_PLAYED, Games.getLastPlayedText(context, lastPlayed));
-			info.put(ACHIEVEMENTS, Games.getAchievementTotalText(context, achUnlocked, achTotal));
-			info.put(GAMERSCORE, Games.getGamerscoreTotalText(context, gsAcquired, gsTotal));
-			
-			return info;
+			Players = new RecentPlayersCursor(cr);
 		}
 	}
 	
-	public static final class AchievementInfo implements Serializable
+	public static final class FriendsOfFriend implements Serializable
 	{
-		private static final long serialVersionUID = 3092581492042073191L;
+        private static final long serialVersionUID = -6056933243040134741L;
+        
+		public FriendsOfFriendCursor SharedFriends;
+		public FriendsOfFriendCursor NotYetFriends;
 		
-		public static final String TITLE = "Title";
-		public static final String DESCRIPTION = "Description";
-		public static final String ACQUIRED = "Acquired";
-		public static final String GAMERSCORE = "Gamerscore";
-		public static final String ICON_URL = "IconUrl";
-		public static final String LOCKED = "Locked";
-		
-		public static Map<String, Object> create(Context context,
-				String title,
-				String description,
-				String iconUrl,
-				int gamerscore,
-				boolean locked,
-				long acquired)
+		public FriendsOfFriend(ContentResolver cr)
 		{
-			Map<String, Object> info = new HashMap<String, Object>();
-			
-			info.put(TITLE, title);
-			info.put(DESCRIPTION, description);
-			info.put(ICON_URL, iconUrl);
-			info.put(GAMERSCORE, context.getString(R.string.x_f, gamerscore));
-			info.put(LOCKED, locked);
-			
-			if (locked)
-			{
-				info.put(ACQUIRED, context.getString(R.string.locked));
-			}
-			else
-			{
-				if (acquired == 0)
-					info.put(ACQUIRED, context
-							.getString(R.string.acquired_offline));
-				else
-					info.put(ACQUIRED, context.getString(R.string.acquired_f, 
-							DateFormat.getDateInstance().format(acquired)));
-			}
-			
-			return info;
+			SharedFriends = new FriendsOfFriendCursor(cr);
+			NotYetFriends = new FriendsOfFriendCursor(cr);
 		}
 	}
 	
-	public static final class LiveStatusInfo implements Serializable
+	public static final class LiveStatusInfo implements Parcelable
 	{
-		public static class Category implements Serializable
+		public static class Category implements Parcelable
 		{
-			private static final long serialVersionUID = -4726463807313576855L;
-			
 			public String name;
 			public int status;
 			public String statusText;
+			
+			public Category()
+			{
+			}
+			
+			public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() 
+			{
+				public Category createFromParcel(Parcel in) 
+				{
+					return new Category(in);
+				}
+				
+				public Category[] newArray(int size) 
+				{
+					return new Category[size];
+				}
+			};
+			
+			private Category(Parcel in) 
+			{
+				this.name = in.readString();
+				this.status = in.readInt();
+				this.statusText = in.readString();
+			}
+			
+			@Override
+			public void writeToParcel(Parcel dest, int flags) 
+			{
+				dest.writeString(this.name);
+				dest.writeInt(this.status);
+				dest.writeString(this.statusText);
+			}
+			
+			@Override
+			public int describeContents() 
+			{
+				return 0;
+			}
 		}
-		
-		private static final long serialVersionUID = 7798586808616413826L;
 		
 		public List<Category> categories;
 		
 		public LiveStatusInfo()
 		{
-			categories = new ArrayList<Category>();
+			this.categories = new ArrayList<Category>();
+		}
+		
+		public static final Parcelable.Creator<LiveStatusInfo> CREATOR = new Parcelable.Creator<LiveStatusInfo>() 
+		{
+			public LiveStatusInfo createFromParcel(Parcel in) 
+			{
+				return new LiveStatusInfo(in);
+			}
+			
+			public LiveStatusInfo[] newArray(int size) 
+			{
+				return new LiveStatusInfo[size];
+			}
+		};
+		
+		private LiveStatusInfo(Parcel in) 
+		{
+			this.categories = new ArrayList<Category>();
+			
+			in.readTypedList(this.categories, Category.CREATOR);
 		}
 		
 		public void addCategory(String name, int status, String statusText)
@@ -1854,11 +1850,25 @@ public class XboxLive
 			
 			categories.add(cat);
 		}
+		
+		@Override
+		public void writeToParcel(Parcel dest, int flags) 
+		{
+			dest.writeTypedList(this.categories);
+		}
+		
+		@Override
+		public int describeContents() 
+		{
+			return 0;
+		}
 	}
 	
-	public static final class BeaconInfo implements Serializable
+	public static final class BeaconInfo implements Parcelable
 	{
-		private static final long serialVersionUID = 3789288386503338525L;
+		public String TitleName;
+		public String TitleBoxArtUrl;
+		public String Text;
 		
 		public BeaconInfo(ContentValues cv)
 		{
@@ -1867,15 +1877,43 @@ public class XboxLive
 			this.Text = cv.getAsString(Beacons.TEXT);
 		}
 		
-		public String TitleName;
-		public String TitleBoxArtUrl;
-		public String Text;
+		public static final Parcelable.Creator<BeaconInfo> CREATOR = new Parcelable.Creator<BeaconInfo>() 
+		{
+			public BeaconInfo createFromParcel(Parcel in) 
+			{
+				return new BeaconInfo(in);
+			}
+			
+			public BeaconInfo[] newArray(int size) 
+			{
+				return new BeaconInfo[size];
+			}
+		};
+		
+		private BeaconInfo(Parcel in) 
+		{
+			this.TitleName = in.readString();
+			this.TitleBoxArtUrl = in.readString();
+			this.Text = in.readString();
+		}
+		
+		@Override
+		public void writeToParcel(Parcel dest, int flags) 
+		{
+			dest.writeString(this.TitleName);
+			dest.writeString(this.TitleBoxArtUrl);
+			dest.writeString(this.Text);
+		}
+		
+		@Override
+		public int describeContents() 
+		{
+			return 0;
+		}
 	}
 	
-	public static final class GamerProfileInfo implements Serializable
+	public static final class GamerProfileInfo implements Parcelable
 	{
-		private static final long serialVersionUID = -9214260018185859594L;
-		
 		public long AccountId;
 		public String Gamertag;
 		public String IconUrl;
@@ -1907,57 +1945,129 @@ public class XboxLive
 			this.Rep = 0;
 			this.Beacons = null;
 		}
-	}
-	
-	public static final class RecentPlayers implements Serializable
-	{
-        private static final long serialVersionUID = -6056933243040134741L;
-        
-		public RecentPlayersCursor Players;
 		
-		public RecentPlayers(ContentResolver cr)
+		public static final Parcelable.Creator<GamerProfileInfo> CREATOR = new Parcelable.Creator<GamerProfileInfo>() 
 		{
-			Players = new RecentPlayersCursor(cr);
+			public GamerProfileInfo createFromParcel(Parcel in) 
+			{
+				return new GamerProfileInfo(in);
+			}
+			
+			public GamerProfileInfo[] newArray(int size) 
+			{
+				return new GamerProfileInfo[size];
+			}
+		};
+		
+		private GamerProfileInfo(Parcel in) 
+		{
+			this.AccountId = in.readLong();
+			this.Rep = in.readInt();
+			this.IsFriend = in.readByte() != 0;
+			this.Gamerscore = in.readInt();
+			
+			this.Gamertag = in.readString();
+			this.IconUrl = in.readString();
+			this.CurrentActivity = in.readString();
+			this.TitleIconUrl = in.readString();
+			this.TitleId = in.readString();
+			this.Name = in.readString();
+			this.Location = in.readString();
+			this.Bio = in.readString();
+			this.Motto = in.readString();
+			
+			this.Beacons = in.createTypedArray(BeaconInfo.CREATOR);
+		}
+		
+		@Override
+		public void writeToParcel(Parcel dest, int flags) 
+		{
+			dest.writeLong(this.AccountId);
+			dest.writeInt(this.Rep);
+			dest.writeByte(this.IsFriend ? (byte)1 : 0);
+			dest.writeInt(this.Gamerscore);
+			
+			dest.writeString(this.Gamertag);
+			dest.writeString(this.IconUrl);
+			dest.writeString(this.CurrentActivity);
+			dest.writeString(this.TitleIconUrl);
+			dest.writeString(this.TitleId);
+			dest.writeString(this.Name);
+			dest.writeString(this.Location);
+			dest.writeString(this.Bio);
+			dest.writeString(this.Motto);
+			
+			dest.writeTypedArray(this.Beacons, 0);
+		}
+		
+		@Override
+		public int describeContents() 
+		{
+			return 0;
 		}
 	}
 	
-	public static final class FriendsOfFriend implements Serializable
+	public static final class GameOverviewInfo implements Parcelable
 	{
-        private static final long serialVersionUID = -6056933243040134741L;
-        
-		public FriendsOfFriendCursor SharedFriends;
-		public FriendsOfFriendCursor NotYetFriends;
-		
-		public FriendsOfFriend(ContentResolver cr)
-		{
-			SharedFriends = new FriendsOfFriendCursor(cr);
-			NotYetFriends = new FriendsOfFriendCursor(cr);
-		}
-	}
-	
-	public static final class GameOverviewInfo
-			implements Serializable
-	{
-		private static final long serialVersionUID = 4367884447784867140L;
-		
 		public String BannerUrl;
-		
 		public String Title;
 		public String Description;
-		
 		public String ManualUrl;
-		
-		public int MyRating;
-		public int AverageRating;
-		
 		public String EsrbRatingDescription;
 		public String EsrbRatingIconUrl;
-		
-		public List<String> Screenshots;
+		public int MyRating;
+		public int AverageRating;
+		public ArrayList<String> Screenshots;
 		
 		public GameOverviewInfo()
 		{
-			Screenshots = new ArrayList<String>();
+			this.Screenshots = new ArrayList<String>();
+		}
+		
+		public static final Parcelable.Creator<GameOverviewInfo> CREATOR = new Parcelable.Creator<GameOverviewInfo>() 
+		{
+			public GameOverviewInfo createFromParcel(Parcel in) 
+			{
+				return new GameOverviewInfo(in);
+			}
+			
+			public GameOverviewInfo[] newArray(int size) 
+			{
+				return new GameOverviewInfo[size];
+			}
+		};
+		
+		private GameOverviewInfo(Parcel in) 
+		{
+			this.BannerUrl = in.readString();
+			this.Title = in.readString();
+			this.Description = in.readString();
+			this.ManualUrl = in.readString();
+			this.EsrbRatingDescription = in.readString();
+			this.EsrbRatingIconUrl = in.readString();
+			this.MyRating = in.readInt();
+			this.AverageRating = in.readInt();
+			this.Screenshots = in.createStringArrayList();
+		}
+		
+		@Override
+		public void writeToParcel(Parcel dest, int flags) 
+		{
+			dest.writeString(this.BannerUrl);
+			dest.writeString(this.Title);
+			dest.writeString(this.Description);
+			dest.writeString(this.ManualUrl);
+			dest.writeString(this.EsrbRatingDescription);
+			dest.writeString(this.EsrbRatingIconUrl);
+			dest.writeInt(this.MyRating);
+			dest.writeInt(this.AverageRating);
+			dest.writeStringList(this.Screenshots);
+		}
+		
+		@Override
+		public int describeContents() 
+		{
+			return 0;
 		}
 	}
 }

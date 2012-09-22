@@ -199,7 +199,7 @@ public abstract class RibbonedActivity
 		toggleProgressBar(false);
 		
 		if (mAccount == null)
-			mAccount = (XboxLiveAccount)getIntent().getSerializableExtra("account");
+			mAccount = (XboxLiveAccount)getIntent().getParcelableExtra("account");
 		
         if (mAccount == null)
         {

@@ -52,7 +52,7 @@ public class CreateFriendShortcut
 		{
 			if (savedInstanceState.containsKey("account"))
 				mAccount = (SupportsFriends)savedInstanceState
-						.getSerializable("account");
+						.getParcelable("account");
 			
 			if (savedInstanceState.containsKey("friendId"))
 				mFriendId = savedInstanceState.getLong("friendId");
@@ -110,7 +110,7 @@ public class CreateFriendShortcut
 		{
 			if (requestCode == SELECT_ACCOUNT)
 			{
-				mAccount = (SupportsFriends)data.getSerializableExtra("account");
+				mAccount = (SupportsFriends)data.getParcelableExtra("account");
 				FriendSelector.actionSelectFriends(this, mAccount);
 			}
 			else if (requestCode == SELECT_FRIEND)

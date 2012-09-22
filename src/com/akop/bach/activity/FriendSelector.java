@@ -70,7 +70,7 @@ public class FriendSelector
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_selector);
 		
-		if ((mAccount = (SupportsFriends)getIntent().getSerializableExtra("account")) == null)
+		if ((mAccount = (SupportsFriends)getIntent().getParcelableExtra("account")) == null)
 		{
 			finish();
 			return;

@@ -217,7 +217,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 	    
 	    Bundle args = getArguments();
 	    
-	    mAccount = (PsnAccount)args.getSerializable("account");
+	    mAccount = (PsnAccount)args.getParcelable("account");
 	    mIconCursor = null;
 	    mAdapter = null;
 		mPayload = null;
@@ -230,7 +230,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 				if (state.containsKey("icons"))
 					mIconCursor = (IconCursor)state.getSerializable("icons");
 	    	    if (state.containsKey("feed"))
-	    	    	mPayload = (RssChannel)state.getSerializable("feed");
+	    	    	mPayload = (RssChannel)state.getParcelable("feed");
 	    	}
 	    	catch(Exception e)
 	    	{
@@ -288,7 +288,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 			outState.putInt("titleIndex", mTitleIndex);
 			
 			if (mPayload != null)
-				outState.putSerializable("feed", mPayload);
+				outState.putParcelable("feed", mPayload);
 			if (mIconCursor != null)
 				outState.putSerializable("icons", mIconCursor);
 		}

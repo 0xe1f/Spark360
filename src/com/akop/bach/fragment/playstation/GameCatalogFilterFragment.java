@@ -87,7 +87,7 @@ public class GameCatalogFilterFragment extends DialogFragment
 		mSortOrder = getArguments().getInt("sortOrder");
 		mReleaseStatus = getArguments().getInt("releaseStatus");
 		mConsole = getArguments().getInt("console");
-		mAccount = (PsnAccount)getArguments().getSerializable("account");
+		mAccount = (PsnAccount)getArguments().getParcelable("account");
 		
 		if (savedInstanceState != null)
 		{

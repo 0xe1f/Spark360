@@ -146,7 +146,7 @@ public abstract class RibbonedSinglePane extends FragmentActivity
 		setContentView(getLayout());
 		
 		if (mAccount == null)
-			mAccount = (BasicAccount)getIntent().getSerializableExtra("account");
+			mAccount = (BasicAccount)getIntent().getParcelableExtra("account");
 		
 		if (mAccount == null)
 		{
