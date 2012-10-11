@@ -118,7 +118,7 @@ public abstract class RibbonedScrollingActivity
 					Parser.getErrorMessage(RibbonedScrollingActivity.this, ex));
 			sendMessage(m);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				ex.printStackTrace();
 		}
 		

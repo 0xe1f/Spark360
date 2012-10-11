@@ -315,7 +315,7 @@ public class AccountSettings
 		}
 		else
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Update frequency did not change; not rescheduling");
 		}
 	}

@@ -65,7 +65,7 @@ public abstract class ServiceClient
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
@@ -75,7 +75,7 @@ public abstract class ServiceClient
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 	}

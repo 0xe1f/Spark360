@@ -77,7 +77,7 @@ public class CreateFriendShortcut
 	{
 		if (mAccount == null || mFriendId < 0)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Missing account or friend ID");
 			
 			finish();

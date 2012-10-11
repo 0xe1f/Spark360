@@ -168,7 +168,7 @@ public class SearchFriendsList
 						}
 						catch(Exception e)
 						{
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								e.printStackTrace();
 						}
 					}

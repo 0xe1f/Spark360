@@ -374,7 +374,7 @@ public class AccountsFragment extends GenericFragment implements
 	    	}
 	    	catch(Exception e)
 	    	{
-	    		if (App.LOGV)
+	    		if (App.getConfig().logToConsole())
 	    			e.printStackTrace();
 	    		
 	    		mCursor = null;
@@ -611,7 +611,7 @@ public class AccountsFragment extends GenericFragment implements
 			}
 			catch(Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			

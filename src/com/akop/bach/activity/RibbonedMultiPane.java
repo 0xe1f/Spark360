@@ -170,7 +170,7 @@ public abstract class RibbonedMultiPane extends FragmentActivity
 		if ((mAccount = (BasicAccount)getIntent().getParcelableExtra("account")) == null
 				&& !allowNullAccounts())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Account is null");
 			
         	finish();

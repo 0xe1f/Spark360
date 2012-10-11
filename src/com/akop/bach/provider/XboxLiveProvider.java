@@ -243,14 +243,14 @@ public class XboxLiveProvider extends ContentProvider
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("XboxLiveProvider: Upgrading database from version "
 						+ oldVersion + " to " + newVersion);
 			
 			boolean upgraded = false;
 			if (oldVersion < 13)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 13");
 				
 				db.execSQL("ALTER TABLE " + PROFILES_TABLE_NAME + " ADD COLUMN "
@@ -263,7 +263,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 15)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 15");
 				
 				db.execSQL("ALTER TABLE " + FRIENDS_TABLE_NAME + " ADD COLUMN "
@@ -274,7 +274,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 16)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 16");
 				
 				db.execSQL("ALTER TABLE " + PROFILES_TABLE_NAME + " ADD COLUMN "
@@ -285,7 +285,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 17)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 17");
 				
 				db.execSQL("CREATE TABLE " + EVENTS_TABLE_NAME + " ("
@@ -301,7 +301,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 18)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 18");
 				
 				db.execSQL("DELETE FROM " + GAMES_TABLE_NAME + ";");
@@ -312,7 +312,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 19)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 19");
 				
 				db.execSQL("ALTER TABLE " + GAMES_TABLE_NAME + " ADD COLUMN "
@@ -325,7 +325,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 20)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 20");
 				
 				db.execSQL("CREATE TABLE " + BEACONS_TABLE_NAME + " ("
@@ -342,7 +342,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 21)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 20");
 				
 				db.execSQL("ALTER TABLE " + FRIENDS_TABLE_NAME + " ADD COLUMN "
@@ -357,7 +357,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 22)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 21");
 				
 				db.execSQL("UPDATE " + GAMES_TABLE_NAME + " SET " 
@@ -368,7 +368,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 23)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 22");
 				
 				db.execSQL("ALTER TABLE " + MESSAGES_TABLE_NAME + " ADD COLUMN "
@@ -379,7 +379,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 24)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 23");
 				
 				db.execSQL("CREATE TABLE " + SENT_MESSAGES_TABLE_NAME + " ("
@@ -396,7 +396,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 25)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 24");
 				
 				db.execSQL("ALTER TABLE " + PROFILES_TABLE_NAME + " ADD COLUMN "
@@ -411,7 +411,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 26)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 25");
 				
 				db.execSQL("CREATE TABLE " + NOTIFY_STATES_TABLE_NAME + " ("
@@ -425,7 +425,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (oldVersion < 27)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: upgrading for version 26");
 				
 				db.execSQL("ALTER TABLE " + NOTIFY_STATES_TABLE_NAME + " ADD COLUMN "
@@ -436,7 +436,7 @@ public class XboxLiveProvider extends ContentProvider
 			
 			if (!upgraded)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveProvider: Recreating structure");
 				
 				db.execSQL("DROP TABLE IF EXISTS " + ACHIEVEMENTS_TABLE_NAME);

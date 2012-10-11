@@ -386,7 +386,7 @@ public class GameCatalogDetailsFragment extends GenericFragment
 	
 	private void resetAdapter()
 	{
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Resetting gallery adapter...");
 		
 		if (mGallery != null)

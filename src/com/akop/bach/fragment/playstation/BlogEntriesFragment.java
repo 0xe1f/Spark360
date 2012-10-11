@@ -420,7 +420,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 				}
 				catch(Exception e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				

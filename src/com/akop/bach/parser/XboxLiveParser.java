@@ -100,71 +100,71 @@ public class XboxLiveParser extends LiveParser
 	private static final String URL_SECRET_ACHIEVE_TILE = 
 		"http://live.xbox.com/Content/Images/HiddenAchievement.png";
 	private static final String URL_JSON_PROFILE = 
-		"http://live.xbox.com/Handlers/ShellData.ashx?culture=%1$s" + 
+		"https://live.xbox.com/Handlers/ShellData.ashx?culture=%1$s" + 
 		"&XBXMChg=%2$d&XBXNChg=%2$d&XBXSPChg=%2$d&XBXChg=%2$d" + 
 		"&leetcallback=jsonp1287728723001";
 	private static final String URL_JSON_READ_MESSAGE = 
-		"http://live.xbox.com/%1$s/Messages/Message";
+		"https://live.xbox.com/%1$s/Messages/Message";
 	private static final String URL_JSON_DELETE_MESSAGE = 
-		"http://live.xbox.com/%1$s/Messages/Delete";
+		"https://live.xbox.com/%1$s/Messages/Delete";
 	private static final String URL_JSON_BLOCK_MESSAGE = 
-		"http://live.xbox.com/%1$s/Messages/Block";
+		"https://live.xbox.com/%1$s/Messages/Block";
 	private static final String URL_JSON_SEND_MESSAGE = 
 		"https://live.xbox.com/%1$s/Messages/SendMessage";
 	private static final String URL_JSON_FRIEND_REQUEST = 
-		"http://live.xbox.com/%1$s/Friends/%2$s";
+		"https://live.xbox.com/%1$s/Friends/%2$s";
 	private static final String URL_JSON_RECENT_LIST = 
-		"http://live.xbox.com/%1$s/Friends/Recent";
+		"https://live.xbox.com/%1$s/Friends/Recent";
 	private static final String URL_JSON_FOF_LIST = 
-		"http://live.xbox.com/%1$s/Friends/List";
+		"https://live.xbox.com/%1$s/Friends/List";
 	private static final String URL_JSON_MESSAGE_LIST = 
-		"http://live.xbox.com/%1$s/Messages/GetMessages";
+		"https://live.xbox.com/%1$s/Messages/GetMessages";
 	private static final String URL_JSON_FRIEND_LIST = 
-		"http://live.xbox.com/%1$s/Friends/List";
+		"https://live.xbox.com/%1$s/Friends/List";
 	private static final String URL_JSON_GAME_LIST = 
-		"http://live.xbox.com/%1$s/Activity/Summary";
+		"https://live.xbox.com/%1$s/Activity/Summary";
 	private static final String URL_JSON_COMPARE_GAMES =
-		"http://live.xbox.com/%1$s/Activity/Summary?CompareTo=%2$s";
+		"https://live.xbox.com/%1$s/Activity/Summary?CompareTo=%2$s";
 	
 	private static final String URL_JSON_BEACONS =
-		"http://live.xbox.com/%1$s/Beacons/JumpInList";
+		"https://live.xbox.com/%1$s/Beacons/JumpInList";
 	private static final String URL_JSON_BEACON_SET =
-		"http://live.xbox.com/%1$s/Beacons/Set";
+		"https://live.xbox.com/%1$s/Beacons/Set";
 	private static final String URL_JSON_BEACON_CLEAR =
-		"http://live.xbox.com/%1$s/Beacons/Clear";
+		"https://live.xbox.com/%1$s/Beacons/Clear";
 	
 	private static final String URL_VTOKEN_MESSAGES = 
-		"http://live.xbox.com/%1$s/Messages?xr=socialtwistnav";
+		"https://live.xbox.com/%1$s/Messages?xr=socialtwistnav";
 	private static final String URL_VTOKEN_ACTIVITY = 
-		"http://live.xbox.com/%1$s/Activity?xr=shellnav";
+		"https://live.xbox.com/%1$s/Activity?xr=socialtwistnav";
 	private static final String URL_VTOKEN_FRIENDS = 
-		"http://live.xbox.com/%1$s/Friends?xr=shellnav";
+		"https://live.xbox.com/%1$s/Friends?xr=socialtwistnav";
 	private static final String URL_VTOKEN_COMPARE_GAMES = 
-		"http://live.xbox.com/%1$s/Activity?compareTo=%2$s";
+		"https://live.xbox.com/%1$s/Activity?compareTo=%2$s";
 	private static final String URL_VTOKEN_FRIEND_REQUEST = 
-		"http://live.xbox.com/%1$s/Profile?gamertag=%2$s";
+		"https://live.xbox.com/%1$s/Profile?gamertag=%2$s";
 	
 	private static final String URL_JSON_PROFILE_REFERER = 
-		"http://live.xbox.com/en-US/MyXbox";
+		"https://live.xbox.com/en-US/MyXbox";
 	
 	private static final String URL_MY_PROFILE = 
-			"http://live.xbox.com/%1$s/Profile";
+		"https://live.xbox.com/%1$s/Profile";
 	private static final String URL_STATUS = 
-		"http://support.xbox.com/%1$s/xbox-live-status";
+		"https://support.xbox.com/%1$s/xbox-live-status";
 	private static final String URL_ACHIEVEMENTS = 
-		"http://live.xbox.com/%1$s/Activity/Details?titleId=%2$s";
+		"https://live.xbox.com/%1$s/Activity/Details?titleId=%2$s";
 	private static final String URL_FRIEND_PROFILE = 
-		"http://live.xbox.com/%1$s/Profile?gamertag=%2$s";
+		"https://live.xbox.com/%1$s/Profile?gamertag=%2$s";
 	private static final String URL_COMPARE_ACHIEVEMENTS = 
-		"http://live.xbox.com/%1$s/Activity/Details?compareTo=%3$s&titleId=%2$s";
+		"https://live.xbox.com/%1$s/Activity/Details?compareTo=%3$s&titleId=%2$s";
 	private static final String URL_GAMERCARD = 
-		"http://gamercard.xbox.com/%1$s/%2$s.card";
+		"https://gamercard.xbox.com/%1$s/%2$s.card";
 	private static final String URL_GAMERPIC = 
-		"http://avatar.xboxlive.com/avatar/%s/avatarpic-l.png";
+		"https://avatar.xboxlive.com/avatar/%s/avatarpic-l.png";
 	private static final String URL_AVATAR_BODY = 
-		"http://avatar.xboxlive.com/avatar/%s/avatar-body.png";
-	private static final String URL_EDIT_PROFILE = 
-			"http://live.xbox.com/%1$s/MyXbox/GamerProfile";
+		"https://avatar.xboxlive.com/avatar/%s/avatar-body.png";
+	private static final String URL_EDIT_PROFILE =
+		"https://live.xbox.com/%1$s/MyXbox/GamerProfile";
 	
 	private static final String FRIEND_MANAGER_ADD = "Add";
 	private static final String FRIEND_MANAGER_REMOVE = "Remove";
@@ -287,7 +287,7 @@ public class XboxLiveParser extends LiveParser
 		
 		mLocale = context.getString(R.string.xbox_live_locale);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("XboxLiveParser: using " + mLocale + " locale (default: " +
 					language + "-" + country + ")");
 	}
@@ -362,7 +362,7 @@ public class XboxLiveParser extends LiveParser
 			return String.format("%sl%s", 
 					iconUrl.substring(0, m.start(1)), m.group(2));
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("%s has an unrecognized format; returning original",
 					iconUrl);
 		
@@ -486,7 +486,7 @@ public class XboxLiveParser extends LiveParser
 			if (pair.getName().equals("__RequestVerificationToken"))
 				return pair.getValue();
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 		{
 			App.logv("Token parsing failed; writing page to sdcard/tokenDump");
 			
@@ -512,7 +512,7 @@ public class XboxLiveParser extends LiveParser
 			}
 			catch (ParserException e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 				{
 					App.logv("Error fetching token from URL " + url);
 					e.printStackTrace();
@@ -530,7 +530,7 @@ public class XboxLiveParser extends LiveParser
 				if (retried)
 					throw ex;
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Token parsing initially failed; retrying");
 				
 				retried = true;
@@ -554,7 +554,7 @@ public class XboxLiveParser extends LiveParser
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("getBoxArt: " + titleId + " cannot be parsed as integer");
 			
 			return null;
@@ -591,7 +591,7 @@ public class XboxLiveParser extends LiveParser
 		
 		JSONArray activities = getXboxJsonArray(url, inputs);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon page fetch", started);
 		
 		List<ContentValues> cvList = new ArrayList<ContentValues>();
@@ -623,7 +623,7 @@ public class XboxLiveParser extends LiveParser
 			cr.notifyChange(Games.CONTENT_URI, null);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon data collection", started);
 		
 		ContentValues[] cvArray = new ContentValues[cvList.size()];
@@ -661,7 +661,7 @@ public class XboxLiveParser extends LiveParser
 		
 		String page = getResponse(url, inputs, true);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Send message page fetch", started);
 		
 		JSONObject json = getJSONObject(page, false);
@@ -670,7 +670,7 @@ public class XboxLiveParser extends LiveParser
 		{
 			if (!json.getBoolean("Success"))
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveParser/parseSendMessage: Parser error: " + page);
 				
 				throw new ParserException(json.optString("Status", 
@@ -700,20 +700,20 @@ public class XboxLiveParser extends LiveParser
 			}
 			catch(Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 		}
 		catch (JSONException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("XboxLiveParser/parseSendMessage: JSON error: " + page);
 				e.printStackTrace();
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Message send processing", started);
 	}
 	
@@ -773,7 +773,7 @@ public class XboxLiveParser extends LiveParser
 		cv.put(Friends.REP, rep);
 		cv.put(Friends.LAST_UPDATED, started);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Summary processing", started);
 		
 		ContentResolver cr = mContext.getContentResolver();
@@ -821,7 +821,7 @@ public class XboxLiveParser extends LiveParser
 			if (uri != null)
 				cr.notifyChange(uri, null);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				started = displayTimeTaken("Summary update", started);
 			
 			cr.delete(Beacons.CONTENT_URI, 
@@ -845,13 +845,13 @@ public class XboxLiveParser extends LiveParser
 			catch(Exception e)
 			{
 				// Ignore beacon errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			
 			cr.notifyChange(Beacons.CONTENT_URI, null);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				displayTimeTaken("Beacon update", started);
 		}
 	}
@@ -908,11 +908,11 @@ public class XboxLiveParser extends LiveParser
 		catch(Exception e)
 		{
 			// Ignore errors - not vital
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Summary fetch", started);
 		
 		try
@@ -931,11 +931,11 @@ public class XboxLiveParser extends LiveParser
 		catch(Exception e)
 		{
 			// Ignore beacon errors
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Beacon fetch", started);
 		
 		return info;
@@ -981,9 +981,9 @@ public class XboxLiveParser extends LiveParser
 		request.addHeader("Referer", URL_JSON_PROFILE_REFERER);
 		request.addHeader("X-Requested-With", "XMLHttpRequest");
 		
-		page = getResponse(request);
+		page = getResponse(request, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Profile page fetch", started);
 		
 		ContentValues cv = new ContentValues(15);
@@ -1014,33 +1014,6 @@ public class XboxLiveParser extends LiveParser
 		cv.put(Profiles.MOTTO, motto);
 		cv.put(Profiles.BIO, bio);
 		cv.put(Profiles.REP, rep);
-		
-		/*
-		url = getGamercardUrl(gamertag);
-		
-		try
-		{
-			page = getResponse(url);
-		}
-		catch(Exception e)
-		{
-			// Ignore errors - not vital
-			page = null;
-			if (App.LOGV)
-				e.printStackTrace();
-		}
-		
-		int rep = 0;
-		String zone = null;
-		
-		if (page != null)
-		{
-			rep = getStarRating(page);
-		}
-		
-		cv.put(Profiles.REP, rep);
-		cv.put(Profiles.ZONE, zone);
-		*/
 		
 		return cv;
 	}
@@ -1082,7 +1055,7 @@ public class XboxLiveParser extends LiveParser
 		
 		cr.notifyChange(Profiles.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Summary update", started);
 		
 		account.refresh(Preferences.get(mContext));
@@ -1134,7 +1107,7 @@ public class XboxLiveParser extends LiveParser
 		}
 		catch(Exception ex)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				ex.printStackTrace();
 			
 			throw new ParserException(mContext, R.string.could_not_modify_beacon);
@@ -1142,7 +1115,7 @@ public class XboxLiveParser extends LiveParser
 		
 		parseRefreshBeaconData(account, token);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon toggle", started);
 	}
 	
@@ -1160,7 +1133,7 @@ public class XboxLiveParser extends LiveParser
 		
 		JSONArray activities = getXboxJsonArray(url, inputs);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon page fetch", started);
 		
 		if (activities != null)
@@ -1201,7 +1174,7 @@ public class XboxLiveParser extends LiveParser
 			cr.notifyChange(Games.CONTENT_URI, null);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon updates", started);
 	}
 	
@@ -1209,10 +1182,8 @@ public class XboxLiveParser extends LiveParser
 	{
 		long started = System.currentTimeMillis();
 		
-		String token = getVToken(String.format(URL_VTOKEN_ACTIVITY, 
-				mLocale));
-		String url = String.format(URL_JSON_BEACONS, 
-				mLocale);
+		String token = getVToken(String.format(URL_VTOKEN_ACTIVITY, mLocale));
+		String url = String.format(URL_JSON_BEACONS, mLocale);
 		
 		List<NameValuePair> inputs = new ArrayList<NameValuePair>(3);
 		addValue(inputs, "__RequestVerificationToken", token);
@@ -1226,13 +1197,13 @@ public class XboxLiveParser extends LiveParser
 		}
 		catch(Exception ex)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				ex.printStackTrace();
 			
 			// Ignore the error - beacon errors can be ignored
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon page fetch", started);
 		
 		HashMap<String, JSONObject> beaconMap = new HashMap<String, JSONObject>();
@@ -1250,7 +1221,7 @@ public class XboxLiveParser extends LiveParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Beacon page mapping", started);
 		
 		url = String.format(URL_JSON_GAME_LIST, mLocale);
@@ -1258,7 +1229,7 @@ public class XboxLiveParser extends LiveParser
 		page = getResponse(url, inputs, true);
 		JSONObject data = getXboxJsonObject(page);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Game page fetch", started);
 		
 		if (data == null)
@@ -1417,7 +1388,7 @@ public class XboxLiveParser extends LiveParser
 			c.close();
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Game page processing", started);
 		
 		if (newCvs.size() > 0)
@@ -1429,7 +1400,7 @@ public class XboxLiveParser extends LiveParser
 			
 			cr.bulkInsert(Games.CONTENT_URI, cvs);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				displayTimeTaken("Game page insertion", started);
 		}
 		
@@ -1456,7 +1427,7 @@ public class XboxLiveParser extends LiveParser
 		
 		String page = getResponse(pageUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Achievement page fetch", started);
 		
         Matcher m;
@@ -1533,7 +1504,7 @@ public class XboxLiveParser extends LiveParser
 			cvList.add(cv);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("New achievement parsing", started);
 		
 		ContentValues[] cva = new ContentValues[cvList.size()];
@@ -1544,7 +1515,7 @@ public class XboxLiveParser extends LiveParser
 		// Bulk-insert new achievements
 		cr.bulkInsert(Achievements.CONTENT_URI, cva);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("New achievement processing", started);
 		
 		// Update game stats
@@ -1581,7 +1552,7 @@ public class XboxLiveParser extends LiveParser
 		
 		cr.notifyChange(Achievements.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Updating Game", started);
 	}
 	
@@ -1724,7 +1695,7 @@ public class XboxLiveParser extends LiveParser
 				
 				cr.bulkInsert(Friends.CONTENT_URI, cvs);
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					displayTimeTaken("Friend page insertion", started);
 			}
 			
@@ -1737,7 +1708,7 @@ public class XboxLiveParser extends LiveParser
 			cr.notifyChange(Friends.CONTENT_URI, null);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Friend page processing", started);
 	}
 	
@@ -1749,7 +1720,7 @@ public class XboxLiveParser extends LiveParser
 		String url = String.format(URL_EDIT_PROFILE, mLocale);
 		String page = getResponse(url);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Profile load", started);
 		
 		List<NameValuePair> inputs = new ArrayList<NameValuePair>(10);
@@ -1772,7 +1743,7 @@ public class XboxLiveParser extends LiveParser
 			// This is normal; user is redirected to his overview page
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Profile update", started);
 		
 		// Update local information
@@ -1867,7 +1838,7 @@ public class XboxLiveParser extends LiveParser
 				notYet.add(gamer);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Friends of friend page loading", started);
 		
 		Gamer.Comparator cmp = new Gamer.Comparator();
@@ -1875,7 +1846,7 @@ public class XboxLiveParser extends LiveParser
 		Collections.sort(shared, cmp);
 		Collections.sort(notYet, cmp);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Friends of friend page sorting", started);
 		
 		long id = 0;
@@ -1916,7 +1887,7 @@ public class XboxLiveParser extends LiveParser
 		
 		JSONArray players = getXboxJsonArray(url, inputs);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Player list page fetch", started);
 		
 		if (players == null)
@@ -1960,14 +1931,14 @@ public class XboxLiveParser extends LiveParser
 			notYet.add(gamer);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Recent players page loading", started);
 		
 		Gamer.Comparator cmp = new Gamer.Comparator();
 		
 		Collections.sort(notYet, cmp);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Recent players page sorting", started);
 		
 		for (Gamer gamer : notYet)
@@ -2002,7 +1973,7 @@ public class XboxLiveParser extends LiveParser
 		
 		JSONArray messages = data.optJSONArray("Messages");
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Message page fetch", started);
 		
 		long updated = started;
@@ -2080,7 +2051,7 @@ public class XboxLiveParser extends LiveParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Message list processing", started);
 		
 		if (newCvs.size() > 0)
@@ -2092,7 +2063,7 @@ public class XboxLiveParser extends LiveParser
 			
 			cr.bulkInsert(Messages.CONTENT_URI, cvs);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				displayTimeTaken("Message list insertion", started);
 		}
 		
@@ -2135,7 +2106,7 @@ public class XboxLiveParser extends LiveParser
 		{
 			if (!json.getBoolean("Success"))
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveParser/parseDeleteMessage: Parser error: " + page);
 				
 				throw new ParserException(json.optString("Status", 
@@ -2144,7 +2115,7 @@ public class XboxLiveParser extends LiveParser
 		}
 		catch (JSONException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("XboxLiveParser/parseDeleteMessage: JSON error: " + page);
 				e.printStackTrace();
@@ -2159,7 +2130,7 @@ public class XboxLiveParser extends LiveParser
 		if (rows > 0)
 			cr.notifyChange(Messages.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Message deletion processing", started);
 	}
 	
@@ -2190,7 +2161,7 @@ public class XboxLiveParser extends LiveParser
 		{
 			if (!json.getBoolean("Success"))
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveParser/parseBlockMessage: Parser error: " + page);
 				
 				throw new ParserException(json.optString("Status", 
@@ -2199,7 +2170,7 @@ public class XboxLiveParser extends LiveParser
 		}
 		catch (JSONException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("XboxLiveParser/parseDeleteMessage: JSON error: " + page);
 				e.printStackTrace();
@@ -2214,7 +2185,7 @@ public class XboxLiveParser extends LiveParser
 		if (rows > 0)
 			cr.notifyChange(Messages.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Message deletion processing", started);
 	}
 	
@@ -2236,7 +2207,7 @@ public class XboxLiveParser extends LiveParser
 		
 		String page = getResponse(url, inputs, true);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Message page fetch", started);	
 		
 		JSONObject json = getXboxJsonObject(page);
@@ -2264,7 +2235,7 @@ public class XboxLiveParser extends LiveParser
 		
 		cr.notifyChange(Messages.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Message processing", started);
 	}
 	
@@ -2280,7 +2251,7 @@ public class XboxLiveParser extends LiveParser
 				URLEncoder.encode(gamertag, "UTF-8"));
 		String page = getResponse(pageUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Achievement compare page fetch", started);
 		
         Matcher m;
@@ -2403,7 +2374,7 @@ public class XboxLiveParser extends LiveParser
 		if (data == null)
 			throw new ParserException(mContext, R.string.error_games_retrieval);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Game compare page fetch", started);
 		
 		ComparedGameInfo comparedGames = new ComparedGameInfo(mContext.getContentResolver());
@@ -2483,7 +2454,7 @@ public class XboxLiveParser extends LiveParser
 		
 		String page = getResponse(url, inputs, true);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Friend manager page fetch", started);	
 		
 		JSONObject json = getJSONObject(page, false);
@@ -2492,7 +2463,7 @@ public class XboxLiveParser extends LiveParser
 		{
 			if (!json.getBoolean("Success"))
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("XboxLiveParser/parseSendMessage: Parser error: " + page);
 				
 				throw new ParserException(mContext.getString(R.string.request_unsuccessful));
@@ -2500,7 +2471,7 @@ public class XboxLiveParser extends LiveParser
 		}
 		catch (JSONException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			throw new ParserException(mContext, R.string.error_json_parser_error);
@@ -2544,11 +2515,11 @@ public class XboxLiveParser extends LiveParser
 				}
 				catch (URISyntaxException e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Redirection URL determined to be " + loadUrl);
 			}
 			finally
@@ -2650,7 +2621,7 @@ public class XboxLiveParser extends LiveParser
 	        }
 	        catch(ParserException e)
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        	{
 	        		App.logv("Unexpected exception");
 	        		e.printStackTrace();
@@ -2661,7 +2632,7 @@ public class XboxLiveParser extends LiveParser
 	        }
 	        catch(ClientProtocolException e)
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        	{
 	        		App.logv("Unexpected exception");
 	        		e.printStackTrace();
@@ -2672,7 +2643,7 @@ public class XboxLiveParser extends LiveParser
 	        }
 	        catch(IOException e)
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        	{
 	        		App.logv("Unexpected exception");
 	        		e.printStackTrace();
@@ -2682,7 +2653,7 @@ public class XboxLiveParser extends LiveParser
 	        		throw e;
 	        }
 	        
-            if (App.LOGV) 
+            if (App.getConfig().logToConsole()) 
             	App.logv("Re-authenticating");
     		
             reauthenticated = true;
@@ -2713,7 +2684,7 @@ public class XboxLiveParser extends LiveParser
 	        }
 	        catch(ParserException e)
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        	{
 	        		App.logv("Unexpected exception");
 	        		e.printStackTrace();
@@ -2724,7 +2695,7 @@ public class XboxLiveParser extends LiveParser
 	        }
 	        catch(ClientProtocolException e)
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        	{
 	        		App.logv("Unexpected exception");
 	        		e.printStackTrace();
@@ -2735,7 +2706,7 @@ public class XboxLiveParser extends LiveParser
 	        }
 	        catch(IOException e)
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        	{
 	        		App.logv("Unexpected exception");
 	        		e.printStackTrace();
@@ -2745,7 +2716,7 @@ public class XboxLiveParser extends LiveParser
 	        		throw e;
 	        }
 	        
-            if (App.LOGV) 
+            if (App.getConfig().logToConsole()) 
             	App.logv("Re-authenticating");
     		
             reauthenticated = true;

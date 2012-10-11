@@ -344,7 +344,7 @@ public class GameCatalogFragment extends GenericFragment implements
 	    	}
 	    	catch(Exception e)
 	    	{
-	    		if (App.LOGV)
+	    		if (App.getConfig().logToConsole())
 	    			e.printStackTrace();
 	    		
 	    		mItems = null;
@@ -581,7 +581,7 @@ public class GameCatalogFragment extends GenericFragment implements
 				}
 				catch(Exception e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 			}
@@ -647,7 +647,7 @@ public class GameCatalogFragment extends GenericFragment implements
 		if (!mLoadMore)
 			return;
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("synchronizeWithServer: [R: " + mLastRequestedPage 
 					+ "; F: " + mLastFetchedPage + "]");
 		

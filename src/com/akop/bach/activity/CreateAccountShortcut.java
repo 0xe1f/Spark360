@@ -46,7 +46,7 @@ public class CreateAccountShortcut
 	{
 		if (account == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Missing account");
 			
 			finish();

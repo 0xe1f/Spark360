@@ -96,7 +96,7 @@ public class NotificationService extends Service
 	{
 		if (mWl == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv(" ++++++++ ACQUIRE WAKE LOCK ++++++++ ");
 			
 			PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
@@ -110,7 +110,7 @@ public class NotificationService extends Service
 	{
 		if (mWl != null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv(" -------- RELEASE WAKE LOCK -------- ");
 			
 			if (mWl.isHeld())
@@ -200,7 +200,7 @@ public class NotificationService extends Service
 			return;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("SparkService/reschedule: next up is %s", nextAccount.toString());
 		
 		// Create an update alarm
@@ -211,7 +211,7 @@ public class NotificationService extends Service
 	
 	private void cancel()
 	{
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("SparkService/cancel: canceling alarms");
 		
 		AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -258,13 +258,13 @@ public class NotificationService extends Service
 		{
 			if (intent == null)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("SparkService/onStart: Intent is null, so rescheduling");
 			}
 			
 			try
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("SparkService/onStart @ %s: reschedule",
 							DateFormat.getTimeInstance().format(System.currentTimeMillis()));
 				
@@ -282,7 +282,7 @@ public class NotificationService extends Service
 		{
 			try
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("SparkService/onStart @ %s: cancel",
 							DateFormat.getTimeInstance().format(System.currentTimeMillis()));
 				
@@ -307,7 +307,7 @@ public class NotificationService extends Service
 					{
 						try
 						{
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								App.logv("SparkService/onStart @ %s: update",
 										DateFormat.getTimeInstance().format(System.currentTimeMillis()));
 							
@@ -357,7 +357,7 @@ public class NotificationService extends Service
 	
 	private void setupSchedules()
 	{
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("SparkService/setupSchedules");
 		
 		BasicAccount[] accounts = Preferences.get(this).getAccounts();
@@ -369,7 +369,7 @@ public class NotificationService extends Service
 			{
 				if (account.isAutoSyncEnabled())
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						App.logv("Creating a new account schedule for %s", 
 								account.getScreenName());
 					

@@ -174,7 +174,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 			}
 			catch(Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -201,7 +201,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 			}
 			catch(Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -219,7 +219,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 	{
 		super.onDeleted(context, appWidgetIds);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("PsnGamerstrip::onDelete called");
 		
 		for (int appWidgetId : appWidgetIds)
@@ -235,7 +235,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 	{
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("PsnGamerstrip::onUpdate called");
 		
 		for (int appWidgetId : appWidgetIds)
@@ -257,7 +257,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 	}
@@ -370,7 +370,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 		
 		if (account == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Widget %d is referencing an invalid account", appWidgetId);
 			
 			views.setTextViewText(R.id.profile_gamertag, 
@@ -380,7 +380,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 			return;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Updating widget %d", appWidgetId);
 		
 		Uri uri = ContentUris.withAppendedId(Profiles.CONTENT_URI,
@@ -409,7 +409,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 			public void run()
 			{
 				// Update account
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnGamerstrip[%s]: Updating account data...", 
 							account.getScreenName());
 				
@@ -424,12 +424,12 @@ public class PsnGamerstrip extends AppWidgetProvider
 				catch(Exception e)
 				{
 					// Do nothing; ignore any errors
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				
 				// Update games list
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnGamerstrip[%s]: Updating games list...", 
 							account.getScreenName());
 				
@@ -442,7 +442,7 @@ public class PsnGamerstrip extends AppWidgetProvider
 				catch(Exception e)
 				{
 					// Do nothing; ignore any errors
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				

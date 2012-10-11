@@ -213,7 +213,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 					if (getActivity() != null && e != null)
 						mMessage.setText(Parser.getErrorMessage(getActivity(), e));
 					
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 					
 					mListView.setEmptyView(mMessage);
@@ -519,7 +519,7 @@ public class CompareTrophiesFragment extends GenericFragment implements
 				}
 				catch(Exception e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				

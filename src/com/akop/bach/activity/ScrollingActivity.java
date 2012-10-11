@@ -174,7 +174,7 @@ public abstract class ScrollingActivity
 		
 		if (savedInstanceState != null && savedInstanceState.containsKey("__list"))
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("ScrollingActivity: Loading from state");
 			
 			// Load list from state
@@ -185,7 +185,7 @@ public abstract class ScrollingActivity
 		}
 		else
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("ScrollingActivity: Initializing");
 			
 			rebind();
@@ -230,7 +230,7 @@ public abstract class ScrollingActivity
 			outState.putSerializable("__list",
 					(ArrayList<Map<String, Object>>)mAdapterList);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("ScrollingActivity: Saving state");
 		}
 	}

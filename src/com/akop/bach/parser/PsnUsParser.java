@@ -259,7 +259,7 @@ public class PsnUsParser
 		
 	    if (!m.find())
 	    {
-	    	if (App.LOGV)
+	    	if (App.getConfig().logToConsole())
 	    		App.logv("onAuthUS: Redir URL not found");
 	    	
 	    	String outageMessage;
@@ -312,8 +312,8 @@ public class PsnUsParser
 		request.addHeader("Referer", "http://us.playstation.com/mytrophies/index.htm");
 		request.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 		
-		String page = getResponse(request);
-		if (App.LOGV)
+		String page = getResponse(request, null);
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseSummaryData page fetch", started);
 		
 		ContentValues cv = new ContentValues(10);
@@ -375,7 +375,7 @@ public class PsnUsParser
 		
 		cv.put(Profiles.ICON_URL, iconUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseSummaryData processing", started);
 		
 		return cv;
@@ -418,7 +418,7 @@ public class PsnUsParser
 		
 		cr.notifyChange(Profiles.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Summary update", started);
 		
 		account.refresh(Preferences.get(mContext));
@@ -575,7 +575,7 @@ public class PsnUsParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Game page processing", started);
 		
 		if (newCvs.size() > 0)
@@ -587,7 +587,7 @@ public class PsnUsParser
 			
 			cr.bulkInsert(Games.CONTENT_URI, cvs);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				displayTimeTaken("Game page insertion", started);
 		}
 		
@@ -645,7 +645,7 @@ public class PsnUsParser
 				}
 				catch (ParseException e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 			}
@@ -683,7 +683,7 @@ public class PsnUsParser
 			index++;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("New trophy parsing", started);
 		
 		ContentValues[] cva = new ContentValues[cvList.size()];
@@ -695,7 +695,7 @@ public class PsnUsParser
 		cr.bulkInsert(Trophies.CONTENT_URI, cva);
 		cr.notifyChange(Trophies.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("New trophy processing", started);
 		
 		// Update the game to remove the 'dirty' attribute
@@ -706,7 +706,7 @@ public class PsnUsParser
 		cr.notifyChange(ContentUris.withAppendedId(Games.CONTENT_URI, gameId), 
 				null);
 	    
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Updating Game", started);
 	}
 
@@ -730,7 +730,7 @@ public class PsnUsParser
 			request.addHeader("Referer", "http://us.playstation.com/myfriends/");
 			request.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 			
-			String page = getResponse(request);
+			String page = getResponse(request, null);
 			
 			ContentResolver cr = mContext.getContentResolver();
 			final long accountId = account.getId();
@@ -738,7 +738,6 @@ public class PsnUsParser
 			List<ContentValues> newCvs = new ArrayList<ContentValues>(100);
 			
 			int rowsInserted = 0;
-			@SuppressWarnings("unused")
 			int rowsUpdated = 0;
 			int rowsDeleted = 0;
 			
@@ -757,7 +756,7 @@ public class PsnUsParser
 				}
 				catch (IOException e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						App.logv("Friend " + friendGt + " threw an IOException");
 					
 					// Update the DeleteMarker, so that the GT is not removed
@@ -776,7 +775,7 @@ public class PsnUsParser
 					// The rest of the exceptions assume problems with Friend
 					// and potentially remove him/her
 					
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 					{
 						App.logv("Friend " + friendGt + " threw an Exception");
 						e.printStackTrace();
@@ -855,7 +854,7 @@ public class PsnUsParser
 			
 			cr.notifyChange(Friends.CONTENT_URI, null);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				started = displayTimeTaken("Friend page processing [I:" +
 						rowsInserted + ";U:" + rowsUpdated + 
 						";D:" + rowsDeleted + "]", started);
@@ -965,7 +964,7 @@ public class PsnUsParser
 					friendId), cv, null, null);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Friend page processing", started);
 		
 		cr.notifyChange(ContentUris.withAppendedId(Friends.CONTENT_URI,
@@ -1084,7 +1083,7 @@ public class PsnUsParser
 			game.put(ComparedGameCursor.COLUMN_OPP_PLATINUM, 0);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseCompareGames/Own page processing", started);
 		
 		// Opponent's games
@@ -1162,7 +1161,7 @@ public class PsnUsParser
 			game.put(ComparedGameCursor.COLUMN_OPP_PLATINUM, platinum);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseCompareGames/Opp. page processing", started);
 		
 		ComparedGameInfo cgi = new ComparedGameInfo(mContext.getContentResolver());
@@ -1204,7 +1203,7 @@ public class PsnUsParser
 	    
 		String detailPage = getResponse(item.DetailUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseGameCatalogItemDetails/data fetch", started);
 		
 		Matcher m = PATTERN_GAME_CATALOG_DETAILS.matcher(detailPage);
@@ -1279,7 +1278,7 @@ public class PsnUsParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("parseGameCatalogItemDetails/parsing", started);
 		
 		return details;
@@ -1346,7 +1345,7 @@ public class PsnUsParser
 			catch(NumberFormatException ex) { }
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseGameCatalog/data fetch", started);
 		
 		Matcher m;
@@ -1368,7 +1367,7 @@ public class PsnUsParser
 			if (!(m = PATTERN_GAME_CATALOG_ESSENTIALS.matcher(content)).find())
 			{
 				noMatches = true;
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PATTERN_GAME_CATALOG_ESSENTIALS matched nothing");
 				
 				continue;
@@ -1433,13 +1432,13 @@ public class PsnUsParser
 		else
 			catalog.MorePages = (catalog.PageNumber * catalog.PageSize) < records;
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("pN: " + catalog.PageNumber + 
 					" ;pS: " + catalog.PageSize + 
 					" ;records: " + records + 
 					" ;more? " + catalog.MorePages);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("parseGameCatalog/parsing", started);
 		
 		return catalog;
@@ -1460,7 +1459,7 @@ public class PsnUsParser
 		
 		// Fetch the "main" page
 		
-		String page = getResponse(request);
+		String page = getResponse(request, null);
 		
 		ComparedTrophyInfo cti = new ComparedTrophyInfo(mContext.getContentResolver());
 		
@@ -1471,7 +1470,7 @@ public class PsnUsParser
 		
 		if (!(m = PATTERN_COMPARE_TROPHIES_TITLE_ID.matcher(page)).find())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("No title ID for " + gameId);
 			
 			return cti;
@@ -1537,7 +1536,7 @@ public class PsnUsParser
 			trophies.add(trophy);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseCompareTrophies/processing", started);
 		
 		JSONArray array;
@@ -1571,7 +1570,7 @@ public class PsnUsParser
 						}
 						catch (ParseException e)
 						{
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								e.printStackTrace();
 							
 							continue;
@@ -1612,7 +1611,7 @@ public class PsnUsParser
 						}
 						catch (ParseException e)
 						{
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								e.printStackTrace();
 							
 							continue;
@@ -1661,7 +1660,7 @@ public class PsnUsParser
 	        	// If that happens, we re-authenticate
 	        	if (i < 1)
 	        	{
-	                if (App.LOGV) 
+	                if (App.getConfig().logToConsole()) 
 	                	App.logv("Re-authenticating");
 	        		
 	                deleteSession(account);
@@ -1695,7 +1694,7 @@ public class PsnUsParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -1729,7 +1728,7 @@ public class PsnUsParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -1763,7 +1762,7 @@ public class PsnUsParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -1798,7 +1797,7 @@ public class PsnUsParser
 	        	// If that happens, we re-authenticate
 	        	if (i < 1)
 	        	{
-	                if (App.LOGV) 
+	                if (App.getConfig().logToConsole()) 
 	                	App.logv("Re-authenticating");
 	        		
 	                deleteSession(account);
@@ -1833,7 +1832,7 @@ public class PsnUsParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -1871,7 +1870,7 @@ public class PsnUsParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);

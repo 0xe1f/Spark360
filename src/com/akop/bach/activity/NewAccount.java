@@ -220,7 +220,7 @@ public class NewAccount extends ListActivity implements OnItemClickListener
 			}
 			catch(ActivityNotFoundException ex)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 				
 				String text = (info.isEnabled)

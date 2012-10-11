@@ -255,7 +255,7 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 				catch(Exception ex)
 				{
 					// Do nothing
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						ex.printStackTrace();
 				}
 				finally

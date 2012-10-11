@@ -39,10 +39,12 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -70,8 +72,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Environment;
 
-import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.R;
 import com.akop.bach.util.SerializableCookie;
 
@@ -95,7 +97,7 @@ public abstract class Parser
 		HttpConnectionParams.setConnectionTimeout(params, TIMEOUT_MS);
 		HttpConnectionParams.setSoTimeout(params, TIMEOUT_MS);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Creating parser");
 	}
 	
@@ -285,7 +287,7 @@ public abstract class Parser
 	{
 		mHttpClient.getConnectionManager().shutdown();
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Disposing parser");
 	}
 	
@@ -367,7 +369,7 @@ public abstract class Parser
 		request.addHeader("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.7");
 		request.addHeader("Accept", "text/javascript, text/html, application/xml, text/xml, */*");
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Parser: Fetching %s", request.getURI());
 		
 	    long started = System.currentTimeMillis();
@@ -387,7 +389,7 @@ public abstract class Parser
 	    }
 	    finally
 	    {
-	    	if (App.LOGV)
+	    	if (App.getConfig().logToConsole())
 	    		displayTimeTaken("Parser: Fetch took", started);
 	    }
 	}
@@ -408,7 +410,7 @@ public abstract class Parser
 		submitRequest(httpPost);
 	}
 	
-	protected String getResponse(HttpUriRequest request)
+	protected String getResponse(HttpUriRequest request, List<NameValuePair> inputs)
 		throws IOException, ParserException
 	{
 		if (!request.containsHeader("Accept"))
@@ -416,7 +418,7 @@ public abstract class Parser
 		if (!request.containsHeader("Accept-Charset"))
 			request.addHeader("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.7");
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Parser: Fetching %s", request.getURI());
 		
 	    long started = System.currentTimeMillis();
@@ -428,6 +430,38 @@ public abstract class Parser
 			synchronized (mHttpClient)
 			{
 				HttpContext context = new BasicHttpContext();
+				
+				StringBuilder log = null;
+				
+				if (App.getConfig().logHttp())
+				{
+					log = new StringBuilder();
+					
+					log.append(String.format("URL: %s\n", request.getURI()));
+					
+					log.append("Headers: \n");
+					for (Header h : request.getAllHeaders())
+						log.append(String.format("  '%s': '%s'\n", 
+								h.getName(), h.getValue()));
+					
+					log.append("Cookies: \n");
+					for (Cookie c : mHttpClient.getCookieStore().getCookies())
+						log.append(String.format("  '%s': '%s'\n", 
+								c.getName(), c.getValue()));
+					
+					log.append("Query Elements: \n");
+					
+					if (inputs != null)
+					{
+						for (NameValuePair p : inputs)
+							log.append(String.format("  '%s': '%s'\n", 
+									p.getName(), p.getValue()));
+					}
+					else
+					{
+						log.append("  [empty]\n");
+					}
+				}
 				
 				try
 				{
@@ -452,7 +486,7 @@ public abstract class Parser
 				}
 				catch(Exception e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 					{
 						App.logv("Unable to get last URL - see stack:");
 						e.printStackTrace();
@@ -487,24 +521,44 @@ public abstract class Parser
 				stream.close();
 				entity.consumeContent();
 				
+				String response;
+				
 				try
 				{
-					return preparseResponse(builder.toString());
+					response = builder.toString();
 				}
 				catch(OutOfMemoryError e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 					
 					return null;
 				}
+				
+				if (App.getConfig().logHttp())
+				{
+					log.append(String.format("\nResponse: \n%s\n", response));
+					
+					writeToFile(generateDatedFilename("http-log-" + 
+							request.getURI().toString().replaceAll("[^A-Za-z0-9]", "_")), 
+							log.toString());
+				}
+				
+				return preparseResponse(response);
 			}
 	    }
 	    finally
 	    {
-	    	if (App.LOGV)
+	    	if (App.getConfig().logToConsole())
 	    		displayTimeTaken("Parser: Fetch took", started);
 	    }
+	}
+	
+	protected String generateDatedFilename(String suffix)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.SSSS");
+		return String.format("%s_%s", sdf.format(System.currentTimeMillis()),
+				suffix);
 	}
 	
 	protected String preparseResponse(String response) 
@@ -526,7 +580,7 @@ public abstract class Parser
 		if (useXhr)
 			get.addHeader("X-Requested-With", "XMLHttpRequest");
 		
-		return getResponse(get);
+		return getResponse(get, null);
 	}
 	
 	protected String getResponse(String url, List<NameValuePair> inputs, boolean useXhr) 
@@ -539,7 +593,7 @@ public abstract class Parser
 		if (useXhr)
 			httpPost.addHeader("X-Requested-With", "XMLHttpRequest");
 		
-		return getResponse(httpPost);
+		return getResponse(httpPost, inputs);
 	}
 	
 	protected String getResponse(String url, List<NameValuePair> inputs) 
@@ -552,7 +606,7 @@ public abstract class Parser
 	{
 		long now = System.currentTimeMillis();
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("%s: %.02f s", description, (now - started) / 1000.0);
 		
 		return now;
@@ -583,7 +637,7 @@ public abstract class Parser
 		}
 		catch(Exception ex)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				ex.printStackTrace();
 			
 			return false;
@@ -738,7 +792,7 @@ public abstract class Parser
         // Clear cookie store
         mHttpClient.getCookieStore().clear();
         
-        if (App.LOGV) 
+        if (App.getConfig().logToConsole()) 
             App.logv("Authenticating...");
         
         boolean sessionLoaded;
@@ -752,20 +806,20 @@ public abstract class Parser
         	sessionLoaded = false;
         	deleteSession(account);
         	
-        	if (App.LOGV)
+        	if (App.getConfig().logToConsole())
         		ex.printStackTrace();
         }
         
 		// Attempt to load session data from file
 		if (useStoredSession && sessionLoaded)
 		{
-            if (App.LOGV) 
+            if (App.getConfig().logToConsole()) 
                 App.logv("Authenticated with stored session '"
                 		+ getSessionFile(account) + "'");
 		}
 		else
 		{
-	        if (App.LOGV) 
+	        if (App.getConfig().logToConsole()) 
 	            App.logv("Logging in...");
 			
 	        if (!account.isValid())
@@ -775,7 +829,7 @@ public abstract class Parser
 	        // Perform the actual authentication
 	        if (!onAuthenticate(account))
 	        {
-	        	if (App.LOGV)
+	        	if (App.getConfig().logToConsole())
 	        		App.logv("onAuthenticate failed!");
 	        	
 	        	return false;
@@ -785,7 +839,7 @@ public abstract class Parser
 				saveSession(account);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Authentication completed", started);
 		
 		return true;
@@ -848,7 +902,7 @@ public abstract class Parser
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;
@@ -861,7 +915,7 @@ public abstract class Parser
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;

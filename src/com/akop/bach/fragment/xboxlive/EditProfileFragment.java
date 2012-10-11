@@ -103,7 +103,7 @@ public class EditProfileFragment extends DialogFragment
 				catch(Exception ex)
 				{
 					// Do nothing
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						ex.printStackTrace();
 				}
 				finally

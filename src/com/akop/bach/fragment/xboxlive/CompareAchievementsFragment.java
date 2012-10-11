@@ -214,7 +214,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 				{
 					if (getActivity() != null && e != null)
 					{
-						if (App.LOGV)
+						if (App.getConfig().logToConsole())
 							e.printStackTrace();
 						
 						mMessage.setText(XboxLiveParser.getErrorMessage(getActivity(), e));
@@ -332,7 +332,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 	    	}
 	    	catch(Exception e)
 	    	{
-	    		if (App.LOGV)
+	    		if (App.getConfig().logToConsole())
 	    			e.printStackTrace();
 	    		
 	    		mPayload = null;
@@ -539,7 +539,7 @@ public class CompareAchievementsFragment extends GenericFragment implements
 				}
 				catch(Exception e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				

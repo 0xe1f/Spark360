@@ -187,7 +187,7 @@ public class TaskController implements Runnable
 					}
 					catch(Exception e)
 					{
-						if (App.LOGV)
+						if (App.getConfig().logToConsole())
 							e.printStackTrace();
 					}
 				}
@@ -197,7 +197,7 @@ public class TaskController implements Runnable
 				boolean callbackCalled = false;
 				this.taskError = e;
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 				
 				synchronized (mListenerLock)
@@ -220,7 +220,7 @@ public class TaskController implements Runnable
 					}
 					catch(Exception innerE)
 					{
-						if (App.LOGV)
+						if (App.getConfig().logToConsole())
 							innerE.printStackTrace();
 					}
 				}
@@ -316,7 +316,7 @@ public class TaskController implements Runnable
 							// In case of an authentication error, clear the task list, 
 							// as all tasks are likely to fail
 							
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								App.logv("Received authentication error - clearing controller's tasks");
 							
 							for (Task task : mTasks)
@@ -337,7 +337,7 @@ public class TaskController implements Runnable
 			}
 			catch (Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 				{
 					App.logv("Error running command", e);
 					e.printStackTrace();
@@ -358,7 +358,7 @@ public class TaskController implements Runnable
 		{
 			mCurrentTask.listener = newTask.listener;
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Updating listener for current task '"
 						+ mCurrentTask.description + "'");
 			
@@ -371,7 +371,7 @@ public class TaskController implements Runnable
 			{
 				task.listener = newTask.listener;
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Updating listener for future task '" + task.description + "'");
 				
 				return true;
@@ -388,7 +388,7 @@ public class TaskController implements Runnable
 			throw new Error(ie);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Controller added new task: " + newTask.description);
 		
 		return true;

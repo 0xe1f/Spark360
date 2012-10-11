@@ -46,7 +46,7 @@ public class CompareGames extends PsnMultiPane implements
 	{
 		if ((mGamertag = getIntent().getStringExtra("gamertag")) == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Missing gamertag; bailing");
 
 			return false;

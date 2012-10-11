@@ -99,7 +99,7 @@ public class FriendSummary extends PsnSinglePane
 		String gamertag;
         if ((gamertag = PSN.Friends.getOnlineId(this, getTitleId())) == null)
         {
-        	if (App.LOGV)
+        	if (App.getConfig().logToConsole())
         		App.logv("Friend not found");
         }
         

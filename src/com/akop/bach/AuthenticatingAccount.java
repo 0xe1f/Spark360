@@ -106,7 +106,7 @@ public abstract class AuthenticatingAccount extends BasicAccount
 		{
 			if (mDirtyEmailAddress)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("AuthenticatingAccount/onSave: Email address dirty; saving");
 				
 				p.putEncrypted(editor, mUuid + ".emailAddress", mEmailAddress);
@@ -114,7 +114,7 @@ public abstract class AuthenticatingAccount extends BasicAccount
 			
 			if (mDirtyPassword)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("AuthenticatingAccount/onSave: Password dirty; saving");
 				
 				p.putEncrypted(editor, mUuid + ".password", mPassword);
@@ -122,7 +122,7 @@ public abstract class AuthenticatingAccount extends BasicAccount
 		}
 		catch(EncryptionException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 	}
@@ -142,7 +142,7 @@ public abstract class AuthenticatingAccount extends BasicAccount
 		}
 		catch(EncryptionException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		

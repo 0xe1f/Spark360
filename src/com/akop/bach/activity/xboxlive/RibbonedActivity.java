@@ -147,7 +147,7 @@ public abstract class RibbonedActivity
 					Parser.getErrorMessage(RibbonedActivity.this, ex));
 			sendMessage(m);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				ex.printStackTrace();
 		}
 		
@@ -203,7 +203,7 @@ public abstract class RibbonedActivity
 		
         if (mAccount == null)
         {
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Account is null");
 			
         	finish();

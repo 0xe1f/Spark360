@@ -150,7 +150,7 @@ public abstract class RibbonedSinglePane extends FragmentActivity
 		
 		if (mAccount == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Account is null");
 			
         	finish();

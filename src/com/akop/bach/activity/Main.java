@@ -58,7 +58,7 @@ public class Main extends Activity
 		BasicAccount account = (BasicAccount)getIntent().getParcelableExtra("account");
 		if (account != null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Explicit account requested: " + account.getScreenName());
 			
 			// An account was explicitly requested

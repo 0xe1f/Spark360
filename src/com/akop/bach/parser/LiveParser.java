@@ -112,7 +112,7 @@ public abstract class LiveParser extends Parser
 									}
 									catch (Exception e)
 									{
-										if (App.LOGV)
+										if (App.getConfig().logToConsole())
 										{
 											App.logv("Got an error during expiration cookie parse:");
 											e.printStackTrace();
@@ -123,14 +123,14 @@ public abstract class LiveParser extends Parser
 				    		
 				    		if (expires != null)
 				    		{
-				    			if (App.LOGV)
+				    			if (App.getConfig().logToConsole())
 				    				App.logv("Setting expiration date explicitly");
 				    			
 				    			cookie.setExpiryDate(expires);
 				    		}
 				    		else
 				    		{
-				    			if (App.LOGV)
+				    			if (App.getConfig().logToConsole())
 				    				App.logv("Using default expiration date handler");
 				    			
 				    			super.parse(cookie, value);
@@ -274,7 +274,7 @@ public abstract class LiveParser extends Parser
 		Matcher m;
 		if (!(m = PATTERN_LIVE_AUTH_URL.matcher(page)).find())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Authentication error in stage 1");
 			
 			return false;
@@ -297,11 +297,13 @@ public abstract class LiveParser extends Parser
 		// Did authentication succeed?
 		if (!hasName(inputs, "ANON") && !PATTERN_AUTHENTICATED.matcher(page).find())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Authentication error in stage 2");
 			
 			return false;
 		}
+		
+		mHttpClient.getParams().setParameter("http.protocol.max-redirects", 1);
 		
 		try
 		{
@@ -328,7 +330,7 @@ public abstract class LiveParser extends Parser
 	}
 	
 	@Override
-	protected String getResponse(HttpUriRequest request)
+	protected String getResponse(HttpUriRequest request, List<NameValuePair> inputs)
 		throws IOException, ParserException
 	{
 		int retries = -1;
@@ -342,7 +344,7 @@ public abstract class LiveParser extends Parser
 			
 			try
 			{
-				response = super.getResponse(request);
+				response = super.getResponse(request, inputs);
 			}
 			catch(HttpHostConnectException e)
 			{
@@ -350,13 +352,13 @@ public abstract class LiveParser extends Parser
 				
             	if (retries > 1)
             	{
-            		if (App.LOGV)
+            		if (App.getConfig().logToConsole())
             			App.logv("Too many HttpHostConnectException's; bailing");
             		
             		throw e;
             	}
             	
-        		if (App.LOGV)
+        		if (App.getConfig().logToConsole())
         			App.logv("Got HttpHostConnectException; retrying (%1$d)... ", retries);
         		
 				try
@@ -365,7 +367,7 @@ public abstract class LiveParser extends Parser
                 }
                 catch (InterruptedException e1)
                 {
-                	if (App.LOGV)
+                	if (App.getConfig().logToConsole())
                 		e1.printStackTrace();
                 }
 				

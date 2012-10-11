@@ -163,7 +163,7 @@ public abstract class PsnParser
 		
 		cr.notifyChange(Profiles.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Summary update", started);
 		
 		account.refresh(Preferences.get(mContext));
@@ -234,7 +234,7 @@ public abstract class PsnParser
 	        	// If that happens, we re-authenticate
 	        	if (i < 1)
 	        	{
-	                if (App.LOGV) 
+	                if (App.getConfig().logToConsole()) 
 	                	App.logv("Re-authenticating");
 	        		
 	                deleteSession(account);
@@ -268,7 +268,7 @@ public abstract class PsnParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -302,7 +302,7 @@ public abstract class PsnParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -336,7 +336,7 @@ public abstract class PsnParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -371,7 +371,7 @@ public abstract class PsnParser
 	        	// If that happens, we re-authenticate
 	        	if (i < 1)
 	        	{
-	                if (App.LOGV) 
+	                if (App.getConfig().logToConsole()) 
 	                	App.logv("Re-authenticating");
 	        		
 	                deleteSession(account);
@@ -462,7 +462,7 @@ public abstract class PsnParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -496,7 +496,7 @@ public abstract class PsnParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);
@@ -534,7 +534,7 @@ public abstract class PsnParser
 		    	// If that happens, we re-authenticate
 		    	if (i < 1)
 		    	{
-		            if (App.LOGV) 
+		            if (App.getConfig().logToConsole()) 
 		            	App.logv("Re-authenticating");
 		    		
 		            deleteSession(account);

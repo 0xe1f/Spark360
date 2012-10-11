@@ -299,7 +299,7 @@ public class PSN
 			catch(Exception ex)
 			{
 				// Do nothing
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 			}
 			finally
@@ -327,7 +327,7 @@ public class PSN
 				catch(Exception ex)
 				{
 					// Do nothing
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						ex.printStackTrace();
 				}
 				finally
@@ -398,7 +398,7 @@ public class PSN
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally

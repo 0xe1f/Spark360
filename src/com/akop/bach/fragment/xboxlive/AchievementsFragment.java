@@ -119,7 +119,7 @@ public class AchievementsFragment extends GenericFragment implements
 			if (mTitleId > 0 && Games.isDirty(getActivity(), 
 					mAccount, mTitleId))
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Game is Dirty - updating achieves");
 				
 				// It's dirty; refresh the achievements

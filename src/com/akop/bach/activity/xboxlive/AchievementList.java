@@ -46,7 +46,7 @@ public class AchievementList extends XboxLiveSinglePane
 		long titleId;
 		if ((titleId = getIntent().getLongExtra("gameId", -1)) < 0)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("AchievementList: no gameId");
 			
 			finish();

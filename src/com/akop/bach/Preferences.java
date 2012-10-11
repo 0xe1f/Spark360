@@ -84,7 +84,7 @@ public class Preferences
 		}
 		catch (GeneralSecurityException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 	}
@@ -100,7 +100,7 @@ public class Preferences
 			}
 			catch(Exception ex)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Could not instantiate PrivateSecret");
 			}
 			
@@ -220,7 +220,7 @@ public class Preferences
 	
 	public void dump()
 	{
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			for (String key : getSharedPreferences().getAll().keySet())
 				App.logv(key + " = " + getSharedPreferences().getAll().get(key));
 	}

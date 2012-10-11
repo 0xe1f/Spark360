@@ -107,7 +107,7 @@ public class XboxLiveGamerstrip
 			}
 			catch(Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -141,7 +141,7 @@ public class XboxLiveGamerstrip
 			}
 			catch(Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -159,7 +159,7 @@ public class XboxLiveGamerstrip
 	{
 		super.onDeleted(context, appWidgetIds);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("XBoxLiveGamerstrip::onDelete called");
 		
 		for (int appWidgetId : appWidgetIds)
@@ -175,7 +175,7 @@ public class XboxLiveGamerstrip
 	{
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("XBoxLiveGamerstrip::onUpdate called");
 		
 		for (int appWidgetId : appWidgetIds)
@@ -197,7 +197,7 @@ public class XboxLiveGamerstrip
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 	}
@@ -347,7 +347,7 @@ public class XboxLiveGamerstrip
 		
 		if (account == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Widget %d is referencing an invalid account", appWidgetId);
 			
 			views.setTextViewText(R.id.profile_gamertag, 
@@ -357,7 +357,7 @@ public class XboxLiveGamerstrip
 			return;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Updating widget %d", appWidgetId);
 		
 		Uri uri = ContentUris.withAppendedId(Profiles.CONTENT_URI,
@@ -388,7 +388,7 @@ public class XboxLiveGamerstrip
 				try
 				{
 					// Update account (for GS, rep)
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						App.logv("XboxLiveGamerstrip[%s]: Updating account data...", 
 								account.getScreenName());
 					
@@ -403,12 +403,12 @@ public class XboxLiveGamerstrip
 					catch(Exception e)
 					{
 						// Do nothing; ignore any errors
-						if (App.LOGV)
+						if (App.getConfig().logToConsole())
 							e.printStackTrace();
 					}
 					
 					// Update games list
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						App.logv("XboxLiveGamerstrip[%s]: Updating games list...", 
 								account.getScreenName());
 					
@@ -421,7 +421,7 @@ public class XboxLiveGamerstrip
 					catch(Exception e)
 					{
 						// Do nothing; ignore any errors
-						if (App.LOGV)
+						if (App.getConfig().logToConsole())
 							e.printStackTrace();
 					}
 					

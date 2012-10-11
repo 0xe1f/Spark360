@@ -42,7 +42,7 @@ public class GamerProfile extends PsnSinglePane
 		
 		if (!getIntent().hasExtra("gamertag"))
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("GamerProfile: no gameId");
 			
 			finish();

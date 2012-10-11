@@ -36,7 +36,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
@@ -50,6 +49,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Process;
 import android.view.View;
+
+import com.akop.bach.util.IgnorantHttpClient;
 
 public class ImageCache implements Runnable
 {
@@ -134,7 +135,7 @@ public class ImageCache implements Runnable
 			
 			long ageSeconds = (currentTimeMillis - lastModifiedMillis) / 1000;
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				if (ageSeconds > this.maxAgeSeconds)
 				{
@@ -214,7 +215,7 @@ public class ImageCache implements Runnable
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
@@ -263,7 +264,7 @@ public class ImageCache implements Runnable
 			}
 			catch (Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 				{
 					App.logv("Error running task", e);
 					e.printStackTrace();
@@ -323,7 +324,7 @@ public class ImageCache implements Runnable
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 	}
@@ -364,7 +365,7 @@ public class ImageCache implements Runnable
 		// (but only if not being forced to refresh)
 		if (!cachePol.bypassCache && file.canRead())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Cache hit: " + file.getName());
 			
 			try
@@ -384,7 +385,7 @@ public class ImageCache implements Runnable
 		
 		try
 		{
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new IgnorantHttpClient();
 			
 			HttpParams params = client.getParams();
 			params.setParameter("http.useragent", 
@@ -435,7 +436,7 @@ public class ImageCache implements Runnable
 		}
 		catch(IOException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;
@@ -469,12 +470,12 @@ public class ImageCache implements Runnable
 					fos.write(blob);
 				}
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Wrote to cache: " + file.getName());
 			}
 			catch (IOException e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -500,7 +501,7 @@ public class ImageCache implements Runnable
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
@@ -516,7 +517,7 @@ public class ImageCache implements Runnable
 		// (but only if not being forced to refresh)
 		if (!bypassCache && file.canRead())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Cache hit: " + file.getAbsolutePath());
 			
 			file.lastModified();
@@ -537,7 +538,7 @@ public class ImageCache implements Runnable
 		
 		try
 		{
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new IgnorantHttpClient();
 			HttpResponse resp = client.execute(new HttpGet(imageUrl));
 			HttpEntity entity = resp.getEntity();
 			
@@ -566,7 +567,7 @@ public class ImageCache implements Runnable
 		}
 		catch(IOException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;
@@ -600,12 +601,12 @@ public class ImageCache implements Runnable
 					fos.write(blob);
 				}
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Wrote to cache: " + file.getAbsolutePath());
 			}
 			catch (IOException e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -631,7 +632,7 @@ public class ImageCache implements Runnable
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
@@ -653,7 +654,7 @@ public class ImageCache implements Runnable
 		
 		try
 		{
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new IgnorantHttpClient();
 			HttpResponse resp = client.execute(new HttpGet(imageUrl));
 			HttpEntity entity = resp.getEntity();
 			
@@ -682,7 +683,7 @@ public class ImageCache implements Runnable
 		}
 		catch(IOException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;
@@ -697,12 +698,12 @@ public class ImageCache implements Runnable
 				fos = new FileOutputStream(file);
 				fos.write(blob);
 				
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Wrote to cache: " + file.getName());
 			}
 			catch (IOException e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -743,7 +744,7 @@ public class ImageCache implements Runnable
 		}
 		catch(Exception ex)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				ex.printStackTrace();
 		}
 	    
@@ -761,7 +762,7 @@ public class ImageCache implements Runnable
 		
 		if (file.canWrite())
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Purging %s from cache", imageUrl);
 			
 			file.delete();
@@ -820,7 +821,7 @@ public class ImageCache implements Runnable
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("error decoding %s", file.getAbsolutePath());
 				e.printStackTrace();
@@ -876,7 +877,7 @@ public class ImageCache implements Runnable
 		if (mCurrentTask != null && mCurrentTask.imageUrl.equals(imageUrl)
 				&& mCurrentTask.listener.equals(listener))
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Image '" + imageUrl + "' already in queue");
 			
 			return false;
@@ -887,14 +888,14 @@ public class ImageCache implements Runnable
 			if (command.imageUrl.equals(imageUrl)
 					&& command.listener.equals(listener))
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("Image '" + imageUrl + "' already in queue");
 				
 				return false;
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Image requested: " + imageUrl);
 		
 		// Add task

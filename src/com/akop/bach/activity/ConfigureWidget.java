@@ -141,7 +141,7 @@ public abstract class ConfigureWidget
 			
 			prefs.addWidget(info);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("AppWidget %d configured with account %s", mAppWidgetId,
 						selected.uuid);
 			
@@ -158,7 +158,7 @@ public abstract class ConfigureWidget
 			}
 			catch (Exception e)
 			{
-				if (App.LOGV) 
+				if (App.getConfig().logToConsole()) 
 					e.printStackTrace();
 				
 				Toast.makeText(this, R.string.widget_could_not_be_added,

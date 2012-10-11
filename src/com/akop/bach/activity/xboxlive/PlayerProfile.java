@@ -46,7 +46,7 @@ public class PlayerProfile
 		GamerProfileInfo info = (GamerProfileInfo)getIntent().getParcelableExtra("info");
 		if (info == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("GamerProfileInfo is null");
 			
 			finish();

@@ -95,7 +95,7 @@ public class FriendList extends XboxLiveMultiPane implements
 		if (coverflowMode == XboxLiveAccount.COVERFLOW_IN_LANDSCAPE 
 				&& orientation == Configuration.ORIENTATION_LANDSCAPE)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Reorienting ...");
 			
 			FriendCoverflow.actionShowFriends(this, getAccount());
@@ -103,7 +103,7 @@ public class FriendList extends XboxLiveMultiPane implements
 		}
 		else if (coverflowMode == XboxLiveAccount.COVERFLOW_ALWAYS)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Reorienting ...");
 			
 			FriendCoverflow.actionShowFriends(this, getAccount());

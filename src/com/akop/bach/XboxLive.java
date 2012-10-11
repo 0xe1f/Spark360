@@ -105,7 +105,7 @@ public class XboxLive
 			catch(Exception ex)
 			{
 				// Do nothing
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 			}
 			finally
@@ -131,7 +131,7 @@ public class XboxLive
 			catch(Exception ex)
 			{
 				// Do nothing
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 			}
 			finally
@@ -192,7 +192,7 @@ public class XboxLive
 			catch(Exception ex)
 			{
 				// Do nothing
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 			}
 			finally
@@ -220,7 +220,7 @@ public class XboxLive
 			catch(Exception ex)
 			{
 				// Do nothing
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 			}
 			finally
@@ -249,7 +249,7 @@ public class XboxLive
 				catch(Exception ex)
 				{
 					// Do nothing
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						ex.printStackTrace();
 				}
 				finally
@@ -275,7 +275,7 @@ public class XboxLive
 			catch(Exception ex)
 			{
 				// Do nothing
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					ex.printStackTrace();
 			}
 			finally
@@ -303,7 +303,7 @@ public class XboxLive
 				catch(Exception ex)
 				{
 					// Do nothing
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						ex.printStackTrace();
 				}
 				finally
@@ -332,7 +332,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -360,7 +360,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -388,7 +388,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -769,7 +769,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -798,7 +798,7 @@ public class XboxLive
 				catch(Exception e)
 				{
 					// Suppress any errors
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				finally
@@ -828,7 +828,7 @@ public class XboxLive
 				catch(Exception e)
 				{
 					// Suppress any errors
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				finally
@@ -865,7 +865,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -895,7 +895,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -929,7 +929,7 @@ public class XboxLive
 			catch(Exception e)
 			{
 				// Suppress any errors
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -988,7 +988,7 @@ public class XboxLive
 				catch(Exception e)
 				{
 					// Suppress any errors
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				finally

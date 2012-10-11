@@ -93,7 +93,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		
 		int notificationId = 0x1000000 | ((int)account.getId() & 0xffffff);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 		{
 			String s = "";
 			for (Object unr : lastUnreadList)
@@ -117,7 +117,7 @@ public class XboxLiveServiceClient extends ServiceClient
 					unreadCount++;
 			}
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("%d computed new", unreadCount);
 			
 			if (unreadCount > 0)
@@ -183,7 +183,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		
 		int notificationId = 0x2000000 | ((int)account.getId() & 0xffffff);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 		{
 			String s = "";
 			for (Object unr : lastFriendsOnline)
@@ -205,7 +205,7 @@ public class XboxLiveServiceClient extends ServiceClient
 				if (!lastFriendsOnline.contains(online))
 					newOnlineCount++;
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("%d computed new; %d online now; %d online before",
 						newOnlineCount, friendsOnline.length,
 						lastFriendsOnline.size());
@@ -274,7 +274,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		Context context = getContext();
 		NotificationManager mgr = getNotificationManager();
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 		{
 			if (lastMatching != null && lastMatching.size() > 0)
 			{
@@ -436,7 +436,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("Suppressed exception");
 				e.printStackTrace();
@@ -461,7 +461,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("Suppressed exception");
 				e.printStackTrace();
@@ -487,7 +487,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("Suppressed exception");
 				e.printStackTrace();
@@ -517,7 +517,7 @@ public class XboxLiveServiceClient extends ServiceClient
 		XboxLiveAccount xblAccount = (XboxLiveAccount)account;
 		XboxLiveStatus status = new XboxLiveStatus();
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Creating a new account schedule for %s", 
 					account.getScreenName());
 		

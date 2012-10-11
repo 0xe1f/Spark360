@@ -67,7 +67,7 @@ public class FriendSummary
         
 		if (mFriendId < 0)
 		{
-        	if (App.LOGV)
+        	if (App.getConfig().logToConsole())
         		App.logv("Friend not specified");
         	
 			finish();
@@ -76,7 +76,7 @@ public class FriendSummary
 		
         if ((mGamertag = XboxLive.Friends.getGamertag(this, mFriendId)) == null)
         {
-        	if (App.LOGV)
+        	if (App.getConfig().logToConsole())
         		App.logv("Friend not found");
         	
         	finish();

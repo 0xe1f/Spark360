@@ -94,7 +94,7 @@ public class RssHandler extends DefaultHandler
 	{
 		RssHandler handler = new RssHandler(rssUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("RssHandler: Fetching %s", rssUrl);
 		
 	    long started = System.currentTimeMillis();
@@ -114,7 +114,7 @@ public class RssHandler extends DefaultHandler
 	    }
 	    finally
 	    {
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("RssHandler: Completed (%.02f s)", 
 						(System.currentTimeMillis() - started) / 1000.0);

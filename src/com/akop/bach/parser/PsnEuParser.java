@@ -265,7 +265,7 @@ public class PsnEuParser
 		Matcher m = PATTERN_LOGIN_REDIR_URL.matcher(page);
 	    if (!m.find())
 	    {
-	    	if (App.LOGV)
+	    	if (App.getConfig().logToConsole())
 	    		App.logv("onAuthEU: Redir URL not found");
 	    	
 	    	String outageMessage;
@@ -339,7 +339,7 @@ public class PsnEuParser
 		
 		cv.put(Profiles.ICON_URL, iconUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseSummaryData processing", started);
 		
 		return cv;
@@ -492,7 +492,7 @@ public class PsnEuParser
     			}
     		}
     		
-    		if (App.LOGV)
+    		if (App.getConfig().logToConsole())
     			started = displayTimeTaken("Game page processing", started);
     		
     		if (newCvs.size() > 0)
@@ -504,7 +504,7 @@ public class PsnEuParser
     			
     			cr.bulkInsert(Games.CONTENT_URI, cvs);
     			
-    			if (App.LOGV)
+    			if (App.getConfig().logToConsole())
     				displayTimeTaken("Game page insertion", started);
     		}
     		
@@ -592,7 +592,7 @@ public class PsnEuParser
 			index++;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("New trophy parsing", started);
 		
 		ContentValues[] cva = new ContentValues[cvList.size()];
@@ -604,7 +604,7 @@ public class PsnEuParser
 		cr.bulkInsert(Trophies.CONTENT_URI, cva);
 		cr.notifyChange(Trophies.CONTENT_URI, null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("New trophy processing", started);
 		
 		// Update the game to remove the 'dirty' attribute
@@ -615,7 +615,7 @@ public class PsnEuParser
 		cr.notifyChange(ContentUris.withAppendedId(Games.CONTENT_URI, gameId), 
 				null);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("Updating Game", started);
 	}
 	
@@ -631,7 +631,6 @@ public class PsnEuParser
 			final long accountId = account.getId();
 			
 			int rowsInserted = 0;
-			@SuppressWarnings("unused")
 			int rowsUpdated = 0;
 			int rowsDeleted = 0;
 			
@@ -863,7 +862,7 @@ public class PsnEuParser
 			
 			cr.notifyChange(Friends.CONTENT_URI, null);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				started = displayTimeTaken("Friend page processing [I:" +
 						rowsInserted + ";U:" + rowsUpdated + 
 						";D:" + rowsDeleted + "]", started);
@@ -980,7 +979,7 @@ public class PsnEuParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseCompareGames/processing", started);
 	}
 	
@@ -1054,7 +1053,7 @@ public class PsnEuParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseGamerProfile/processing", started);
 		
 		return gpi;
@@ -1181,7 +1180,7 @@ public class PsnEuParser
 			}
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseCompareGames/processing", started);
 		
 		return cgi;
@@ -1277,7 +1276,7 @@ public class PsnEuParser
 					isSecret, isLocked, selfEarned, oppEarned);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseCompareTrophies/processing", 
 					started);
 		
@@ -1332,7 +1331,7 @@ public class PsnEuParser
 	    
 		String catalogPage = getResponse(URL_GAME_CATALOG, inputs, true);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseGameCatalog/data fetch", started);
 		
 		int fetchedPage = page;
@@ -1353,7 +1352,7 @@ public class PsnEuParser
 		catalog.PageSize = pageSize;
 		catalog.MorePages = totalPages > fetchedPage;
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("fetched: " + fetchedPage + "; totalPages: "
 					+ totalPages + "; more?: " + catalog.MorePages);
 		
@@ -1418,7 +1417,7 @@ public class PsnEuParser
 			catalog.Items.add(item);
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("parseGameCatalog/parsing", started);
 		
 		return catalog;
@@ -1437,7 +1436,7 @@ public class PsnEuParser
 	    
 		String detailPage = getResponse(item.DetailUrl);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("parseGameCatalogItemDetails/data fetch", started);
 		
 		Matcher m;
@@ -1451,7 +1450,7 @@ public class PsnEuParser
 			//isAlt = true;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			displayTimeTaken("parseGameCatalogItemDetails/parsing", started);
 		
 		return details;

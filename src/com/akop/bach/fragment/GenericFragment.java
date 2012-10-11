@@ -182,7 +182,7 @@ public abstract class GenericFragment extends Fragment implements
 			}
 			catch (Exception e)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					e.printStackTrace();
 			}
 			finally
@@ -270,7 +270,7 @@ public abstract class GenericFragment extends Fragment implements
 		}
 		catch (Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		finally

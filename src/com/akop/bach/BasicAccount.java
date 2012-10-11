@@ -106,7 +106,7 @@ public abstract class BasicAccount implements Account
 		}
 		catch (ClassNotFoundException e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;
@@ -128,7 +128,7 @@ public abstract class BasicAccount implements Account
 		}
 		catch (Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 			
 			return null;
@@ -202,7 +202,7 @@ public abstract class BasicAccount implements Account
 			return;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Account/save: Saving account %s", getScreenName());
 		
 		synchronized (BasicAccount.class)

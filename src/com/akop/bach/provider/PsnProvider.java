@@ -177,7 +177,7 @@ public class PsnProvider extends ContentProvider
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Upgrading database from version %d to %d", 
 						oldVersion, newVersion);
 			
@@ -185,7 +185,7 @@ public class PsnProvider extends ContentProvider
 			if (oldVersion < 13)
 			{
 				upgraded = true;
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnProvider: upgrading to version 13");
 				
 				db.execSQL("ALTER TABLE " + TROPHIES_TABLE_NAME + " ADD COLUMN "
@@ -199,7 +199,7 @@ public class PsnProvider extends ContentProvider
 			if (oldVersion < 14)
 			{
 				upgraded = true;
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnProvider: upgrading to version 14");
 				
 				db.execSQL("ALTER TABLE " + FRIENDS_TABLE_NAME + " ADD COLUMN "
@@ -209,7 +209,7 @@ public class PsnProvider extends ContentProvider
 			if (oldVersion < 15)
 			{
 				upgraded = true;
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnProvider: upgrading to version 15");
 				
 				db.execSQL("ALTER TABLE " + PROFILES_TABLE_NAME + " ADD COLUMN "
@@ -225,7 +225,7 @@ public class PsnProvider extends ContentProvider
 			if (oldVersion < 16)
 			{
 				upgraded = true;
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnProvider: upgrading to version 16");
 				
 				db.execSQL("DELETE FROM " + GAMES_TABLE_NAME);
@@ -235,7 +235,7 @@ public class PsnProvider extends ContentProvider
 			if (oldVersion < 17)
 			{
 				upgraded = true;
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnProvider: upgrading to version 17");
 				
 				db.execSQL("CREATE TABLE " + NOTIFY_STATES_TABLE_NAME + " ("
@@ -248,7 +248,7 @@ public class PsnProvider extends ContentProvider
 			
 			if (!upgraded)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("PsnProvider: Recreating structure");
 				
 				db.execSQL("DROP TABLE IF EXISTS " + PROFILES_TABLE_NAME);

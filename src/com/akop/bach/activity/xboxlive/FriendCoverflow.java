@@ -168,7 +168,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 						}
 						catch (Exception e)
 						{
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								e.printStackTrace();
 						}
 					}
@@ -373,7 +373,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 		if (coverflowMode == XboxLiveAccount.COVERFLOW_IN_LANDSCAPE 
 				&& orientation == Configuration.ORIENTATION_PORTRAIT)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Reorienting ...");
 			
 			FriendList.actionShow(this, mAccount);
@@ -381,7 +381,7 @@ public class FriendCoverflow extends RibbonedActivity implements
 		}
 		else if (coverflowMode == XboxLiveAccount.COVERFLOW_OFF)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("Reorienting ...");
 			
 			FriendList.actionShow(this, mAccount);

@@ -91,7 +91,7 @@ public class ErrorDialogFragment extends DialogFragment
             }
         });
 		
-		if (App.ENABLE_ACRA)
+		if (App.getConfig().enableErrorReporting())
 		{
 			builder.setPositiveButton(R.string.send_report, 
 					new DialogInterface.OnClickListener()

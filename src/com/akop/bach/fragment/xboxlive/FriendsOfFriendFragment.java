@@ -127,7 +127,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 				@Override
 				public void run()
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 					
 					if (getActivity() != null && e != null)
@@ -561,7 +561,7 @@ public class FriendsOfFriendFragment extends GenericFragment implements
 				}
 				catch(Exception e)
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						e.printStackTrace();
 				}
 				

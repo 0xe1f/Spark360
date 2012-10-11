@@ -35,6 +35,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.akop.bach.activity.About;
+import com.akop.bach.configurations.AppConfig;
+import com.akop.bach.configurations.DevConfig;
 import com.akop.bach.provider.PsnProvider;
 import com.akop.bach.provider.XboxLiveProvider;
 import com.akop.bach.service.NotificationService;
@@ -69,12 +71,13 @@ import com.akop.bach.service.NotificationService;
 )
 public class App extends Application
 {
-	public static final boolean LOGV = false;
-	public static final boolean ENABLE_ACRA = false;
+	private static final Class<? extends AppConfig> ConfigType =
+			DevConfig.class;
 	
 	private static final String LOG_TAG = "bach";
 	
 	private static App sInstance = null;
+	private AppConfig mConfig;
 	
 	public void showAboutDialog(Context context)
 	{
@@ -88,11 +91,26 @@ public class App extends Application
         
 		super.onCreate();
 		
+		try 
+		{
+			mConfig = ConfigType.newInstance();
+		}
+		catch (Exception e) 
+		{
+			throw new RuntimeException("Configuration not valid");
+		}
+		
 		sInstance = this;
 		
-		ErrorReporter.getInstance().disable();
+		if (!mConfig.enableErrorReporting())
+			ErrorReporter.getInstance().disable();
 		
 		NotificationService.actionReschedule(this);
+	}
+	
+	public static AppConfig getConfig()
+	{
+		return sInstance.mConfig;
 	}
 	
 	public static App getInstance()
@@ -102,12 +120,14 @@ public class App extends Application
 	
 	public static void logv(String message)
 	{
-		Log.v(LOG_TAG, message);
+		if (getConfig().logToConsole())
+			Log.v(LOG_TAG, message);
 	}
 	
 	public static void logv(String format, Object... args)
 	{
-		Log.v(LOG_TAG, String.format(format, args));
+		if (getConfig().logToConsole())
+			Log.v(LOG_TAG, String.format(format, args));
 	}
 	
 	public static BasicAccount createAccountFromAuthority(Context context, String authority)

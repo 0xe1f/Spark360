@@ -80,7 +80,7 @@ public class AuthenticatingAccountLogin
 		
         if (mAccount == null)
         {
-        	if (App.LOGV)
+        	if (App.getConfig().logToConsole())
         		App.logv("AuthenticatingAccountLogin: Account is null");
         	
         	finish();

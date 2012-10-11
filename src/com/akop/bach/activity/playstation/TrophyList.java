@@ -46,7 +46,7 @@ public class TrophyList extends PsnSinglePane
 		long titleId;
 		if ((titleId = getIntent().getLongExtra("gameId", -1)) < 0)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("TrophyList: no gameId");
 			
 			finish();

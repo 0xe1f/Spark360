@@ -94,7 +94,7 @@ public class AchievementUpdaterService extends IntentService
 	{
 		if (mWl == null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv(" ++++++++ ACQUIRE WAKE LOCK ++++++++ ");
 			
 			PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
@@ -108,7 +108,7 @@ public class AchievementUpdaterService extends IntentService
 	{
 		if (mWl != null)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv(" -------- RELEASE WAKE LOCK -------- ");
 			
 			if (mWl.isHeld())
@@ -198,7 +198,7 @@ public class AchievementUpdaterService extends IntentService
 			return;
 		}
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("SparkService/reschedule: next up is %s", nextAccount.toString());
 		
 		// Create an update alarm
@@ -209,7 +209,7 @@ public class AchievementUpdaterService extends IntentService
 	
 	private void cancel()
 	{
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("SparkService/cancel: canceling alarms");
 		
 		AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -256,13 +256,13 @@ public class AchievementUpdaterService extends IntentService
 		{
 			if (intent == null)
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("SparkService/onStart: Intent is null, so rescheduling");
 			}
 			
 			try
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("SparkService/onStart @ %s: reschedule",
 							DateFormat.getTimeInstance().format(System.currentTimeMillis()));
 				
@@ -280,7 +280,7 @@ public class AchievementUpdaterService extends IntentService
 		{
 			try
 			{
-				if (App.LOGV)
+				if (App.getConfig().logToConsole())
 					App.logv("SparkService/onStart @ %s: cancel",
 							DateFormat.getTimeInstance().format(System.currentTimeMillis()));
 				
@@ -305,7 +305,7 @@ public class AchievementUpdaterService extends IntentService
 					{
 						try
 						{
-							if (App.LOGV)
+							if (App.getConfig().logToConsole())
 								App.logv("SparkService/onStart @ %s: update",
 										DateFormat.getTimeInstance().format(System.currentTimeMillis()));
 							
@@ -355,7 +355,7 @@ public class AchievementUpdaterService extends IntentService
 	
 	private void setupSchedules()
 	{
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("SparkService/setupSchedules");
 		
 		Account[] accounts = Preferences.get(this).getAccounts();
@@ -367,7 +367,7 @@ public class AchievementUpdaterService extends IntentService
 			{
 				if (account.isAutoSyncEnabled())
 				{
-					if (App.LOGV)
+					if (App.getConfig().logToConsole())
 						App.logv("Creating a new account schedule for %s", 
 								account.getScreenName());
 					

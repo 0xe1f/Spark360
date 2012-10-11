@@ -66,7 +66,7 @@ public class PsnServiceClient extends ServiceClient
 		
 		int notificationId = 0x8000000 | ((int)account.getId() & 0xffffff);
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 		{
 			String s = "";
 			for (Object unr : lastFriendsOnline)
@@ -88,7 +88,7 @@ public class PsnServiceClient extends ServiceClient
 				if (!lastFriendsOnline.contains(online))
 					newOnlineCount++;
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				App.logv("%d computed new; %d online now; %d online before",
 						newOnlineCount, friendsOnline.length,
 						lastFriendsOnline.size());
@@ -157,7 +157,7 @@ public class PsnServiceClient extends ServiceClient
 		PsnAccount psnAccount = (PsnAccount)account;
 		PsnStatus status = new PsnStatus();
 		
-		if (App.LOGV)
+		if (App.getConfig().logToConsole())
 			App.logv("Creating a new account schedule for %s", 
 					account.getScreenName());
 		
@@ -219,7 +219,7 @@ public class PsnServiceClient extends ServiceClient
 		}
 		catch(Exception e)
 		{
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 			{
 				App.logv("Suppressed exception");
 				e.printStackTrace();

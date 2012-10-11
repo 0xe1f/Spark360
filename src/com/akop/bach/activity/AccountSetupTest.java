@@ -127,7 +127,7 @@ public class AccountSetupTest extends Activity implements OnClickListener
 			mHandler.showErrorDialog(message);
 			mHandler.complete(false);
 			
-			if (App.LOGV)
+			if (App.getConfig().logToConsole())
 				e.printStackTrace();
 		}
 		
