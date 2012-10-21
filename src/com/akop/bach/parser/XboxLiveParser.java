@@ -55,6 +55,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -158,11 +159,11 @@ public class XboxLiveParser extends LiveParser
 	private static final String URL_COMPARE_ACHIEVEMENTS = 
 		"https://live.xbox.com/%1$s/Activity/Details?compareTo=%3$s&titleId=%2$s";
 	private static final String URL_GAMERCARD = 
-		"https://gamercard.xbox.com/%1$s/%2$s.card";
+		"http://gamercard.xbox.com/%1$s/%2$s.card";
 	private static final String URL_GAMERPIC = 
-		"https://avatar.xboxlive.com/avatar/%s/avatarpic-l.png";
+		"http://avatar.xboxlive.com/avatar/%s/avatarpic-l.png";
 	private static final String URL_AVATAR_BODY = 
-		"https://avatar.xboxlive.com/avatar/%s/avatar-body.png";
+		"http://avatar.xboxlive.com/avatar/%s/avatar-body.png";
 	private static final String URL_EDIT_PROFILE =
 		"https://live.xbox.com/%1$s/MyXbox/GamerProfile";
 	
@@ -487,12 +488,7 @@ public class XboxLiveParser extends LiveParser
 				return pair.getValue();
 		
 		if (App.getConfig().logToConsole())
-		{
-			App.logv("Token parsing failed; writing page to sdcard/tokenDump");
-			
-			writeToSd("tokenDump", page);
-			writeToFile("tokenDump", page);
-		}
+			App.logv("Token parsing failed");
 		
 		throw new TokenException(mContext);
 	}
@@ -941,15 +937,13 @@ public class XboxLiveParser extends LiveParser
 		return info;
 	}
 	
+	@SuppressLint("NewApi")
 	private ContentValues parseSummaryData(XboxLiveAccount account)
 			throws ParserException, IOException
 	{
 		long started = System.currentTimeMillis();
-		
 		String url = String.format(URL_MY_PROFILE, 
-				mLocale,
-				System.currentTimeMillis());
-		
+				mLocale, System.currentTimeMillis());
 		String page = getResponse(url);
 		
 		Matcher m;
@@ -974,8 +968,7 @@ public class XboxLiveParser extends LiveParser
 			rep = getStarRating(m.group(1));
 		
 		url = String.format(URL_JSON_PROFILE, 
-				mLocale,
-				System.currentTimeMillis());
+				mLocale, System.currentTimeMillis());
 		
 		HttpUriRequest request = new HttpGet(url);
 		request.addHeader("Referer", URL_JSON_PROFILE_REFERER);
@@ -1014,6 +1007,9 @@ public class XboxLiveParser extends LiveParser
 		cv.put(Profiles.MOTTO, motto);
 		cv.put(Profiles.BIO, bio);
 		cv.put(Profiles.REP, rep);
+		
+		for (String k : cv.keySet())
+			App.logv(k + "=" + cv.getAsString(k));
 		
 		return cv;
 	}
