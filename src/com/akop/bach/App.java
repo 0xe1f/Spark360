@@ -36,7 +36,6 @@ import android.util.Log;
 
 import com.akop.bach.activity.About;
 import com.akop.bach.configurations.AppConfig;
-import com.akop.bach.configurations.LoggingDevConfig;
 import com.akop.bach.configurations.ProdConfig;
 import com.akop.bach.provider.PsnProvider;
 import com.akop.bach.provider.XboxLiveProvider;

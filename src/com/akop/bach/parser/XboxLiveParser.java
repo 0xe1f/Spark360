@@ -55,7 +55,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -63,8 +62,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
 import com.akop.bach.XboxLive;
@@ -937,7 +936,6 @@ public class XboxLiveParser extends LiveParser
 		return info;
 	}
 	
-	@SuppressLint("NewApi")
 	private ContentValues parseSummaryData(XboxLiveAccount account)
 			throws ParserException, IOException
 	{
@@ -1007,9 +1005,6 @@ public class XboxLiveParser extends LiveParser
 		cv.put(Profiles.MOTTO, motto);
 		cv.put(Profiles.BIO, bio);
 		cv.put(Profiles.REP, rep);
-		
-		for (String k : cv.keySet())
-			App.logv(k + "=" + cv.getAsString(k));
 		
 		return cv;
 	}
