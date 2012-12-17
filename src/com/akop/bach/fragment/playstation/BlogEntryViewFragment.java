@@ -43,19 +43,21 @@ import com.akop.bach.util.rss.RssItem;
 
 public class BlogEntryViewFragment extends GenericFragment
 {
+	private String mChannelUrl;
 	private RssItem mItem;
 	
 	public static BlogEntryViewFragment newInstance()
 	{
-		return newInstance(null);
+		return newInstance(null, null);
 	}
 	
-	public static BlogEntryViewFragment newInstance(RssItem item)
+	public static BlogEntryViewFragment newInstance(String channelUrl, RssItem item)
 	{
 		BlogEntryViewFragment f = new BlogEntryViewFragment();
 		
 		Bundle args = new Bundle();
 		args.putParcelable("item", item);
+		args.putString("channelUrl", channelUrl);
 		f.setArguments(args);
 		
 		return f;
@@ -68,6 +70,7 @@ public class BlogEntryViewFragment extends GenericFragment
 		
 	    Bundle args = getArguments();
 	    
+	    mChannelUrl = args.getString("channelUrl");
 		mItem = (RssItem)args.getParcelable("item");
 		
 		if (state != null)
@@ -120,10 +123,11 @@ public class BlogEntryViewFragment extends GenericFragment
 			outState.putParcelable("item", mItem);
 	}
 	
-	public void resetTitle(RssItem item)
+	public void resetTitle(String channelUrl, RssItem item)
 	{
 		if (mItem == null || mItem.link != item.link)
 		{
+			mChannelUrl = channelUrl;
 			mItem = item;
 			
 			synchronizeLocal();
@@ -206,7 +210,7 @@ public class BlogEntryViewFragment extends GenericFragment
 						DateFormat.getTimeFormat(getActivity()).format(mItem.date), mItem.author));
 			
 			WebView webView = (WebView)parent.findViewById(R.id.webview);
-			webView.loadDataWithBaseURL(null, mItem.content, "text/html", "UTF-8", null);
+			webView.loadDataWithBaseURL(mChannelUrl, mItem.content, "text/html", "UTF-8", null);
 		}
 	}
 }

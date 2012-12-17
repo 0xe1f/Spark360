@@ -79,7 +79,7 @@ public class RssItem implements Parcelable
 		dest.writeString(this.link);
 		dest.writeString(this.author);
 		dest.writeString(this.thumbUrl);
-		dest.writeString(this.thumbUrl);
+		dest.writeString(this.content);
 	}
 	
 	@Override

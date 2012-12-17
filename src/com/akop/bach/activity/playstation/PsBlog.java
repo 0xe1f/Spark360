@@ -50,16 +50,16 @@ public class PsBlog extends PsnMultiPane implements
 	}
 	
 	@Override
-	public void onEntrySelected(RssItem item)
+	public void onEntrySelected(String channelUrl, RssItem item)
 	{
 		if (isDualPane())
 		{
 			BlogEntryViewFragment detailFragment = (BlogEntryViewFragment)mDetailFragment;
-			detailFragment.resetTitle(item);
+			detailFragment.resetTitle(channelUrl, item);
 		}
 		else
 		{
-			PsBlogEntry.actionShow(this, getAccount(), item);
+			PsBlogEntry.actionShow(this, getAccount(), channelUrl, item);
 		}
 	}
 	

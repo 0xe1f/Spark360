@@ -37,6 +37,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -275,6 +276,9 @@ public class FriendsFragment extends GenericFragment implements
             String activity = "";
             if (!cursor.isNull(COLUMN_CURRENT_ACTIVITY))
             	activity = cursor.getString(COLUMN_CURRENT_ACTIVITY);
+            
+            if (TextUtils.equals(activity, "null"))
+            	activity = "";
             
             vh.currentActivity.setText(activity);
             

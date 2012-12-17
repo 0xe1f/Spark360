@@ -69,7 +69,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 {
 	public static interface OnBlogEntrySelectedListener
 	{
-		void onEntrySelected(RssItem item);
+		void onEntrySelected(String channelUrl, RssItem item);
 	}
 	
 	private BaseAdapter mAdapter;
@@ -394,7 +394,7 @@ public class BlogEntriesFragment extends GenericFragment implements
 		{
 			OnBlogEntrySelectedListener listener = (OnBlogEntrySelectedListener)getActivity();
 			
-			listener.onEntrySelected((RssItem)mAdapter.getItem(pos));
+			listener.onEntrySelected(mPayload.link, (RssItem)mAdapter.getItem(pos));
 		}
 	}
 	

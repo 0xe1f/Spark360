@@ -38,14 +38,16 @@ public class PsBlogEntry extends PsnSinglePane
     protected Fragment createFragment()
     {
 	    return BlogEntryViewFragment.newInstance(
-	    		(RssItem)getIntent().getSerializableExtra("item"));
+	    		getIntent().getStringExtra("channelUrl"),
+	    		(RssItem)getIntent().getParcelableExtra("item"));
     }
 	
 	public static void actionShow(Context context, PsnAccount account,
-			RssItem item)
+			String channelUrl, RssItem item)
 	{
     	Intent intent = new Intent(context, PsBlogEntry.class);
     	intent.putExtra("account", account);
+    	intent.putExtra("channelUrl", channelUrl);
     	intent.putExtra("item", item);
     	context.startActivity(intent);
 	}
@@ -53,7 +55,7 @@ public class PsBlogEntry extends PsnSinglePane
 	@Override
     protected String getSubtitle()
     {
-		RssItem item = (RssItem)getIntent().getSerializableExtra("item");
+		RssItem item = (RssItem)getIntent().getParcelableExtra("item");
 		return getString(R.string.ps_blog_f, item.title);
     }
 }
