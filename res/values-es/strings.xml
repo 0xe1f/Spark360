@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  
  - values-fr/strings.xml
- - Copyright (C) 2010-2012 Akop Karapetyan
+ - Copyright (C) 2010-2013 Akop Karapetyan
  -                         Pierre-Alexandre Emmanuelli
  -
  - This file is part of Spark 360, the online gaming service client.
@@ -22,7 +22,6 @@
  -  02111-1307  USA.
  -->
 <resources>
-    
 	<!-- General -->
     <string name="yes">Si</string>
     <string name="no">No</string>
@@ -38,7 +37,7 @@
 	<string name="refresh">Refrescar</string>
 	<string name="about">Sobre</string>
 	<string name="unknown">Desconocido</string>
-	<string name="when_never">Nuncas</string>
+	<string name="when_never">Nunca</string>
 	<string name="when_5min">5 minutos</string>
 	<string name="when_15min">15 minutos</string>
 	<string name="when_30min">30 minutos</string>
@@ -69,12 +68,12 @@
 	<string name="connection_successful">Conexión con éxito!</string>
 	
 	<!-- Accounts -->
-	<string name="select_account">Seleccione del perfil</string>
+	<string name="select_account">Selección de perfil</string>
 	<string name="no_accounts">Tampoco se ha configurado.\n\nPara configurar una cuenta ahora, pulse <b>Menú</b> y seleccione <b>Agregar cuenta</b>.</string>
 	<string name="new_account">Nueva cuenta</string>
 	<string name="add_a_new_account">Agregar una nueva cuenta</string>
 	<string name="erase_account_data">¿Eliminar todos los datos de la cuenta desde el dispositivo? Esta acción es definitiva..</string>
-	<string name="edit_account">Editar una cuenta</string>
+	<string name="edit_account">Editar cuenta</string>
 	<string name="type_your_credentials_f">Introduzca su %1$s dirección de correo electrónico y contraseña:</string>
 	
 	<!-- Parser -->
@@ -124,7 +123,7 @@
     <string name="friends_of_f">Amigos de %1$s\</string>
     <string name="select_recipients">seleccione los destinatarios</string>
     <string name="ms_point_utility">Utilidad Microsoft Point</string>
-    <string name="tools">Instrumentos</string>
+    <string name="tools">Herramientas</string>
     <string name="toggle_all">Seleccione todo</string>
     <string name="gamertag">Gamertag</string>
     <string name="name">Nombre</string>
@@ -140,10 +139,10 @@
     <string name="xbox_live">Xbox Live</string>
     <string name="rep">Reputación</string>
     <string name="vibrate">Vibración</string>
-    <string name="vibrate_summary">Vibración para nuevos notificaciones</string>
+    <string name="vibrate_summary">Vibración para nuevas notificaciones</string>
     
     <!-- Achievements, Games -->
-    <string name="games_played_u">Juejos</string>
+    <string name="games_played_u">Juegos</string>
     <string name="games_played">Juegos</string>
     <string name="my_played_games">Mis juegos jugados</string>
     <string name="my_friends">Mes Amis</string>
@@ -178,7 +177,7 @@
     <string name="last_updated_f">Última actualización %1$s</string>
     <string name="not_yet_updated">Todavía no ha sido actualizado</string>
     <string name="remove_from_friends_q_f">¿Quitar %1$s amigos?</string>
-    <string name="remove_from_friends">Elimine los amigos</string>
+    <string name="remove_from_friends">Eliminar amigo</string>
     <string name="accept_friend_request">Aceptar la solicitud de amistad</string>
     <string name="decline_friend_request">Rechazar la solicitud de amigos</string>
     <string name="cancel_friend_request">Cancelar la solicitud de amistad</string>
@@ -254,7 +253,7 @@
     <string name="send_friend_request">Enviar una solicitud de amigo</string>
     <string name="send_friend_request_to_f">Enviar una solicitud de amistad a %1$s?</string>
     <string name="xbox_live_profile_not_found_f">Perfil Xbox Live\"%1$s\" no se encontró</string>
-    <string name="view_friends">Mostrar los amigos</string>
+    <string name="view_friends">Mostrar amigos</string>
     <string name="x_friends_f">%1$s: Amigos</string>
     <string name="friends_list_empty">Lista de amigos está vacía</string>
     <string name="select_friend">Seleccione a un amigo</string>
@@ -309,7 +308,7 @@
     <string name="sent_recipients_more_f">%1$s, …</string>
     <string name="sent_message">Mensaje enviado</string>
     <string name="no_sent_messages">No hay mensajes enviados.</string>
-    <string name="save">Ahorrar</string>
+    <string name="save">Aceptar</string>
     <string name="edit_profile">Editar Perfil</string>
     <string name="edit_profile_caption">Editar Perfil</string>
     <string name="error_updating_profile">Error de actualización del perfil. Gracias a intentarlo más tarde.</string>

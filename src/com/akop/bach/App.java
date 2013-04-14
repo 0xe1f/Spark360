@@ -1,6 +1,6 @@
 /*
  * App.java
- * Copyright (C) 2010-2012 Akop Karapetyan
+ * Copyright (C) 2010-2013 Akop Karapetyan
  *
  * This file is part of Caffeine, the online gaming service client support 
  * library. 
