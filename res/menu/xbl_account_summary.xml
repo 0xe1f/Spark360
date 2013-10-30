@@ -30,23 +30,11 @@
 			android:showAsAction="ifRoom"
 		/>
 	</group>
-	<item
-		android:title="@string/tools"
-		android:icon="@drawable/ic_menu_tools"
-	>
-		<menu>
-			<item
-				android:id="@+id/menu_server_status" 
-				android:title="@string/xbox_live_status"
-				android:icon="@drawable/ic_menu_status"
-			/>
-			<item
-				android:id="@+id/menu_tools_mspoint" 
-				android:title="@string/ms_point_utility"
-				android:icon="@drawable/ic_menu_tools"
-			/>
-		</menu>
-	</item>
+    <item
+        android:id="@+id/menu_server_status" 
+        android:title="@string/xbox_live_status"
+        android:icon="@drawable/ic_menu_status"
+    />
 	<group android:id="@+id/menu_group_selected2">
 		<item
 			android:id="@+id/menu_edit_account" 

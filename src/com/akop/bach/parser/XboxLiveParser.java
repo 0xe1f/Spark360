@@ -229,13 +229,13 @@ public class XboxLiveParser extends LiveParser
 		Pattern.compile("<img src=\"([^\"]*)\" alt=\"[^\"]*\" class=\"Banner\" />");
 	
 	private static final Pattern PATTERN_STATUS_LINE = 
-		Pattern.compile("<div class=\"Status..\">\\s*(.*?\\s*</div>)\\s*</div>",
+		Pattern.compile("<div class=\"Status..\"[^>]*>\\s*(.*?\\s*</div>)\\s*</div>",
 				Pattern.DOTALL);
 	
 	private static final Pattern PATTERN_STATUS_NAME = 
-		Pattern.compile("<strong>([^<]*)</strong>");
+		Pattern.compile("<(?:strong|span class=\"partnerServiceTitle\")>([^<]*)</(?:strong|span)>");
 	private static final Pattern PATTERN_STATUS_IS_OK = 
-		Pattern.compile("class=\"StatusOKText\"");
+		Pattern.compile("class=\"StatusOKTitle\"");
 	private static final Pattern PATTERN_STATUS_DESCRIPTION =
 		Pattern.compile("<div class=\"StatusKOText\">(.*)?</div>", 
 				Pattern.DOTALL);

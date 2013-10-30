@@ -60,7 +60,6 @@ import com.akop.bach.activity.xboxlive.AccountSettings;
 import com.akop.bach.activity.xboxlive.FriendList;
 import com.akop.bach.activity.xboxlive.GameList;
 import com.akop.bach.activity.xboxlive.MessageList;
-import com.akop.bach.activity.xboxlive.MsPointConverter;
 import com.akop.bach.activity.xboxlive.ServerStatus;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.fragment.xboxlive.EditProfileFragment.ProfileUpdater;
@@ -487,9 +486,6 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	    case R.id.menu_list_accounts:
 	    	Accounts.actionShow(getActivity());
 	    	getActivity().finish();
-	    	return true;
-	    case R.id.menu_tools_mspoint:
-	    	MsPointConverter.actionShow(getActivity());
 	    	return true;
 	    case R.id.menu_server_status:
 	    	ServerStatus.actionShow(getActivity());

@@ -217,19 +217,6 @@
     <string name="error_achieves_retrieval">Error retrieving list of achievements. Please try again in a moment</string>
     <string name="error_player_retrieval">Error retrieving list of players. Please try again in a moment</string>
     
-	<!-- MS Points -->
-	<string name="currency_usd">US dollars</string>
-	<string name="currency_aud">Australian dollars</string>
-	<string name="currency_cad">Canadian dollars</string>
-	<string name="currency_eur">Euros</string>
-	<string name="currency_jpy">Japanese yen</string>
-	<string name="currency_nok">Norwegian kroner</string>
-	<string name="currency_gbp">Pounds sterling</string>
-	<string name="currency_sek">Swedish kronor</string>
-	<string name="points">Points</string>
-	<string name="currency">Currency</string>
-	<string name="exchange_rates">Exchange rates</string>
-	
 	<!-- Widgets -->
 	<string name="account_removed">[Account removed]</string>
 	<string name="achievement_stats_f">%3$d%%</string>
