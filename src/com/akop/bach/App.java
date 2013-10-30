@@ -24,12 +24,6 @@
 
 package com.akop.bach;
 
-import org.acra.ACRA;
-import org.acra.ErrorReporter;
-import org.acra.ReportField;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
-
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
@@ -41,34 +35,6 @@ import com.akop.bach.provider.PsnProvider;
 import com.akop.bach.provider.XboxLiveProvider;
 import com.akop.bach.service.NotificationService;
 
-@ReportsCrashes(
-		formKey = "dHFlZVgtcEtRUC1FVnI0TXVpZUQxMnc6MQ",
-		mode = ReportingInteractionMode.TOAST,
-		resToastText = R.string.crash_reported,
-		customReportContent = 
-		{
-				ReportField.REPORT_ID,
-				ReportField.APP_VERSION_CODE, 
-				ReportField.APP_VERSION_NAME, 
-				ReportField.PACKAGE_NAME, 
-				ReportField.PHONE_MODEL, 
-				ReportField.BRAND, 
-				ReportField.ANDROID_VERSION, 
-				ReportField.BUILD, 
-				ReportField.TOTAL_MEM_SIZE, 
-				ReportField.AVAILABLE_MEM_SIZE, 
-				ReportField.CUSTOM_DATA, 
-				ReportField.STACK_TRACE, 
-				ReportField.INITIAL_CONFIGURATION, 
-				ReportField.CRASH_CONFIGURATION, 
-				ReportField.DISPLAY, 
-				ReportField.USER_COMMENT, 
-				ReportField.USER_APP_START_DATE, 
-				ReportField.USER_CRASH_DATE, 
-				ReportField.DEVICE_FEATURES, 
-				ReportField.SETTINGS_SYSTEM, 
-		}
-)
 public class App extends Application
 {
 	private static final Class<? extends AppConfig> ConfigType =
@@ -87,8 +53,6 @@ public class App extends Application
 	@Override
 	public void onCreate()
 	{
-        ACRA.init(this);
-        
 		super.onCreate();
 		
 		try 
@@ -101,9 +65,6 @@ public class App extends Application
 		}
 		
 		sInstance = this;
-		
-		if (!mConfig.enableErrorReporting())
-			ErrorReporter.getInstance().disable();
 		
 		NotificationService.actionReschedule(this);
 	}

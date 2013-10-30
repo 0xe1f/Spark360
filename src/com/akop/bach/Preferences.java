@@ -60,18 +60,11 @@ public class Preferences
 	
 	private Secret mSecret = null;
 	
-	private Cipher mV2Decryptor;
 	private Cipher mV3Encryptor = null;
 	private Cipher mV3Decryptor = null;
 	private static final String VERSION2_CRYPT_KEY = "Caffeine|Spark";
 	
     private static final String UTF8 = "UTF-8";
-    private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
-    private static final String KEYGEN_ALGORITHM = "PBEWITHSHAAND256BITAES-CBC-BC";
-    private static byte[] SALT =
-    	{ 2,-49,-89,-36,-122,31,-79,100,-27,-39,-108,-2,-18,51,62,18,-126,54,31,66 };
-    private static byte[] IV = 
-    	{ 9,-27,17,119,-14,16,52,32,-75,-106,122,56,-30,8,-18,110 };
     
 	private Preferences(Context context)
 	{
@@ -122,17 +115,6 @@ public class Preferences
 		if (androidId == null)
 			androidId = VERSION2_CRYPT_KEY;
 		
-        SecretKeyFactory factory = SecretKeyFactory.getInstance(KEYGEN_ALGORITHM);
-        
-        KeySpec v2KeySpec = new PBEKeySpec(VERSION2_CRYPT_KEY.toCharArray(), 
-        		SALT, 1024, 256);
-        SecretKey v2Tmp = factory.generateSecret(v2KeySpec);
-        SecretKey v2Secret = new SecretKeySpec(v2Tmp.getEncoded(), "AES");
-        
-        mV2Decryptor = Cipher.getInstance(CIPHER_ALGORITHM);
-        mV2Decryptor.init(Cipher.DECRYPT_MODE, v2Secret, 
-        		new IvParameterSpec(IV));
-        
         SecretKeyFactory v3factory = SecretKeyFactory.getInstance(secret.getKeygenAlgo());
         String v3key = String.format("%s,%s", androidId, secret.getCryptKey());
         KeySpec v3KeySpec = new PBEKeySpec(v3key.toCharArray(), secret.getSalt(), 1024, 256);
@@ -358,27 +340,6 @@ public class Preferences
 			try
 			{
 				return decrypt(ciphertext.substring(2), mV3Decryptor);
-			}
-			catch (UnsupportedEncodingException e)
-			{
-				throw new EncryptionException(e);
-			}
-			catch (GeneralSecurityException e)
-			{
-				throw new EncryptionException(e);
-			}
-			catch (Base64DecoderException e)
-			{
-				throw new EncryptionException(e);
-			}
-		}
-		else if (ciphertext.startsWith("#2") && ciphertext.length() > 2)
-		{
-			// Versioned, v2
-			
-			try
-			{
-				return decrypt(ciphertext.substring(2), mV2Decryptor);
 			}
 			catch (UnsupportedEncodingException e)
 			{

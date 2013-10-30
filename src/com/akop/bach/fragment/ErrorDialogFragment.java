@@ -23,15 +23,12 @@
 
 package com.akop.bach.fragment;
 
-import org.acra.ErrorReporter;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.akop.bach.App;
 import com.akop.bach.R;
 
 public class ErrorDialogFragment extends DialogFragment
@@ -90,21 +87,6 @@ public class ErrorDialogFragment extends DialogFragment
             	dismiss();
             }
         });
-		
-		if (App.getConfig().enableErrorReporting())
-		{
-			builder.setPositiveButton(R.string.send_report, 
-					new DialogInterface.OnClickListener()
-			{
-				public void onClick(DialogInterface dialog, int whichButton)
-				{
-					Exception ex = (Exception)args.getSerializable("exception");
-					ErrorReporter.getInstance().handleException(ex);
-					
-	            	dismiss();
-				}
-			});
-		}
 		
 		AlertDialog dialog = builder.create();
 		return dialog;

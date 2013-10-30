@@ -13,10 +13,4 @@ public class DevConfig extends AppConfig
 	{
 		return false;
 	}
-	
-	@Override
-	public boolean enableErrorReporting() 
-	{
-		return false;
-	}
 }
