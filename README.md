@@ -8,9 +8,7 @@ Spark 360 is an unofficial application, and not supported, endorsed, or affiliat
 Translations
 ------------
 
-Spark has been translated to Spanish, French and German. 
+Spark has been translated to Spanish, French and German. Credits:
 
-Credits:
-
-Spanish and French: Pierre-Alexandre Emmanuelli
+Spanish and French: Pierre-Alexandre Emmanuelli  
 German: Quali
