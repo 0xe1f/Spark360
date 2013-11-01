@@ -43,6 +43,6 @@
 		android:layout_height="wrap_content" 
 		android:textAppearance="@style/TextAppearance.achToastText" 
 		android:maxLines="2"
-           android:ellipsize="end"
+        android:ellipsize="end"
 	/>
 </LinearLayout>

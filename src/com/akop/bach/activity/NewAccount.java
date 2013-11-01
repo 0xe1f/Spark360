@@ -78,42 +78,22 @@ public class NewAccount extends ListActivity implements OnItemClickListener
 		type = getString(R.string.xbox_live);
 		typeList.add(info = new TypeInfo(type));
 		
-		if (c != null)
-		{
-			c.close();
-			
-			info.isEnabled = true;
-			info.intent = new Intent(Intent.ACTION_INSERT, uri);
-			info.description = getString(R.string.create_new_account_f, type);
-		}
-		else
-		{
-			info.isEnabled = false;
-			info.description = getString(R.string.xbox_live_missing);
-			info.intent = new Intent(Intent.ACTION_VIEW, 
-					Uri.parse("market://details?id=com.akop.bach"));
-		}
+		c.close();
+		
+		info.isEnabled = true;
+		info.intent = new Intent(Intent.ACTION_INSERT, uri);
+		info.description = getString(R.string.create_new_account_f, type);
 		
 		uri = PSN.Profiles.CONTENT_URI;
 		c = getContentResolver().query(uri, null, null, null, null);
 		type = getString(R.string.playstation_network);
 		typeList.add(info = new TypeInfo(type));
 		
-		if (c != null)
-		{
-			c.close();
-			
-			info.isEnabled = true;
-			info.intent = new Intent(Intent.ACTION_INSERT, uri);
-			info.description = getString(R.string.create_new_account_f, type);
-		}
-		else
-		{
-			info.isEnabled = false;
-			info.description = getString(R.string.psn_missing);
-			info.intent = new Intent(Intent.ACTION_VIEW, 
-					Uri.parse("market://details?id=com.akop.handel"));
-		}
+		c.close();
+		
+		info.isEnabled = true;
+		info.intent = new Intent(Intent.ACTION_INSERT, uri);
+		info.description = getString(R.string.create_new_account_f, type);
 		
 		TypeInfo[] infos = new TypeInfo[typeList.size()];
 		typeList.toArray(infos);

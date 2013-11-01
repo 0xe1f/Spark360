@@ -65,7 +65,7 @@
 	<string name="account_created">Account created.</string>
 	<string name="connecting">Connecting&#8230;</string>
 	<string name="connection_error">Account verification error</string>
-	<string name="connection_error_f">Account verification error: %1$s</string>
+	<string name="connection_error_f">%1$s</string>
 	<string name="connection_successful">Connection successful!</string>
 	
 	<!-- Accounts -->
@@ -101,8 +101,6 @@
     <string name="delete_account">Delete Account</string>
     <string name="create_new_account_f">Add a new %1$s account</string>
     <string name="select_account_type">Select account type</string>
-    <string name="xbox_live_missing">Install Spark 360 to enable Xbox Live support</string>
-    <string name="psn_missing">Install Spark Trophies to enable PSN support</string>
     <string name="cannot_open_market">Error opening Android Market</string>
     <string name="cannot_open_f">Error opening application. Is it installed?</string>
     
@@ -112,9 +110,9 @@
     
     <string name="app_name">Spark 360</string>
 	<string name="app_version_format">version %1$s</string>
-	<string name="app_by">2010&#8211;2012 Akop Karapetyan</string>
+	<string name="app_by">2010&#8211;2013 Akop Karapetyan</string>
 	<string name="app_website">http://www.spark360app.com/</string>
-	<string name="app_ownership">This application is not produced, endorsed, or affiliated with the Microsoft Corporation.\n\nMicrosoft, Xbox, Xbox Live, and the Xbox logos are trademarks of Microsoft Corporation.\n\nThis application is not produced, endorsed, or affiliated with the Sony Computer Entertainment, or Sony Corporation.\n\nPLAYSTATION, PlayStation, and PSN, are trademarks or registered trademarks of Sony Computer Entertainment Inc.</string>
+	<string name="app_ownership">This application is not produced, endorsed, or affiliated with the Microsoft Corporation. Microsoft, Xbox, Xbox Live, and the Xbox logos are trademarks of Microsoft Corporation.\n\nThis application is not produced, endorsed, or affiliated with the Sony Computer Entertainment, or Sony Corporation. PLAYSTATION, PlayStation, and PSN, are trademarks or registered trademarks of Sony Computer Entertainment Inc.</string>
 	<string name="online">Online</string>
 	<string name="offline">Offline</string>
 	<string name="away">Away</string>
@@ -427,5 +425,6 @@
 	<!--  -->
 	<!-- Need re-localization -->
 	<string name="notify_friends_online_f">%1$s has %2$d friends online on %3$s</string>
+    <string name="must_accept_new_tos">Xbox Live Terms of Use have changed. Review them at http://live.xbox.com/ and try again.</string>
 	
 </resources>

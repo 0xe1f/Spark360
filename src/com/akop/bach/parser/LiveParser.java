@@ -24,6 +24,7 @@
 package com.akop.bach.parser;
 
 import java.io.IOException;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +34,9 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.ProtocolException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.params.HttpClientParams;
@@ -44,10 +47,12 @@ import org.apache.http.cookie.CookieSpecFactory;
 import org.apache.http.cookie.MalformedCookieException;
 import org.apache.http.cookie.SetCookie;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.DefaultRedirectHandler;
 import org.apache.http.impl.cookie.BasicExpiresHandler;
 import org.apache.http.impl.cookie.BrowserCompatSpec;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HttpContext;
 
 import android.content.Context;
 
@@ -58,6 +63,8 @@ import com.akop.bach.XboxLiveAccount;
 
 public abstract class LiveParser extends Parser
 {
+	private String mLastRedirectedUrl;
+	
 	private static final String URL_LOGIN = 
 		"https://login.live.com/login.srf?wa=wsignin1.0&wreply=%1$s";
 	private static final String URL_LOGIN_MSN =
@@ -72,6 +79,8 @@ public abstract class LiveParser extends Parser
 			"<input((\\s+\\w+=\"[^\"]*\")+)[^>]*>", Pattern.CASE_INSENSITIVE);
 	private static final Pattern PATTERN_GET_ATTRS = Pattern
 			.compile("(\\w+)=\"([^\"]*)\"");
+	
+	private static final String URL_SUBSTRING_NEW_TOS = "/NewTermsOfUse";
 	
 	private static final Pattern PATTERN_AUTHENTICATED = Pattern
 			.compile(" onload=\"javascript:DoSubmit\\(\\);\"");
@@ -152,7 +161,22 @@ public abstract class LiveParser extends Parser
 	@Override
 	protected DefaultHttpClient createHttpClient(Context context)
 	{
+		mLastRedirectedUrl = null;
+		
 		DefaultHttpClient client = new DefaultHttpClient();
+		client.setRedirectHandler(new DefaultRedirectHandler() 
+		{
+			@Override
+			public URI getLocationURI(HttpResponse response,
+					HttpContext context) throws ProtocolException 
+			{
+				URI uri = super.getLocationURI(response, context);
+				if (uri != null)
+					mLastRedirectedUrl = uri.toString();
+				
+	            return uri;
+			}
+		});
 		
 		client.getCookieSpecs().register("lenient", new CookieSpecFactory()
 		{
@@ -315,6 +339,9 @@ public abstract class LiveParser extends Parser
 			// Because redirection is disabled, this call will throw an 
 			// exception when XBL redirects. We just ignore it
 		}
+		
+		if (mLastRedirectedUrl != null && mLastRedirectedUrl.contains(URL_SUBSTRING_NEW_TOS))
+			throw new AuthenticationException(mContext, R.string.must_accept_new_tos);
 		
 		return true;
 	}

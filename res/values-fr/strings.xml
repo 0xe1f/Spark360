@@ -65,7 +65,7 @@
 	<string name="account_created">Compte créé.</string>
 	<string name="connecting">Connexion&#8230;</string>
 	<string name="connection_error">Erreur de vérification du compte</string>
-	<string name="connection_error_f">Erreur de vérification du compte: %1$s</string>
+	<string name="connection_error_f">%1$s</string>
 	<string name="connection_successful">Connexion réussie!</string>
 	
 	<!-- Accounts -->
@@ -101,8 +101,6 @@
     <string name="delete_account">Supprimer un compte</string>
     <string name="create_new_account_f">Ajouter un nouveau %1$s compte</string>
     <string name="select_account_type">Sélectionner le type de compte</string>
-    <string name="xbox_live_missing">Installer Spark 360 pour le support du Xbox Live</string>
-    <string name="psn_missing">Installer Spark 360 pour le support PSN</string>
     <string name="cannot_open_market">Erreur lors de l\'ouverture de Google Play</string>
     <string name="cannot_open_f">Erreur lors de l\'ouverture de l\'application. Est-ce installé?</string>
     
@@ -114,7 +112,7 @@
     <string name="app_version_format">version %1$s</string>
     <string name="app_by">2010–2012 Akop Karapetyan</string>
     <string name="app_website">http://www.spark360app.com/</string>
-    <string name="app_ownership">Cette application n\'est pas produite, ni approuvées, ni affiliée à Microsoft Corporation.\nMicrosoft, Xbox, Xbox Live, et les logos Xbox sont des marques déposées de Microsoft Corporation.\n\nCette application n\'est pas produite, ni approuvées, ni affiliée à l\'Entertainment Sony Computer, ou Sony Corporation.\nPLAYSTATION, PlayStation, et le PSN, sont des marques commerciales ou des marques déposées de Sony Computer Entertainment Inc</string>
+    <string name="app_ownership">Cette application n\'est pas produite, ni approuvées, ni affiliée à Microsoft Corporation. Microsoft, Xbox, Xbox Live, et les logos Xbox sont des marques déposées de Microsoft Corporation.\n\nCette application n\'est pas produite, ni approuvées, ni affiliée à l\'Entertainment Sony Computer, ou Sony Corporation. PLAYSTATION, PlayStation, et le PSN, sont des marques commerciales ou des marques déposées de Sony Computer Entertainment Inc</string>
     <string name="online">En ligne</string>
     <string name="offline">Hors ligne</string>
     <string name="away">Absent</string>
@@ -216,19 +214,6 @@
     <string name="error_games_retrieval">Erreur de récupération de la liste de jeux. Merci de réessayer ultérieurement</string>
     <string name="error_achieves_retrieval">Erreur de récupération de la liste des succès. Merci de réessayer ultérieurement</string>
     <string name="error_player_retrieval">Erreur de récupération de la liste des joueurs. Merci de réessayer ultérieurement</string>
-    
-    <!-- MS Points -->
-    <string name="currency_usd">US dollars</string>
-    <string name="currency_aud">Australian dollars</string>
-    <string name="currency_cad">Canadian dollars</string>
-    <string name="currency_eur">Euros</string>
-    <string name="currency_jpy">Japanese yen</string>
-    <string name="currency_nok">Norwegian kroner</string>
-    <string name="currency_gbp">Pounds sterling</string>
-    <string name="currency_sek">Swedish kronor</string>
-    <string name="points">Points</string>
-    <string name="currency">Monnaie</string>
-    <string name="exchange_rates">Taux de change</string>
     
     <!-- Widgets -->
     <string name="account_removed">[Compte supprimé]</string>
