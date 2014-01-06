@@ -25,7 +25,9 @@ package com.akop.bach.fragment.xboxlive;
 
 import java.text.DateFormat;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -55,8 +57,8 @@ import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.XboxLiveParser;
 
-public class MessageViewFragment extends GenericFragment
- implements OnClickListener, OnOkListener
+public class MessageViewFragment extends GenericFragment implements
+		OnClickListener, OnOkListener 
 {
 	private OnImageReadyListener mAvatarLoader = new OnImageReadyListener()
 	{
@@ -105,6 +107,7 @@ public class MessageViewFragment extends GenericFragment
 	
 	private XboxLiveAccount mAccount;
 	private String mSender;
+	private String mBody;
 	private long mTitleId = -1;
 	private TaskListener mListener = new TaskListener();
 	
@@ -243,6 +246,9 @@ public class MessageViewFragment extends GenericFragment
 	    	}
 	    	
 	    	return true;
+	    case R.id.menu_share:
+	    	share();
+	    	return true;
 	    }
 	    return false;
 	}
@@ -319,6 +325,30 @@ public class MessageViewFragment extends GenericFragment
 		refreshMessageContents();
 	}
 	
+	private void share()
+	{
+		if (mSender != null & mBody != null)
+		{
+			Intent sendIntent = new Intent(Intent.ACTION_SEND);
+			sendIntent.setType("text/plain");
+			sendIntent.putExtra(Intent.EXTRA_TEXT,
+					getString(R.string.xbl_message_share_text, mSender, mBody));
+			
+			try
+			{
+				startActivity(Intent.createChooser(sendIntent, null));
+			}
+			catch(Exception e)
+			{
+				new AlertDialog.Builder(getActivity())
+						.setTitle(R.string.error)
+						.setMessage(R.string.error_sharing)
+						.setPositiveButton(R.string.close, null)
+						.show();
+			}
+		}
+	}
+	
 	private void refreshMessageContents()
 	{
 		View container = getView();
@@ -358,9 +388,10 @@ public class MessageViewFragment extends GenericFragment
 						if (c.moveToFirst())
 						{
 							mSender = c.getString(COLUMN_SENDER);
+							mBody = c.getString(COLUMN_BODY);
 							
 							String gamerpic = c.getString(COLUMN_GAMERPIC);
-							String body = c.getString(COLUMN_BODY);
+							String body = mBody; 
 							
 							if (body == null || body.length() < 1)
 								body = getString(R.string.no_text_in_message);

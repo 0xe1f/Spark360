@@ -121,6 +121,7 @@
 						android:paddingTop="5dp"
 						android:paddingBottom="5dp"
 						android:textAppearance="@style/TextAppearance.messageBody" 
+						android:textIsSelectable="true"
 					/>
 				</LinearLayout>
 			</FrameLayout>
