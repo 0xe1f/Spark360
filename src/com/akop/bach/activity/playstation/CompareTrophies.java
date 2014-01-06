@@ -1,6 +1,6 @@
 /*
  * CompareTrophies.java 
- * Copyright (C) 2010-2013 Akop Karapetyan
+ * Copyright (C) 2010-2014 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
  *

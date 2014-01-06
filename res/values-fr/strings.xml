@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  
  - values-fr/strings.xml
- - Copyright (C) 2010-2013 Akop Karapetyan
+ - Copyright (C) 2010-2014 Akop Karapetyan
  -                         Pierre-Alexandre Emmanuelli
  -
  - This file is part of Spark 360, the online gaming service client.
@@ -110,7 +110,7 @@
     
     <string name="app_name">Spark 360</string>
     <string name="app_version_format">version %1$s</string>
-    <string name="app_by">2010–2012 Akop Karapetyan</string>
+    <string name="app_by">2010&#8211;2014 Akop Karapetyan</string>
     <string name="app_website">http://www.spark360app.com/</string>
     <string name="app_ownership">Cette application n\'est pas produite, ni approuvées, ni affiliée à Microsoft Corporation. Microsoft, Xbox, Xbox Live, et les logos Xbox sont des marques déposées de Microsoft Corporation.\n\nCette application n\'est pas produite, ni approuvées, ni affiliée à l\'Entertainment Sony Computer, ou Sony Corporation. PLAYSTATION, PlayStation, et le PSN, sont des marques commerciales ou des marques déposées de Sony Computer Entertainment Inc</string>
     <string name="online">En ligne</string>

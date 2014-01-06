@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  
  - Manifest.xml
- - Copyright (C) 2010-2013 Akop Karapetyan
+ - Copyright (C) 2010-2014 Akop Karapetyan
  -
  - This file is part of Spark 360, the online gaming service client. 
  -
@@ -24,8 +24,8 @@
 <manifest 
     xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.akop.bach"
-	android:versionCode="116"
-	android:versionName="6.20"
+	android:versionCode="118"
+	android:versionName="6.25"
 >
     <uses-sdk 
         android:minSdkVersion="4"
