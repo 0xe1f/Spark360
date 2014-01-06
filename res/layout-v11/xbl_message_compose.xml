@@ -28,8 +28,6 @@
 	android:orientation="vertical"
 	style="@style/roundedPaneOuter"
 >
-    <include layout="@layout/xbl_ribbon_title" />
-    
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
@@ -38,37 +36,6 @@
 		android:paddingRight="0dp"
 		style="@style/roundedPaneInner"
 	>
-		<FrameLayout
-			android:id="@+id/button_section"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:background="@drawable/xbox_ribbon_bg2"
-		>
-			<RelativeLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:paddingTop="5dp"
-				android:background="@drawable/xbox_window_bottom"
-			>
-				<Button 
-					android:id="@+id/message_compose_send"
-					android:text="@string/send"
-					android:layout_height="wrap_content" 
-					android:layout_width="wrap_content"
-					android:minWidth="@dimen/button_minWidth" 
-					android:layout_alignParentLeft="true" 
-				/>
-				<Button 
-					android:id="@+id/message_compose_discard"
-					android:text="@android:string/cancel"
-					android:layout_height="wrap_content" 
-					android:layout_width="wrap_content"
-					android:minWidth="@dimen/button_minWidth" 
-					android:layout_alignParentRight="true" 
-				/>
-			</RelativeLayout>
-		</FrameLayout>
 		<LinearLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"

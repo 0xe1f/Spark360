@@ -1,6 +1,6 @@
 /*
  * MessageCompose.java 
- * Copyright (C) 2010-2013 Akop Karapetyan
+ * Copyright (C) 2010-2014 Akop Karapetyan
  *
  * This file is part of Spark 360, the online gaming service client.
  *
@@ -25,6 +25,7 @@ package com.akop.bach.activity.xboxlive;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,17 +52,13 @@ public class MessageCompose
 		extends RibbonedActivity
 		implements OnClickListener, TextWatcher
 {
-	private class ViewHolder
-	{
-		Button sendButton;
-		Button discardButton;
-		Button selectButton;
-		TextView messageBody;
-		TextView recipients;
-	}
+	private Button mSendButton;
+	private Button mDiscardButton;
+	private Button mSelectButton;
+	private TextView mMessageBody;
+	private TextView mRecipientView;
 	
-	private ViewHolder mView;
-	private ArrayList<String> mRecipients;
+	private ArrayList<String> mRecipientList;
 	
 	private class TaskHandler extends Handler
 	{
@@ -71,7 +70,8 @@ public class MessageCompose
 			switch (msg.what)
 			{
 			case MSG_ALLOW_EDITS:
-				mView.sendButton.setEnabled(msg.arg1 != 0);
+				if (mSendButton != null)
+					mSendButton.setEnabled(msg.arg1 != 0);
 				break;
 			default:
 				super.handleMessage(msg);
@@ -121,34 +121,55 @@ public class MessageCompose
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.xbl_message_compose);
 		
-		mRecipients = new ArrayList<String>();
+		mRecipientList = new ArrayList<String>();
 		
-		// Set up view holder
-		mView = new ViewHolder();
-		mView.sendButton = (Button)findViewById(R.id.message_compose_send);
-		mView.discardButton = (Button)findViewById(R.id.message_compose_discard);
-		mView.selectButton = (Button)findViewById(R.id.message_compose_select);
-		mView.messageBody = (TextView)findViewById(R.id.message_compose_body);
-		mView.recipients = (TextView)findViewById(R.id.message_compose_recipients);
+		mSendButton = (Button)findViewById(R.id.message_compose_send);
+		mDiscardButton = (Button)findViewById(R.id.message_compose_discard);
+		mSelectButton = (Button)findViewById(R.id.message_compose_select);
+		mMessageBody = (TextView)findViewById(R.id.message_compose_body);
+		mRecipientView = (TextView)findViewById(R.id.message_compose_recipients);
 		
-		mView.sendButton.setOnClickListener(this);
-		mView.discardButton.setOnClickListener(this);
-		mView.selectButton.setOnClickListener(this);
-		mView.messageBody.addTextChangedListener(this);
-		mView.recipients.setOnClickListener(this);
+		if (mSendButton != null)
+			mSendButton.setOnClickListener(this);
+		
+		if (mDiscardButton != null)
+			mDiscardButton.setOnClickListener(this);
+		
+		mSelectButton.setOnClickListener(this);
+		mMessageBody.addTextChangedListener(this);
+		mRecipientView.setOnClickListener(this);
 		
 		if (savedInstanceState != null)
-			mRecipients = savedInstanceState.getStringArrayList("recipients");
+			mRecipientList = savedInstanceState.getStringArrayList("recipients");
 		else
 		{
 			String recipient = getIntent().getStringExtra("recipient");
 			if (recipient != null)
-				mRecipients.add(recipient);
+				mRecipientList.add(recipient);
 			
 			String body = getIntent().getStringExtra("body");
 			if (body != null)
-				mView.messageBody.setText(body);
+				mMessageBody.setText(body);
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+		getMenuInflater().inflate(R.menu.xbl_message_compose, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	    switch (item.getItemId()) 
+	    {
+	    case R.id.menu_send:
+	    	sendMessage();
+	    	return true;
+	    }
+	    return false;
 	}
 	
 	@Override
@@ -156,7 +177,7 @@ public class MessageCompose
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putStringArrayList("recipients", mRecipients);
+		outState.putStringArrayList("recipients", mRecipientList);
 	}
 	
 	@Override
@@ -165,24 +186,10 @@ public class MessageCompose
 		switch (v.getId())
 		{
 		case R.id.message_compose_send:
-			{
-				String[] recipients = new String[mRecipients.size()];
-				
-				mRecipients.toArray(recipients);
-				mHandler.showToast(getString(R.string.message_queued_for_send));
-				
-				TaskController.getInstance().sendMessage(mAccount, 
-						recipients, 
-						mView.messageBody.getText().toString(), 
-						null,
-						mListener);
-				
-				setResult(RESULT_OK);
-				finish();
-			}
+			sendMessage();
 			break;
 		case R.id.message_compose_select:
-			MessageSelectRecipients.actionSelectFriends(this, mAccount, mRecipients);
+			MessageSelectRecipients.actionSelectFriends(this, mAccount, mRecipientList);
 			break;
 		case R.id.message_compose_discard:
 			setResult(RESULT_CANCELED);
@@ -190,25 +197,57 @@ public class MessageCompose
 			break;
 		}
 	}
-
+	
+	private void sendMessage()
+	{
+		String errorMessage = null;
+		if (mRecipientList.size() < 1)
+			errorMessage = getString(R.string.error_no_recipients);
+		else if (TextUtils.isEmpty(mMessageBody.getText()))
+			errorMessage = getString(R.string.error_no_message_body);
+		
+		if (errorMessage != null)
+		{
+			new AlertDialog.Builder(this)
+					.setMessage(errorMessage)
+					.setPositiveButton(R.string.close, null)
+					.show();
+			return;
+		}
+		
+		String[] recipients = new String[mRecipientList.size()];
+		
+		mRecipientList.toArray(recipients);
+		mHandler.showToast(getString(R.string.message_queued_for_send));
+		
+		TaskController.getInstance().sendMessage(mAccount, 
+				recipients, mMessageBody.getText().toString(), 
+				null, mListener);
+		
+		setResult(RESULT_OK);
+		finish();
+	}
+	
 	private void validate()
 	{
 		boolean valid = 
-			mView.messageBody.getText().toString().trim().length() > 0
-				&& mRecipients.size() > 0;
-		mView.sendButton.setEnabled(valid);
+			mMessageBody.getText().toString().trim().length() > 0
+				&& mRecipientList.size() > 0;
+		
+		if (mSendButton != null)
+			mSendButton.setEnabled(valid);
 	}
 	
 	private void refreshRecipients()
 	{
-		if (mRecipients.size() < 1)
+		if (mRecipientList.size() < 1)
 		{
-			mView.recipients.setText(R.string.select_recipients);
+			mRecipientView.setText(R.string.select_recipients);
 		}
 		else
 		{
-			mView.recipients.setText(getString(R.string.to_f, 
-					TextUtils.join(", ", mRecipients)));
+			mRecipientView.setText(getString(R.string.to_f, 
+					TextUtils.join(", ", mRecipientList)));
 		}
 	}
 	
@@ -252,7 +291,7 @@ public class MessageCompose
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (resultCode == RESULT_OK)
-			mRecipients = data.getStringArrayListExtra("selected");
+			mRecipientList = data.getStringArrayListExtra("selected");
 	}
 	
 	public static void actionComposeMessage(Context context, 
