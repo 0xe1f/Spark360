@@ -41,8 +41,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.PSN;
 import com.akop.bach.PSN.ComparedGameInfo;
 import com.akop.bach.PSN.ComparedTrophyInfo;
@@ -74,8 +74,7 @@ public class PsnEuParser
 		"https://secure.eu.playstation.com/sign-in/confirmation/";
 	
 	private static final String URL_PROFILE_SUMMARY =
-		"http://uk.playstation.com/psn/mypsn/trophies/";
-		//"https://secure.eu.playstation.com/psn/mypsn/trophies/";
+		"https://secure.eu.playstation.com/psn/mypsn/";
 	private static final String URL_GAMES = 
 		"http://uk.playstation.com/psn/mypsn/trophies/?sortBy=recent";
 		//"https://secure.eu.playstation.com/psn/mypsn/trophies/?sortBy=recent";
@@ -101,33 +100,26 @@ public class PsnEuParser
 	private static final String URL_GAME_CATALOG =
 		"http://uk.playstation.com/ajax/games-hub/";
 	
-	private static final Pattern PATTERN_LOGIN_REDIR_URL = Pattern
-			.compile("parent\\.location\\.href\\s*=\\s*\"/psn/mypsn/\"");
+	private static final Pattern PATTERN_SIGN_OUT_LINK = Pattern
+			.compile("data-aa-evt-name=\"sign out\"");
 	
 	private static final Pattern PATTERN_ONLINE_ID = Pattern
-			.compile("<span class=\"psnId\"[^>]*>([^<]*)</span>");
-	private static final Pattern PATTERN_LEVEL = Pattern
-			.compile("<p class=\"summary level\">\\s*(\\d+)\\s*</p>");
+			.compile("<div class=\"user-info\">\\s+<h2>\\s+(\\S+)\\s+</h2>\\s+<h3>\\s+<strong>");
+	
+	private static final Pattern PATTERN_INFOBAR_ITEM = Pattern
+			.compile("<div class=\"wrap\">\\s+<h4>[^<]+</h4>\\s+<div class=\"[^\"]+\"(?: style=\"[^\"]+\")?>\\s*([^<\\s]+)\\s*</div>");
+	
 	private static final Pattern PATTERN_PROGRESS = Pattern
-			.compile("<p class=\"percentage\">\\s*(\\d+)%\\s*</p>");
+			.compile("<div class=\"level-percentage\">\\s*(\\d+)\\s*<span>");
 	private static final Pattern PATTERN_AVATAR_URL = Pattern
-			.compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"\\s*/>",
+			.compile("<img alt=\"[^\"]+\" class=\"avatar\" src=\"([^\"]*)\"",
 					Pattern.DOTALL);
 	private static final Pattern PATTERN_COMPARE_AVATAR_URL = Pattern
 	        .compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"",
 	        		Pattern.DOTALL);
 	
 	private static final Pattern PATTERN_IS_PLUS = Pattern
-	        .compile("<div class=\"avatarPlayStationPlus\">");
-	
-	private static final Pattern PATTERN_TROPHIES_PLAT = Pattern
-			.compile("<strong id=\"flPlatinumTrophies\">(\\d+)\\s*</strong>");
-	private static final Pattern PATTERN_TROPHIES_GOLD = Pattern
-			.compile("<strong id=\"flGoldTrophies\">(\\d+)\\s*</strong>");
-	private static final Pattern PATTERN_TROPHIES_SILVER = Pattern
-			.compile("<strong id=\"flSilverTrophies\">(\\d+)\\s*</strong>");
-	private static final Pattern PATTERN_TROPHIES_BRONZE = Pattern
-			.compile("<strong id=\"flBronzeTrophies\">(\\d+)\\s*</strong>");
+	        .compile("<img\\s+alt=\"[^\"]+\"\\s+class=\"psp-logo\"");
 	
 	private static final Pattern PATTERN_GAMES_SECTION = Pattern.compile(
 			"<tbody>(.*?)</tbody>", Pattern.DOTALL);
@@ -262,7 +254,7 @@ public class PsnEuParser
 		params.setParameter("http.protocol.max-redirects", 1);
 		
 		// Get redirection URL
-		Matcher m = PATTERN_LOGIN_REDIR_URL.matcher(page);
+		Matcher m = PATTERN_SIGN_OUT_LINK.matcher(page);
 	    if (!m.find())
 	    {
 	    	if (App.getConfig().logToConsole())
@@ -304,25 +296,30 @@ public class PsnEuParser
 			memberType = PSN.MEMBER_TYPE_PLUS;
 		
 		int level = 0;
-		if ((m = PATTERN_LEVEL.matcher(page)).find())
-			level = Integer.parseInt(m.group(1));
+		int trophiesPlat = 0;
+		int trophiesGold = 0;
+		int trophiesSilver = 0;
+		int trophiesBronze = 0;
+		
+		Matcher infoBarMatcher = PATTERN_INFOBAR_ITEM.matcher(page);
+		for (int i = 0; infoBarMatcher.find(); i++)
+		{
+			int value = Integer.parseInt(infoBarMatcher.group(1));
+			if (i == 0)
+				level = value;
+			else if (i == 2)
+				trophiesBronze = value;
+			else if (i == 3)
+				trophiesSilver = value;
+			else if (i == 4)
+				trophiesGold = value;
+			else if (i == 5)
+				trophiesPlat = value;
+		}
 		
 		int progress = 0;
 		if ((m = PATTERN_PROGRESS.matcher(page)).find())
 			progress = Integer.parseInt(m.group(1));
-		
-		int trophiesPlat = 0;
-		if ((m = PATTERN_TROPHIES_PLAT.matcher(page)).find())
-			trophiesPlat = Integer.parseInt(m.group(1));
-		int trophiesGold = 0;
-		if ((m = PATTERN_TROPHIES_GOLD.matcher(page)).find())
-			trophiesGold = Integer.parseInt(m.group(1));
-		int trophiesSilver = 0;
-		if ((m = PATTERN_TROPHIES_SILVER.matcher(page)).find())
-			trophiesSilver = Integer.parseInt(m.group(1));
-		int trophiesBronze = 0;
-		if ((m = PATTERN_TROPHIES_BRONZE.matcher(page)).find())
-			trophiesBronze = Integer.parseInt(m.group(1));
 		
 		cv.put(Profiles.LEVEL, level);
 		cv.put(Profiles.MEMBER_TYPE, memberType);

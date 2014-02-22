@@ -28,12 +28,6 @@
 		android:icon="@drawable/ic_menu_refresh"
 		android:showAsAction="always"
 	/>
-	<item
-		android:id="@+id/menu_find_gamer" 
-		android:title="@string/find_psn_id"
-		android:icon="@drawable/ic_menu_goto"
-		android:showAsAction="ifRoom"
-	/>
     <item
         android:id="@+id/menu_search_friends" 
         android:title="@string/search_friends"

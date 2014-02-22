@@ -122,6 +122,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.akop.spark.xbl-profile" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.DELETE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.akop.bach.psn-profile" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.NewAccount"
                   android:label="@string/select_account_type"
