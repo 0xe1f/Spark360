@@ -428,5 +428,6 @@
 	-->
 	<!-- Need re-localization -->
 	<string name="notify_friends_online_f">%1$s a des amis connectés sur %3$s</string>
+	<string name="unlocked">Unlocked</string>
 	
 </resources>

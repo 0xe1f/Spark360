@@ -161,6 +161,7 @@
 	<string name="acquired_f">Unlocked %1$s</string>
 	<string name="acquired_offline">Unlocked</string>
 	<string name="locked">Locked</string>
+	<string name="unlocked">Unlocked</string>
 	<string name="achievements_of_f">%1$s Achievements</string>
 	<string name="achievements_unlocked">Achievements unlocked</string>
 	<string name="gamerscore_unlocked">Gamerscore unlocked</string>

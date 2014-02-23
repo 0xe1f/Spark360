@@ -162,6 +162,7 @@
     <string name="acquired_f">Entsperrt %1$s</string>
     <string name="acquired_offline">Entsperrt</string>
     <string name="locked">Gesperrt</string>
+    <string name="unlocked">Entsperrt</string>
     <string name="achievements_of_f">%1$s Erfolge</string>
     <string name="achievements_unlocked">Erfolge entsperrt</string>
     <string name="gamerscore_unlocked">Gamerscore entsperrt</string>

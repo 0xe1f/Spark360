@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 import org.apache.http.NameValuePair;
 import org.apache.http.params.HttpParams;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -76,11 +77,9 @@ public class PsnEuParser
 	private static final String URL_PROFILE_SUMMARY =
 		"https://secure.eu.playstation.com/psn/mypsn/";
 	private static final String URL_GAMES = 
-		"http://uk.playstation.com/psn/mypsn/trophies/?sortBy=recent";
-		//"https://secure.eu.playstation.com/psn/mypsn/trophies/?sortBy=recent";
+		"http://uk.playstation.com/psn/mypsn/ajax/trophies/?startIndex=%1$d&sortBy=recent";
 	private static final String URL_TROPHIES_f = 
 		"http://uk.playstation.com/psn/mypsn/trophies/detail/?title=%1$s";
-		//"https://secure.eu.playstation.com/psn/mypsn/trophies/detail/?title=%1$s";
 	private static final String URL_FRIENDS =
 		"http://uk.playstation.com/psn/mypsn/friends/";
 		//"https://secure.eu.playstation.com/psn/mypsn/friends/";
@@ -121,35 +120,30 @@ public class PsnEuParser
 	private static final Pattern PATTERN_IS_PLUS = Pattern
 	        .compile("<img\\s+alt=\"[^\"]+\"\\s+class=\"psp-logo\"");
 	
-	private static final Pattern PATTERN_GAMES_SECTION = Pattern.compile(
-			"<tbody>(.*?)</tbody>", Pattern.DOTALL);
 	private static final Pattern PATTERN_GAMES = Pattern.compile(
-			"<tr>(.*?)</tr>", Pattern.DOTALL);
+			"<li class=\"tile\">(.*?)</div>\\s+</li>", Pattern.DOTALL);
 	
 	private static final Pattern PATTERN_GAME_UID = Pattern
-			.compile("<a href=\"[^=]*=(\\d+)\">");
+			.compile("<a class=\"tile-link [^\"]+\" href=\"[^=]*=(\\d+)\">");
 	private static final Pattern PATTERN_GAME_PROGRESS = Pattern
-			.compile("<td class=\"col9[^\"]*\"[^>]*>(\\d+)%</td>");
+			.compile("<span>(\\d+)%</span>");
 	private static final Pattern PATTERN_GAME_TROPHIES = Pattern
-			.compile("<td class=\"col[3456] trophies[^\"]*\"[^>]*>(\\d+)</td>");
+			.compile("<li class=\"([^\"]+)\">([^<]+)</li>");
 	private static final Pattern PATTERN_GAME_TITLE = Pattern
-			.compile("<strong>([^<]*)</strong>");
+			.compile("<h2 class=\"clearfix title\">\\s+(\\S[^\\n\\r]+)\\r?\\n\\s+</h2>");
 	private static final Pattern PATTERN_GAME_ICON = Pattern
 			.compile("<img src=\"([^\"]*)\"");
+	private static final Pattern PATTERN_GAME_MORE = Pattern
+			.compile("class=\"more-link\">");
 	
 	private static final Pattern PATTERN_TROPHIES = Pattern.compile(
-			"<div class=\"gameLevelListItem\">(.*?)</div>\\s*</div>\\s*</div>", 
-			Pattern.DOTALL);
+			"<tr>\\s+<td class=\"trophy-unlocked-([^\"]+)\">(.*?)</tr>", Pattern.DOTALL);
 	private static final Pattern PATTERN_TROPHY_TITLE = Pattern.compile(
-			"<p class=\"title\">([^<]*)</p>");
+			"<h1 class=\"trophy_name ([^\"]+)\">\\s+(\\S[^\\n\\r]+)\\r?\\n\\s+</h1>");
 	private static final Pattern PATTERN_TROPHY_DESCRIPTION = Pattern.compile(
-			"<p>([^<]*)</p>");
+			"<h2>\\s+(\\S[^\\n\\r]+)\\r?\\n\\s+</h2>");
 	private static final Pattern PATTERN_TROPHY_ICON = Pattern.compile(
-			"src=\"([^\"]*)\"");
-	private static final Pattern PATTERN_TROPHY_TYPE = Pattern
-			.compile("<div class=\"gameLevelTrophyType\"><img src=\"(?:/[a-z]+)+/icon_trophy_(?:compare_)?([a-z]+)(?:_sm)?\\.gif\"");
-	private static final Pattern PATTERN_TROPHY_ATTAINED = Pattern
-			.compile("<p class=\"date\">([^<]*)</p>");
+			"<img src=\"([^\"]*)\"");
 	
 	private static final Pattern PATTERN_FRIENDS = Pattern.compile(
 			"<psn_friend>(.*?)</psn_friend>", Pattern.DOTALL);
@@ -342,178 +336,178 @@ public class PsnEuParser
 		return cv;
 	}
 	
+	private boolean parseGamePage(int startIndex, String page, List<ContentValues> cvList)
+	{
+		Matcher m;
+		Matcher gameMatcher = PATTERN_GAMES.matcher(page);
+		
+		for (int i = 0; gameMatcher.find(); i++)
+		{
+			String gameContent = gameMatcher.group(1);
+			
+			String gameUid;
+			int gameProgress;
+			String gameTitle = null;
+			String gameIcon = null;
+			
+			int bronze = 0;
+			int silver = 0;
+			int gold = 0;
+			int platinum = 0;
+			
+			if (!(m = PATTERN_GAME_TROPHIES.matcher(gameContent)).find())
+				continue;
+			
+			bronze = Integer.parseInt(m.group(2));
+				
+			if (!m.find())
+				continue;
+			
+			silver = Integer.parseInt(m.group(2));
+			
+			if (!m.find())
+				continue;
+			
+			gold = Integer.parseInt(m.group(2));
+			
+			if (!m.find())
+				continue;
+			
+			platinum = Integer.parseInt(m.group(2));
+			
+	        m = PATTERN_GAME_UID.matcher(gameContent);
+	        if (!m.find())
+	        	continue;
+	        
+    		gameUid = m.group(1);
+	        
+	        m = PATTERN_GAME_PROGRESS.matcher(gameContent);
+	        if (!m.find())
+	        	continue;
+	        
+    		gameProgress = Integer.parseInt(m.group(1));
+        	
+	        m = PATTERN_GAME_TITLE.matcher(gameContent);
+	        if (m.find())
+	        	gameTitle = htmlDecode(m.group(1));
+	        
+	        m = PATTERN_GAME_ICON.matcher(gameContent);
+	        if (m.find())
+	        	gameIcon = getLargeTrophyIcon(resolveImageUrl(URL_GAMES, m.group(1)));
+	        
+			ContentValues cv = new ContentValues(15);
+			
+            cv.put(Games.TITLE, gameTitle);
+            cv.put(Games.UID, gameUid);
+            cv.put(Games.ICON_URL, gameIcon);
+            cv.put(Games.PROGRESS, gameProgress);
+            cv.put(Games.SORT_ORDER, i + startIndex);
+			cv.put(Games.UNLOCKED_PLATINUM, platinum);
+			cv.put(Games.UNLOCKED_GOLD, gold);
+			cv.put(Games.UNLOCKED_SILVER, silver);
+			cv.put(Games.UNLOCKED_BRONZE, bronze);
+			App.logv(gameTitle);
+			cvList.add(cv);
+		}
+		
+        return PATTERN_GAME_MORE.matcher(page).find();
+	}
+	
+	@SuppressLint("DefaultLocale")
 	@Override
 	protected void parseGames(PsnAccount account)
 			throws ParserException, IOException
 	{
-		String page = getResponse(URL_GAMES);
+		long started = System.currentTimeMillis();
+		boolean keepGoing = true;
+		List<ContentValues> cvList = new ArrayList<ContentValues>();
 		
-		ContentResolver cr = mContext.getContentResolver();
-		boolean changed = false;
-		long updated = System.currentTimeMillis();
-		Cursor c;
-		String[] queryParams = new String[1];
+		for (int startIndex = 0; keepGoing; startIndex += 16)
+		{
+			String url = String.format(URL_GAMES, startIndex);
+			String page = getResponse(url);
+			
+			keepGoing = parseGamePage(startIndex, page, cvList);
+		}
+		
 		final long accountId = account.getId();
-		ContentValues cv;
+		ContentResolver cr = mContext.getContentResolver();
+		String[] queryParams = new String[1];
+		Cursor c;
+		long updated = System.currentTimeMillis();
 		List<ContentValues> newCvs = new ArrayList<ContentValues>(100);
 		
-        long started = System.currentTimeMillis();
-        Matcher m = PATTERN_GAMES_SECTION.matcher(page);
-        if (m.find())
-        {
-        	String gamesSection = m.group(1);
-    		Matcher gameMatcher = PATTERN_GAMES.matcher(gamesSection);
-    		
-    		for (int rowNo = 1; gameMatcher.find(); rowNo++)
-    		{
-    			String game = gameMatcher.group(1);
-    			
-    			if (!(m = PATTERN_GAME_UID.matcher(game)).find())
-    				continue;
-    			
-    			String uid = m.group(1);
-    			
-    			int progress = 0;
-    			if ((m = PATTERN_GAME_PROGRESS.matcher(game)).find())
-    				progress = Integer.parseInt(m.group(1));
-    			
-    			int bronze = 0;
-    			int silver = 0;
-    			int gold = 0;
-    			int platinum = 0;
-    			
-    			if ((m = PATTERN_GAME_TROPHIES.matcher(game)).find())
-    			{
-    				bronze = Integer.parseInt(m.group(1));
-    				
-    				if (m.find())
-    				{
-    					silver = Integer.parseInt(m.group(1));
-    					
-    					if (m.find())
-    					{
-    						gold = Integer.parseInt(m.group(1));
-    						
-    						if (m.find())
-    						{
-    							platinum = Integer.parseInt(m.group(1));
-    						}
-    					}
-    				}
-    			}
-    			
-    			// Check to see if we already have a record of this game
-    			queryParams[0] = uid;
-    			c = cr.query(Games.CONTENT_URI, GAMES_PROJECTION, Games.ACCOUNT_ID
-    					+ "=" + accountId + " AND " + Games.UID + "=?",
-    					queryParams, null);
-    			
-            	changed = true;
-            	
-    			try
-    			{
-    		        if (c == null || !c.moveToFirst()) // New game
-    		        {
-    					String title = "";
-    					if ((m = PATTERN_GAME_TITLE.matcher(game)).find())
-    						title = htmlDecode(m.group(1));
-    					
-    					String iconUrl = null;
-						if ((m = PATTERN_GAME_ICON.matcher(game)).find())
-							iconUrl = getLargeTrophyIcon(resolveImageUrl(
-									URL_GAMES, m.group(1)));
-    					
-    					cv = new ContentValues(15);
-    					
-    	                cv.put(Games.ACCOUNT_ID, accountId);
-    	                cv.put(Games.TITLE, title);
-    	                cv.put(Games.UID, uid);
-    	                cv.put(Games.ICON_URL, iconUrl);
-    	                cv.put(Games.PROGRESS, progress);
-    	                cv.put(Games.SORT_ORDER, rowNo);
-    	    			cv.put(Games.UNLOCKED_PLATINUM, platinum);
-    	    			cv.put(Games.UNLOCKED_GOLD, gold);
-    	    			cv.put(Games.UNLOCKED_SILVER, silver);
-    	    			cv.put(Games.UNLOCKED_BRONZE, bronze);
-    					cv.put(Games.TROPHIES_DIRTY, 1);
-    					cv.put(Games.LAST_UPDATED, updated);
-    					
-    	                newCvs.add(cv);
-    		        }
-    		        else // Existing game
-    		        {
-    		        	boolean isDirty = false;
-    		        	long gameId = c.getLong(COLUMN_GAME_ID);
-    		        	
-    		        	cv = new ContentValues(15);
-    		        	
-    		        	if (c.getInt(COLUMN_GAME_PROGRESS) != progress)
-    		        	{
-    		        		isDirty = true;
-    		        		cv.put(Games.PROGRESS, progress);
-    		        	}
-    		        	if (c.getInt(COLUMN_GAME_BRONZE) != bronze)
-    		        	{
-    		        		isDirty = true;
-    		        		cv.put(Games.UNLOCKED_BRONZE, bronze);
-    		        	}
-    		        	if (c.getInt(COLUMN_GAME_SILVER) != silver)
-    		        	{
-    		        		isDirty = true;
-    		        		cv.put(Games.UNLOCKED_SILVER, silver);
-    		        	}
-    		        	if (c.getInt(COLUMN_GAME_GOLD) != gold)
-    		        	{
-    		        		isDirty = true;
-    		        		cv.put(Games.UNLOCKED_GOLD, gold);
-    		        	}
-    		        	if (c.getInt(COLUMN_GAME_PLATINUM) != platinum)
-    		        	{
-    		        		isDirty = true;
-    		        		cv.put(Games.UNLOCKED_PLATINUM, platinum);
-    		        	}
-    		        	
-    		        	if (isDirty)
-    		        		cv.put(Games.TROPHIES_DIRTY, 1);
-    		        	
-    	        		cv.put(Games.SORT_ORDER, rowNo);
-    	        		cv.put(Games.LAST_UPDATED, updated);
-    	        		
-    					cr.update(Games.CONTENT_URI, cv, Games._ID + "=" + gameId, null);
-    		        }
-    			}
-    			finally
-    			{
-    	        	if (c != null)
-    	        		c.close();
-    			}
-    		}
-    		
-    		if (App.getConfig().logToConsole())
-    			started = displayTimeTaken("Game page processing", started);
-    		
-    		if (newCvs.size() > 0)
-    		{
-    			changed = true;
-    			
-    			ContentValues[] cvs = new ContentValues[newCvs.size()];
-    			newCvs.toArray(cvs);
-    			
-    			cr.bulkInsert(Games.CONTENT_URI, cvs);
-    			
-    			if (App.getConfig().logToConsole())
-    				displayTimeTaken("Game page insertion", started);
-    		}
-    		
-    		account.refresh(Preferences.get(mContext));
-    		account.setLastGameUpdate(System.currentTimeMillis());
-    		account.save(Preferences.get(mContext));
-    		
-    		if (changed)
-    			cr.notifyChange(Games.CONTENT_URI, null);
-        }
+		// Check to see if we already have a record of this game
+		for (ContentValues cv: cvList)
+		{
+			queryParams[0] = cv.getAsString(Games.UID);
+			c = cr.query(Games.CONTENT_URI, GAMES_PROJECTION, Games.ACCOUNT_ID
+					+ "=" + accountId + " AND " + Games.UID + "=?",
+					queryParams, null);
+			
+			try
+			{
+		        if (c == null || !c.moveToFirst()) // New game
+		        {
+	                cv.put(Games.ACCOUNT_ID, accountId);
+					cv.put(Games.TROPHIES_DIRTY, 1);
+					cv.put(Games.LAST_UPDATED, updated);
+					
+	                newCvs.add(cv);
+		        }
+		        else // Existing game
+		        {
+		        	boolean isDirty = false;
+		        	long gameId = c.getLong(COLUMN_GAME_ID);
+		        	
+		        	if (c.getInt(COLUMN_GAME_PROGRESS) != cv.getAsInteger(Games.PROGRESS))
+		        		isDirty = true;
+		        	if (c.getInt(COLUMN_GAME_BRONZE) != cv.getAsInteger(Games.UNLOCKED_BRONZE))
+		        		isDirty = true;
+		        	if (c.getInt(COLUMN_GAME_SILVER) != cv.getAsInteger(Games.UNLOCKED_SILVER))
+		        		isDirty = true;
+		        	if (c.getInt(COLUMN_GAME_GOLD) != cv.getAsInteger(Games.UNLOCKED_GOLD))
+		        		isDirty = true;
+		        	if (c.getInt(COLUMN_GAME_PLATINUM) != cv.getAsInteger(Games.UNLOCKED_PLATINUM))
+		        		isDirty = true;
+		        	
+		        	if (isDirty)
+		        		cv.put(Games.TROPHIES_DIRTY, 1);
+		        	
+	        		cv.put(Games.LAST_UPDATED, updated);
+	        		
+					cr.update(Games.CONTENT_URI, cv, Games._ID + "=" + gameId, null);
+		        }
+			}
+			finally
+			{
+	        	if (c != null)
+	        		c.close();
+			}
+		}
+		
+		if (App.getConfig().logToConsole())
+			started = displayTimeTaken("Game page processing", started);
+		
+		if (newCvs.size() > 0)
+		{
+			ContentValues[] cvs = new ContentValues[newCvs.size()];
+			newCvs.toArray(cvs);
+			
+			cr.bulkInsert(Games.CONTENT_URI, cvs);
+			
+			if (App.getConfig().logToConsole())
+				displayTimeTaken("Game page insertion", started);
+		}
+		
+		account.refresh(Preferences.get(mContext));
+		account.setLastGameUpdate(System.currentTimeMillis());
+		account.save(Preferences.get(mContext));
+		
+		cr.notifyChange(Games.CONTENT_URI, null);
 	}
 	
+	@SuppressLint("DefaultLocale")
 	@Override
 	protected void parseTrophies(PsnAccount account, long gameId)
 			throws ParserException, IOException
@@ -535,50 +529,55 @@ public class PsnEuParser
 		List<ContentValues> cvList = new ArrayList<ContentValues>(100);
 		while (trophies.find())
 		{
-			String trophyRow = trophies.group(1);
+			boolean trophyUnlocked = "true".equalsIgnoreCase(trophies.group(1));
+			String trophyContent = trophies.group(2);
 			
 			String iconUrl = null;
-			if ((m = PATTERN_TROPHY_ICON.matcher(trophyRow)).find())
+			if ((m = PATTERN_TROPHY_ICON.matcher(trophyContent)).find())
 				iconUrl = getLargeTrophyIcon(resolveImageUrl(url, m.group(1)));
-			
-			int type = 0;
-			boolean isSecret = false;
-			if ((m = PATTERN_TROPHY_TYPE.matcher(trophyRow)).find())
-			{
-				String trophyType = m.group(1).toUpperCase();
-				if (trophyType.equals("BRONZE"))
-					type = PSN.TROPHY_BRONZE;
-				else if (trophyType.equals("SILVER"))
-					type = PSN.TROPHY_SILVER;
-				else if (trophyType.equals("GOLD"))
-					type = PSN.TROPHY_GOLD;
-				else if (trophyType.equals("PLATINUM"))
-					type = PSN.TROPHY_PLATINUM;
-				else if (trophyType.equals("HIDDEN"))
-					isSecret = true;
-			}
 			
 			String title = mContext.getString(R.string.secret_trophy);
 			String description = mContext.getString(R.string.this_is_a_secret_trophy);
 			
+			if (!(m = PATTERN_TROPHY_TITLE.matcher(trophyContent)).find())
+				continue;
+			
+			int type = PSN.TROPHY_SECRET;
+			boolean isSecret = false;
+			String trophyType = m.group(1).toUpperCase();
+			if (trophyType.equals("BRONZE"))
+				type = PSN.TROPHY_BRONZE;
+			else if (trophyType.equals("SILVER"))
+				type = PSN.TROPHY_SILVER;
+			else if (trophyType.equals("GOLD"))
+				type = PSN.TROPHY_GOLD;
+			else if (trophyType.equals("PLATINUM"))
+				type = PSN.TROPHY_PLATINUM;
+			else if (trophyType.equals("UNKNOWN"))
+				isSecret = true;
+			
 			if (!isSecret)
 			{
-				if ((m = PATTERN_TROPHY_TITLE.matcher(trophyRow)).find())
-					title = htmlDecode(m.group(1));
-				if ((m = PATTERN_TROPHY_DESCRIPTION.matcher(trophyRow)).find())
+				title = htmlDecode(m.group(2));
+				if ((m = PATTERN_TROPHY_DESCRIPTION.matcher(trophyContent)).find())
 					description = htmlDecode(m.group(1));
 			}
 			
+			long earned = 0;
 			String earnedText = null;
-			if ((m = PATTERN_TROPHY_ATTAINED.matcher(trophyRow)).find())
-				earnedText = truncateAttainmentDate(m.group(1));
+			if (trophyUnlocked)
+			{
+				// No more date info
+				earned = System.currentTimeMillis();
+				earnedText = mContext.getString(R.string.unlocked);
+			}
 			
 			ContentValues cv = new ContentValues(20);
 			
 			cv.put(Trophies.TITLE, title);
 			cv.put(Trophies.DESCRIPTION, description);
 			cv.put(Trophies.SORT_ORDER, index);
-			cv.put(Trophies.EARNED, parseRelativeDate(earnedText));
+			cv.put(Trophies.EARNED, earned);
 			cv.put(Trophies.EARNED_TEXT, earnedText);
 			cv.put(Trophies.ICON_URL, iconUrl);
 			cv.put(Trophies.GAME_ID, gameId);
@@ -1205,7 +1204,7 @@ public class PsnEuParser
 			Matcher m;
 			
 			int type = 0;
-			if ((m = PATTERN_TROPHY_TYPE.matcher(trophyRow)).find())
+			if (false) // FIXME (m = PATTERN_TROPHY_TYPE.matcher(trophyRow)).find())
 			{
 				String trophyType = m.group(1).toUpperCase();
 				if (trophyType.equals("BRONZE"))
@@ -1249,24 +1248,25 @@ public class PsnEuParser
 			m = PATTERN_COMPARED_TROPHY_PERSON.matcher(trophyRow);
 			if (m.find())
 			{
-				Matcher m2;
-				m2 = PATTERN_TROPHY_ATTAINED.matcher(m.group(1)); 
-				if (m2.find())
-				{
-					selfEarned = truncateAttainmentDate(m2.group(1));
-					isLocked = false;
-				}
-				else
-					selfEarned = mContext.getString(R.string.trophy_locked);
-				
-				if (m.find())
-				{
-					m2 = PATTERN_TROPHY_ATTAINED.matcher(m.group(1)); 
-					if (m2.find())
-						oppEarned = truncateAttainmentDate(m2.group(1));
-					else
-						oppEarned = mContext.getString(R.string.trophy_locked);
-				}
+				// FIXME
+//				Matcher m2;
+//				m2 = PATTERN_TROPHY_ATTAINED.matcher(m.group(1)); 
+//				if (m2.find())
+//				{
+//					selfEarned = truncateAttainmentDate(m2.group(1));
+//					isLocked = false;
+//				}
+//				else
+//					selfEarned = mContext.getString(R.string.trophy_locked);
+//				
+//				if (m.find())
+//				{
+//					m2 = PATTERN_TROPHY_ATTAINED.matcher(m.group(1)); 
+//					if (m2.find())
+//						oppEarned = truncateAttainmentDate(m2.group(1));
+//					else
+//						oppEarned = mContext.getString(R.string.trophy_locked);
+//				}
 			}
 			
 			cti.cursor.addItem(title, description, iconUrl, type, 
