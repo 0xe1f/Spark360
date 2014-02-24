@@ -87,8 +87,7 @@ public class PsnEuParser
 		"http://uk.playstation.com/ajax/mypsn/friend/presence/";
 		//"https://secure.eu.playstation.com/ajax/mypsn/friend/presence/";
 	private static final String URL_COMPARE_GAMES_f =
-		"http://uk.playstation.com/psn/mypsn/trophies-compare/?friend=%1$s&mode=ALL";
-		//"https://secure.eu.playstation.com/psn/mypsn/trophies-compare/?friend=%1$s&mode=ALL";
+		"http://uk.playstation.com/psn/mypsn/ajax/trophies-compare/friend/add/?onlineid=%s&endIndex=999&sortBy=recent";
 	private static final String URL_COMPARE_TROPHIES_f =
 		"http://uk.playstation.com/psn/mypsn/trophies-compare/detail/?title=%1$s&friend=%2$s";
 		//"https://secure.eu.playstation.com/psn/mypsn/trophies-compare/detail/?title=%1$s&friend=%2$s";
@@ -113,9 +112,6 @@ public class PsnEuParser
 	private static final Pattern PATTERN_AVATAR_URL = Pattern
 			.compile("<img alt=\"[^\"]+\" class=\"avatar\" src=\"([^\"]*)\"",
 					Pattern.DOTALL);
-	private static final Pattern PATTERN_COMPARE_AVATAR_URL = Pattern
-	        .compile("<div class=\"psnAvatar\"[^>]*>.*?<img src=\"([^\"]*)\"",
-	        		Pattern.DOTALL);
 	
 	private static final Pattern PATTERN_IS_PLUS = Pattern
 	        .compile("<img\\s+alt=\"[^\"]+\"\\s+class=\"psp-logo\"");
@@ -182,12 +178,24 @@ public class PsnEuParser
 			.compile("<strong id=\"fl(Bronze|Silver|Gold|Platinum)Trophies\">(\\d+)\\s*</strong>");
 	private static final Pattern PATTERN_FRIEND_SUMMARY_IS_PLUS = Pattern
 		    .compile("<div class=\"avatarPlayStationPlus\">");
-
-	private static final Pattern PATTERN_COMPARED_GAMES_SECTION = Pattern.compile(
-			"<tbody>(.*?)</tbody>", Pattern.DOTALL);
+	
 	private static final Pattern PATTERN_COMPARED_GAMES = Pattern.compile(
-			"<tr>(.*?)</tr>\\s*<tr>(.*?)</tr>\\s*<tr>(.*?)</tr>", 
+			"<tr id=\"([^\"]+)\" data-ajax-endcount=\"[^\"]*\">(.*?)</tr>", 
 			Pattern.DOTALL);
+	private static final Pattern PATTERN_COMPARE_GAME_TITLE = Pattern
+			.compile("</span>\\s+(\\S[^\\n\\r]+)\\r?\\n\\s+</div>\\s+</a>");
+	private static final Pattern PATTERN_COMPARE_GAME_ICON = Pattern
+			.compile("<div class=\"img-bkg\" style=\"background-image:url\\('([^']*)'");
+	private static final Pattern PATTERN_COMPARE_USERNAME = Pattern
+			.compile("<h4 class=\"user-name\">([^<]*)<span>");
+	private static final Pattern PATTERN_COMPARE_AVATAR_URL = Pattern
+	        .compile("<img class=\"avatar-image\" src=\"([^\"]+)\"");
+	private static final Pattern PATTERN_COMPARE_GAME_PLAYER = Pattern
+	        .compile("<td>(.*?)</td>", Pattern.DOTALL);
+	private static final Pattern PATTERN_COMPARE_GAME_TROPHIES = Pattern
+	        .compile("<li>(\\d+)</li>");
+	private static final Pattern PATTERN_COMPARE_GAME_PROGRESS = Pattern
+	        .compile("<span>(\\d+)%</span>");
 	
 	private static final Pattern PATTERN_COMPARED_TROPHIES = Pattern.compile(
 			"<div class=\"gameLevelListRow\">(.*?<div class=\"gameLevelListItemCompare\"[^>]*>(?:.*?)</div>\\s*<div class=\"gameLevelListItemCompare\"[^>]*>(?:.*?)</div>)\\s*</div>", 
@@ -615,6 +623,7 @@ public class PsnEuParser
 			displayTimeTaken("Updating Game", started);
 	}
 	
+	@SuppressLint("DefaultLocale")
 	@Override
 	protected void parseFriends(PsnAccount account)
 			throws ParserException, IOException
@@ -865,6 +874,7 @@ public class PsnEuParser
 		}
 	}
 	
+	@SuppressLint("DefaultLocale")
 	@Override
 	protected void parseFriendSummary(PsnAccount account, String friendOnlineId)
 			throws ParserException, IOException
@@ -1057,9 +1067,9 @@ public class PsnEuParser
 	
 	@Override
 	protected ComparedGameInfo parseCompareGames(PsnAccount account,
-			String friendId)
-			throws ParserException, IOException
+			String friendId) throws ParserException, IOException
 	{
+		// Request comparison
 		String comparePage = getResponse(String.format(URL_COMPARE_GAMES_f, 
 				URLEncoder.encode(friendId, "UTF-8")));
 		
@@ -1069,111 +1079,134 @@ public class PsnEuParser
 	    cgi.myAvatarIconUrl = account.getIconUrl();
 	    
 		Matcher m;
-		if ((m = PATTERN_COMPARE_AVATAR_URL.matcher(comparePage)).find())
+		
+		int friendIndex = 1;
+		
+		// Determine the column index of the friend
+		m = PATTERN_COMPARE_USERNAME.matcher(comparePage);
+		for (int i = 0; m.find(); i++)
 		{
-			if (m.find()) // Need second match
+			String userName = m.group(1);
+			if (userName.equalsIgnoreCase(friendId))
 			{
-				cgi.yourAvatarIconUrl = getLargeAvatarIcon(resolveImageUrl(URL_PROFILE_SUMMARY,
-						m.group(1)));
+				friendIndex = i;
+				break;
 			}
 		}
 		
-		Matcher sectionMatcher = PATTERN_COMPARED_GAMES_SECTION.matcher(comparePage);
-		if (sectionMatcher.find())
+		m = PATTERN_COMPARE_AVATAR_URL.matcher(comparePage);
+		for (int i = 0; i < friendIndex; i++)
+			m.find(); // Skip to needed column
+		
+		if (m.find())
+			cgi.yourAvatarIconUrl = getLargeAvatarIcon(resolveImageUrl(URL_PROFILE_SUMMARY,
+					m.group(1)));
+		
+		Matcher rowMatcher = PATTERN_COMPARED_GAMES.matcher(comparePage);
+		while (rowMatcher.find())
 		{
-			Matcher rowMatcher = PATTERN_COMPARED_GAMES.matcher(sectionMatcher.group(1));
-			while (rowMatcher.find())
+			String uid = rowMatcher.group(1);
+			String gameContent = rowMatcher.group(2);
+			
+			String title = null;
+			String iconUrl = null;
+			
+			int selfPlatinum = 0;
+			int selfGold = 0;
+			int selfSilver = 0;
+			int selfBronze = 0;
+			int selfProgress = 0;
+			boolean selfPlayed = false;
+			
+			int oppPlatinum = 0;
+			int oppGold = 0;
+			int oppSilver = 0;
+			int oppBronze = 0;
+			int oppProgress = 0;
+			boolean oppPlayed = false;
+			
+			if ((m = PATTERN_COMPARE_GAME_TITLE.matcher(gameContent)).find())
+				title = htmlDecode(m.group(1));
+			
+			if ((m = PATTERN_COMPARE_GAME_ICON.matcher(gameContent)).find())
+				iconUrl = getLargeTrophyIcon(resolveImageUrl(URL_COMPARE_GAMES_f, 
+						m.group(1)));
+			
+			Matcher playerMatcher = PATTERN_COMPARE_GAME_PLAYER.matcher(gameContent);
+			if (playerMatcher.find())
 			{
-				String dataRow = rowMatcher.group(1);
-				String myRow = rowMatcher.group(2);
-				String oppRow = rowMatcher.group(3);
+				// Skip the first (game data)
 				
-				if (!(m = PATTERN_GAME_UID.matcher(dataRow)).find())
-					continue;
-				
-				String uid = m.group(1);
-				String title = null;
-				String iconUrl = null;
-				
-				int selfPlatinum = 0;
-				int selfGold = 0;
-				int selfSilver = 0;
-				int selfBronze = 0;
-				int selfProgress = 0;
-				boolean selfPlayed = false;
-				
-				if ((m = PATTERN_GAME_TITLE.matcher(dataRow)).find())
-					title = htmlDecode(m.group(1));
-				
-				if ((m = PATTERN_GAME_ICON.matcher(dataRow)).find())
-					iconUrl = getLargeTrophyIcon(resolveImageUrl(
-									URL_COMPARE_GAMES_f, m.group(1)));
-				
-				// "My" data
-				if ((m = PATTERN_GAME_PROGRESS.matcher(myRow)).find())
+				if (playerMatcher.find())
 				{
-					selfPlayed = true;
-					selfProgress = Integer.parseInt(m.group(1));
+					// Account owner
+					String playerContent = playerMatcher.group(1);
 					
-	    			if ((m = PATTERN_GAME_TROPHIES.matcher(myRow)).find())
-	    			{
-	    				selfBronze = Integer.parseInt(m.group(1));
-	    				
-	    				if (m.find())
-	    				{
-	    					selfSilver = Integer.parseInt(m.group(1));
-	    					
-	    					if (m.find())
-	    					{
-	    						selfGold = Integer.parseInt(m.group(1));
-	    						
-	    						if (m.find())
-	    						{
-	    							selfPlatinum = Integer.parseInt(m.group(1));
-	    						}
-	    					}
-	    				}
-	    			}
+					m = PATTERN_COMPARE_GAME_PROGRESS.matcher(playerContent);
+					if (m.find())
+					{
+						selfPlayed = true;
+						selfProgress = Integer.parseInt(m.group(1));
+						
+						m = PATTERN_COMPARE_GAME_TROPHIES.matcher(playerContent);
+						if (m.find())
+						{
+							selfBronze = Integer.parseInt(m.group(1));
+							if (m.find())
+							{
+								selfSilver = Integer.parseInt(m.group(1));
+								if (m.find())
+								{
+									selfGold = Integer.parseInt(m.group(1));
+									if (m.find())
+									{
+										selfPlatinum  = Integer.parseInt(m.group(1));
+									}
+								}
+							}
+						}
+					}
 				}
 				
-				int oppPlatinum = 0;
-				int oppGold = 0;
-				int oppSilver = 0;
-				int oppBronze = 0;
-				int oppProgress = 0;
-				boolean oppPlayed = false;
+				boolean found = false;
+				for (int i = 0; i < friendIndex; i++)
+					found = playerMatcher.find(); // Skip to needed column
 				
-				// Opp. data
-				if ((m = PATTERN_GAME_PROGRESS.matcher(oppRow)).find())
+				if (found)
 				{
-					oppPlayed = true;
-					oppProgress = Integer.parseInt(m.group(1));
+					// Opponent
+					String oppContent = playerMatcher.group(1);
 					
-	    			if ((m = PATTERN_GAME_TROPHIES.matcher(oppRow)).find())
-	    			{
-	    				oppBronze = Integer.parseInt(m.group(1));
-	    				
-	    				if (m.find())
-	    				{
-	    					oppSilver = Integer.parseInt(m.group(1));
-	    					
-	    					if (m.find())
-	    					{
-	    						oppGold = Integer.parseInt(m.group(1));
-	    						
-	    						if (m.find())
-	    						{
-	    							oppPlatinum = Integer.parseInt(m.group(1));
-	    						}
-	    					}
-	    				}
-	    			}
+					m = PATTERN_COMPARE_GAME_PROGRESS.matcher(oppContent);
+					if (m.find())
+					{
+						oppPlayed = true;
+						oppProgress = Integer.parseInt(m.group(1));
+						
+						m = PATTERN_COMPARE_GAME_TROPHIES.matcher(oppContent);
+						if (m.find())
+						{
+							oppBronze = Integer.parseInt(m.group(1));
+							if (m.find())
+							{
+								oppSilver = Integer.parseInt(m.group(1));
+								if (m.find())
+								{
+									oppGold = Integer.parseInt(m.group(1));
+									if (m.find())
+									{
+										oppPlatinum  = Integer.parseInt(m.group(1));
+									}
+								}
+							}
+						}
+					}
 				}
-				
-				cgi.cursor.addItem(uid, title, iconUrl, 
-						selfPlayed, selfPlatinum, selfGold, selfSilver, selfBronze, selfProgress, 
-						oppPlayed, oppPlatinum, oppGold, oppSilver, oppBronze, oppProgress);
 			}
+			
+			cgi.cursor.addItem(uid, title, iconUrl, 
+					selfPlayed, selfPlatinum, selfGold, selfSilver, selfBronze, selfProgress, 
+					oppPlayed, oppPlatinum, oppGold, oppSilver, oppBronze, oppProgress);
 		}
 		
 		if (App.getConfig().logToConsole())
