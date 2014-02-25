@@ -376,7 +376,6 @@
     <string name="select_entry_to_view">Sélectionner l\'entrée d\'un blog</string>
     <string name="ps_blog_f">Blog PlayStation: %1$s</string>
     <string name="open_link">Ouvrir le lien</string>
-    <string name="primary_server">Server de données primaires</string>
     <string name="loading_profile">Chargement du profil…</string>
     <string name="select_a_game">Sélectionner un jeu</string>
     <string name="select_locale_detail">Ce paramètre modifié s\'applique au Blog PlayStation et au catalogue de jeux.</string>
@@ -429,5 +428,6 @@
 	<!-- Need re-localization -->
 	<string name="notify_friends_online_f">%1$s a des amis connectés sur %3$s</string>
 	<string name="unlocked">Unlocked</string>
+	<string name="no_progress">No progress</string>
 	
 </resources>

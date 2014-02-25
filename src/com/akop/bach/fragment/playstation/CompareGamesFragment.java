@@ -264,7 +264,7 @@ public class CompareGamesFragment extends GenericFragment implements
 			{
 				vh.selfSection.setVisibility(View.GONE);
 				vh.selfNotPlayed.setVisibility(View.VISIBLE);
-				//vh.selfProgress.setText(getString(R.string.not_played));
+				//vh.selfProgress.setText(getString(R.string.no_progress));
 			}
 			
 			if (cursor.getInt(ComparedGameCursor.COLUMN_OPP_PLAYED) != 0)
@@ -278,7 +278,7 @@ public class CompareGamesFragment extends GenericFragment implements
 			{
 				vh.oppNotPlayed.setVisibility(View.VISIBLE);
 				vh.oppSection.setVisibility(View.GONE);
-				vh.oppProgress.setText(getString(R.string.not_played));
+				vh.oppProgress.setText(getString(R.string.no_progress));
 			}
 			
 			vh.selfIcon.setImageBitmap(mMyGamerpic);

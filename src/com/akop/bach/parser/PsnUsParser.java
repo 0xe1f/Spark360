@@ -53,8 +53,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.akop.bach.BasicAccount;
 import com.akop.bach.App;
+import com.akop.bach.BasicAccount;
 import com.akop.bach.PSN;
 import com.akop.bach.PSN.ComparedGameCursor;
 import com.akop.bach.PSN.ComparedGameInfo;
@@ -75,6 +75,8 @@ import com.akop.bach.util.IgnorantHttpClient;
 import com.akop.bach.util.rss.RssChannel;
 import com.akop.bach.util.rss.RssHandler;
 
+// NOTE: Vast majority of the US parser is broken, since the EU parser is 
+// sufficient (and equivalent) for all but blog and game catalog information 
 public class PsnUsParser
 		extends PsnParser
 {

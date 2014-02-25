@@ -352,6 +352,7 @@
 	<string name="status_description_f">%1$s. %2$s</string>
 	<string name="compare_game_progress_f">%1$s%%</string>
 	<string name="not_played">(Not played)</string>
+	<string name="no_progress">No progress</string>
 	<string name="error_online_id_not_detected">Online ID not detected</string>
     <string name="psn_portable_id_card">PSN Portable ID Card</string>
 	<string name="psn_portable_id_strip">PSN Portable ID Strip</string>
@@ -376,7 +377,6 @@
     <string name="select_entry_to_view">Select a blog entry</string>
 	<string name="ps_blog_f">PlayStation Blog: %1$s</string>
 	<string name="open_link">Open link</string>
-	<string name="primary_server">Primary data server</string>
 	<string name="loading_profile">Loading profile&#8230;</string>
     <string name="select_a_game">Select a game</string>
     <string name="select_locale_detail">This setting primarily affects the PlayStation Blog and the Games Catalog.</string>

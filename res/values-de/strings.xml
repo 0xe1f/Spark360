@@ -377,7 +377,6 @@
     <string name="select_entry_to_view">Wähle einen Blogeintrag</string>
 	<string name="ps_blog_f">PlayStation Blog: %1$s</string>
 	<string name="open_link">Link öffnen</string>
-	<string name="primary_server">Primär-Datenserver</string>
 	<string name="loading_profile">Lädt Profil&#8230;</string>
     <string name="select_a_game">Wähle ein Game</string>
     <string name="select_locale_detail">Diese Einstellung betrifft vor allem den PlayStation Blog und den Games-Katalog.</string>
@@ -429,5 +428,6 @@
 	-->
 	<!-- Need re-localization -->
     <string name="notify_friends_online_f">%1$s hat Freunde Online auf %3$s</string>
+	<string name="no_progress">No progress</string>
     
 </resources>

@@ -25,12 +25,10 @@ package com.akop.bach.fragment.playstation;
 
 import java.lang.ref.SoftReference;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -69,7 +67,6 @@ import com.akop.bach.TaskController;
 import com.akop.bach.TaskController.TaskListener;
 import com.akop.bach.activity.playstation.CompareGames;
 import com.akop.bach.activity.playstation.FindGamer;
-import com.akop.bach.activity.playstation.GamerProfile;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.Parser;
 import com.akop.bach.service.PsnServiceClient;
@@ -599,21 +596,6 @@ public class FriendsFragment extends GenericFragment implements
 		cr.update(uri, cv, null, null);
 		cr.notifyChange(uri, null);
     }
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-		
-		if (resultCode != Activity.RESULT_OK)
-			return;
-		
-		if (requestCode == 1)
-		{
-			GamerProfile.actionShow(getActivity(), mAccount,
-					data.getStringExtra("onlineId"));
-		}
-	}
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,

@@ -136,26 +136,6 @@ public class AccountSettings
 			});
 		}
 		
-		if ((mPsnServerPref = (ListPreference)findPreference("account_psn_server")) != null)
-		{
-			mPsnServerPref.setValue(mPsnServer);
-			mPsnServerPref.setSummary(mPsnServerPref.getEntry());
-			mPsnServerPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
-			{
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue)
-				{
-	                final String summary = newValue.toString();
-	                int index = mPsnServerPref.findIndexOfValue(summary);
-	                mPsnServerPref.setSummary(mPsnServerPref.getEntries()[index]);
-	                mPsnServerPref.setValue((String)newValue);
-	                mPsnServer = (String)newValue;
-	                
-	                return false;
-				}
-			});
-		}
-		
 		if ((mLocalePref = (ListPreference)findPreference("account_locale")) != null)
 		{
 			mLocalePref.setValue(mLocale);

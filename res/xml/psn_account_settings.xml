@@ -31,13 +31,6 @@
             android:summary="@string/set_account_credentials"
         />
         <ListPreference
-            android:key="account_psn_server"
-            android:title="@string/primary_server"
-            android:dialogTitle="@string/account_region"
-            android:entries="@array/region_entries_nr"
-            android:entryValues="@array/region_values"
-        />
-        <ListPreference
             android:key="account_locale"
             android:title="@string/your_locale"
             android:dialogTitle="@string/select_locale"

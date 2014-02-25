@@ -34,7 +34,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akop.bach.ImageCache;
@@ -335,11 +334,6 @@ public class FriendProfileFragment extends GenericFragment
 						
 						tv = (TextView)container.findViewById(R.id.profile_level);
 						tv.setText(String.valueOf(c.getInt(1)));
-						tv = (TextView)container.findViewById(R.id.progress_ind);
-						tv.setText(String.valueOf(c.getInt(2)));
-						
-						ProgressBar pb = (ProgressBar)container.findViewById(R.id.progress_bar);
-						pb.setProgress(c.getInt(2));
 						
 						String imageUrl = mAccount.getLargeAvatar(c.getString(3));
 						ImageCache ic = ImageCache.getInstance();

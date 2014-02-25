@@ -89,8 +89,7 @@ public class PsnEuParser
 	private static final String URL_COMPARE_GAMES_f =
 		"http://uk.playstation.com/psn/mypsn/ajax/trophies-compare/friend/add/?onlineid=%s&endIndex=999&sortBy=recent";
 	private static final String URL_COMPARE_TROPHIES_f =
-		"http://uk.playstation.com/psn/mypsn/trophies-compare/detail/?title=%1$s&friend=%2$s";
-		//"https://secure.eu.playstation.com/psn/mypsn/trophies-compare/detail/?title=%1$s&friend=%2$s";
+		"http://uk.playstation.com/psn/mypsn/trophies/detail/?title=%s";
 	private static final String URL_FRIEND_SUMMARY_f =
 		"http://uk.playstation.com/psn/mypsn/trophies-compare/?friend=%1$s";
 		//"https://secure.eu.playstation.com/psn/mypsn/trophies-compare/?friend=%1$s";
@@ -198,14 +197,20 @@ public class PsnEuParser
 	        .compile("<span>(\\d+)%</span>");
 	
 	private static final Pattern PATTERN_COMPARED_TROPHIES = Pattern.compile(
-			"<div class=\"gameLevelListRow\">(.*?<div class=\"gameLevelListItemCompare\"[^>]*>(?:.*?)</div>\\s*<div class=\"gameLevelListItemCompare\"[^>]*>(?:.*?)</div>)\\s*</div>", 
-			Pattern.DOTALL);
-	private static final Pattern PATTERN_COMPARED_TROPHY_PERSON = Pattern.compile(
-			"<div class=\"gameLevelListItemCompare\"[^>]*>(.*?)</div>", 
-			Pattern.DOTALL);
-	
-	private static final Pattern PATTERN_PARSE_RELATIVE_DATE = Pattern.compile(
-			"^(\\d+) (\\w+)");
+			"<tr>\\s+(.*?)\\s+</tr>", Pattern.DOTALL);
+	private static final Pattern PATTERN_COMPARED_TROPHY_COLUMN = Pattern
+	        .compile("<t[dh]( class=\"([^\"]+)\")?>\\s+(.*?)\\s+</t[dh]>", 
+	        		Pattern.DOTALL);
+	private static final Pattern PATTERN_COMPARED_FRIEND_ID = Pattern.compile(
+			"<h4 class=\"user-name\">([^<]+)</h4>");
+	private static final Pattern PATTERN_COMPARED_TROPHY_ICON = Pattern.compile(
+			"<img src=\"([^\"]+)\"");
+	private static final Pattern PATTERN_COMPARED_TROPHY_TITLE = Pattern.compile(
+			"<h1 class=\"trophy_name ([^\"]+)\">\\s+(\\S[^\\n\\r]+)\\r?\\n\\s+</h1>");
+	private static final Pattern PATTERN_COMPARED_TROPHY_DESCRIPTION = Pattern.compile(
+			"<h2>\\s+(\\S[^\\n\\r]+)\\r?\\n\\s+</h2>");
+	private static final Pattern PATTERN_COMPARED_TROPHY_IS_LOCKED = Pattern.compile(
+			"<span class=\"locked\"");
 	
 	private static final Pattern PATTERN_GAME_CATALOG_ITEMS = Pattern.compile(
 			"<game_result content_id=\"[^\"]*\">(.*?)</game_result>", Pattern.DOTALL);
@@ -1035,14 +1040,14 @@ public class PsnEuParser
 				m = PATTERN_FRIEND_SUMMARY_TROPHIES.matcher(friendCard);
 				while (m.find())
 				{
-					String type = m.group(1).toLowerCase();
-					if ("bronze".equals(type))
+					String type = m.group(1);
+					if ("bronze".equalsIgnoreCase(type))
 						bronze = Integer.parseInt(m.group(2));
-					else if ("silver".equals(type))
+					else if ("silver".equalsIgnoreCase(type))
 						silver = Integer.parseInt(m.group(2));
-					else if ("gold".equals(type))
+					else if ("gold".equalsIgnoreCase(type))
 						gold = Integer.parseInt(m.group(2));
-					else if ("platinum".equals(type))
+					else if ("platinum".equalsIgnoreCase(type))
 						platinum = Integer.parseInt(m.group(2));
 				}
 				
@@ -1221,85 +1226,89 @@ public class PsnEuParser
 			throws ParserException, IOException
 	{
 		String url = String.format(URL_COMPARE_TROPHIES_f, 
-				URLEncoder.encode(gameId, "UTF-8"), 
-				URLEncoder.encode(friendId, "UTF-8"));
+				URLEncoder.encode(gameId, "UTF-8"));
 		String page = getResponse(url);
+	    long started = System.currentTimeMillis();
 		
 		ComparedTrophyInfo cti = new ComparedTrophyInfo(mContext.getContentResolver());
 		
-	    long started = System.currentTimeMillis();
-	    
-		Matcher trophyMatcher = PATTERN_COMPARED_TROPHIES.matcher(page);
-		while (trophyMatcher.find())
+		Matcher m;
+		Matcher rowMatcher = PATTERN_COMPARED_TROPHIES.matcher(page);
+		if (!rowMatcher.find())
+			return cti;
+		
+		// First row is GT's
+		int friendColumn = 1;
+		String row = rowMatcher.group(1);
+		Matcher columnMatcher = PATTERN_COMPARED_TROPHY_COLUMN.matcher(row);
+		
+		for (int i = 0; columnMatcher.find(); i++)
 		{
-			String trophyRow = trophyMatcher.group(1);
-			
-			Matcher m;
-			
-			int type = 0;
-			if (false) // FIXME (m = PATTERN_TROPHY_TYPE.matcher(trophyRow)).find())
-			{
-				String trophyType = m.group(1).toUpperCase();
-				if (trophyType.equals("BRONZE"))
-					type = PSN.TROPHY_BRONZE;
-				else if (trophyType.equals("SILVER"))
-					type = PSN.TROPHY_SILVER;
-				else if (trophyType.equals("GOLD"))
-					type = PSN.TROPHY_GOLD;
-				else if (trophyType.equals("PLATINUM"))
-					type = PSN.TROPHY_PLATINUM;
-				else if (trophyType.equals("HIDDEN"))
-					type = PSN.TROPHY_SECRET;
-			}
-			
-			String title = null;
-			String description = null;
-			boolean isSecret = (type == PSN.TROPHY_SECRET);
-			
-			if (!isSecret)
-			{
-				if ((m = PATTERN_TROPHY_TITLE.matcher(trophyRow)).find())
-					title = htmlDecode(m.group(1).trim());
-				
-				if ((m = PATTERN_TROPHY_DESCRIPTION.matcher(trophyRow)).find())
-					description = htmlDecode(m.group(1).trim());
-			}
-			else
-			{
-				title = mContext.getString(R.string.secret_trophy);
-				description = mContext.getString(R.string.this_is_a_secret_trophy);
-			}
+			String column = columnMatcher.group(3);
+			if ((m = PATTERN_COMPARED_FRIEND_ID.matcher(column)).find())
+				if (m.group(1).equalsIgnoreCase(friendId))
+					friendColumn = i;
+		}
+		
+		// Consume the next 2
+		for (int i = 0; i < 2; i++)
+			if (!rowMatcher.find())
+				return cti;
+		
+		while (rowMatcher.find())
+		{
+			row = rowMatcher.group(1);
 			
 			String iconUrl = null;
-			if ((m = PATTERN_TROPHY_ICON.matcher(trophyRow)).find())
-				iconUrl = getLargeTrophyIcon(resolveImageUrl(url, m.group(1)));
-			
+			int type = 0;
+			String title = null;
+			String description = null;
+			boolean isSecret = false;
 			boolean isLocked = true;
 			String selfEarned = null;
 			String oppEarned = null;
 			
-			m = PATTERN_COMPARED_TROPHY_PERSON.matcher(trophyRow);
-			if (m.find())
+			if ((m = PATTERN_COMPARED_TROPHY_ICON.matcher(row)).find())
+				iconUrl = getLargeTrophyIcon(resolveImageUrl(url, m.group(1)));
+			if ((m = PATTERN_COMPARED_TROPHY_TITLE.matcher(row)).find())
 			{
-				// FIXME
-//				Matcher m2;
-//				m2 = PATTERN_TROPHY_ATTAINED.matcher(m.group(1)); 
-//				if (m2.find())
-//				{
-//					selfEarned = truncateAttainmentDate(m2.group(1));
-//					isLocked = false;
-//				}
-//				else
-//					selfEarned = mContext.getString(R.string.trophy_locked);
-//				
-//				if (m.find())
-//				{
-//					m2 = PATTERN_TROPHY_ATTAINED.matcher(m.group(1)); 
-//					if (m2.find())
-//						oppEarned = truncateAttainmentDate(m2.group(1));
-//					else
-//						oppEarned = mContext.getString(R.string.trophy_locked);
-//				}
+				title = htmlDecode(m.group(2));
+				String trophyType = m.group(1);
+				if ("bronze".equalsIgnoreCase(trophyType))
+					type = PSN.TROPHY_BRONZE;
+				else if ("silver".equalsIgnoreCase(trophyType))
+					type = PSN.TROPHY_SILVER;
+				else if ("gold".equalsIgnoreCase(trophyType))
+					type = PSN.TROPHY_GOLD;
+				else if ("platinum".equalsIgnoreCase(trophyType))
+					type = PSN.TROPHY_PLATINUM;
+				else if ("unknown".equalsIgnoreCase(trophyType))
+					type = PSN.TROPHY_SECRET;
+			}
+			
+			if ((m = PATTERN_COMPARED_TROPHY_DESCRIPTION.matcher(row)).find())
+				description = htmlDecode(m.group(1));
+			
+			columnMatcher = PATTERN_COMPARED_TROPHY_COLUMN.matcher(row);
+			for (int i = 0; columnMatcher.find(); i++)
+			{
+				if (i == 0)
+				{
+					// General information
+					isLocked = "trophy-unlocked-false".equalsIgnoreCase(columnMatcher.group(2));
+					selfEarned = isLocked 
+							? mContext.getString(R.string.locked)
+							: mContext.getString(R.string.unlocked);
+				}
+				else if (i == friendColumn)
+				{
+					// Opponent
+					String column = columnMatcher.group(3);
+					boolean isLockedForOpp = PATTERN_COMPARED_TROPHY_IS_LOCKED.matcher(column).find();
+					oppEarned = isLockedForOpp 
+							? mContext.getString(R.string.locked)
+							: mContext.getString(R.string.unlocked);
+				}
 			}
 			
 			cti.cursor.addItem(title, description, iconUrl, type, 
@@ -1313,6 +1322,7 @@ public class PsnEuParser
 		return cti;
 	}
 	
+	@SuppressLint("SimpleDateFormat")
 	@Override
 	protected GameCatalogList parseGameCatalog(int console, int page,
 			int releaseStatus, int sortOrder) throws ParserException, IOException
@@ -1486,15 +1496,6 @@ public class PsnEuParser
 		return details;
 	}
 	
-	private String truncateAttainmentDate(String attained)
-	{
-		int pos = attained.indexOf(":");
-		if (pos < 1)
-			return attained;
-		
-		return attained.substring(pos + 1).trim();
-	}
-	
 	private String getLargeTrophyIcon(String url)
 	{
 		if (url == null)
@@ -1517,40 +1518,6 @@ public class PsnEuParser
 			return url;
 		
 		return LARGE_AVATAR_ICON_PREFIX + url.substring(pos).trim();
-	}
-	
-	private long parseRelativeDate(String relativeDate)
-	{
-		if (relativeDate == null)
-			return 0;
-		
-		Matcher m = PATTERN_PARSE_RELATIVE_DATE.matcher(relativeDate);
-		if (!m.find())
-			return 0;
-		
-		int value = Integer.parseInt(m.group(1));
-		String unit = m.group(2).toLowerCase();
-		
-		long unitInSeconds;
-		
-		if (unit.startsWith("second"))
-			unitInSeconds = value;
-		else if (unit.startsWith("minute"))
-			unitInSeconds = value * 60;
-		else if (unit.startsWith("hour"))
-			unitInSeconds = value * 3600;
-		else if (unit.startsWith("day"))
-			unitInSeconds = value * 3600 * 24;
-		else if (unit.startsWith("week"))
-			unitInSeconds = value * 3600 * 24 * 7;
-		else if (unit.startsWith("month"))
-			unitInSeconds = (long)((float)value * 3600.0 * 24.0 * (365.25 / 12.0));
-		else if (unit.startsWith("year"))
-			unitInSeconds = (long)((float)value * 3600.0 * 24.0 * 365.25);
-		else 
-			return 0;
-		
-		return System.currentTimeMillis() - (unitInSeconds * 1000);
 	}
 	
 	@Override

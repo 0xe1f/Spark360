@@ -76,7 +76,7 @@
 		android:layout_alignBottom="@id/self_icon"
 		android:orientation="horizontal"
 		android:gravity="center"
-		android:text="@string/not_played"
+		android:text="@string/no_progress"
 		android:textAppearance="@style/TextAppearance.secondary" 
 	/>
 	<LinearLayout
@@ -169,7 +169,7 @@
 		android:layout_alignTop="@id/opp_icon"
 		android:orientation="horizontal"
 		android:gravity="center"
-		android:text="@string/not_played"
+		android:text="@string/no_progress"
 		android:textAppearance="@style/TextAppearance.secondary" 
 	/>
 	<LinearLayout
