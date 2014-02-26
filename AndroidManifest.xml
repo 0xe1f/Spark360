@@ -24,12 +24,12 @@
 <manifest 
     xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.akop.bach"
-	android:versionCode="118"
-	android:versionName="6.25"
+	android:versionCode="119"
+	android:versionName="6.30"
 >
     <uses-sdk 
         android:minSdkVersion="4"
-        android:targetSdkVersion="18" 
+        android:targetSdkVersion="19" 
     />
     
 	<permission
@@ -61,10 +61,11 @@
         android:smallScreens="true"
     />
     
-    <application 
+    <application
     	android:name=".App" 
     	android:icon="@drawable/icon" 
     	android:label="@string/app_name"
+    	android:allowBackup="false"
     >
 	    <!-- Providers -->
 	    
