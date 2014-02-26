@@ -49,8 +49,11 @@ import com.akop.bach.ImageCache.OnImageReadyListener;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
 import com.akop.bach.TaskController.TaskListener;
+import com.akop.bach.XboxLive.Friends;
 import com.akop.bach.XboxLive.Messages;
 import com.akop.bach.XboxLiveAccount;
+import com.akop.bach.activity.xboxlive.FriendSummary;
+import com.akop.bach.activity.xboxlive.GamerProfile;
 import com.akop.bach.activity.xboxlive.MessageCompose;
 import com.akop.bach.fragment.AlertDialogFragment;
 import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
@@ -160,6 +163,22 @@ public class MessageViewFragment extends GenericFragment implements
 		
 		View layout = inflater.inflate(R.layout.xbl_fragment_message_view,
 				container, false);
+		
+		View gamertagRow = layout.findViewById(R.id.gamertag_row);
+		gamertagRow.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				if (mSender != null)
+				{
+					if (Friends.isFriend(getActivity(), mAccount, mSender))
+						FriendSummary.actionShow(getActivity(), mAccount, mSender);
+					else
+						GamerProfile.actionShow(getActivity(), mAccount, mSender);
+				}
+			}
+		});
 		
 		return layout;
 	}
