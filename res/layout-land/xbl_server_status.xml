@@ -32,35 +32,25 @@
 		android:layout_height="fill_parent"
 		android:background="@drawable/xbox_streak_bg"
 	>
-		<ImageView
-			android:id="@+id/console_image"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="40dp"
-			android:layout_alignParentLeft="true"
-			android:layout_centerVertical="true"
-			android:src="@drawable/xbox_console"
-		/>
 		<ProgressBar
 			android:id="@+id/progress"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
 			android:layout_centerVertical="true"
-			android:layout_toRightOf="@id/console_image"
 			android:layout_marginLeft="20dp"
 			android:indeterminate="true"
 		/>
 		<ScrollView
-			android:layout_width="wrap_content"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
-			android:layout_toRightOf="@id/console_image"
+			android:layout_alignParentLeft="true"
 			android:layout_margin="10dp"
 			android:layout_centerVertical="true"
 		>
 			<LinearLayout
 				android:id="@+id/status_group"
-				android:layout_width="wrap_content"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:orientation="vertical"
 			/>

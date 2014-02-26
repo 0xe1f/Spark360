@@ -228,18 +228,10 @@ public class XboxLiveParser extends LiveParser
 	private static final Pattern PATTERN_GAME_OVERVIEW_BANNER = 
 		Pattern.compile("<img src=\"([^\"]*)\" alt=\"[^\"]*\" class=\"Banner\" />");
 	
-	private static final Pattern PATTERN_STATUS_LINE = 
-		Pattern.compile("<div class=\"Status..\"[^>]*>\\s*(.*?\\s*</div>)\\s*</div>",
-				Pattern.DOTALL);
-	
-	private static final Pattern PATTERN_STATUS_NAME = 
-		Pattern.compile("<(?:strong|span class=\"partnerServiceTitle\")>([^<]*)</(?:strong|span)>");
-	private static final Pattern PATTERN_STATUS_IS_OK = 
-		Pattern.compile("class=\"StatusOKTitle\"");
-	private static final Pattern PATTERN_STATUS_DESCRIPTION =
-		Pattern.compile("<div class=\"StatusKOText\">(.*)?</div>", 
-				Pattern.DOTALL);
-	
+	private static final Pattern PATTERN_STATUS_ITEM = 
+			Pattern.compile("<div class=\"item\">\\s+<h3>(?:<a href=\"[^\"]+\">)?([^<]+)(?:</a>)?<span class=\"([^\"]+)\">([^<]+)</span></h3>(?:\\s+<div class=\"details\">(.*?)</div>)?",
+					Pattern.DOTALL);
+
 	private static final Pattern PATTERN_GAME_OVERVIEW_REDIRECTING_URL = 
 		Pattern.compile("/Title/\\d+$");
 	
@@ -2557,33 +2549,13 @@ public class XboxLiveParser extends LiveParser
 		
 		LiveStatusInfo info = new LiveStatusInfo();
 		
-		Matcher m;
-		Matcher lines = PATTERN_STATUS_LINE.matcher(page);
-		
-		while (lines.find())
+		Matcher m = PATTERN_STATUS_ITEM.matcher(page);
+		while (m.find())
 		{
-			String line = lines.group(1);
-			
-			if (!(m = PATTERN_STATUS_NAME.matcher(line)).find())
-				continue;
-			
 			String name = htmlDecode(m.group(1));
-			boolean isOk = PATTERN_STATUS_IS_OK.matcher(line).find();
+			boolean isOk = "active".equals(m.group(2));
 			int status = isOk ? XboxLive.LIVE_STATUS_OK	: XboxLive.LIVE_STATUS_ERROR;
-			
-			String statusText;
-			
-			if (isOk)
-			{
-				statusText = mContext.getString(R.string.up_and_running);
-			}
-			else
-			{
-				if ((m = PATTERN_STATUS_DESCRIPTION.matcher(line)).find())
-					statusText = htmlDecode(m.group(1));
-				else
-					statusText = mContext.getString(R.string.unknown_problem);
-			}
+			String statusText = m.group(3);
 			
 			info.addCategory(name, status, statusText);
 		}
