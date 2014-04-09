@@ -5,6 +5,9 @@ Spark 360 is a gaming client for Android. It's currently available on [Google Pl
 
 **Spark 360 is an unofficial application**, and not supported, endorsed, or affiliated with Microsoft Corporation or Sony Corporation.
 
+iOS
+---
+
 Spark 360 was also available on iOS for a time - source code for the iOS version [is available](https://github.com/Melllvar/Spark360-iOS) - though not supported.
 
 Translations
