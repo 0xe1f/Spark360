@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/xbl_selectable_friend_item.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+>
+	<FrameLayout
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+	>
+		<ImageView 
+			android:id="@+id/friend_gamerpic" 
+			android:layout_width="48dp" 
+			android:layout_height="48dp"
+		/>
+		<ImageView 
+			android:id="@+id/is_selected" 
+			android:layout_width="48dp" 
+			android:layout_height="48dp"
+		/>
+	</FrameLayout>
+	<TextView
+		android:id="@+id/friend_gamertag"
+		android:ellipsize="end"
+		android:singleLine="true" 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_gravity="center_vertical"
+		android:textAppearance="@style/TextAppearance.accountId" 
+	/>
+</LinearLayout>

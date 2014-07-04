@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_fragment_game_catalog_details.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:background="@drawable/psn_catalog_detail_bg"
+>
+	<RelativeLayout
+	    android:id="@+id/catalog_details"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+	>
+        <FrameLayout
+            android:id="@+id/catalog_item"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/psn_summary_button"
+			android:layout_alignParentTop="true"
+        >
+            <include layout="@layout/psn_game_catalog_item" />
+        </FrameLayout>
+	    
+		<Gallery 
+		    android:id="@+id/catalog_gallery"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"
+			android:layout_alignParentBottom="true"
+		/>
+		<WebView
+		    android:id="@+id/game_description"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+			android:layout_below="@id/catalog_item"
+			android:layout_above="@id/catalog_gallery"
+		    android:padding="5dp"
+		/>
+	</RelativeLayout>
+	
+	<TextView
+        android:id="@+id/unselected"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:text="@string/select_a_game"
+        android:padding="5dp" 
+        android:visibility="gone"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.largeMessage" 
+    />
+</FrameLayout>

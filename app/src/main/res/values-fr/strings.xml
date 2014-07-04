@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - values-fr/strings.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -                         Pierre-Alexandre Emmanuelli
+ -
+ - This file is part of Spark 360, the online gaming service client.
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+<resources>
+    
+	<!-- General -->
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="error">Erreur</string>
+	<string name="back">Retour</string>
+	<string name="next">Suivant</string>
+	<string name="done">Terminé</string>
+	<string name="are_you_sure">Etes-vous sûr?</string>
+	<string name="email_address">Adresse Email</string>
+	<string name="password">Mot de passe</string>
+	<string name="edit">Editer</string>
+	<string name="delete">Supprimer</string>
+	<string name="refresh">Rafraichir</string>
+	<string name="about">A propos</string>
+	<string name="unknown">Inconnu</string>
+	<string name="when_never">Jamais</string>
+	<string name="when_5min">5 minutes</string>
+	<string name="when_15min">15 minutes</string>
+	<string name="when_30min">30 minutes</string>
+	<string name="when_1hour">1 heure</string>
+	<string name="when_2hours">2 heures</string>
+	<string name="when_4hours">4 heures</string>
+	
+	<string name="ellipsis">&#8230;</string>
+	<string name="zero">0</string>
+	<string name="nbsp">&#160;</string>
+	
+	<!-- Account settings -->
+	<string name="general_settings">Paramètres généraux</string>
+	<string name="account_settings">Paramètres du compte</string>
+	<string name="account_settings_f">Paramètre du compte de %1$s</string>
+	<string name="login_settings">Paramètres Login</string>
+	<string name="set_account_credentials">Paramètrage du compte et du mot de passe</string>
+	<string name="notification_settings">Paramètres de notification</string>
+	<string name="select_ringtone">Sélectionner la sonnerie</string>
+	
+	<!-- Account test -->
+	<string name="account_email_already_exists">Un compte avec cet email existe déjà</string>
+	<string name="changes_saved">Changements sauvegardés.</string>
+	<string name="account_created">Compte créé.</string>
+	<string name="connecting">Connexion&#8230;</string>
+	<string name="connection_error">Erreur de vérification du compte</string>
+	<string name="connection_error_f">%1$s</string>
+	<string name="connection_successful">Connexion réussie!</string>
+	
+	<!-- Accounts -->
+	<string name="select_account">Sélection du compte</string>
+	<string name="no_accounts">Aucun compte n\'a été configuré.\n\nPour configurer un compte maintenant, appuyer sur <b>Menu</b> et sélectionner <b>Ajouter un compte</b>.</string>
+	<string name="new_account">Nouveau compte</string>
+	<string name="add_a_new_account">Ajouter un nouveau compte</string>
+	<string name="erase_account_data">Effacer toutes les données de compte de cet appareil? Cette action est définitive.</string>
+	<string name="edit_account">Editer un compte</string>
+	<string name="type_your_credentials_f">Renseigner votre %1$s adresse email et mot de passe:</string>
+	
+	<!-- Parser -->
+	<string name="error_invalid_credentials_f">Adresse email ou mot de passe incorrect pour %1$s</string>
+	<string name="error_invalid_credentials">Adresse email ou mot de passe incorrect</string>
+	<string name="error_unexpected">Une erreur inattendue s\'est produite</string>
+	<string name="error_unexpected_f">erreur inattendue: %1$s</string>
+	<string name="error_timed_out">Le server ne répond pas</string>
+	<string name="error_json_parser_error">Réponse inattendue du serveur - Veuillez réessayer ultérieurement</string>
+	<string name="error_network_error">Erreur de réseau - Veuillez vérifier votre connexion internet</string>
+	<string name="error_dns_error">Erreur de DNS - Veuillez vérifier votre connexion internet</string>
+	<string name="notify_message_pending_f">%1$s a un message non lu de %2$s</string>
+	<string name="notify_messages_pending_f">%1$s a %2$d messages non lus de %3$s</string>
+	<string name="notify_friend_online_f">%1$s est maintenant connecté sur %2$s</string>
+	
+	<!-- LVL -->
+	<string name="widget_could_not_be_added">Le Widget ne peut être ajouté.</string>
+	<string name="friend_online">Ami connecté</string>
+	<string name="new_messages">Nouveaux messages</string>
+    <string name="please_wait">Attendez svp&#8230;</string>
+    <string name="loading">Chargement&#8230;</string>
+    <string name="account_edit_error">Impossible de modifier le compte. Veuillez vous assurer d\'avoir la version la plus à jour du logiciel.</string>
+    <string name="account_delete_error">Impossible de supprimer le compte. Veuillez vous assurer d\'avoir la version la plus à jour du logiciel.</string>
+    <string name="delete_account">Supprimer un compte</string>
+    <string name="create_new_account_f">Ajouter un nouveau %1$s compte</string>
+    <string name="select_account_type">Sélectionner le type de compte</string>
+    <string name="cannot_open_market">Erreur lors de l\'ouverture de Google Play</string>
+    <string name="cannot_open_f">Erreur lors de l\'ouverture de l\'application. Est-ce installé?</string>
+    
+    <!-- XBL -->
+    
+    <string name="xbox_live_locale">fr-FR</string>
+    
+    <string name="app_name">Spark 360</string>
+    <string name="app_version_format">version %1$s</string>
+    <string name="app_by">2010&#8211;2014 Akop Karapetyan</string>
+    <string name="app_website">http://www.spark360app.com/</string>
+    <string name="app_ownership">Cette application n\'est pas produite, ni approuvées, ni affiliée à Microsoft Corporation. Microsoft, Xbox, Xbox Live, et les logos Xbox sont des marques déposées de Microsoft Corporation.\n\nCette application n\'est pas produite, ni approuvées, ni affiliée à l\'Entertainment Sony Computer, ou Sony Corporation. PLAYSTATION, PlayStation, et le PSN, sont des marques commerciales ou des marques déposées de Sony Computer Entertainment Inc</string>
+    <string name="online">En ligne</string>
+    <string name="offline">Hors ligne</string>
+    <string name="away">Absent</string>
+    <string name="pending">En cours</string>
+    <string name="other">Autre</string>
+    <string name="account_summary">Résumé du compte</string>
+    <string name="friends_of_f">Amis de %1$s\</string>
+    <string name="select_recipients">Sélectionner destinataires</string>
+    <string name="ms_point_utility">Utilitaire Microsoft Point</string>
+    <string name="tools">Outils</string>
+    <string name="toggle_all">Tout sélectionner</string>
+    <string name="gamertag">Gamertag</string>
+    <string name="name">Nom</string>
+    <string name="location">Lieu de résidence</string>
+    <string name="bio">Bio</string>
+    <string name="zone">Zone</string>
+    <string name="motto">Devise</string>
+    <string name="reply">Répondre</string>
+    <string name="send">Envoyer</string>
+    <string name="achievement_help">Aide Succès</string>
+    <string name="visit_webpage">Visiter page Web</string>
+    <string name="compare_games">Comparer les jeux</string>
+    <string name="xbox_live">Xbox Live</string>
+    <string name="rep">Rep</string>
+    <string name="vibrate">Vibration</string>
+    <string name="vibrate_summary">Vibration pour les nouvelles notifications</string>
+    
+    <!-- Achievements, Games -->
+    <string name="games_played_u">Jeux</string>
+    <string name="games_played">Jeux</string>
+    <string name="my_played_games">Mes Jeux Joués</string>
+    <string name="my_friends">Mes Amis</string>
+    <string name="my_messages">Mes Messages</string>
+    <string name="my_profile">Mon Profil</string>
+    <string name="compose_message_u">Composer un message</string>
+    <string name="compose_message">Composer un message</string>
+    <string name="achieves_x_of_x_f">%1$,d/%2$,d succès</string>
+    <string name="no_achievements">Pas de succès</string>
+    <string name="game_history_empty">Votre historique de jeux est vide</string>
+    <string name="no_games_to_compare">Aucun jeux à comparer</string>
+    <string name="game_has_no_achieves">Ce jeu n\'a pas de succès</string>
+    <string name="last_played">Dernière connexion</string>
+    <string name="last_played_f">Dernière connexion %1$s</string>
+    <string name="x_f">%1$,d</string>
+    <string name="x_of_x_f">%1$s/%2$s</string>
+    <string name="gamerscore">Gamerscore</string>
+    <string name="acquired_f">débloqué %1$s</string>
+    <string name="acquired_offline">débloqué hors ligne</string>
+    <string name="locked">Bloqué</string>
+    <string name="achievements_of_f">Succès de %1$s </string>
+    <string name="achievements_unlocked">Succès débloqués</string>
+    <string name="gamerscore_unlocked">Gamerscore débloqué</string>
+    <string name="google_achievements_f">\"%1$s\" guide succès</string>
+    <string name="google_achievement_f">\"%1$s\" \"%2$s\" aide succès</string>
+    <string name="no_games_played">Aucun jeu joué</string>
+    <string name="compare_games_vs_f">%1$s: Comparer jeux</string>
+    <string name="compare_x_achieves_vs_f">%1$s: Comparer %2$s succès</string>
+    <string name="no_game_selected">Aucun jeu sélectionné</string>
+    
+    <!-- Friends -->
+    <string name="last_updated_f">Dernière mise à jour %1$s</string>
+    <string name="not_yet_updated">Pas encore mis à jour</string>
+    <string name="remove_from_friends_q_f">Supprimer %1$s des amis?</string>
+    <string name="remove_from_friends">Supprimer des amis</string>
+    <string name="accept_friend_request">Accepter requête d\'amis</string>
+    <string name="decline_friend_request">Refuser requête d\'amis</string>
+    <string name="cancel_friend_request">Annuler requête d\'amis</string>
+    <string name="no_friends">Vous n\'avez pas d\'amis :(</string>
+    <string name="updating_friends">Mise à jour des amis…</string>
+    <string name="added_friend_to_friend_list_f">Vous avez ajouté %1$s à votre liste d\'amis.</string>
+    <string name="removed_friend_from_friend_list_f">Vous avez supprimé %1$s de votre liste d\'amis.</string>
+    <string name="cancelled_friend_request_to_f">Vous avez annuler la requête d\'amis de %1$s.</string>
+    <string name="accepted_friend_request_from_f">Vous avez accepté la requête d\'amis de %1$s.</string>
+    <string name="declined_friend_request_from_f">Vous avez décliné la requête d\'amis de %1$s.</string>
+    <string name="request_queued">Requête d\'amis en attente</string>
+    <string name="friends_online">Amis connectés</string>
+    <string name="friends_f">Amis: %1$s</string>
+    
+    <!-- Messages -->
+    <string name="message_from_f">Message de %s</string>
+    <string name="message_sent">Message envoyé</string>
+    <string name="message_deleted">Message supprimé</string>
+    <string name="to_f">A: %1$s</string>
+    <string name="delete_message_q">Supprimer message?</string>
+    <string name="delete_message_from_f">Supprimer message de %1$s?</string>
+    <string name="message_list_is_empty">Aucun message.</string>
+    <string name="account_cant_send">Ce compte n\'accepte pas la messagerie.</string>
+    <string name="message_could_not_be_sent">Le message n\'a pu être envoyé</string>
+    <string name="message_could_not_be_deleted">Le message n\'a pu être supprimé</string>
+    <string name="message_queued_for_send">Votre message est envoyé</string>
+    <string name="message_queued_for_delete">Message va être supprimé</string>
+    <string name="message_not_found">Message non trouvé</string>
+    <string name="new_message">Nouveau message</string>
+    <string name="compose_new_message">Composer un nouveau message</string>
+    <string name="compose_not_available">Ce compte ne peut envoyer de messages</string>
+    <string name="messages_unread">Messages non lus</string>
+    <string name="error_message_retrieval">Erreur de récupération des messages. Merci de réessayer ultérieurement</string>
+    <string name="error_friend_retrieval">Erreur de récupération de la liste d\'amis. Merci de réessayer ultérieurement</string>
+    <string name="error_games_retrieval">Erreur de récupération de la liste de jeux. Merci de réessayer ultérieurement</string>
+    <string name="error_achieves_retrieval">Erreur de récupération de la liste des succès. Merci de réessayer ultérieurement</string>
+    <string name="error_player_retrieval">Erreur de récupération de la liste des joueurs. Merci de réessayer ultérieurement</string>
+    
+    <!-- Widgets -->
+    <string name="account_removed">[Compte supprimé]</string>
+    <string name="achievement_stats_f">%3$d%%</string>
+    <string name="xbl_gamercard_2x2">Xbox Live Gamercard (2x2)</string>
+    <string name="xbl_gamercard">Xbox Live Gamercard (3x3)</string>
+    <string name="xbl_gamerstrip">Xbox Live Gamerstrip</string>
+    <string name="search_friends">Chercher des amis</string>
+    <string name="update_frequency">Fréquence des mises à jour</string>
+    <string name="friend_notifications">Notifications des amis</string>
+    <string name="beacon_notifications">Notifications des balises</string>
+    <string name="message_notifications">Notifications des messages</string>
+    <string name="message_notifications_summary">Notifier l\'arrivée de nouveaux messages</string>
+    <string name="do_not_notify">Désactiver</string>
+    <string name="notify_on_favorite">Amis favoris</string>
+    <string name="notify_on_all">Tous les amis</string>
+    <string name="xbox_live_status">Status Xbox Live</string>
+    <string name="no_results">Aucun résultat trouvé pour \"%1$s\"</string>
+    <string name="xbox_live_friends">Amis Xbox Live</string>
+    <string name="xbox_live_friend">Ami Xbox Live</string>
+    <string name="find_gamer">Trouver un amis</string>
+    <string name="gamer_f">Profil Xbox Live: %1$s</string>
+    <string name="send_friend_request">Envoyer une requête d\'amis</string>
+    <string name="send_friend_request_to_f">Envoyer une requête d\'amis à %1$s?</string>
+    <string name="xbox_live_profile_not_found_f">Profil Xbox Live\"%1$s\" introuvable</string>
+    <string name="view_friends">Voir les amis</string>
+    <string name="x_friends_f">%1$s: Amis</string>
+    <string name="friends_list_empty">la liste d\'amis est vide</string>
+    <string name="select_friend">Sélectionner un amis</string>
+    <string name="not_yet_friends">Pas encore amis</string>
+    <string name="game_details">Détails du jeu</string>
+    <string name="error_verification_token">Erreur Xbox Live(11). Merci d\'essayer à nouveau</string>
+    <string name="downloading">En cours de téléchargement…</string>
+    <string name="error_no_details_available">Aucun détail disponible pour ce titre</string>
+    <string name="online_count">En ligne (%1$d)</string>
+    <string name="offline_count">Hors ligne (%1$d)</string>
+    <string name="pending_count">En cours (%1$d)</string>
+    <string name="shared_friends_count">Amis communs (%1$d)</string>
+    <string name="not_yet_friends_count">Pas encore amis (%1$d)</string>
+    <string name="mark_as_read">Marqué comme lu</string>
+    <string name="recent_players_u">Joueurs récents</string>
+    <string name="recent_players">Joueurs récents</string>
+    <string name="compare_games_u">Comparer les jeux</string>
+    <string name="message_warning">Notez svp que le Xbox Live peut temporairement limiter votre capacité à envoyer des messages à partir de Spark 360 si vous en envoyez un grand nombre, ou les envoyer à un grand nombre de destinataires.</string>
+    <string name="view_settings">Voir les paramètres</string>
+    <string name="settings_coverflow">Coverflow</string>
+    <string name="disabled">Désactivé</string>
+    <string name="when_in_landscape">Mode paysage activé</string>
+    <string name="always_enabled">Toujours activé</string>
+    <string name="view_xbl_profile">Voir profil Xbox Live</string>
+    <string name="up_and_running">En cours d\'exécution</string>
+    <string name="unknown_problem">Problème inconnu</string>
+    <string name="secret_achieve_title">Succès secret</string>
+    <string name="secret_achieve_desc">Continuez à jouer pour débloquer ce succès secret.</string>
+    <string name="last_seen_playing_f">Récemment vu %1$s jouant à %2$s</string>
+    <string name="online_status_unavailable">Status de connexion indisponible</string>
+    <string name="request_unsuccessful">Requête impossible: Merci de réessayer ultérieurement</string>
+    <string name="sender_not_blocked">Impossible de bloquer l\'envoyeur. Merci de réessayer ultérieurement</string>
+    <string name="game_not_found_in_collection">Impossible de trouver ce jeu dans votre collection. Merci de rafraîchir votre liste de jeu et d\'essayer à nouveau</string>
+    <string name="could_not_modify_beacon">Balises non modifiables. Merci de rafraîchir votre liste de jeu et d\'essayer à nouveau</string>
+    <string name="optional_message">Message optionnel</string>
+    <string name="want_to_play_with_friends">Je veux jouer à ce jeu avec des amis</string>
+    <string name="too_many_beacons_f">Impossible d\'envoyer plus de %1$d balises. Merci d\'en supprimer une avant d\'en ajouter une autre</string>
+    <string name="no_text_in_message">Ce message n\'a pas de texte</string>
+    <string name="lets_play_f">Laissons \ jouer \"%1$s\"</string>
+    <string name="message_excerpt_f">%1$s…</string>
+    <string name="select_game_to_compare_achieves">Sélectionner un jeu pour comparer les succès</string>
+    <string name="select_account_or_create_new">Sélectionner un compte pour voir le profil, ou en créer un nouveau en cliquant sur <b>Nouveau compte</b></string>
+    <string name="show_apps">Montrer les applications</string>
+    <string name="show_apps_summary">Montrer ou cacher Les titres avec zero succès</string>
+    <string name="select_message_to_view">Sélectionner un message</string>
+    <string name="select_game_to_view_achieves">Sélectionner un jeu pour voir ses succès</string>
+    <string name="select_friend_to_view">Sélectionner un gamertag pour voir le profil</string>
+    <string name="recent_players_empty">La liste des joueurs récents est vide</string>
+    <string name="access_xbox_data">Accès au profil Xbox Live</string>
+    <string name="access_xbox_data_desc">Permettre à l\'application d\'accéder aux informations du profil Xbox Live</string>
+    <string name="sent_messages">Messages envoyés</string>
+    <string name="sent_recipients_more_f">%1$s, …</string>
+    <string name="sent_message">Message envoyé</string>
+    <string name="no_sent_messages">Aucun messages envoyés.</string>
+    <string name="save">Sauvegarder</string>
+    <string name="edit_profile">Editer le profil</string>
+    <string name="edit_profile_caption">Editer le profil</string>
+    <string name="error_updating_profile">Erreur de MAJ du profil. Merci d\'essayer ultérieurement.</string>
+    <string name="profile_updated">Profil mis à jour.</string>
+    <string name="credential_error_locked">Impossible de vous connecter au Xbox Live. Vérifiez que les informations de votre compte sont correctes, et que votre compte n\'est pas verrouillé sur xboxlive.com.</string>
+    <string name="info_gamerscore">Gamerscore</string>
+    <string name="info_rep">Rep</string>
+    <string name="info_name">Nom</string>
+    <string name="info_location">Lieu de résidence</string>
+    <string name="info_motto">Devise</string>
+    <string name="info_points_balance">Solde de points</string>
+    <string name="info_membership">Adhésion</string>
+    <string name="info_bio">Bio</string>
+    <string name="friend_playing_beaconed_game_f">%1$s est en train de jouer à ce jeu %2$s</string>
+    <string name="friends_playing_beaconed_game_f">%1$d amis sont en train de jouer à ce jeu %2$s</string>
+    <string name="friend_playing_beaconed_game_title_f">%1$s est en train de jouer %2$s</string>
+    <string name="friends_playing_beaconed_game_title_f">%1$d amis sont en train de jouer %2$s</string>
+    <string name="send_report">Soumettre un rapport</string>
+    <string name="close">Fermer</string>
+    <string name="crash_reported">Erreur reportée - Merci</string>
+    
+    <!-- PSN -->
+    
+    <string name="select">Sélectionner</string>
+    <string name="region_us">US</string>
+    <string name="region_eu">Europe</string>
+    <string name="region_us_nr">US (non recommandé)</string>
+    <string name="console_ps3">PlayStation 3</string>
+    <string name="console_ps2">PlayStation 2</string>
+    <string name="console_psp">PlayStation Portable</string>
+    <string name="console_psvita">PlayStation Vita</string>
+    <string name="console_unknown">Inconnu</string>
+    <string name="playstation_network">PlayStation Network</string>
+    <string name="x_platinum">%d Platinum</string>
+    <string name="x_gold">%d Gold</string>
+    <string name="x_silver">%d Silver</string>
+    <string name="x_bronze">%d Bronze</string>
+    <string name="trophies_none">Ce jeu n\'a pas de trophés.</string>
+    <string name="trophy_locked">Bloqué</string>
+    <string name="secret_trophy">Trophé caché</string>
+    <string name="this_is_a_secret_trophy">C\'est un trophé caché</string>
+    <string name="trophies_earned_format">%1$s %2$s</string>
+    <string name="google_trophies_f">\"%1$s\" trophés</string>
+    <string name="google_trophy_f">\"%1$s\" \"%2$s\" trophé</string>
+    <string name="trophy_help">Aide trophé</string>
+    <string name="list_not_yet_updated">La liste n\'est pas encore mise à jour</string>
+    <string name="friends_none">Vous n\'avez pas d\'amis :(</string>
+    <string name="playing_f">En train de jouer à  %1$s</string>
+    <string name="request_sent">Requête envoyée</string>
+    <string name="request_rcvd">Requête reçue</string>
+    <string name="request_pending">Requête en attente</string>
+    <string name="status_unknown">Status inconnu</string>
+    <string name="currently_offline">Actuellement hors ligne</string>
+    <string name="current_activity_unknown">Activité indisponible</string>
+    <string name="status_description_f">%1$s. %2$s</string>
+    <string name="compare_game_progress_f">%1$s%%</string>
+    <string name="not_played">(Non joué)</string>
+    <string name="error_online_id_not_detected">identifiant ID non détecté</string>
+    <string name="psn_portable_id_card">PSN Portable ID Card</string>
+    <string name="psn_portable_id_strip">PSN Portable ID Strip</string>
+    <string name="trophies_unlocked">Trophés débloqués</string>
+    <string name="compare_trophies">Comparer trophés</string>
+    <string name="friends_online_u">Amis connectés</string>
+    <string name="x_trophies_f">Trophés de %1$s</string>
+    <string name="comparing_games_with_x_f">%1$s: Comparer les jeux</string>
+    <string name="comparing_x_trophies_with_y_f">%1$s: Compare les trophés de %2$s</string>
+    <string name="psn_friends">Amis PSN</string>
+    <string name="psn_friend">Ami PSN</string>
+    <string name="psn_profile_not_found_f">Profil PSN pour \"%1$s\" non trouvé</string>
+    <string name="psn_profile_f">profil PSN: %1$s</string>
+    <string name="online_id">ID de connection</string>
+    <string name="find_psn_id">Trouver PSN ID</string>
+    <string name="blog_empty">Pas d\'entrées</string>
+    <string name="error_loading_blog">Erreur Chargement des entrées de blog. Merci d\'essayer ultérieurement</string>
+    <string name="playstation_blog">PlayStation Blog</string>
+    <string name="account_region">Région du compte</string>
+    <string name="reaccept_tos">Les termes du service PSN ont changés - Merci de vous connecter sur http://us.playstation.com/ et d\'accepter les derniers termes.</string>
+    <string name="blog_posted_f">%3$s, %1$s %2$s</string>
+    <string name="select_entry_to_view">Sélectionner l\'entrée d\'un blog</string>
+    <string name="ps_blog_f">Blog PlayStation: %1$s</string>
+    <string name="open_link">Ouvrir le lien</string>
+    <string name="loading_profile">Chargement du profil…</string>
+    <string name="select_a_game">Sélectionner un jeu</string>
+    <string name="select_locale_detail">Ce paramètre modifié s\'applique au Blog PlayStation et au catalogue de jeux.</string>
+    <string name="game_catalog">Catalogue de jeu</string>
+    <string name="game_details_f">%1$s</string>
+    <string name="no_games_in_catalog">Aucun jeu dans le catalogue</string>
+    <string name="release_date_f">Date de disponibilité: %1$s</string>
+    <string name="coming_soon">Afficher les titres à venir</string>
+    <string name="out_now">Les titres à venir sont disponibles</string>
+    <string name="catalog_filter">Filtre Catalogue</string>
+    <string name="catalog_filter_u">Filtre Catalogue</string>
+    <string name="order_by_reldate">Trier par date de sortie</string>
+    <string name="order_by_alpha">Trier les titres par ordre alphabétique</string>
+    <string name="select_console">Sélectionner la console</string>
+    <string name="add_reminder">Ajouter un rappel</string>
+    <string name="cannot_add_reminder">Impossible d\'ajouter un rappel - titre indisponible</string>
+    <string name="game_release_reminder_title_f">Date de disponibilité de \"%1$s\"</string>
+    <string name="cannot_launch_calendar_activity">Impossible d\'ouvrir le calendrier</string>
+    <string name="web_template">&lt;html&gt;&lt;head&gt;
+        &lt;meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" /&gt;
+        &lt;/head&gt;&lt;body&gt;%1$s&lt;/body&gt;&lt;/html&gt;</string>
+    <string name="opening_screenshot">Chargement de l\'aperçu…</string>
+    <string name="catalog_website">Visiter le site</string>
+    <string name="catalog_sorted_by_title">Trier les titres par ordre alphabétique</string>
+    <string name="catalog_sorted_by_reldate">Trier par date de sortie</string>
+    <string name="catalog_filtered_by_rs_out_now">Disponible</string>
+    <string name="catalog_filtered_by_rs_soon">A venir</string>
+    <string name="catalog_filter_f">Filtres: %1$s</string>
+    <string name="your_locale">Vos paramètres régionaux</string>
+    <string name="select_locale">Sélectionner paramètres régionaux</string>
+    <string name="console_colon">Console:</string>
+    <string name="trophies_button">Trophés</string>
+    <string name="blog_button">Blog PlayStation</string>
+    <string name="catalog_button">Catalogue de jeu</string>
+    <string name="access_trophies_data">Accès profil PSN</string>
+    <string name="access_trophies_data_desc">Permettre à l\'application d\'accéder aux informations du profil PSN </string>
+    <string name="select_game_to_view_trophies">Sélectionner un jeu pour voir ses trophés</string>
+    <string name="select_game_to_compare_trophies">Sélectionner un jeu pour comparer les trophés</string>
+    <string name="game_not_found">Jeu non trouvé</string>
+    
+	<!-- Unlocalized
+         
+         please see the default locale (values/strings.xml) for English text
+         
+    <string name="error_redirecting"></string>
+    <string name="decryption_error"></string>
+    <string name="gamer_profile"></string>
+    <string name="gamer_friend_profile"></string>
+	-->
+	<!-- Need re-localization -->
+	<string name="notify_friends_online_f">%1$s a des amis connectés sur %3$s</string>
+	<string name="unlocked">Unlocked</string>
+	<string name="no_progress">No progress</string>
+	
+</resources>

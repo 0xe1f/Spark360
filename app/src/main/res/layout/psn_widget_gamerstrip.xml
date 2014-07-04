@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_widget_gamerstrip.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/gamercard_widget_container"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:focusable="true"
+	android:clickable="true"
+	android:background="@drawable/psn_appwidget_bg"
+>
+	<LinearLayout
+		android:id="@+id/widget_top_bar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginBottom="4dp"
+		android:orientation="horizontal"
+		android:gravity="center_vertical"
+	>
+		<TextView
+			android:id="@+id/widget_online_id"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingLeft="5dp"
+			android:paddingRight="5dp"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
+		/>
+		<ImageView
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:src="@drawable/psn_level_small" 
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+		/>
+		<TextView 
+			android:id="@+id/widget_level"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
+			android:text=""
+		/>
+		<ImageView
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:src="@drawable/psn_trophies_small" 
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+		/>
+		<TextView 
+			android:id="@+id/widget_trophy_total"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@style/TextAppearance.psnWidgetText"
+			android:text="@string/zero"
+		/>
+	</LinearLayout>
+	<ImageView 
+		android:id="@+id/widget_avatar"
+		android:layout_width="56dp" 
+		android:layout_height="56dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentBottom="true"
+		android:src="@drawable/avatar_default"
+	/>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+		android:orientation="vertical"
+		android:gravity="right"
+	>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+		>
+			<ImageView
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_marginRight="3dp"
+				android:layout_gravity="bottom"
+				android:src="@drawable/psn_trophy_platinum_small" 
+			/>
+			<TextView
+				android:id="@+id/widget_trophies_platinum"
+				android:layout_width="40dp" 
+				android:layout_height="wrap_content" 
+				android:paddingLeft="5dp"
+				android:textAppearance="@style/TextAppearance.psnWidgetText" 
+				android:background="@drawable/psn_trophy_background_small"
+				android:singleLine="true"
+			/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+		>
+			<ImageView
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_marginRight="3dp"
+				android:layout_gravity="bottom"
+				android:src="@drawable/psn_trophy_gold_small" 
+			/>
+			<TextView
+				android:id="@+id/widget_trophies_gold"
+				android:layout_width="65dp" 
+				android:layout_height="wrap_content" 
+				android:paddingLeft="5dp"
+				android:textAppearance="@style/TextAppearance.psnWidgetText"
+				android:background="@drawable/psn_trophy_background_small"
+				android:singleLine="true"
+			/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+		>
+			<ImageView
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_marginRight="3dp"
+				android:layout_gravity="bottom"
+				android:src="@drawable/psn_trophy_silver_small" 
+			/>
+			<TextView
+				android:id="@+id/widget_trophies_silver"
+				android:layout_width="90dp" 
+				android:layout_height="wrap_content" 
+				android:paddingLeft="5dp"
+				android:textAppearance="@style/TextAppearance.psnWidgetText"
+				android:background="@drawable/psn_trophy_background_small"
+				android:singleLine="true"
+			/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+		>
+			<ImageView
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_marginRight="3dp"
+				android:layout_gravity="bottom"
+				android:src="@drawable/psn_trophy_bronze_small" 
+			/>
+			<TextView
+				android:id="@+id/widget_trophies_bronze"
+				android:layout_width="115dp" 
+				android:layout_height="wrap_content" 
+				android:paddingLeft="5dp"
+				android:textAppearance="@style/TextAppearance.psnWidgetText"
+				android:background="@drawable/psn_trophy_background_small"
+				android:singleLine="true"
+			/>
+		</LinearLayout>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/widget_avatar"
+		android:layout_centerVertical="true"
+		android:orientation="vertical"
+		android:layout_marginLeft="20dp"
+		android:background="@drawable/psn_id_border"
+	>
+		<ImageView
+			android:id="@+id/widget_game0" 
+			android:layout_width="58dp" 
+			android:layout_height="32dp"
+			android:layout_marginRight="3dp"
+		/>
+		<!-- 
+		<ImageView
+			android:id="@+id/widget_game1" 
+			android:layout_width="58dp" 
+			android:layout_height="32dp"
+		/>
+		-->
+	</LinearLayout>
+</RelativeLayout>

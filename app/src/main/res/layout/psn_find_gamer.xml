@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_find_gamer.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+>
+	<LinearLayout 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:padding="5dp"
+	>
+		<EditText 
+			android:id="@+id/add_friend_gamertag"
+			android:hint="@string/online_id"
+			android:inputType="textShortMessage"
+			android:singleLine="true" 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:maxLength="15" 
+			android:nextFocusDown="@+id/add_friend_ok"
+		/>
+	</LinearLayout>
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="56dip"
+		android:background="@drawable/stock_bottom_bar"
+	>
+		<Button 
+			android:id="@+id/add_friend_ok"
+			android:text="@android:string/ok"
+			android:layout_height="wrap_content" 
+			android:layout_width="wrap_content"
+			android:minWidth="@dimen/button_minWidth" 
+			android:layout_alignParentLeft="true" 
+			android:layout_centerVertical="true" 
+			android:enabled="false"
+		/>
+		<Button 
+			android:id="@+id/add_friend_cancel"
+			android:text="@android:string/cancel"
+			android:layout_height="wrap_content" 
+			android:layout_width="wrap_content"
+			android:minWidth="@dimen/button_minWidth" 
+			android:layout_alignParentRight="true" 
+			android:layout_centerVertical="true"
+		/>
+	</RelativeLayout>
+</LinearLayout>

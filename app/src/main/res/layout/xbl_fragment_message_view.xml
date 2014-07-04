@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/xbl_fragment_message_view.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+>
+	<TextView
+		android:id="@+id/message"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:padding="5dp" 
+        android:visibility="gone"
+        android:gravity="center"
+	 	android:text="@string/select_message_to_view"
+        android:textAppearance="@style/TextAppearance.largeMessage" 
+	/>
+	<RelativeLayout
+	    android:id="@+id/message_pane"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+	>
+		<RelativeLayout
+			android:id="@+id/button_section"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="5dp"
+			android:paddingBottom="5dp"
+			android:layout_alignParentBottom="true"
+		>
+			<Button 
+				android:id="@+id/message_view_reply"
+				android:text="@string/reply"
+				android:layout_height="wrap_content" 
+				android:layout_width="wrap_content"
+				android:minWidth="@dimen/button_minWidth" 
+				android:layout_alignParentRight="true" 
+			/>
+		</RelativeLayout>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:orientation="vertical"
+			android:layout_alignParentTop="true"
+			android:layout_above="@id/button_section"
+	    >
+			<LinearLayout
+				android:id="@+id/gamertag_row"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:padding="5dp"
+				android:orientation="horizontal"
+				android:background="@drawable/stylized_button" 
+				android:clickable="true"
+			>
+				<ImageView 
+					android:id="@+id/avatar_icon"
+					android:src="@drawable/avatar_default"
+					android:layout_marginRight="5dp"
+					android:layout_width="52dp" 
+					android:layout_height="52dp"
+					android:focusable="true"
+				/>
+				<LinearLayout
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+				>
+					<TextView
+						android:id="@+id/message_view_sender"
+					 	android:layout_width="wrap_content"
+					 	android:layout_height="wrap_content"
+	                    android:focusable="true"
+						android:textAppearance="@style/TextAppearance.profileGamertag"
+						android:ellipsize="end"
+					 	android:singleLine="true"
+					/>
+					<TextView
+						android:id="@+id/message_view_sent"
+					 	android:layout_width="wrap_content"
+					 	android:layout_height="wrap_content"
+						android:textAppearance="@style/TextAppearance.statusbarText" 
+					/>
+				</LinearLayout>
+			</LinearLayout>
+			<FrameLayout
+				android:layout_width="fill_parent" 
+				android:layout_height="0px" 
+				android:layout_weight="1"
+				android:background="@color/background_body"
+			>
+				<LinearLayout
+					android:layout_width="fill_parent" 
+					android:layout_height="fill_parent" 
+					android:background="@drawable/xbox_circles_bg"
+				>
+					<TextView
+						android:id="@+id/message_view_body"
+						android:layout_width="wrap_content"
+						android:layout_height="fill_parent" 
+						android:paddingLeft="5dp"
+						android:paddingRight="8dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:textAppearance="@style/TextAppearance.messageBody" 
+						android:textIsSelectable="true"
+					/>
+				</LinearLayout>
+			</FrameLayout>
+	    </LinearLayout>
+	</RelativeLayout>
+</FrameLayout>

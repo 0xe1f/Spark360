@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/xbl_fragment_plain_list.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+>
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+    />
+    <LinearLayout 
+        android:id="@+id/loading"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center"
+    >
+	    <ProgressBar
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:indeterminate="true"
+	    />
+        <TextView 
+            android:padding="5dp" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:textAppearance="@style/TextAppearance.largeMessage" 
+        />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:padding="5dip" 
+        android:visibility="gone"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.largeMessage" 
+    />
+</FrameLayout>

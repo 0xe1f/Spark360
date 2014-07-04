@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - menu/xbl_friend_list_context.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/menu_compare_games" 
+		android:title="@string/compare_games"
+	/>
+	<group android:id="@+id/menu_group_invite_rcvd">
+		<item
+			android:id="@+id/menu_accept_friend" 
+			android:title="@string/accept_friend_request"
+		/>
+		<item
+			android:id="@+id/menu_reject_friend" 
+			android:title="@string/decline_friend_request"
+		/>
+	</group>
+	<group android:id="@+id/menu_group_invite_sent">
+		<item
+			android:id="@+id/menu_cancel_friend" 
+			android:title="@string/cancel_friend_request"
+		/>
+	</group>
+	<group android:id="@+id/menu_group_gold">
+		<item
+			android:id="@+id/menu_compose" 
+			android:title="@string/compose_message"
+		/>
+	</group>
+	<group android:id="@+id/menu_group_friend">
+		<item
+			android:id="@+id/menu_view_friends" 
+			android:title="@string/view_friends"
+		/>
+		<!--
+		<item
+			android:id="@+id/menu_view_messages" 
+			android:title="@string/view_messages"
+		/>
+		<item
+			android:id="@+id/menu_block_friend" 
+			android:title="@string/block_communication"
+		/>
+		-->
+		<item
+			android:id="@+id/menu_remove_friend" 
+			android:title="@string/remove_from_friends"
+		/>
+	</group>
+</menu>

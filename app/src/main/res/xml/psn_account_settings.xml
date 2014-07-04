@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - xml/psn_account_settings.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+    	android:title="@string/general_settings" 
+    >
+        <PreferenceScreen
+            android:key="login"
+            android:title="@string/login_settings" 
+            android:summary="@string/set_account_credentials"
+        />
+        <ListPreference
+            android:key="account_locale"
+            android:title="@string/your_locale"
+            android:dialogTitle="@string/select_locale"
+            android:entries="@array/region_entries"
+            android:entryValues="@array/region_values"
+        />
+        <ListPreference
+        	android:key="account_check_frequency"
+        	android:title="@string/update_frequency"
+        	android:dialogTitle="@string/update_frequency"
+        	android:entries="@array/account_settings_check_frequency_entries"
+        	android:entryValues="@array/account_settings_check_frequency_values"
+        />
+    </PreferenceCategory>
+    <PreferenceCategory
+    	android:title="@string/notification_settings" 
+    >
+        <ListPreference
+        	android:key="account_friend_notifications"
+        	android:title="@string/friend_notifications"
+        	android:dialogTitle="@string/friend_notifications"
+        	android:entries="@array/friend_notification_entries"
+        	android:entryValues="@array/friend_notification_values"
+        />
+        <RingtonePreference
+        	android:key="account_ringtone"
+        	android:title="@string/select_ringtone"
+        	android:showDefault="true"
+        	android:showSilent="true"
+        	android:ringtoneType="notification"
+        />
+        <CheckBoxPreference
+        	android:key="account_vibrate"
+        	android:title="@string/vibrate"
+        	android:summary="@string/vibrate_summary"
+        />
+    </PreferenceCategory>
+</PreferenceScreen>

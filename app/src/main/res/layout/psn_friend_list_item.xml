@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - layout/psn_friend_list_item.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<com.akop.bach.uiwidget.PsnFriendListItem
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:minHeight="?android:attr/listPreferredItemHeight" 
+	android:paddingRight="9dp"
+	style="@style/psnListViewActivatedStyle"
+>
+	<LinearLayout
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+	>
+		<FrameLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+	        android:layout_marginLeft="8dp"
+	        android:layout_marginRight="8dp"
+	        android:background="@color/icon_background"
+		>
+			<ImageView 
+			    android:id="@+id/friend_avatar_icon" 
+			    android:layout_width="64dp" 
+			    android:layout_height="64dp"
+			/>
+		    <ImageView 
+		        android:id="@+id/friend_plus" 
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content"
+		        android:visibility="gone"
+		        android:src="@drawable/psn_plus_small"
+		        android:layout_marginLeft="8dp"
+		        android:layout_marginRight="8dp"
+		    />
+		</FrameLayout>
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+		>
+			<TextView
+				android:id="@+id/friend_online_id"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:textAppearance="@style/TextAppearance.title" 
+				android:ellipsize="end"
+				android:singleLine="true" 
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true"
+			/>
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"
+			>
+				<ImageView 
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:layout_marginRight="4dp"
+					android:layout_gravity="center_vertical"
+					android:src="@drawable/psn_level_small"
+				/>
+				<TextView
+					android:id="@+id/profile_level"
+				 	android:layout_width="wrap_content"
+				 	android:layout_height="wrap_content" 
+					android:textAppearance="@style/TextAppearance.secondary" 
+				/>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center"
+				android:layout_marginTop="1dp"
+				android:layout_alignParentLeft="true"
+				android:layout_below="@id/friend_online_id"
+			>
+				<ImageView
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:src="@drawable/psn_trophy_all_small" 
+				/>
+				<TextView
+					android:id="@+id/profile_trophies_all"
+				 	android:layout_width="wrap_content"
+				 	android:layout_height="wrap_content" 
+				 	android:layout_marginLeft="1.5dp"
+				 	android:layout_marginRight="3.5dp"
+					android:textAppearance="@style/TextAppearance.secondary" 
+					android:ellipsize="end"
+				/>
+				<ImageView
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:src="@drawable/psn_trophy_bronze_small" 
+				/>
+				<TextView
+					android:id="@+id/profile_trophies_bronze"
+				 	android:layout_width="wrap_content"
+				 	android:layout_height="wrap_content" 
+				 	android:layout_marginLeft="1.5dp"
+				 	android:layout_marginRight="3.5dp"
+					android:textAppearance="@style/TextAppearance.secondary" 
+					android:ellipsize="end"
+				/>
+				<ImageView
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:src="@drawable/psn_trophy_silver_small" 
+				/>
+				<TextView
+					android:id="@+id/profile_trophies_silver"
+				 	android:layout_width="wrap_content"
+				 	android:layout_height="wrap_content" 
+				 	android:layout_marginLeft="1.5dp"
+				 	android:layout_marginRight="3.5dp"
+					android:textAppearance="@style/TextAppearance.secondary" 
+					android:ellipsize="end"
+				/>
+				<ImageView
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:src="@drawable/psn_trophy_gold_small" 
+				/>
+				<TextView
+					android:id="@+id/profile_trophies_gold"
+				 	android:layout_width="wrap_content"
+				 	android:layout_height="wrap_content" 
+				 	android:layout_marginLeft="1.5dp"
+				 	android:layout_marginRight="3.5dp"
+					android:textAppearance="@style/TextAppearance.secondary" 
+					android:ellipsize="end"
+				/>
+				<ImageView
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:src="@drawable/psn_trophy_platinum_small" 
+				/>
+				<TextView
+					android:id="@+id/profile_trophies_plat"
+				 	android:layout_width="wrap_content"
+				 	android:layout_height="wrap_content" 
+				 	android:layout_marginLeft="1.5dp"
+				 	android:layout_marginRight="3.5dp"
+					android:textAppearance="@style/TextAppearance.secondary" 
+					android:ellipsize="end"
+				/>
+			</LinearLayout>
+			<TextView
+				android:id="@+id/friend_playing"
+			 	android:layout_width="wrap_content"
+			 	android:layout_height="wrap_content" 
+		        android:textAppearance="@style/TextAppearance.achDescription" 
+				android:ellipsize="marquee"
+				android:maxLines="2" 
+			  	android:layout_marginRight="64dp"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"
+			/>
+		</RelativeLayout>
+	</LinearLayout>
+    <ImageView
+        android:id="@+id/friend_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+        android:src="@drawable/favorite_off" 
+    />
+</com.akop.bach.uiwidget.PsnFriendListItem>

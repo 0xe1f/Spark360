@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - values-v11/styles.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<resources>
+    
+	<style name="CafTheme" parent="android:Theme.Holo.Light">
+		<item name="android:windowBackground">@color/caf_background</item>
+		<item name="android:cacheColorHint">@color/caf_background</item>
+    	<item name="android:listViewStyle">@style/cafListView</item>
+    	<item name="android:editTextStyle">@style/cafEditText</item>
+    	<item name="android:checkboxStyle">@style/cafCheckbox</item>
+        <item name="android:actionBarStyle">@style/caffeineActionBar</item>
+	</style>
+	
+	<style name="caffeineActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/actionbar_default_background</item>
+    </style>
+    
+	<style name="GTheme" parent="android:Theme.Holo.Light">
+		<item name="android:windowBackground">@color/generic_background</item>
+		<item name="android:cacheColorHint">@color/generic_background</item>
+    	<item name="android:listViewStyle">@style/listView</item>
+    	<item name="android:editTextStyle">@style/editText</item>
+    	<item name="android:checkboxStyle">@style/checkbox</item>
+        <item name="android:actionBarStyle">@style/caffeineActionBar</item>
+	</style>
+	
+    <style name="listViewActivatedStyle">
+        <item name="android:background">@drawable/xbox_activated_item</item>
+    </style>
+    
+	<style name="actionBarSubtitle">
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">#ffffffff</item>
+	</style>
+	
+	<style name="actionBarTitle">
+		<item name="android:textSize">21sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:padding">0dp</item>
+		<item name="android:layout_margin">0dp</item>
+	</style>
+	
+	<!-- XBL -->
+    <style name="XboxRibbon">
+        <item name="android:visibility">gone</item>
+    </style>
+    
+    <style name="xboxActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:displayOptions">showCustom</item>
+        <item name="android:background">@drawable/xbox_ribbon_bg</item>
+        <item name="android:subtitleTextStyle">@style/actionBarSubtitle</item>
+        <item name="android:titleTextStyle">@style/actionBarTitle</item>
+    </style>
+    
+    <style name="XBoxTheme" parent="GTheme">
+        <item name="android:windowBackground">@color/xbox_background</item>
+        <item name="android:cacheColorHint">@color/xbox_background</item>
+        <item name="android:listViewStyle">@style/xboxListView</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:actionBarStyle">@style/xboxActionBar</item>
+    </style>
+    
+    <style name="xboxListViewActivatedStyle">
+        <item name="android:background">@drawable/xbox_activated_item</item>
+    </style>
+    
+	<!-- PSN -->
+    <style name="psnRibbon">
+        <item name="android:visibility">gone</item>
+    </style>
+    
+    <style name="psnActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:displayOptions">showCustom</item>
+        <item name="android:background">@drawable/psn_ribbon_bg</item>
+        <item name="android:subtitleTextStyle">@style/actionBarSubtitle</item>
+        <item name="android:titleTextStyle">@style/actionBarTitle</item>
+    </style>
+    
+    <style name="PsnTheme" parent="GTheme">
+        <item name="android:windowBackground">@color/psn_background</item>
+        <item name="android:cacheColorHint">@color/psn_background</item>
+        <item name="android:listViewStyle">@style/psnListView</item>
+        <item name="android:textColorLink">@color/hyperlink</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:actionBarStyle">@style/psnActionBar</item>
+    </style>
+    
+    <style name="psnListViewActivatedStyle">
+        <item name="android:background">@drawable/psn_activated_item</item>
+    </style>
+    
+</resources>

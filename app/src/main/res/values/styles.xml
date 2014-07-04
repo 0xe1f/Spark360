@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  
+ - values/styles.xml
+ - Copyright (C) 2010-2014 Akop Karapetyan
+ -
+ - This file is part of Spark 360, the online gaming service client. 
+ -
+ -  This program is free software; you can redistribute it and/or modify
+ -  it under the terms of the GNU General Public License as published by
+ -  the Free Software Foundation; either version 2 of the License, or
+ -  (at your option) any later version.
+ -
+ -  This program is distributed in the hope that it will be useful,
+ -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ -  GNU General Public License for more details.
+ -
+ -  You should have received a copy of the GNU General Public License
+ -  along with this program; if not, write to the Free Software
+ -  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ -  02111-1307  USA.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<style name="CafTheme" parent="android:Theme.Light">
+		<item name="android:windowBackground">@color/caf_background</item>
+		<item name="android:cacheColorHint">@color/caf_background</item>
+    	<item name="android:listViewStyle">@style/cafListView</item>
+    	<item name="android:editTextStyle">@style/cafEditText</item>
+    	<item name="android:checkboxStyle">@style/cafCheckbox</item>
+	</style>
+	
+	<style 
+		name="cafListView" 
+		parent="@android:style/Widget.ListView"
+	>
+		<item name="android:background">@color/caf_background</item>
+		<item name="android:cacheColorHint">@color/caf_background</item>
+		<item name="android:divider">@drawable/divider</item>
+		<item name="android:dividerHeight">1dp</item>
+	</style>
+	
+	<style
+		name="cafEditText"
+		parent="@android:style/Widget.EditText"
+	>
+		<item name="android:textColor">@color/caf_primary_text</item>
+	</style>
+	
+	<style
+		name="cafCheckbox" 
+		parent="@android:style/Widget.CompoundButton.CheckBox"
+	>
+		<item name="android:textColor">@color/caf_primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.cafLargeMessage" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:paddingTop">20dp</item>
+		<item name="android:paddingBottom">20dp</item>
+		<item name="android:background">@color/caf_background</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/caf_secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.cafMediumMessage" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">@color/caf_primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.accountId" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">20sp</item>
+		<item name="android:textColor">@color/caf_primary_text</item>
+	</style>
+	
+    <style 
+        name="TextAppearance.accountUnavail" 
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/caf_secondary_text</item>
+    </style>
+    
+	<style 
+		name="TextAppearance.accountType" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/caf_secondary_text</item>
+	</style>
+	
+	<!-- 360 -->
+	<style name="GDialogTheme" parent="android:Theme.Dialog">
+    	<item name="android:listViewStyle">@style/listView</item>
+	</style>
+	
+	<style name="GTheme" parent="android:Theme.Light">
+		<item name="android:windowBackground">@color/generic_background</item>
+		<item name="android:cacheColorHint">@color/generic_background</item>
+    	<item name="android:listViewStyle">@style/listView</item>
+    	<item name="android:editTextStyle">@style/editText</item>
+    	<item name="android:checkboxStyle">@style/checkbox</item>
+        <item name="android:radioButtonStyle">@style/radioButton</item>
+	</style>
+	
+	<style 
+        name="xboxActionBarProgress" 
+        parent="@android:style/Widget.ProgressBar.Small" 
+    />
+    
+	<style name="XBoxTheme" parent="GTheme">
+	    <item name="android:windowNoTitle">true</item>
+		<item name="android:windowBackground">@color/xbox_background</item>
+		<item name="android:cacheColorHint">@color/xbox_background</item>
+    	<item name="android:listViewStyle">@style/xboxListView</item>
+    </style>
+	
+	<style name="PsnTheme" parent="GTheme">
+	    <item name="android:windowNoTitle">true</item>
+		<item name="android:windowBackground">@color/psn_background</item>
+		<item name="android:cacheColorHint">@color/psn_background</item>
+    	<item name="android:listViewStyle">@style/psnListView</item>
+	</style>
+	
+	<style name="XboxRibbon">
+    	<item name="android:background">@drawable/xbox_ribbon_bg</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxGtext" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/xbox_g_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxGicon" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/xbox_g_icon</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxGlargeText" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/xbox_g_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxGlargeIcon" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/xbox_g_icon</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxGamertag"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.title"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.appTitle"
+		parent="@style/TextAppearance.title"
+	>
+		<item name="android:textSize">36sp</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.widgetGamertag"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.widgetGamertagMedium"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.widgetGamertagSmall"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxWidgetText"
+		parent="@style/TextAppearance.title"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/xbox_widget_text</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.description" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.achDescription" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">10sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+		<item name="android:maxLines">2</item>
+		<item name="android:ellipsize">marquee</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.primary" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxFriendCategory" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxFriendInfo" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.friendLastSeen" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+		<item name="android:layout_margin">20dip</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.friendGamerscore" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.statusbarText" 
+		parent="@style/TextAppearance.primary"
+	>
+		<item name="android:textSize">14sp</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.secondary" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.secondaryBold" 
+		parent="TextAppearance.secondary"
+	>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.plainMedium" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.friendGamertag"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.listItemDescription" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.listItemTitle"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+    <style 
+        name="TextAppearance.coverTitle"
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#ff444444</item>
+    </style>
+    
+    <style 
+        name="TextAppearance.coverStatus"
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#ff444444</item>
+    </style>
+    
+    <style 
+        name="TextAppearance.coverActivity"
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">7sp</item>
+        <item name="android:textColor">#ff444444</item>
+    </style>
+    
+    <style 
+        name="TextAppearance.coverGtext"
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#ff444444</item>
+    </style>
+    
+	<style 
+		name="TextAppearance.messageSummary" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.messageSender" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.messageSent" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.messageBody"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.messageSelect"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">17sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.messageWarning"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="listView" 
+		parent="@android:style/Widget.ListView"
+	>
+		<item name="android:background">@color/generic_background</item>
+		<item name="android:cacheColorHint">@color/generic_background</item>
+		<item name="android:divider">@drawable/divider</item>
+		<item name="android:dividerHeight">1dp</item>
+	</style>
+	
+	<style 
+		name="xboxListView" 
+		parent="@android:style/Widget.ListView"
+	>
+		<item name="android:background">@color/xbox_list_background</item>
+		<item name="android:cacheColorHint">@color/xbox_list_background</item>
+		<item name="android:divider">@drawable/divider</item>
+		<item name="android:dividerHeight">1dp</item>
+	</style>
+	
+	<style 
+		name="psnListView" 
+		parent="@android:style/Widget.ListView"
+	>
+		<item name="android:background">@color/psn_background</item>
+		<item name="android:cacheColorHint">@color/psn_background</item>
+		<item name="android:divider">@drawable/divider</item>
+		<item name="android:dividerHeight">1dp</item>
+	</style>
+	
+	<style 
+		name="editText" 
+		parent="@android:style/Widget.EditText"
+	>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="checkbox" 
+		parent="@android:style/Widget.CompoundButton.CheckBox"
+	>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+        name="radioButton" 
+        parent="@android:style/Widget.CompoundButton.RadioButton"
+    >
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+    
+	<style 
+		name="TextAppearance.smallMessage" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.mediumMessage" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.largeMessage" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:paddingTop">20dp</item>
+		<item name="android:paddingBottom">20dp</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.toastTitle"
+		parent="@style/TextAppearance.title"
+	>
+		<item name="android:textColor">@color/toast_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.toastText" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/toast_text</item>
+	</style>
+	
+    <style 
+        name="TextAppearance.achToastTitle"
+        parent="@style/TextAppearance.title"
+    >
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/toast_text</item>
+    </style>
+    
+    <style 
+        name="TextAppearance.achToastText" 
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/toast_text</item>
+    </style>
+    
+	<style name="ribbonGamertag">
+		<item name="android:textSize">21sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:shadowColor">#ffa06400</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">0</item>
+		<item name="android:shadowRadius">2</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:padding">0dp</item>
+		<item name="android:layout_margin">0dp</item>
+	</style>
+	
+	<style name="ribbonLine1">
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:shadowColor">#ffa06400</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">0</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+	
+    <style name="editProfileButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:background">@drawable/stylized_button</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+	</style>
+    
+	<style 
+		name="TextAppearance.profileGamertag"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/xbox_yellow_shadow</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+    <style 
+        name="TextAppearance.multipleRecipients"
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/xbox_yellow_shadow</item>
+    </style>
+    
+	<style 
+		name="TextAppearance.friendRecentActivity" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.xboxFriendStatus" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.profileCount" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">24sp</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.profileCategory" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+	
+	<style 
+		name="listItemSeparator" 
+	>
+	    <item name="android:background">#ffaaaaaa</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:shadowColor">#ff222222</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">0</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+	
+	<style name="detailPane">
+        <item name="android:background">#ffdddddd</item>
+    </style>
+    
+    <style name="detailPaneHeader">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+    
+	<style name="listViewActivatedStyle" />
+    <style name="xboxListViewActivatedStyle" />
+	<style name="psnListViewActivatedStyle" />
+    
+    <style name="beaconText">
+        <item name="android:textColor">@color/xbox_green</item>
+    </style>
+    
+    <style name="roundedPaneOuter">
+        <item name="android:background">@color/xbox_yellow</item>
+    </style>
+    
+    <style name="roundedPaneInner">
+        <item name="android:background">@drawable/xbox_window_top</item>
+    </style>
+    
+    <!-- PSN -->
+    
+	<style name="psnRibbon">
+    	<item name="android:background">@drawable/psn_faux_ribbon_bg</item>
+	</style>
+	
+	<style name="psnRibbonGamertag">
+        <item name="android:textStyle">bold</item>
+		<item name="android:textSize">21sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:shadowColor">#ff000000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">0</item>
+		<item name="android:shadowRadius">3</item>
+		<item name="android:padding">0dp</item>
+		<item name="android:layout_margin">0dp</item>
+	</style>
+	
+	<style name="psnRibbonTitle">
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:shadowColor">#ff000000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">0</item>
+		<item name="android:shadowRadius">3</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnListItemTitle"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">#ffffffff</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnListItemText"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">#ffffffff</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnListItemGroup"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">#ffffffff</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnProfileCount" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">24sp</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnProfileCategory" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+	
+    <style 
+        name="TextAppearance.psnBlogItemTitle" 
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style 
+        name="TextAppearance.psnBlogItemAuthor" 
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style 
+        name="TextAppearance.psnBlogItemText" 
+        parent="@android:style/TextAppearance.Widget.TextView"
+    >
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+	
+	<style 
+		name="TextAppearance.blogExcerpt" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">9sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+		<item name="android:maxLines">2</item>
+		<item name="android:ellipsize">marquee</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.trophyCount" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">10sp</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+	
+	<style name="trophyCount">
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+        <item name="android:paddingLeft">5dp</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnIdLarge"
+		parent="@style/TextAppearance.title"
+	>
+		<item name="android:textSize">20dp</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.widgetOnlineId"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/psn_widget_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.overviewText" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.profileStatMedium"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">14dp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.trophyTitle"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.friendOnlineId"
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.friendOnlineStatusDescription" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/secondary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.compareGameOnlineId" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.compareTrophyOnlineId" 
+		parent="@android:style/TextAppearance.Widget.TextView"
+	>
+		<item name="android:textSize">12sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+	
+	<style 
+		name="TextAppearance.psnWidgetText"
+		parent="@style/TextAppearance.title"
+	>
+		<item name="android:textSize">13sp</item>
+		<item name="android:textColor">@color/psn_widget_text</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+	
+</resources>
