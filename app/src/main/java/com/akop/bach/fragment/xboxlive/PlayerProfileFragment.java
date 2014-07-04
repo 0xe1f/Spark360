@@ -23,8 +23,6 @@
 
 package com.akop.bach.fragment.xboxlive;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -59,6 +57,8 @@ import com.akop.bach.parser.Parser;
 import com.akop.bach.parser.ParserException;
 import com.akop.bach.parser.XboxLiveParser;
 
+import java.io.IOException;
+
 public class PlayerProfileFragment extends GenericFragment implements
         OnOkListener
 {
@@ -77,7 +77,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 		public void onTaskSucceeded(Account account, Object requestParam, Object result) 
 		{
 			// Update friends
-			synchronizeWithServer();
 			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			
 			// Show toast
@@ -127,24 +126,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 	};
 	
 	private static CachePolicy sCp = new CachePolicy(CachePolicy.SECONDS_IN_HOUR * 4);
-	private static final int starViews[] = 
-	{ 
-		R.id.profile_rep_star0,
-		R.id.profile_rep_star1,
-		R.id.profile_rep_star2,
-		R.id.profile_rep_star3,
-		R.id.profile_rep_star4,
-	};
-	private static final int starResources[] = 
-	{ 
-		R.drawable.xbox_star_o0,
-		R.drawable.xbox_star_o1,
-		R.drawable.xbox_star_o2,
-		R.drawable.xbox_star_o3,
-		R.drawable.xbox_star_o4,
-	};
-	
-	private boolean mResynchronize;
+
 	private XboxLiveAccount mAccount;
 	private String mGamertag;
 	private GamerProfileInfo mPayload;
@@ -156,11 +138,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 		ImageView avatar;
 		ImageView avatarBody;
 		TextView info;
-		TextView name;
-		TextView location;
-		TextView bio;
-		TextView motto;
-		View rep;
 		LinearLayout beaconRoot;
 	}
 	
@@ -189,21 +166,17 @@ public class PlayerProfileFragment extends GenericFragment implements
 		
 	    Bundle args = getArguments();
 	    
-	    mResynchronize = false;
 	    mAccount = (XboxLiveAccount)args.getParcelable("account");
 	    mPayload = (GamerProfileInfo)args.getParcelable("info");
 	    mGamertag = null;
-	    mResynchronize = false;
-	    
+
 	    if (mPayload != null)
 	    {
 	    	mGamertag = mPayload.Gamertag;
-	    	mResynchronize = true;
 	    }
 		
 	    if (state != null)
 	    {
-    		mResynchronize = state.getBoolean("resync");
     		mGamertag = state.getString("gamertag");
     		mPayload = (GamerProfileInfo)state.getParcelable("info");
 	    }
@@ -220,15 +193,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 		
 		View layout = inflater.inflate(R.layout.xbl_fragment_friend_summary,
 				container, false);
-		
-		layout.findViewById(R.id.refresh_profile).setOnClickListener(new View.OnClickListener() 
-		{
-			@Override
-			public void onClick(View v)
-			{
-				synchronizeWithServer();
-			}
-		});
 		
 		View composeButton = layout.findViewById(R.id.compose_message);
 		composeButton.setVisibility(mAccount.canSendMessages() 
@@ -272,12 +236,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 		TaskController.getInstance().addListener(mRequestListener);
 		
 		synchronizeLocal();
-		
-		if (mResynchronize)
-		{
-			synchronizeWithServer();
-			mResynchronize = false;
-		}
 	}
 	
 	@Override
@@ -285,7 +243,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 	{
 		super.onSaveInstanceState(outState);
 		
-		outState.putBoolean("resync", mResynchronize);
 		outState.putParcelable("info", mPayload);
 		outState.putString("gamertag", mGamertag);
 	}
@@ -366,8 +323,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 		{
 			mGamertag = info.Gamertag;
 			mPayload = info;
-			
-			synchronizeWithServer();
 		}
 		
 		synchronizeLocal();
@@ -396,11 +351,6 @@ public class PlayerProfileFragment extends GenericFragment implements
 			holder.avatar = (ImageView)view.findViewById(R.id.profile_avatar);
 			holder.avatarBody = (ImageView)view.findViewById(R.id.profile_avatar_body);
 			holder.info = (TextView)view.findViewById(R.id.profile_info);
-			holder.name = (TextView)view.findViewById(R.id.profile_name);
-			holder.location = (TextView)view.findViewById(R.id.profile_location);
-			holder.bio = (TextView)view.findViewById(R.id.profile_bio);
-			holder.motto = (TextView)view.findViewById(R.id.profile_motto);
-			holder.rep = view.findViewById(R.id.profile_rep);
 			holder.beaconRoot = (LinearLayout)view.findViewById(R.id.beacon_list);
 			
 			holder.gamertag.setText(mPayload.Gamertag);
@@ -427,30 +377,7 @@ public class PlayerProfileFragment extends GenericFragment implements
 					ic.requestImage(avatarUrl, this, 0, null, sCp);
 			}
 			
-			holder.name.setText(mPayload.Name);
-			holder.location.setText(mPayload.Location);
-			holder.bio.setText(mPayload.Bio);
 			holder.info.setText(mPayload.CurrentActivity);
-			
-			String motto = mPayload.Motto;
-			
-			holder.motto.setVisibility((motto == null || motto.length() < 1)
-					? View.INVISIBLE : View.VISIBLE);
-			holder.motto.setText(motto);
-			
-			int res;
-			int rep = mPayload.Rep;
-			
-			for (int starPos = 0, j = 0, k = 4; starPos < 5; starPos++, j += 4, k += 4)
-			{
-				if (rep < j) res = 0;
-				else if (rep >= k) res = 4;
-				else res = rep - j;
-				
-				ImageView starView = (ImageView)holder.rep.findViewById(starViews[starPos]);
-				starView.setImageResource(starResources[res]);
-			}
-			
 			holder.beaconRoot.removeAllViews();
 			
 			LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -508,29 +435,7 @@ public class PlayerProfileFragment extends GenericFragment implements
         	new HoneyCombHelper().invalidateMenu();
 	}
 	
-	private void synchronizeWithServer()
-	{
-		TaskController.getInstance().runCustomTask(null, new CustomTask<GamerProfileInfo>()
-				{
-					@Override
-					public void runTask() throws AuthenticationException,
-							IOException, ParserException
-					{
-						XboxLiveParser p = new XboxLiveParser(getActivity());
-						
-						try
-						{
-							setResult(p.fetchGamerProfile(mAccount, mGamertag));
-						}
-						finally
-						{
-							p.dispose();
-						}
-					}
-				}, mListener);
-	}
-	
-	@Override 
+	@Override
 	public void onImageReady(long id, Object param, Bitmap bmp)
 	{
 		super.onImageReady(id, param, bmp);

@@ -23,8 +23,6 @@
 
 package com.akop.bach.fragment.xboxlive;
 
-import java.io.IOException;
-
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -48,7 +46,6 @@ import com.akop.bach.ImageCache;
 import com.akop.bach.Preferences;
 import com.akop.bach.R;
 import com.akop.bach.TaskController;
-import com.akop.bach.TaskController.CustomTask;
 import com.akop.bach.TaskController.TaskListener;
 import com.akop.bach.XboxLive.Friends;
 import com.akop.bach.XboxLive.Messages;
@@ -62,31 +59,10 @@ import com.akop.bach.activity.xboxlive.GameList;
 import com.akop.bach.activity.xboxlive.MessageList;
 import com.akop.bach.activity.xboxlive.ServerStatus;
 import com.akop.bach.fragment.GenericFragment;
-import com.akop.bach.fragment.xboxlive.EditProfileFragment.ProfileUpdater;
-import com.akop.bach.parser.AuthenticationException;
-import com.akop.bach.parser.ParserException;
 import com.akop.bach.parser.XboxLiveParser;
 
-public class AccountProfileFragment extends GenericFragment implements ProfileUpdater
+public class AccountProfileFragment extends GenericFragment
 {
-	private static final int starViews[] = 
-	{ 
-		R.id.profile_rep_star0,
-		R.id.profile_rep_star1,
-		R.id.profile_rep_star2,
-		R.id.profile_rep_star3,
-		R.id.profile_rep_star4,
-	};
-	
-	private static final int starResources[] = 
-	{ 
-		R.drawable.xbox_star_o0,
-		R.drawable.xbox_star_o1,
-		R.drawable.xbox_star_o2,
-		R.drawable.xbox_star_o3,
-		R.drawable.xbox_star_o4,
-	};
-	
 	private Handler mHandler = new Handler();
 	private XboxLiveAccount mAccount = null;
 	private TaskListener mListener = new TaskListener();
@@ -213,14 +189,9 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 				ic.requestImage(avatarUrl, this, 0, null, sCp);
 			
 			int rep = 0;
-			int pointBal = 0;
 			int gamerscore = 0;
 			String tier = null;
-			String name = null;
-			String motto = null;
-			String location = null;
-			String bio = null;
-			
+
 			Cursor cursor = getActivity().getContentResolver().query(Profiles.CONTENT_URI,
 					new String[] { 
 						Profiles.REP, 
@@ -242,13 +213,8 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 					if (cursor.moveToFirst())
 					{
 						rep = cursor.getInt(0);
-						pointBal = cursor.getInt(1);
 						gamerscore = cursor.getInt(2);
 						tier = cursor.getString(3);
-						name = cursor.getString(4);
-						motto = cursor.getString(5);
-						location = cursor.getString(6);
-						bio = cursor.getString(7);
 					}
 				}
 				catch(Exception ex)
@@ -272,34 +238,8 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 			tv = (TextView)layout.findViewById(R.id.profile_points);
 			tv.setText(getString(R.string.x_f, gamerscore));
 			
-			tv = (TextView)layout.findViewById(R.id.profile_msp);
-			tv.setText(getString(R.string.x_f, pointBal));
-			
 			tv = (TextView)layout.findViewById(R.id.profile_membership);
 			tv.setText(tier);
-			
-			tv = (TextView)layout.findViewById(R.id.profile_name);
-			tv.setText(name);
-			
-			tv = (TextView)layout.findViewById(R.id.profile_motto);
-			tv.setText(motto);
-			
-			tv = (TextView)layout.findViewById(R.id.profile_location);
-			tv.setText(location);
-			
-			tv = (TextView)layout.findViewById(R.id.profile_bio);
-			tv.setText(bio);
-			
-			int res;
-			for (int starPos = 0, j = 0, k = 4; starPos < 5; starPos++, j += 4, k += 4)
-			{
-				if (rep < j) res = 0;
-				else if (rep >= k) res = 4;
-				else res = rep - j;
-				
-				ImageView starView = (ImageView)layout.findViewById(starViews[starPos]);
-				starView.setImageResource(starResources[res]);
-			}
 		}
 		else
 		{
@@ -338,19 +278,8 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 		
 		View layout = inflater.inflate(R.layout.xbl_fragment_account_summary,
 				container, false);
-		
-		View view = layout.findViewById(R.id.edit_profile);
-		view.setOnClickListener(new OnClickListener() 
-		{
-			@Override
-			public void onClick(View v)
-			{
-				EditProfileFragment frag = EditProfileFragment.newInstance(mAccount);
-				frag.setProfileUpdater(AccountProfileFragment.this);
-				frag.show(getFragmentManager(), null);
-			}
-		});
-		
+
+        View view;
 		view = layout.findViewById(R.id.open_friends);
 		view.setOnClickListener(new OnClickListener() 
 		{
@@ -440,14 +369,12 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	{
 	    super.onImageReady(id, param, bmp);
 	    
-	    mHandler.post(new Runnable()
-		{			
-			@Override
-			public void run()
-			{
-			    synchronizeLocal();
-			}
-		});
+	    mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                synchronizeLocal();
+            }
+        });
 	}
 	
 	@Override
@@ -496,29 +423,5 @@ public class AccountProfileFragment extends GenericFragment implements ProfileUp
 	    }
 	    
 	    return false;
-	}
-	
-	@Override
-	public void updateProfile(XboxLiveAccount account, final String motto,
-			final String name, final String location, final String bio)
-	{
-		TaskController.getInstance().runCustomTask(mAccount, new CustomTask<Void>()
-				{
-					@Override
-					public void runTask() throws AuthenticationException,
-							IOException, ParserException
-					{
-						XboxLiveParser p = new XboxLiveParser(getActivity());
-						
-						try
-						{
-							p.updateProfile(mAccount, motto, name, location, bio);
-						}
-						finally
-						{
-							p.dispose();
-						}
-					}
-				}, mProfileUpdater);
 	}
 }

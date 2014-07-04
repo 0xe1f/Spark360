@@ -23,22 +23,34 @@
 
 package com.akop.bach.parser;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+
+import com.akop.bach.App;
+import com.akop.bach.BasicAccount;
+import com.akop.bach.Preferences;
+import com.akop.bach.R;
+import com.akop.bach.XboxLive;
+import com.akop.bach.XboxLive.Achievements;
+import com.akop.bach.XboxLive.Beacons;
+import com.akop.bach.XboxLive.ComparedAchievementInfo;
+import com.akop.bach.XboxLive.ComparedGameInfo;
+import com.akop.bach.XboxLive.Friends;
+import com.akop.bach.XboxLive.FriendsOfFriend;
+import com.akop.bach.XboxLive.GameOverviewInfo;
+import com.akop.bach.XboxLive.GamerProfileInfo;
+import com.akop.bach.XboxLive.Games;
+import com.akop.bach.XboxLive.LiveStatusInfo;
+import com.akop.bach.XboxLive.Messages;
+import com.akop.bach.XboxLive.NotifyStates;
+import com.akop.bach.XboxLive.Profiles;
+import com.akop.bach.XboxLive.RecentPlayers;
+import com.akop.bach.XboxLive.SentMessages;
+import com.akop.bach.XboxLiveAccount;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -55,35 +67,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-
-import com.akop.bach.App;
-import com.akop.bach.BasicAccount;
-import com.akop.bach.Preferences;
-import com.akop.bach.R;
-import com.akop.bach.XboxLive;
-import com.akop.bach.XboxLive.Achievements;
-import com.akop.bach.XboxLive.BeaconInfo;
-import com.akop.bach.XboxLive.Beacons;
-import com.akop.bach.XboxLive.ComparedAchievementInfo;
-import com.akop.bach.XboxLive.ComparedGameInfo;
-import com.akop.bach.XboxLive.Friends;
-import com.akop.bach.XboxLive.FriendsOfFriend;
-import com.akop.bach.XboxLive.GameOverviewInfo;
-import com.akop.bach.XboxLive.GamerProfileInfo;
-import com.akop.bach.XboxLive.Games;
-import com.akop.bach.XboxLive.LiveStatusInfo;
-import com.akop.bach.XboxLive.Messages;
-import com.akop.bach.XboxLive.NotifyStates;
-import com.akop.bach.XboxLive.Profiles;
-import com.akop.bach.XboxLive.RecentPlayers;
-import com.akop.bach.XboxLive.SentMessages;
-import com.akop.bach.XboxLiveAccount;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class XboxLiveParser extends LiveParser
 {
@@ -138,7 +137,7 @@ public class XboxLiveParser extends LiveParser
 	private static final String URL_VTOKEN_ACTIVITY = 
 		"https://live.xbox.com/%1$s/Activity?xr=socialtwistnav";
 	private static final String URL_VTOKEN_FRIENDS = 
-		"https://live.xbox.com/%1$s/Friends?xr=socialtwistnav";
+		"https://live.xbox.com/%1$s/Home?xr=socialtwistnav";
 	private static final String URL_VTOKEN_COMPARE_GAMES = 
 		"https://live.xbox.com/%1$s/Activity?compareTo=%2$s";
 	private static final String URL_VTOKEN_FRIEND_REQUEST = 
@@ -148,14 +147,12 @@ public class XboxLiveParser extends LiveParser
 		"https://live.xbox.com/en-US/MyXbox";
 	
 	private static final String URL_MY_PROFILE = 
-		"https://live.xbox.com/%1$s/Profile";
+		"https://account.xbox.com/%1$s/Profile/";
 	private static final String URL_STATUS = 
 		"https://support.xbox.com/%1$s/xbox-live-status";
 	private static final String URL_ACHIEVEMENTS = 
 		"https://live.xbox.com/%1$s/Activity/Details?titleId=%2$s";
-	private static final String URL_FRIEND_PROFILE = 
-		"https://live.xbox.com/%1$s/Profile?gamertag=%2$s";
-	private static final String URL_COMPARE_ACHIEVEMENTS = 
+	private static final String URL_COMPARE_ACHIEVEMENTS =
 		"https://live.xbox.com/%1$s/Activity/Details?compareTo=%3$s&titleId=%2$s";
 	private static final String URL_GAMERCARD = 
 		"http://gamercard.xbox.com/%1$s/%2$s.card";
@@ -198,8 +195,6 @@ public class XboxLiveParser extends LiveParser
 	private static final Pattern PATTERN_SUMMARY_BIO = Pattern.compile(
 			"<div class=\"bio\">.*?<div class=\"value\" title=\"[^\"]*\">([^<]*)</div>",
 				Pattern.DOTALL);
-	private static final Pattern PATTERN_SUMMARY_POINTS = Pattern.compile(
-			"<div class=\"gamerscore\">(\\d+)</div>");
 	private static final Pattern PATTERN_SUMMARY_GAMERPIC = Pattern.compile(
 			"<img class=\"gamerpic\" src=\"([^\"]+)\"");
 	private static final Pattern PATTERN_SUMMARY_MOTTO = Pattern.compile(
@@ -210,12 +205,13 @@ public class XboxLiveParser extends LiveParser
 			"<a class=\"removeFriend button\"");
 	
 	private static final Pattern PATTERN_SUMMARY_REP = Pattern.compile(
-			"<div class=\"reputation\">(.*?)<div class=\"clearfix\"", 
-			Pattern.DOTALL);
+            "<div id=\"reputationProgress\" class=\"[^\"]*\" data-ringpercent *=\"([0-9]*)\"");
 	private static final Pattern PATTERN_SUMMARY_GAMERTAG = Pattern.compile(
-			"<article class=\"profile you\" data-gamertag=\"([^\"]*)\">");
-	
-	private static final Pattern PATTERN_GAME_OVERVIEW_TITLE = 
+			"<div id=\"myGamertag\">([^<]+)<");
+    private static final Pattern PATTERN_SUMMARY_POINTS = Pattern.compile(
+            "<div class=\"gamerScore\">([0-9,]+)</div>");
+
+    private static final Pattern PATTERN_GAME_OVERVIEW_TITLE =
 		Pattern.compile("<h1>([^<]*)</h1>");
 	private static final Pattern PATTERN_GAME_OVERVIEW_DESCRIPTION = 
 		Pattern.compile("<div class=\"Text\">\\s*<p\\s*[^>]*>([^<]+)</p>\\s*</div>");
@@ -567,8 +563,8 @@ public class XboxLiveParser extends LiveParser
 		long started = System.currentTimeMillis();
 		
 		ContentResolver cr = mContext.getContentResolver();
-		String url = String.format(URL_JSON_BEACONS, 
-				mLocale);
+		String url = String.format(URL_JSON_BEACONS,
+                mLocale);
 		
 		List<NameValuePair> inputs = new ArrayList<NameValuePair>(3);
 		addValue(inputs, "__RequestVerificationToken", token);
@@ -628,8 +624,8 @@ public class XboxLiveParser extends LiveParser
 		
 		long started = System.currentTimeMillis();
 		
-		String token = getVToken(String.format(URL_VTOKEN_MESSAGES, 
-				mLocale));
+		String token = getVToken(String.format(URL_VTOKEN_MESSAGES,
+                mLocale));
 		
 		String url = String.format(URL_JSON_SEND_MESSAGE, 
 				mLocale);
@@ -704,267 +700,18 @@ public class XboxLiveParser extends LiveParser
 			displayTimeTaken("Message send processing", started);
 	}
 	
-	private void parseFriendSummary(XboxLiveAccount account, String gamertag)
-		throws ParserException, IOException
-	{
-		long started = System.currentTimeMillis();
-		String url = String.format(URL_FRIEND_PROFILE, 
-				mLocale, 
-				URLEncoder.encode(gamertag, "UTF-8"));
-		
-		String page = getResponse(url);
-		Matcher m;
-		
-		int gamerscore = 0;
-		if ((m = PATTERN_SUMMARY_POINTS.matcher(page)).find())
-			gamerscore = Integer.parseInt(m.group(1));
-		
-		String activity = null;
-		if ((m = PATTERN_SUMMARY_ACTIVITY.matcher(page)).find())
-			activity = htmlDecode(m.group(1)).trim();
-		
-		String bio = null;
-		if ((m = PATTERN_SUMMARY_BIO.matcher(page)).find())
-			bio = htmlDecodeWithCrLf(m.group(1));
-		
-		String name = null;
-		if ((m = PATTERN_SUMMARY_NAME.matcher(page)).find())
-			name = htmlDecode(m.group(1));
-		
-		String location = null;
-		if ((m = PATTERN_SUMMARY_LOCATION.matcher(page)).find())
-			location = htmlDecode(m.group(1));
-		
-		String motto = "";
-		if ((m = PATTERN_SUMMARY_MOTTO.matcher(page)).find())
-			motto = htmlDecode(m.group(1));
-		
-		String iconUrl = "";
-		if ((m = PATTERN_SUMMARY_GAMERPIC.matcher(page)).find())
-			iconUrl = getLargeGamerpic(m.group(1));
-		else
-			iconUrl = getGamerpicUrl(gamertag);
-		
-		int rep = 0;
-		if ((m = PATTERN_SUMMARY_REP.matcher(page)).find())
-			rep = getStarRating(m.group(1));
-		
-		ContentValues cv = new ContentValues(15);
-		
-		cv.put(Friends.CURRENT_ACTIVITY, activity);
-		cv.put(Friends.GAMERSCORE, gamerscore);
-		cv.put(Friends.BIO, bio);
-		cv.put(Friends.NAME, name);
-		cv.put(Friends.LOCATION, location);
-		cv.put(Friends.MOTTO, motto);
-		cv.put(Friends.REP, rep);
-		cv.put(Friends.LAST_UPDATED, started);
-		
-		if (App.getConfig().logToConsole())
-			started = displayTimeTaken("Summary processing", started);
-		
-		ContentResolver cr = mContext.getContentResolver();
-		long accountId = account.getId();
-		long friendId = -1;
-		
-		Cursor c = cr.query(Friends.CONTENT_URI, 
-				new String[] { Friends._ID, Friends.ICON_URL },
-				Friends.ACCOUNT_ID + "=" + accountId + " AND " +
-				Friends.GAMERTAG + "=?", new String[] { gamertag }, 
-				null);
-		
-		if (c != null)
-		{
-			Uri uri = null;
-			
-			try
-			{
-				if (c.moveToFirst())
-				{
-					// NOTE: Not writing icon for existing friends (not as accurate
-					//       as what we can get from Friends list)
-					// cv.put(Friends.ICON_URL, iconUrl);
-					
-					friendId = c.getLong(0);
-					uri = ContentUris.withAppendedId(Friends.CONTENT_URI, friendId);
-					
-					cr.update(uri, cv, null, null);
-				}
-				else
-				{
-					cv.put(Friends.ACCOUNT_ID, account.getId());
-					cv.put(Friends.GAMERTAG, gamertag);
-			    	cv.put(Friends.ICON_URL, iconUrl);
-					
-					uri = cr.insert(Friends.CONTENT_URI, cv);
-					friendId = Long.parseLong(uri.getLastPathSegment());
-				}
-			}
-			finally
-			{
-				c.close();
-			}
-			
-			if (uri != null)
-				cr.notifyChange(uri, null);
-			
-			if (App.getConfig().logToConsole())
-				started = displayTimeTaken("Summary update", started);
-			
-			cr.delete(Beacons.CONTENT_URI, 
-					Beacons.ACCOUNT_ID + "=" + accountId + " AND " +
-					Beacons.FRIEND_ID + "=" + friendId, null);
-			
-			try
-			{
-				String token = getVTokenFromContents(page);
-				ContentValues[] cvList = parseGetBeacons(gamertag, token);
-				
-				for (ContentValues beaconCv: cvList)
-				{
-					beaconCv.put(Beacons.ACCOUNT_ID, accountId);
-					beaconCv.put(Beacons.FRIEND_ID, friendId);
-				}
-				
-				if (cvList.length > 0)
-					cr.bulkInsert(Beacons.CONTENT_URI, cvList);
-			}
-			catch(Exception e)
-			{
-				// Ignore beacon errors
-				if (App.getConfig().logToConsole())
-					e.printStackTrace();
-			}
-			
-			cr.notifyChange(Beacons.CONTENT_URI, null);
-			
-			if (App.getConfig().logToConsole())
-				displayTimeTaken("Beacon update", started);
-		}
-	}
-	
-	private GamerProfileInfo parseGamerProfile(XboxLiveAccount account,
-			String gamertag) throws ParserException, IOException
-	{
-	    long started = System.currentTimeMillis();
-	    String url = String.format(URL_FRIEND_PROFILE, 
-	    		mLocale, 
-	    		URLEncoder.encode(gamertag, "UTF-8"));
-	    
-		String profilePage = getResponse(url);
-		String cardPage;
-		
-		GamerProfileInfo info = new GamerProfileInfo();
-		info.AccountId = account.getId();
-		info.Gamertag = gamertag;
-		
-		Matcher m;
-		if (!(m = PATTERN_SUMMARY_GAMERTAG.matcher(profilePage)).find())
-			throw new ParserException(mContext,
-					R.string.xbox_live_profile_not_found_f, gamertag);
-	    
-	    info.Gamertag = htmlDecode(m.group(1)).trim();
-	    info.IsFriend = PATTERN_SUMMARY_IS_FRIEND.matcher(profilePage).find();
-	    
-	    if ((m = PATTERN_SUMMARY_POINTS.matcher(profilePage)).find())
-	    	info.Gamerscore = Integer.parseInt(m.group(1));
-	    if ((m = PATTERN_SUMMARY_ACTIVITY.matcher(profilePage)).find())
-	    	info.CurrentActivity = htmlDecode(m.group(1)).trim();
-	    if ((m = PATTERN_SUMMARY_BIO.matcher(profilePage)).find())
-	    	info.Bio = htmlDecodeWithCrLf(m.group(1));
-	    if ((m = PATTERN_SUMMARY_NAME.matcher(profilePage)).find())
-	    	info.Name = htmlDecode(m.group(1));
-	    if ((m = PATTERN_SUMMARY_LOCATION.matcher(profilePage)).find())
-	    	info.Location = htmlDecode(m.group(1));
-	    if ((m = PATTERN_SUMMARY_MOTTO.matcher(profilePage)).find())
-	    	info.Motto = htmlDecode(m.group(1));
-	    
-		if ((m = PATTERN_SUMMARY_GAMERPIC.matcher(profilePage)).find())
-			info.IconUrl = getLargeGamerpic(m.group(1));
-		else
-			info.IconUrl = getGamerpicUrl(gamertag);
-		
-		// Fetch rep
-		url = getGamercardUrl(gamertag);
-		
-		try
-		{
-			cardPage = getResponse(url);
-			info.Rep = getStarRating(cardPage);
-		}
-		catch(Exception e)
-		{
-			// Ignore errors - not vital
-			if (App.getConfig().logToConsole())
-				e.printStackTrace();
-		}
-		
-		if (App.getConfig().logToConsole())
-			started = displayTimeTaken("Summary fetch", started);
-		
-		try
-		{
-			String token = getVTokenFromContents(profilePage);
-			
-			ContentValues[] cvList = parseGetBeacons(gamertag, token);
-			BeaconInfo[] beacons = new BeaconInfo[cvList.length];
-			
-			int i = 0;
-			for (ContentValues cv: cvList)
-				beacons[i++] = new BeaconInfo(cv);
-			
-			info.Beacons = beacons;
-		}
-		catch(Exception e)
-		{
-			// Ignore beacon errors
-			if (App.getConfig().logToConsole())
-				e.printStackTrace();
-		}
-		
-		if (App.getConfig().logToConsole())
-			displayTimeTaken("Beacon fetch", started);
-		
-		return info;
-	}
-	
 	private ContentValues parseSummaryData(XboxLiveAccount account)
 			throws ParserException, IOException
 	{
 		long started = System.currentTimeMillis();
-		String url = String.format(URL_MY_PROFILE, 
-				mLocale, System.currentTimeMillis());
-		String page = getResponse(url);
-		
-		Matcher m;
-		String bio = null;
-		if ((m = PATTERN_SUMMARY_BIO.matcher(page)).find())
-			bio = htmlDecodeWithCrLf(m.group(1));
-		
-		String name = null;
-		if ((m = PATTERN_SUMMARY_NAME.matcher(page)).find())
-			name = htmlDecode(m.group(1));
-		
-		String location = null;
-		if ((m = PATTERN_SUMMARY_LOCATION.matcher(page)).find())
-			location = htmlDecode(m.group(1));
-		
-		String motto = "";
-		if ((m = PATTERN_SUMMARY_MOTTO.matcher(page)).find())
-			motto = htmlDecode(m.group(1));
-		
-		int rep = 0;
-		if ((m = PATTERN_SUMMARY_REP.matcher(page)).find())
-			rep = getStarRating(m.group(1));
-		
-		url = String.format(URL_JSON_PROFILE, 
+		String url = String.format(URL_JSON_PROFILE,
 				mLocale, System.currentTimeMillis());
 		
 		HttpUriRequest request = new HttpGet(url);
 		request.addHeader("Referer", URL_JSON_PROFILE_REFERER);
 		request.addHeader("X-Requested-With", "XMLHttpRequest");
 		
-		page = getResponse(request, null);
+		String page = getResponse(request, null);
 		
 		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Profile page fetch", started);
@@ -986,17 +733,13 @@ public class XboxLiveParser extends LiveParser
 		
 		cv.put(Profiles.GAMERTAG, gamertag);
 		cv.put(Profiles.ICON_URL, json.optString("gamerpic"));
-		cv.put(Profiles.POINTS_BALANCE, json.optInt("pointsbalancetext"));
+		cv.put(Profiles.POINTS_BALANCE, 0);
 		cv.put(Profiles.IS_GOLD, json.optInt("tier") >= 6);
 		cv.put(Profiles.TIER, json.optString("tiertext"));
 		cv.put(Profiles.GAMERSCORE, json.optInt("gamerscore"));
 		cv.put(Profiles.UNREAD_MESSAGES, json.optInt("messages"));
 		cv.put(Profiles.UNREAD_NOTIFICATIONS, json.optInt("notifications"));
-		cv.put(Profiles.NAME, name);
-		cv.put(Profiles.LOCATION, location);
-		cv.put(Profiles.MOTTO, motto);
-		cv.put(Profiles.BIO, bio);
-		cv.put(Profiles.REP, rep);
+		cv.put(Profiles.REP, 0);
 		
 		return cv;
 	}
@@ -2705,15 +2448,7 @@ public class XboxLiveParser extends LiveParser
 	public void fetchFriendSummary(final XboxLiveAccount account, final String gamertag) 
 		throws AuthenticationException, IOException, ParserException
 	{
-		fetchParseable(account, new Parseable() 
-		{
-			@Override
-			public void doParse() throws AuthenticationException, IOException,
-					ParserException 
-			{
-				parseFriendSummary(account, gamertag);
-			}
-		});
+        // Do nothing - not much we need anymore
 	}
 	
 	public void fetchGames(final XboxLiveAccount account) 
@@ -2934,20 +2669,6 @@ public class XboxLiveParser extends LiveParser
 					ParserException 
 			{
 		    	return parseCompareGames(account, gamertag);
-			}
-		});
-	}
-	
-	public GamerProfileInfo fetchGamerProfile(final XboxLiveAccount account, final String gamertag)
-			throws AuthenticationException, IOException, ParserException
-	{
-		return (GamerProfileInfo)fetchParseable(account, new ParseableWithResult() 
-		{
-			@Override
-			public Object doParse() throws AuthenticationException, IOException,
-					ParserException 
-			{
-		    	return parseGamerProfile(account, gamertag);
 			}
 		});
 	}

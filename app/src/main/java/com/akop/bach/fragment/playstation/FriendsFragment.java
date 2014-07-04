@@ -571,9 +571,6 @@ public class FriendsFragment extends GenericFragment implements
 	{
 	    switch (item.getItemId()) 
 	    {
-		case R.id.menu_find_gamer:
-			FindGamer.actionShow(getActivity(), this, 1);
-			return true;
 	    case R.id.menu_refresh:
 			TaskController.getInstance().updateFriendList(mAccount, mListener);
 	    	return true;

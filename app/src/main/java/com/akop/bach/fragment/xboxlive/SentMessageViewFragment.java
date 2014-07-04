@@ -23,8 +23,6 @@
 
 package com.akop.bach.fragment.xboxlive;
 
-import java.text.DateFormat;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -50,12 +48,13 @@ import com.akop.bach.TaskController.TaskListener;
 import com.akop.bach.XboxLive.Messages;
 import com.akop.bach.XboxLive.SentMessages;
 import com.akop.bach.XboxLiveAccount;
-import com.akop.bach.activity.xboxlive.GamerProfile;
 import com.akop.bach.activity.xboxlive.MessageCompose;
 import com.akop.bach.fragment.AlertDialogFragment;
 import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.Parser;
+
+import java.text.DateFormat;
 
 public class SentMessageViewFragment extends GenericFragment implements
 		OnClickListener, OnOkListener
@@ -350,13 +349,8 @@ public class SentMessageViewFragment extends GenericFragment implements
 												
 												if (mAccount.canSendMessages())
 												{
-													MessageCompose.actionComposeMessage(context, 
-															mAccount, gamertag);
-												}
-												else
-												{
-													GamerProfile.actionShow(context,
-															mAccount, gamertag);
+													MessageCompose.actionComposeMessage(context,
+                                                            mAccount, gamertag);
 												}
 											}
 										});

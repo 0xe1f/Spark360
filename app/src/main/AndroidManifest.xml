@@ -24,8 +24,8 @@
 <manifest 
     xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.akop.bach"
-	android:versionCode="119"
-	android:versionName="6.30"
+	android:versionCode="120"
+	android:versionName="6.50"
 >
     <uses-sdk 
         android:minSdkVersion="4"
@@ -180,12 +180,6 @@
 		        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 		    </intent-filter>
         </activity>
-		<activity android:name=".activity.xboxlive.EditProfile"
-            	  android:label="@string/edit_profile"
-            	  android:theme="@style/XBoxTheme" />
-        <activity android:name=".activity.xboxlive.FindGamer"
-        		  android:label="@string/find_gamer"
-        		  android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activity.xboxlive.FriendCoverflow"
                   android:theme="@style/XBoxTheme">
             <meta-data
@@ -219,9 +213,7 @@
         		  android:theme="@style/XBoxTheme" />
 		<activity android:name=".activity.xboxlive.GameOverview" 
 				  android:theme="@style/XBoxTheme" />
-        <activity android:name=".activity.xboxlive.GamerProfile"
-        		  android:theme="@style/XBoxTheme" />
-        <activity android:name=".activity.xboxlive.MessageCompose" 
+        <activity android:name=".activity.xboxlive.MessageCompose"
         		  android:label="@string/compose_message"
         		  android:theme="@style/XBoxTheme" />
 		<activity android:name=".activity.xboxlive.MessageList"
@@ -231,9 +223,6 @@
         		  android:theme="@style/GDialogTheme" />
         <activity android:name=".activity.xboxlive.MessageView" 
                   android:theme="@style/XBoxTheme" />
-		<activity android:name=".activity.xboxlive.MsPointConverter" 
-        		  android:label="@string/ms_point_utility"
-        		  android:theme="@style/XBoxTheme" />
 		<activity android:name=".activity.xboxlive.PlayerProfile"
         		  android:theme="@style/XBoxTheme" />
 		<activity android:name=".activity.xboxlive.RecentPlayerList"
@@ -313,9 +302,6 @@
 		<activity android:name=".activity.playstation.FindGamer"
 		    	  android:label="@string/find_psn_id"
 		    	  android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".activity.playstation.FriendSelector"
-            	  android:label="@string/select_friend"
-            	  android:theme="@style/CafTheme" />
         <activity android:name=".activity.playstation.FriendList"
             	  android:theme="@style/PsnTheme">
 			<meta-data
@@ -343,8 +329,6 @@
                   android:theme="@style/PsnTheme" />
         <activity android:name=".activity.playstation.GameList"
 				  android:theme="@style/PsnTheme" />
-        <activity android:name=".activity.playstation.GamerProfile"
-               	  android:theme="@style/PsnTheme" />
         <activity android:name=".activity.playstation.PsBlog"
                   android:label="@string/playstation_blog"
                   android:theme="@style/PsnTheme" />
