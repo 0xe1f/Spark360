@@ -13,7 +13,7 @@ Spark 360 was also available on iOS for a time - source code for the iOS version
 Technical
 ---------
 
-As of commit 28af0c09a786def01dcbe77a9f11374fe43b44f7 (version 6.50), Spark 360 builds on Android Studio/Gradle.
+As of pokebyte/Spark360@28af0c09a786def01dcbe77a9f11374fe43b44f7 (version 6.50), Spark 360 builds on Android Studio/Gradle.
 
 Translations
 ------------
