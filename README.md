@@ -1,3 +1,5 @@
+**NOTE** This branch was used briefly for the 6.50 release, but is no longer maintained. Use the [master branch](https://github.com/pokebyte/Spark360/tree/master) instead.
+
 Spark 360
 =========
 
