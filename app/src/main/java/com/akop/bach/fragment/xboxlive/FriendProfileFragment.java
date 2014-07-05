@@ -64,23 +64,7 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 	private static final int DIALOG_CONFIRM_REMOVE = 1;
 	private TaskListener mListener = new TaskListener();
 	private static CachePolicy sCp = new CachePolicy(CachePolicy.SECONDS_IN_HOUR * 4);
-	private static final int starViews[] = 
-	{ 
-		R.id.profile_rep_star0,
-		R.id.profile_rep_star1,
-		R.id.profile_rep_star2,
-		R.id.profile_rep_star3,
-		R.id.profile_rep_star4,
-	};
-	private static final int starResources[] = 
-	{ 
-		R.drawable.xbox_star_o0,
-		R.drawable.xbox_star_o1,
-		R.drawable.xbox_star_o2,
-		R.drawable.xbox_star_o3,
-		R.drawable.xbox_star_o4,
-	};
-	
+
 	private XboxLiveAccount mAccount;
 	private long mTitleId = -1;
 	private String mGamertag;
@@ -93,11 +77,6 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 		ImageView avatarBody;
 		TextView status;
 		TextView info;
-		TextView name;
-		TextView location;
-		TextView bio;
-		TextView motto;
-		View rep;
 		LinearLayout beaconRoot;
 	}
 	
@@ -161,16 +140,6 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 		
 		View layout = inflater.inflate(R.layout.xbl_fragment_friend_summary,
 				container, false);
-		
-		layout.findViewById(R.id.refresh_profile).setOnClickListener(new View.OnClickListener() 
-		{
-			@Override
-			public void onClick(View v)
-			{
-		    	TaskController.getInstance().updateFriendProfile(mAccount, 
-		    			mGamertag, mListener);
-			}
-		});
 		
 		View composeButton = layout.findViewById(R.id.compose_message);
 		composeButton.setVisibility(mAccount.canSendMessages() 
@@ -441,11 +410,6 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 			holder.avatarBody = (ImageView)container.findViewById(R.id.profile_avatar_body);
 			holder.status = (TextView)container.findViewById(R.id.profile_status);
 			holder.info = (TextView)container.findViewById(R.id.profile_info);
-			holder.name = (TextView)container.findViewById(R.id.profile_name);
-			holder.location = (TextView)container.findViewById(R.id.profile_location);
-			holder.bio = (TextView)container.findViewById(R.id.profile_bio);
-			holder.motto = (TextView)container.findViewById(R.id.profile_motto);
-			holder.rep = container.findViewById(R.id.profile_rep);
 			holder.beaconRoot = (LinearLayout)container.findViewById(R.id.beacon_list);
 			
 			ContentResolver cr = getActivity().getContentResolver();
@@ -499,31 +463,9 @@ public class FriendProfileFragment extends GenericFragment implements OnOkListen
 								ic.requestImage(avatarUrl, this, 0, null, sCp);
 						}
 						
-						holder.name.setText(c.getString(4));
-						holder.location.setText(c.getString(5));
-						holder.bio.setText(c.getString(6));
 						holder.status.setText(c.getString(7));
 						holder.status.setTag(c.getInt(10));
 						holder.info.setText(c.getString(8));
-						
-						String motto = c.getString(11);
-						
-						holder.motto.setVisibility((motto == null || motto.length() < 1)
-								? View.INVISIBLE : View.VISIBLE);
-						holder.motto.setText(motto);
-						
-						int res;
-						int rep = c.getInt(0);
-						
-						for (int starPos = 0, j = 0, k = 4; starPos < 5; starPos++, j += 4, k += 4)
-						{
-							if (rep < j) res = 0;
-							else if (rep >= k) res = 4;
-							else res = rep - j;
-							
-							ImageView starView = (ImageView)holder.rep.findViewById(starViews[starPos]);
-							starView.setImageResource(starResources[res]);
-						}
 					}
 				}
 				finally

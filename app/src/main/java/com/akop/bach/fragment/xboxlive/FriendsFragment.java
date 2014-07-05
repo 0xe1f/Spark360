@@ -23,14 +23,10 @@
 
 package com.akop.bach.fragment.xboxlive;
 
-import java.lang.ref.SoftReference;
-
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -67,9 +63,7 @@ import com.akop.bach.XboxLive;
 import com.akop.bach.XboxLive.Friends;
 import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.activity.xboxlive.CompareGames;
-import com.akop.bach.activity.xboxlive.FindGamer;
 import com.akop.bach.activity.xboxlive.FriendsOfFriendList;
-import com.akop.bach.activity.xboxlive.GamerProfile;
 import com.akop.bach.activity.xboxlive.MessageCompose;
 import com.akop.bach.activity.xboxlive.RecentPlayerList;
 import com.akop.bach.fragment.AlertDialogFragment;
@@ -80,6 +74,8 @@ import com.akop.bach.parser.XboxLiveParser;
 import com.akop.bach.service.XboxLiveServiceClient;
 import com.akop.bach.uiwidget.XboxLiveFriendListItem;
 import com.akop.bach.uiwidget.XboxLiveFriendListItem.OnStarClickListener;
+
+import java.lang.ref.SoftReference;
 
 public class FriendsFragment extends GenericFragment implements
         OnItemClickListener, OnStarClickListener, OnOkListener
@@ -602,9 +598,6 @@ public class FriendsFragment extends GenericFragment implements
 		case R.id.menu_recent_players:
 			RecentPlayerList.actionShow(getActivity(), mAccount);
 			return true;
-		case R.id.menu_find_gamer:
-			FindGamer.actionShow(getActivity(), this, 1);
-			return true;
 		case R.id.menu_refresh:
 			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			return true;
@@ -625,22 +618,7 @@ public class FriendsFragment extends GenericFragment implements
 		cr.update(uri, cv, null, null);
 		cr.notifyChange(uri, null);
     }
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-		
-		if (resultCode != Activity.RESULT_OK)
-			return;
-		
-		if (requestCode == 1)
-		{
-			GamerProfile.actionShow(getActivity(), mAccount,
-					data.getStringExtra("gamertag"));
-		}
-	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo)

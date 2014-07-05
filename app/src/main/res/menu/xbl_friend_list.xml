@@ -29,12 +29,6 @@
 		android:showAsAction="ifRoom"
 	/>
 	<item
-		android:id="@+id/menu_find_gamer" 
-		android:title="@string/find_gamer"
-		android:icon="@drawable/ic_menu_goto"
-		android:showAsAction="ifRoom"
-	/>
-	<item
 		android:id="@+id/menu_recent_players" 
 		android:title="@string/recent_players"
 		android:icon="@drawable/ic_menu_recent_history"

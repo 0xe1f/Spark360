@@ -23,9 +23,6 @@
 
 package com.akop.bach.fragment.xboxlive;
 
-import java.lang.ref.SoftReference;
-import java.text.DateFormat;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -61,7 +58,7 @@ import com.akop.bach.TaskController.TaskListener;
 import com.akop.bach.XboxLive;
 import com.akop.bach.XboxLive.Messages;
 import com.akop.bach.XboxLiveAccount;
-import com.akop.bach.activity.xboxlive.GamerProfile;
+import com.akop.bach.activity.xboxlive.FriendSummary;
 import com.akop.bach.activity.xboxlive.MessageCompose;
 import com.akop.bach.activity.xboxlive.SentMessageList;
 import com.akop.bach.fragment.AlertDialogFragment;
@@ -69,6 +66,9 @@ import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.XboxLiveParser;
 import com.akop.bach.service.XboxLiveServiceClient;
+
+import java.lang.ref.SoftReference;
+import java.text.DateFormat;
 
 public class MessagesFragment extends GenericFragment implements
 		OnItemClickListener, OnOkListener
@@ -500,25 +500,25 @@ public class MessagesFragment extends GenericFragment implements
 		if (info.targetView.getTag() instanceof ViewHolder)
 		{
 			ViewHolder vh = (ViewHolder)info.targetView.getTag();
-			
+			String sender = vh.sender.getText().toString();
+
 			switch (menuItem.getItemId())
 			{
 			case R.id.menu_mark_as_read:
-				TaskController.getInstance().synchronizeMessage(mAccount, 
+				TaskController.getInstance().synchronizeMessage(mAccount,
 						Messages.getUid(getActivity(), info.id), null, mListener);
 				return true;
 			case R.id.menu_reply:
-				MessageCompose.actionComposeMessage(getActivity(), mAccount, 
-						vh.sender.getText().toString());
+				MessageCompose.actionComposeMessage(getActivity(), mAccount, sender);
 				return true;
 			case R.id.menu_view_profile:
-				GamerProfile.actionShow(getActivity(), mAccount, 
-						vh.sender.getText().toString());
+                if (XboxLive.Friends.isFriend(getActivity(), mAccount, sender))
+                    FriendSummary.actionShow(getActivity(), mAccount, sender);
 				return true;
 			case R.id.menu_delete:
 				AlertDialogFragment frag = AlertDialogFragment.newInstance(DIALOG_CONFIRM,
 						getString(R.string.are_you_sure),
-						getString(R.string.delete_message_from_f, vh.sender.getText()), 
+						getString(R.string.delete_message_from_f, sender),
 						Messages.getUid(getActivity(), info.id));
 				frag.setOnOkListener(this);
 				frag.show(getFragmentManager(), "dialog");

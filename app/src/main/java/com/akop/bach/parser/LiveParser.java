@@ -326,7 +326,7 @@ public abstract class LiveParser extends Parser
 			
 			return false;
 		}
-		
+
 		mHttpClient.getParams().setParameter("http.protocol.max-redirects", 1);
 		
 		try
@@ -339,10 +339,10 @@ public abstract class LiveParser extends Parser
 			// Because redirection is disabled, this call will throw an 
 			// exception when XBL redirects. We just ignore it
 		}
-		
+
 		if (mLastRedirectedUrl != null && mLastRedirectedUrl.contains(URL_SUBSTRING_NEW_TOS))
 			throw new AuthenticationException(mContext, R.string.must_accept_new_tos);
-		
+
 		return true;
 	}
 	

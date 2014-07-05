@@ -156,6 +156,7 @@
 	<string name="last_played">Last played</string>
 	<string name="last_played_f">Last played %1$s</string>
 	<string name="x_f">%1$,d</string>
+    <string name="x_percent">%1$d%%</string>
 	<string name="x_of_x_f">%1$s/%2$s</string>
 	<string name="gamerscore">Gamerscore</string>
 	<string name="acquired_f">Unlocked %1$s</string>

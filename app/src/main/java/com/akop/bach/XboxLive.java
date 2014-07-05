@@ -23,12 +23,6 @@
 
 package com.akop.bach;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -42,6 +36,12 @@ import android.text.format.DateUtils;
 
 import com.akop.bach.parser.Parser;
 import com.akop.bach.provider.XboxLiveProvider;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class XboxLive
 {
@@ -1921,11 +1921,6 @@ public class XboxLive
 		public String CurrentActivity;
 		public String TitleIconUrl;
 		public String TitleId;
-		public String Name;
-		public String Location;
-		public String Bio;
-		public String Motto;
-		public int Rep;
 		public boolean IsFriend;
 		
 		public BeaconInfo[] Beacons;
@@ -1938,11 +1933,6 @@ public class XboxLive
 			this.IconUrl = null;
 			this.Gamerscore = 0;
 			this.CurrentActivity = null;
-			this.Name = null;
-			this.Location = null;
-			this.Bio = null;
-			this.Motto = null;
-			this.Rep = 0;
 			this.Beacons = null;
 		}
 		
@@ -1962,7 +1952,6 @@ public class XboxLive
 		private GamerProfileInfo(Parcel in) 
 		{
 			this.AccountId = in.readLong();
-			this.Rep = in.readInt();
 			this.IsFriend = in.readByte() != 0;
 			this.Gamerscore = in.readInt();
 			
@@ -1971,11 +1960,7 @@ public class XboxLive
 			this.CurrentActivity = in.readString();
 			this.TitleIconUrl = in.readString();
 			this.TitleId = in.readString();
-			this.Name = in.readString();
-			this.Location = in.readString();
-			this.Bio = in.readString();
-			this.Motto = in.readString();
-			
+
 			this.Beacons = in.createTypedArray(BeaconInfo.CREATOR);
 		}
 		
@@ -1983,7 +1968,6 @@ public class XboxLive
 		public void writeToParcel(Parcel dest, int flags) 
 		{
 			dest.writeLong(this.AccountId);
-			dest.writeInt(this.Rep);
 			dest.writeByte(this.IsFriend ? (byte)1 : 0);
 			dest.writeInt(this.Gamerscore);
 			
@@ -1992,11 +1976,7 @@ public class XboxLive
 			dest.writeString(this.CurrentActivity);
 			dest.writeString(this.TitleIconUrl);
 			dest.writeString(this.TitleId);
-			dest.writeString(this.Name);
-			dest.writeString(this.Location);
-			dest.writeString(this.Bio);
-			dest.writeString(this.Motto);
-			
+
 			dest.writeTypedArray(this.Beacons, 0);
 		}
 		

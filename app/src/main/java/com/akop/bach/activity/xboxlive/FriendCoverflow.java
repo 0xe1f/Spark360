@@ -23,9 +23,6 @@
 
 package com.akop.bach.activity.xboxlive;
 
-import java.lang.ref.SoftReference;
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +58,9 @@ import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.fragment.xboxlive.FriendsFragment.RequestInformation;
 import com.akop.bach.parser.Parser;
 import com.akop.bach.uiwidget.CoverFlow;
+
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
 
 public class FriendCoverflow extends RibbonedActivity implements
 		OnItemClickListener, OnImageReadyListener
@@ -465,9 +465,6 @@ public class FriendCoverflow extends RibbonedActivity implements
 		case R.id.menu_recent_players:
 			RecentPlayerList.actionShow(this, mAccount);
 			return true;
-		case R.id.menu_find_gamer:
-			FindGamer.actionShow(this, R.id.menu_find_gamer);
-			return true;
 		case R.id.menu_refresh:
 			TaskController.getInstance().updateFriendList(mAccount, mListener);
 			return true;
@@ -482,18 +479,5 @@ public class FriendCoverflow extends RibbonedActivity implements
 		mIconCache.put(iconUrl, new SoftReference<Bitmap>(bmp));
 		getContentResolver().notifyChange(
 				ContentUris.withAppendedId(Friends.CONTENT_URI, id), null);
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (resultCode != RESULT_OK)
-			return;
-
-		if (requestCode == R.id.menu_find_gamer)
-			GamerProfile.actionShow(this, mAccount,
-					data.getStringExtra("gamertag"));
 	}
 }

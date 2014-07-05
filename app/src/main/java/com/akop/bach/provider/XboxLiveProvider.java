@@ -138,9 +138,11 @@ public class XboxLiveProvider extends ContentProvider
 					+ Profiles.GAMERSCORE + " INTEGER NOT NULL, "
 					+ Profiles.IS_GOLD + " INTEGER NOT NULL, "
 					+ Profiles.TIER + " TEXT, "
-					+ Profiles.POINTS_BALANCE + " INTEGER NOT NULL, "
 					+ Profiles.UNREAD_MESSAGES + " INTEGER NOT NULL, "
 					+ Profiles.UNREAD_NOTIFICATIONS + " INTEGER NOT NULL, "
+
+                    // These are deprecated as of 07.03.2014
+                    + Profiles.POINTS_BALANCE + " INTEGER NOT NULL, "
 					+ Profiles.MOTTO + " TEXT, "
 					+ Profiles.REP + " INTEGER NOT NULL, "
 					+ Profiles.ZONE + " TEXT, "

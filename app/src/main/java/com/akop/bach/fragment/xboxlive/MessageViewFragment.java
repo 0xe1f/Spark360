@@ -23,8 +23,6 @@
 
 package com.akop.bach.fragment.xboxlive;
 
-import java.text.DateFormat;
-
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -53,12 +51,13 @@ import com.akop.bach.XboxLive.Friends;
 import com.akop.bach.XboxLive.Messages;
 import com.akop.bach.XboxLiveAccount;
 import com.akop.bach.activity.xboxlive.FriendSummary;
-import com.akop.bach.activity.xboxlive.GamerProfile;
 import com.akop.bach.activity.xboxlive.MessageCompose;
 import com.akop.bach.fragment.AlertDialogFragment;
 import com.akop.bach.fragment.AlertDialogFragment.OnOkListener;
 import com.akop.bach.fragment.GenericFragment;
 import com.akop.bach.parser.XboxLiveParser;
+
+import java.text.DateFormat;
 
 public class MessageViewFragment extends GenericFragment implements
 		OnClickListener, OnOkListener 
@@ -174,8 +173,6 @@ public class MessageViewFragment extends GenericFragment implements
 				{
 					if (Friends.isFriend(getActivity(), mAccount, mSender))
 						FriendSummary.actionShow(getActivity(), mAccount, mSender);
-					else
-						GamerProfile.actionShow(getActivity(), mAccount, mSender);
 				}
 			}
 		});
