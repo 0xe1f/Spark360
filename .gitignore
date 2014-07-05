@@ -1,3 +1,10 @@
-bin
-gen
-src/com/akop/bach/PrivateSecret.java
+*.apk
+*.ap_
+*.dex
+*.class
+local.properties
+Thumbs.db
+.DS_Store
+.idea
+.gradle
+build/
