@@ -120,11 +120,12 @@ public class XboxLiveParser extends LiveParser
 		"https://live.xbox.com/%1$s/Messages/GetMessages";
 	private static final String URL_JSON_FRIEND_LIST = 
 		"https://live.xbox.com/%1$s/Friends/List";
-	private static final String URL_JSON_GAME_LIST = 
-		"https://live.xbox.com/%1$s/Activity/Summary";
 	private static final String URL_JSON_COMPARE_GAMES =
 		"https://live.xbox.com/%1$s/Activity/Summary?CompareTo=%2$s";
-	
+
+    private static final String URL_GAME_LIST =
+            "https://account.xbox.com/%1$s/Achievements?xr=socialtwistnav";
+
 	private static final String URL_JSON_BEACONS =
 		"https://live.xbox.com/%1$s/Beacons/JumpInList";
 	private static final String URL_JSON_BEACON_SET =
@@ -186,31 +187,6 @@ public class XboxLiveParser extends LiveParser
 	private static final Pattern PATTERN_GAMERCARD_REP = Pattern.compile(
 			"class=\"Star ([^\"]*)\"");
 	
-	private static final Pattern PATTERN_SUMMARY_NAME = Pattern.compile(
-			"<div class=\"name\" title=\"[^\"]*\">.*?<div class=\"value\">([^<]*)</div>",
-				Pattern.DOTALL);
-	private static final Pattern PATTERN_SUMMARY_LOCATION = Pattern.compile(
-			"<div class=\"location\">.*?<div class=\"value\">([^<]*)</div>", 
-				Pattern.DOTALL);
-	private static final Pattern PATTERN_SUMMARY_BIO = Pattern.compile(
-			"<div class=\"bio\">.*?<div class=\"value\" title=\"[^\"]*\">([^<]*)</div>",
-				Pattern.DOTALL);
-	private static final Pattern PATTERN_SUMMARY_GAMERPIC = Pattern.compile(
-			"<img class=\"gamerpic\" src=\"([^\"]+)\"");
-	private static final Pattern PATTERN_SUMMARY_MOTTO = Pattern.compile(
-			"<div class=\"motto\">([^<]*)<");
-	private static final Pattern PATTERN_SUMMARY_ACTIVITY = Pattern.compile(
-			"<div class=\"presence\">([^>]*)</div>");
-	private static final Pattern PATTERN_SUMMARY_IS_FRIEND = Pattern.compile(
-			"<a class=\"removeFriend button\"");
-	
-	private static final Pattern PATTERN_SUMMARY_REP = Pattern.compile(
-            "<div id=\"reputationProgress\" class=\"[^\"]*\" data-ringpercent *=\"([0-9]*)\"");
-	private static final Pattern PATTERN_SUMMARY_GAMERTAG = Pattern.compile(
-			"<div id=\"myGamertag\">([^<]+)<");
-    private static final Pattern PATTERN_SUMMARY_POINTS = Pattern.compile(
-            "<div class=\"gamerScore\">([0-9,]+)</div>");
-
     private static final Pattern PATTERN_GAME_OVERVIEW_TITLE =
 		Pattern.compile("<h1>([^<]*)</h1>");
 	private static final Pattern PATTERN_GAME_OVERVIEW_DESCRIPTION = 
@@ -230,8 +206,20 @@ public class XboxLiveParser extends LiveParser
 
 	private static final Pattern PATTERN_GAME_OVERVIEW_REDIRECTING_URL = 
 		Pattern.compile("/Title/\\d+$");
-	
-	private static final int COLUMN_GAME_ID = 0;
+
+    private static final Pattern PATTERN_GAME_ITEM =
+            Pattern.compile("<div class=\"titleTile [^\"]*\">(.*?)</div>\\s*</div>\\s*</div>",
+                    Pattern.DOTALL);
+    private static final Pattern PATTERN_GAME_TITLE_ID =
+            Pattern.compile("<div class=\"titleName\"><a href=\"/en-US/Achievements/Xbox/(\\d+)\">([^<]+)</a></div>");
+    private static final Pattern PATTERN_GAME_BOX_ART =
+            Pattern.compile("<img src=\"([^\"]+)\" />");
+    private static final Pattern PATTERN_GAME_SCORE =
+            Pattern.compile("<div class=\"score\"><img src=\"[^\"]+\" /><span>(\\d+)</span></div>");
+    private static final Pattern PATTERN_GAME_ACHIEVEMENTS =
+            Pattern.compile("<div class=\"achievements\"><img src=\"[^\"]+\" /><span>(\\d+)</span>");
+
+    private static final int COLUMN_GAME_ID = 0;
 	private static final int COLUMN_GAME_LAST_PLAYED_DATE = 1;
 	private static final int COLUMN_GAME_UID = 2;
 	private static final int COLUMN_GAME_ACHIEVEMENTS_ACQUIRED = 3;
@@ -243,14 +231,6 @@ public class XboxLiveParser extends LiveParser
 		Games.UID,
 		Games.ACHIEVEMENTS_UNLOCKED,
 		Games.ACHIEVEMENTS_TOTAL
-	};
-	
-	private static final String[] STAR_CLASSES = {
-		"empty",
-		"quarter",
-		"half",
-		"threequarter",
-		"full",
 	};
 	
 	private static final int COLUMN_FRIEND_ID = 0;
@@ -419,23 +399,6 @@ public class XboxLiveParser extends LiveParser
 		{
 			return null;
 		}
-	}
-	
-	private int getStarRating(String html)
-	{
-		final List<String> starClasses = Arrays.asList(STAR_CLASSES);
-		int rating = 0;
-		
-		Matcher m = PATTERN_GAMERCARD_REP.matcher(html);
-		while (m.find())
-		{
-			String starClass = m.group(1).trim().toLowerCase();
-			int starValue = Math.max(starClasses.indexOf(starClass), 0);
-			
-			rating += starValue;
-		}
-		
-		return rating;
 	}
 	
 	private long parseTicks(String str)
@@ -908,201 +871,143 @@ public class XboxLiveParser extends LiveParser
 	{
 		long started = System.currentTimeMillis();
 		
-		String token = getVToken(String.format(URL_VTOKEN_ACTIVITY, mLocale));
-		String url = String.format(URL_JSON_BEACONS, mLocale);
-		
-		List<NameValuePair> inputs = new ArrayList<NameValuePair>(3);
-		addValue(inputs, "__RequestVerificationToken", token);
-		
-		String page;
-		JSONArray activities = null;
-		
-		try
-		{
-			activities = getXboxJsonArray(url, inputs);
-		}
-		catch(Exception ex)
-		{
-			if (App.getConfig().logToConsole())
-				ex.printStackTrace();
-			
-			// Ignore the error - beacon errors can be ignored
-		}
-		
-		if (App.getConfig().logToConsole())
-			started = displayTimeTaken("Beacon page fetch", started);
-		
-		HashMap<String, JSONObject> beaconMap = new HashMap<String, JSONObject>();
-		if (activities != null)
-		{
-			for (int i = 0, n = activities.length(); i < n; i++)
-			{
-				JSONObject activity = activities.optJSONObject(i);
-				if (activity != null)
-				{
-					String titleId = activity.optString("titleId");
-					if (titleId != null)
-						beaconMap.put(titleId, activity.optJSONObject("beacon"));
-				}
-			}
-		}
-		
-		if (App.getConfig().logToConsole())
-			started = displayTimeTaken("Beacon page mapping", started);
-		
-		url = String.format(URL_JSON_GAME_LIST, mLocale);
-		
-		page = getResponse(url, inputs, true);
-		JSONObject data = getXboxJsonObject(page);
-		
+		String url = String.format(URL_GAME_LIST, mLocale);
+		String page = getResponse(url);
+
 		if (App.getConfig().logToConsole())
 			started = displayTimeTaken("Game page fetch", started);
-		
-		if (data == null)
-			throw new ParserException(mContext, R.string.error_games_retrieval);
-		
-		long accountId = account.getId();
-		List<String> zeroGames = new ArrayList<String>(50);
-		String[] queryParams = new String[1];
-		int rowNo = 0;
-		boolean changed = false;
-		Cursor c;
-		ContentValues cv;
-		long updated = System.currentTimeMillis();
-		List<ContentValues> newCvs = new ArrayList<ContentValues>(100);
-		ContentResolver cr = mContext.getContentResolver();
-		
-		JSONArray games = data.optJSONArray("Games");
-		for (int i = 0, n = games.length(); i < n; i++)
-		{
-			JSONObject game = games.optJSONObject(i);
-			String uid;
-			
-			if (game == null || (uid = game.optString("Id")) == null)
-				continue;
-			
-			JSONObject progRoot = game.optJSONObject("Progress");
-			if (progRoot == null)
-				continue;
-			
-			JSONObject progress = progRoot.optJSONObject(account.getGamertag());
-			if (progress == null)
-				continue;
-			
-			JSONObject beacon = null;
-			if (beaconMap.containsKey(uid))
-				beacon = beaconMap.get(uid);
-			
-			rowNo++;
-			
-			long lastPlayedTicks = parseTicks(progress.optString("LastPlayed"));
-			int achUnlocked = progress.optInt("Achievements", 0);
-			int achTotal = game.optInt("PossibleAchievements", 0);
-			int gpAcquired = progress.optInt("Score", 0);
-			int gpTotal = game.optInt("PossibleScore", 0);
-			
-			if (achTotal < 1)
-				zeroGames.add(uid);
-			
-			// Check to see if we already have a record of this game
-			queryParams[0] = uid;
-			c = cr.query(Games.CONTENT_URI, GAMES_PROJECTION, Games.ACCOUNT_ID
-					+ "=" + accountId + " AND " + Games.UID + "=?",
-					queryParams, null);
-			
-			try
-			{
-		        if (c == null || !c.moveToFirst()) // New game
-		        {
-					String gameUrl = game.optString("Url");
-					String title = game.optString("Name");
-					String boxartUrl = game.optString("BoxArt");
-					
-					cv = new ContentValues(15);
-	                cv.put(Games.ACCOUNT_ID, accountId);
-	                cv.put(Games.TITLE, title);
-	                cv.put(Games.UID, uid);
-	                cv.put(Games.BOXART_URL, getStandardIcon(boxartUrl));
-	                cv.put(Games.LAST_PLAYED, lastPlayedTicks);
-	    			cv.put(Games.LAST_UPDATED, updated);
-			        cv.put(Games.ACHIEVEMENTS_UNLOCKED, achUnlocked);
-			        cv.put(Games.ACHIEVEMENTS_TOTAL, achTotal);
-			        cv.put(Games.POINTS_ACQUIRED, gpAcquired);
-			        cv.put(Games.POINTS_TOTAL, gpTotal);
-			        cv.put(Games.GAME_URL, gameUrl);
-			        cv.put(Games.INDEX, rowNo);
-			        
-			        if (beacon != null)
-			        {
-			        	cv.put(Games.BEACON_SET, 1);
-			        	cv.put(Games.BEACON_TEXT, beacon.optString("text"));
-			        }
-			        
-			        // Games with no achievements do not need achievement refresh
-					cv.put(Games.ACHIEVEMENTS_STATUS, achTotal > 0 ? 1 : 0);
-					
-	                newCvs.add(cv);
-		        }
-		        else // Existing game
-		        {
-		        	long gameId = c.getLong(COLUMN_GAME_ID);
-		        	long lastPlayedTicksRec = c.getLong(COLUMN_GAME_LAST_PLAYED_DATE);
-		        	int achUnlockedRec = c.getInt(COLUMN_GAME_ACHIEVEMENTS_ACQUIRED);
-		        	int achTotalRec = c.getInt(COLUMN_GAME_ACHIEVEMENTS_TOTAL);
-		        	
-		        	cv = new ContentValues(15);
-		        	
-					boolean refreshAchievements = (achUnlockedRec != achUnlocked 
-							|| achTotalRec != achTotal);
-	        		
-		        	if (refreshAchievements)
-		        	{
-		        		cv.put(Games.ACHIEVEMENTS_UNLOCKED, achUnlocked);
-				        cv.put(Games.ACHIEVEMENTS_TOTAL, achTotal);
-				        cv.put(Games.POINTS_ACQUIRED, gpAcquired);
-				        cv.put(Games.POINTS_TOTAL, gpTotal);
-						cv.put(Games.ACHIEVEMENTS_STATUS, 1);
-		        	}
-		        	
-			        if (beacon != null)
-			        {
-			        	cv.put(Games.BEACON_SET, 1);
-			        	cv.put(Games.BEACON_TEXT, beacon.optString("text"));
-			        }
-			        else
-			        {
-			        	cv.put(Games.BEACON_SET, 0);
-			        	cv.put(Games.BEACON_TEXT, (String)null);
-			        }
-			        
-					if (lastPlayedTicks != lastPlayedTicksRec)
-						cv.put(Games.LAST_PLAYED, lastPlayedTicks);
-		        	
-			        cv.put(Games.INDEX, rowNo);
-					cv.put(Games.LAST_UPDATED, updated);
-					cr.update(Games.CONTENT_URI, cv, Games._ID + "="
-							+ gameId, null);
-			        
-	        		changed = true;
-		        }
-			}
-			finally
-			{
-	        	if (c != null)
-	        		c.close();
-			}
-		}
-		
+
+        long accountId = account.getId();
+        String[] queryParams = new String[1];
+        int rowNo = 0;
+        boolean changed = false;
+        Cursor c;
+        ContentValues cv;
+        long updated = System.currentTimeMillis();
+        List<ContentValues> newCvs = new ArrayList<ContentValues>(100);
+        ContentResolver cr = mContext.getContentResolver();
+        List<String> gameIds = new ArrayList<String>(50);
+
+        Matcher m = PATTERN_GAME_ITEM.matcher(page);
+        while (m.find())
+        {
+            String content = m.group(1);
+App.logv(" *** found it: " + content);
+            Matcher im = PATTERN_GAME_TITLE_ID.matcher(content);
+            if (!im.find())
+                continue;
+
+            String uid = im.group(1);
+            String title = htmlDecode(im.group(2));
+            String boxArtUrl = null;
+            int gpAcquired = 0;
+            int achUnlocked = 0;
+
+            gameIds.add(uid);
+
+            im = PATTERN_GAME_BOX_ART.matcher(content);
+            if (im.find())
+                boxArtUrl = im.group(1);
+
+            im = PATTERN_GAME_SCORE.matcher(content);
+            if (im.find())
+            {
+                try
+                {
+                    gpAcquired = Integer.parseInt(im.group(1));
+                }
+                catch(NumberFormatException e)
+                {
+                }
+            }
+
+            im = PATTERN_GAME_ACHIEVEMENTS.matcher(content);
+            if (im.find())
+            {
+                try
+                {
+                    achUnlocked = Integer.parseInt(im.group(1));
+                }
+                catch(NumberFormatException e)
+                {
+                }
+            }
+
+            // Check to see if we already have a record of this game
+            queryParams[0] = uid;
+            c = cr.query(Games.CONTENT_URI, GAMES_PROJECTION, Games.ACCOUNT_ID
+                            + "=" + accountId + " AND " + Games.UID + "=?",
+                    queryParams, null);
+
+            try
+            {
+                if (c == null || !c.moveToFirst()) // New game
+                {
+                    cv = new ContentValues(15);
+                    cv.put(Games.ACCOUNT_ID, accountId);
+                    cv.put(Games.TITLE, title);
+                    cv.put(Games.UID, uid);
+                    cv.put(Games.BOXART_URL, boxArtUrl);
+                    cv.put(Games.LAST_PLAYED, 0);
+                    cv.put(Games.LAST_UPDATED, updated);
+                    cv.put(Games.ACHIEVEMENTS_UNLOCKED, achUnlocked);
+                    cv.put(Games.ACHIEVEMENTS_TOTAL, achUnlocked);
+                    cv.put(Games.POINTS_ACQUIRED, gpAcquired);
+                    cv.put(Games.POINTS_TOTAL, gpAcquired);
+                    cv.put(Games.GAME_URL, (String)null);
+                    cv.put(Games.INDEX, rowNo);
+
+                    // Games with no achievements do not need achievement refresh
+                    cv.put(Games.ACHIEVEMENTS_STATUS, 1);
+
+                    newCvs.add(cv);
+                }
+                else // Existing game
+                {
+                    long gameId = c.getLong(COLUMN_GAME_ID);
+                    long lastPlayedTicksRec = c.getLong(COLUMN_GAME_LAST_PLAYED_DATE);
+
+                    cv = new ContentValues(15);
+
+                    boolean refreshAchievements = true;
+
+                    if (refreshAchievements)
+                    {
+                        cv.put(Games.ACHIEVEMENTS_UNLOCKED, achUnlocked);
+                        cv.put(Games.ACHIEVEMENTS_TOTAL, achUnlocked);
+                        cv.put(Games.POINTS_ACQUIRED, gpAcquired);
+                        cv.put(Games.POINTS_TOTAL, gpAcquired);
+                        cv.put(Games.ACHIEVEMENTS_STATUS, 1);
+                    }
+
+                    cv.put(Games.BEACON_SET, 0);
+                    cv.put(Games.BEACON_TEXT, (String)null);
+                    cv.put(Games.LAST_PLAYED, 0);
+                    cv.put(Games.INDEX, rowNo);
+                    cv.put(Games.LAST_UPDATED, updated);
+                    cr.update(Games.CONTENT_URI, cv, Games._ID + "=" + gameId, null);
+
+                    changed = true;
+                }
+            }
+            finally
+            {
+                if (c != null)
+                    c.close();
+            }
+
+            rowNo++;
+        }
+
 		// Remove games that are no longer present
-		c = cr.query(Games.CONTENT_URI, GAMES_PROJECTION, Games.ACCOUNT_ID
-				+ "=" + accountId + " AND " + Games.ACHIEVEMENTS_UNLOCKED + "=0",
+		c = cr.query(Games.CONTENT_URI, GAMES_PROJECTION, Games.ACCOUNT_ID + "=" + accountId,
 				null, null);
 		
 		if (c != null)
 		{
 			while (c.moveToNext())
 			{
-				if (!zeroGames.contains(c.getString(COLUMN_GAME_UID)))
+				if (!gameIds.contains(c.getString(COLUMN_GAME_UID)))
 				{
 					// Game is no longer in list of played games; remove it
 					cr.delete(ContentUris.withAppendedId(Games.CONTENT_URI, 

@@ -30,6 +30,8 @@ import android.util.Log;
 
 import com.akop.bach.activity.About;
 import com.akop.bach.configurations.AppConfig;
+import com.akop.bach.configurations.DevConfig;
+import com.akop.bach.configurations.LoggingDevConfig;
 import com.akop.bach.configurations.ProdConfig;
 import com.akop.bach.provider.PsnProvider;
 import com.akop.bach.provider.XboxLiveProvider;
@@ -38,7 +40,7 @@ import com.akop.bach.service.NotificationService;
 public class App extends Application
 {
 	private static final Class<? extends AppConfig> ConfigType =
-			ProdConfig.class;
+            LoggingDevConfig.class;
 	
 	private static final String LOG_TAG = "bach";
 	
